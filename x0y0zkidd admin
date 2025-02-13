@@ -800,7 +800,7 @@ for _, control in pairs(plr:GetPlayers()) do
 			elseif chat == "!unfreeze" then
 				hrp.Anchored = false
 			elseif chat:sub(1,4) == "!say" then
-				local cArgs = cht:sub(6)
+				local cArgs = chat:sub(6)
  
 				if cArgs ~= "" then
 					if textChat and textChat:FindFirstChild("TextChannels") then
