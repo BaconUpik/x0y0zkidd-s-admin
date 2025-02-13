@@ -805,6 +805,7 @@ for _, control in pairs(plr:GetPlayers()) do
 				if cArgs ~= "" then
 					if textChat and textChat:FindFirstChild("TextChannels") then
                     	local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+					end
 					if textChat2 then
 						textChat2:SendAsync(cArgs)
 					end
