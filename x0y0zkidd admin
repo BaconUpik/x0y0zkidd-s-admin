@@ -808,7 +808,6 @@ for _, control in pairs(plr:GetPlayers()) do
 					if textChat2 then
 						textChat2:SendAsync(cArgs)
 					end
-				end
 				elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
                     local oldChat = rep.DefaultChatSystemChatEvents
 					if oldChat then
