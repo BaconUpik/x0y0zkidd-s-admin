@@ -462,6 +462,7 @@ text.FocusLost:Connect(function(e)
  
                         local con2
                         con2 = game:GetService("RunService").RenderStepped:Connect(function()
+			    hum.Sit = true
                             hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
                             uis.InputBegan:Connect(function(i2, g2)
                                 if i2.KeyCode == Enum.KeyCode.Space and not g2 then
