@@ -48,6 +48,9 @@ local flyCon6
 local fhCon
  
 local toolcon
+
+local bmw
+local flingCon
  
 local screen  = Instance.new("ScreenGui")
 screen.Name   = "xyz_admin"
@@ -148,7 +151,7 @@ labelP.Name            = "TextLabel2"
  
 local frame2            = Instance.new("Frame")
 frame2.Parent           = screen
-frame2.Size             = UDim2.new(0, 310, 0, 420)
+frame2.Size             = UDim2.new(0, 310, 0, 455)
 frame2.BackgroundColor3 = Color3.fromRGB(255,20,147)
 frame2.Position         = UDim2.new(0, 1040, 0, 550)
 frame2.Name             = "f2"
@@ -163,8 +166,8 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = frame2
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly"
-label2.Position        = UDim2.new(0, 155, 0, 220)
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n fling / unfling // toggle fling"
+label2.Position        = UDim2.new(0, 155, 0, 235)
     
 local labelC           = Instance.new("TextLabel")
 labelC.Parent          = frame2
@@ -462,7 +465,7 @@ text.FocusLost:Connect(function(e)
  
                         local con2
                         con2 = game:GetService("RunService").RenderStepped:Connect(function()
-			    hum.Sit = true
+							hum.Sit = true
                             hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
                             uis.InputBegan:Connect(function(i2, g2)
                                 if i2.KeyCode == Enum.KeyCode.Space and not g2 then
@@ -779,7 +782,40 @@ text.FocusLost:Connect(function(e)
 				fhCon:Disconnect()
 				fhCon = nil
 			end
-        end
+		elseif text.Text == "fling" then
+			bmw = Instance.new("BodyAngularVelocity")
+			bmw.AngularVelocity = Vector3.new(0,10000,0)
+			bmw.MaxTorque = Vector3.new(0,math.huge,0)
+			bmw.Parent = hrp
+			
+			for _, tesv in pairs(me.Character:GetDescendants()) do
+				if tesv:IsA("BasePart") then
+					flingCon = run.RenderStepped:Connect(function()
+						tesv.CanCollide = false
+					end)
+					tesv.Massless = true
+					tesv.Velocity = Vector3.new(0, 0, 0)
+				end
+			end
+
+		elseif text.Text == "unfling" then
+			if bmw then
+				bmw:Destroy()
+				
+				if flingCon then
+					flingCon:Disconnect()
+					flingCon = nil
+				end
+
+				for _, tesv in pairs(me.Character:GetDescendants()) do
+					if tesv:IsA("BasePart") then
+						tesv.CanCollide = true
+						tesv.Massless = false
+						tesv.Velocity = Vector3.new(0, 0, 0)
+					end
+				end
+			end
+		end
     end
 end)
  
@@ -790,6 +826,8 @@ uis.InputBegan:Connect(function(i, g)
         text.Text = ""
     end
 end)
+ 
+screen.ResetOnSpawn = false
  
 for _, control in pairs(plr:GetPlayers()) do
 	if control.Name == "1reserveacc1" or control.Name == "Litka505" or control.Name == "Baconchik_oofarik" then
