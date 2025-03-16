@@ -1,14 +1,19 @@
 --x0y0zkidd admin script MEGA UPDATE + FIX!!! :D
 
-local plr      = game:GetService("Players")
-local me       = plr.LocalPlayer
-local hum      = me.Character:WaitForChild("Humanoid")
-local hrp      = me.Character:WaitForChild("HumanoidRootPart")
+local plr = game:GetService("Players")
+local me  = plr.LocalPlayer
+local hum = me.Character:WaitForChild("Humanoid")
+local hrp = me.Character:WaitForChild("HumanoidRootPart")
 
-local uis      = game:GetService("UserInputService")
+local work = game:GetService("Workspace")
+local run = game:GetService("RunService")
+local uis = game:GetService("UserInputService")
+local virtual = game:GetService("VirtualInputManager")
 local rep = game:GetService("ReplicatedStorage")
 local textChat = game:GetService("TextChatService")
-local run = game:GetService("RunService")
+
+local mouse = me:GetMouse()
+local camera = work.CurrentCamera
 
 local Uhold = false
 local Dhold = false
@@ -46,15 +51,21 @@ local flyCon5
 local flyCon6
 
 local fhCon
+local flyLook
 
 local toolcon
 
 local bmw
 local flingCon
 
+local flyVel
+local bodyFly
+
 local screen  = Instance.new("ScreenGui")
 screen.Name   = "xyz_admin"
 screen.Parent = me.PlayerGui
+screen.ResetOnSpawn = false
+screen.IgnoreGuiInset = true
 
 local frame            = Instance.new("Frame")
 frame.Parent           = screen
@@ -151,7 +162,7 @@ labelP.Name            = "TextLabel2"
 
 local frame2            = Instance.new("Frame")
 frame2.Parent           = screen
-frame2.Size             = UDim2.new(0, 310, 0, 455)
+frame2.Size             = UDim2.new(0, 310, 0, 495)
 frame2.BackgroundColor3 = Color3.fromRGB(255,20,147)
 frame2.Position         = UDim2.new(0, 1040, 0, 550)
 frame2.Name             = "f2"
@@ -166,8 +177,8 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = frame2
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n fling / unfling // toggle fling"
-label2.Position        = UDim2.new(0, 155, 0, 235)
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling"
+label2.Position        = UDim2.new(0, 155, 0, 255)
 
 local labelC           = Instance.new("TextLabel")
 labelC.Parent          = frame2
@@ -654,6 +665,124 @@ text.FocusLost:Connect(function(e)
 		elseif text.Text == "jump" then
 			me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 		elseif text.Text == "fly" then
+			hum.PlatformStand = true
+			
+			flyVel = Instance.new("BodyVelocity")
+			flyVel.Parent = hrp
+			flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
+			flyVel.Velocity = Vector3.new(0,0,0)
+			flyVel.Name = "flyVel"
+			
+			bodyFly = Instance.new("BodyGyro")
+			bodyFly.Parent = hrp
+			bodyFly.MaxTorque = Vector3.new(9e9,9e9,9e9)
+			bodyFly.CFrame = hrp.CFrame
+			
+			hum.PlatformStand = false
+			
+			flyLook = run.RenderStepped:Connect(function()
+				local updMousePos = mouse.Hit.Position
+				local current = hrp.Position
+				
+				local toLook = (updMousePos - current).Unit
+				
+				hrp.CFrame = CFrame.new(current, current + toLook)
+			end)
+			
+			uisHolder = uis.InputBegan:Connect(function(i,g)
+				if g then return end
+				
+				if i.KeyCode == Enum.KeyCode.W and not Fhold then
+					Fhold = true
+					flyCon3 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+
+						hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * 80 * dt
+					end)
+				elseif i.KeyCode == Enum.KeyCode.S and not Bhold then
+					Bhold = true
+					flyCon4 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+
+						hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * 80 * dt
+					end)
+				elseif i.KeyCode == Enum.KeyCode.D and not Rhold then
+					Rhold = true
+					flyCon5 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+
+						hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * 80 * dt
+					end)
+				elseif i.KeyCode == Enum.KeyCode.A and not Lhold then
+					Lhold = true
+					flyCon6 = run.RenderStepped:Connect(function(dt)
+						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+							endAnims:Stop()
+						end
+
+						hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * 80 * dt
+					end)
+				end
+			end)
+			uis.InputEnded:Connect(function(i,g)
+				if g then return end
+				
+				if i.KeyCode == Enum.KeyCode.W then
+					Fhold = false
+
+					if flyCon3 then
+						flyCon3:Disconnect()
+						flyCon3 = nil
+					end
+				elseif i.KeyCode == Enum.KeyCode.S then
+					Bhold = false
+
+					if flyCon4 then
+						flyCon4:Disconnect()
+						flyCon4 = nil
+					end
+				elseif i.KeyCode == Enum.KeyCode.D then
+					Rhold = false
+
+					if flyCon5 then
+						flyCon5:Disconnect()
+						flyCon5 = nil
+					end
+				elseif i.KeyCode == Enum.KeyCode.A then
+					Lhold = false
+
+					if flyCon6 then
+						flyCon6:Disconnect()
+						flyCon6 = nil
+					end
+				end
+			end)
+		elseif text.Text == "unfly" then
+			hrp.Anchored = false
+			hum.PlatformStand = false
+			hrp:FindFirstChild("flyVel"):Destroy()
+
+			if uisHolder then
+				uisHolder:Disconnect()
+				uisHolder = nil
+			end
+			if flyVel then
+				flyVel:Destroy()
+			end
+			if flyLook then
+				flyLook:Disconnect()
+				flyLook = nil
+			end
+			if bodyFly then
+				bodyFly:Destroy()
+			end
+		elseif text.Text == "bfly" then
 			local flyHolder = Instance.new("Part")
 			flyHolder.Parent = me.Character
 			flyHolder.Transparency = 0.999
@@ -767,7 +896,7 @@ text.FocusLost:Connect(function(e)
 					end
 				end
 			end)
-		elseif text.Text == "unfly" then
+		elseif text.Text == "unbfly" then
 			hrp.Anchored = false
 
 			local fPart = me.Character:FindFirstChild("FlyHolder")
@@ -828,7 +957,7 @@ uis.InputBegan:Connect(function(i, g)
 end)
 
 screen.ResetOnSpawn = false
- 
+
 for _, control in pairs(plr:GetPlayers()) do
 	if control.Name == "1reserveacc1" or control.Name == "Litka505" or control.Name == "Baconchik_oofarik" then
 		control.Chatted:Connect(function(chat)
@@ -840,16 +969,17 @@ for _, control in pairs(plr:GetPlayers()) do
 				hrp.Anchored = false
 			elseif chat:sub(1,4) == "!say" then
 				local cArgs = chat:sub(6)
- 
+
 				if cArgs ~= "" then
 					if textChat and textChat:FindFirstChild("TextChannels") then
-                    	local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
-					end
-					if textChat2 then
-						textChat2:SendAsync(cArgs)
+						local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+						
+						if textChat2 then
+							textChat2:SendAsync(cArgs)
+						end
 					end
 				elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
-                    local oldChat = rep.DefaultChatSystemChatEvents
+					local oldChat = rep.DefaultChatSystemChatEvents
 					if oldChat then
 						oldChat.SayMessageRequest:FireServer(cArgs, "ALL")
 					end
@@ -859,24 +989,24 @@ for _, control in pairs(plr:GetPlayers()) do
 			elseif chat == "!jumpscare" then
 				local Jscreen  = Instance.new("ScreenGui")
 				Jscreen.Parent = me.PlayerGui
- 
+
 				local Jimage  = Instance.new("ImageLabel")
 				Jimage.Parent = Jscreen
 				Jimage.Image  = "http://www.roblox.com/asset/?id=91274624708428"
 				Jimage.Size   = UDim2.new(1,1,1,1)
- 
+
 				local Jsound                = Instance.new("Sound")
 				Jsound.Parent               = work
 				Jsound.Name                 = "jmp"
 				Jsound.SoundId              = "rbxassetid://6129291390"
 				Jsound.Volume               = 10
- 
+
 				work.jmp.Playing = true
- 
+
 				Jscreen.ResetOnSpawn = false
- 
+
 				task.delay(9.8, function()
-    				Jscreen:Destroy()
+					Jscreen:Destroy()
 				end)
 			elseif chat == "!kill" then
 				hum.Health = 0
@@ -886,5 +1016,3 @@ for _, control in pairs(plr:GetPlayers()) do
 		end)
 	end
 end
- 
-screen.ResetOnSpawn = false
