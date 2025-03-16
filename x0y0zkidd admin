@@ -485,8 +485,8 @@ text.FocusLost:Connect(function(e)
 			local args4 = text.Text:sub(10)
 			if args4 ~= "" then
 				local p        = Instance.new("Part")
-				p.Parent       = me.Character
-				p.Name         = args4
+				p.Parent       = work
+				p.Name         = "Way"..args4
 				p.Transparency = 0.9
 				p.Anchored     = true
 				p.CanCollide   = false
@@ -500,12 +500,12 @@ text.FocusLost:Connect(function(e)
 		elseif text.Text:sub(1, 5) == "wayrm" then
 			local args5 = text.Text:sub(7)
 			if args5 ~= "" then
-				me.Character[args5]:Destroy()
+				work["Way"..args5]:Destroy()
 			end
 		elseif text.Text:sub(1, 5) == "tpway" then
 			local args6 = text.Text:sub(7)
 			if args6 ~= "" then
-				hrp.CFrame = me.Character[args6].CFrame
+				hrp.CFrame = work["Way"..args6].CFrame
 			end
 		elseif text.Text:sub(1, 4) == "view" then
 			local args7 = text.Text:sub(6)
