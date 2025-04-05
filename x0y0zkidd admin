@@ -74,7 +74,7 @@ local frame            = Instance.new("Frame")
 frame.Parent           = screen
 frame.Size             = UDim2.new(0, 270, 0, 350)
 frame.BackgroundColor3 = Color3.fromRGB(255,20,147)
-frame.Position         = UDim2.new(0, 1340, 0, 550)
+frame.Position         = UDim2.new(0,1649,0,971)
 
 local keyt                  = Instance.new("TextBox")
 keyt.Parent                 = frame
