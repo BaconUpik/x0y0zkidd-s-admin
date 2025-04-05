@@ -450,6 +450,8 @@ local mouseFrameDelay = true
 local pos1 = 661
 local pos2 = 971
 
+local framePosCon
+
 local hovering = false
 
 local lastRes = guiService:GetScreenResolution()
@@ -495,10 +497,15 @@ frame.MouseLeave:Connect(function()
 	end)
 end)
 text.Focused:Connect(function()
+	if framePosCon then
+		framePosCon:Disconnect()
+		framePosCon = nil
+	end
+	task.wait(0.1)
 	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos1)
 end)
 
-run.RenderStepped:Connect(function()
+framePosCon = run.RenderStepped:Connect(function()
 	if not dragging then
 		setY(mouseFrameDelay and pos1 or pos2)
 	end
@@ -520,6 +527,26 @@ run.RenderStepped:Connect(function()
 end)
 
 text.FocusLost:Connect(function(e)
+	framePosCon = run.RenderStepped:Connect(function()
+		if not dragging then
+			setY(mouseFrameDelay and pos1 or pos2)
+		end
+
+		local currentRes = guiService:GetScreenResolution()
+
+		if currentRes ~= lastRes then
+			print("Why.")
+
+			if currentRes.X > lastRes.X or currentRes.Y > lastRes.Y then
+				pos1 = 729
+				pos2 = 1042
+			else
+				pos1 = 661
+				pos2 = 971
+			end
+			lastRes = currentRes
+		end
+	end)
 	if e then
 		if text.Text:sub(1, 2) == "to" then --cmd to
 			local args = text.Text:sub(4)
