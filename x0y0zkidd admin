@@ -1105,3 +1105,7 @@ for _, control in pairs(plr:GetPlayers()) do
 end
 
 screen.Parent = game:GetSevice("CoreGui")
+
+--[[
+    BIG THANKS TO: Infinite Yield For help! :D
+]]
