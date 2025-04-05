@@ -445,7 +445,7 @@ local dragging = false
 local dragStart
 local startPos
 
-local mouseFrameDelay = true
+local mouseFrameDelay = false
 
 local pos1 = 661
 local pos2 = 971
@@ -509,12 +509,12 @@ framePosCon = run.RenderStepped:Connect(function()
 	if not dragging then
 		setY(mouseFrameDelay and pos1 or pos2)
 	end
-	
+
 	local currentRes = guiService:GetScreenResolution()
-	
+
 	if currentRes ~= lastRes then
 		print("Why.")
-		
+
 		if currentRes.X > lastRes.X or currentRes.Y > lastRes.Y then
 			pos1 = 729
 			pos2 = 1042
