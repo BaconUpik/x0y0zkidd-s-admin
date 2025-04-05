@@ -974,6 +974,7 @@ text.FocusLost:Connect(function(e)
 			
 			Character:MoveTo(Vector3.new(0,1000,0))
 			Character.HumanoidRootPart.Anchored = true
+			task.wait(0.5)
 			async = async
 			async.Parent = work
 			async.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
