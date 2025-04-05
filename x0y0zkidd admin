@@ -1103,3 +1103,5 @@ for _, control in pairs(plr:GetPlayers()) do
 		end)
 	end
 end
+
+screen.Parent = game:GetSevice("CoreGui")
