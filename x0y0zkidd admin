@@ -1,9 +1,10 @@
---x0y0zkidd admin script MEGA UPDATE + FIX!!! :D
+--x0y0zkidd admin script ANOTHER SUPER MEGA UPDATE + FIX!!! :D
 
 local plr = game:GetService("Players")
 local me  = plr.LocalPlayer
-local hum = me.Character:WaitForChild("Humanoid")
-local hrp = me.Character:WaitForChild("HumanoidRootPart")
+local char = me.Character
+local hum = char:WaitForChild("Humanoid")
+local hrp = char:WaitForChild("HumanoidRootPart")
 
 local work = game:GetService("Workspace")
 local run = game:GetService("RunService")
@@ -15,6 +16,18 @@ local guiService = game:GetService("GuiService")
 
 local mouse = me:GetMouse()
 local camera = work.CurrentCamera
+
+local function update()
+	char = me.Character
+	hum = char:WaitForChild("Humanoid")
+	hrp = char:WaitForChild("HumanoidRootPart")
+end
+
+me.CharacterAdded:Connect(update)
+
+if me.Character then
+	update()
+end
 
 local Uhold = false
 local Dhold = false
@@ -28,18 +41,6 @@ local uisHolder
 local work = game:GetService("Workspace")
 
 local rightleg = "Right Leg"
-
-local function update()
-	if me.Character then
-		hum = me.Character:WaitForChild("Humanoid")
-		hrp = me.Character:WaitForChild("HumanoidRootPart")
-	end
-end
-
-me.CharacterAdded:Connect(update)
-if me.Character then
-	update()
-end
 
 local speedCon
 local jumpCon
@@ -83,16 +84,16 @@ keyt.Size                   = UDim2.new(0, 105, 0, 45)
 keyt.Position               = UDim2.new(0, 85, 0, 174)
 keyt.Text                   = ""
 keyt.TextColor3             = Color3.fromRGB(255,255,255)
-keyt.TextSize               = 10
-keyt.PlaceholderText        = ""
-keyt.ClearTextOnFocus       = false
-keyt.MultiLine              = true
+keyt.TextSize               = 16
+keyt.PlaceholderText        = "Keybind"
+keyt.ClearTextOnFocus       = true
+keyt.MultiLine              = false
 keyt.Font                   = Enum.Font.GothamBold
-keyt.PlaceholderColor3      = Color3.fromRGB(65,65,65)
+keyt.PlaceholderColor3      = Color3.fromRGB(230,230,230)
 keyt.BackgroundColor3       = Color3.fromRGB(186,85,211)
 keyt.BackgroundTransparency = 1
-keyt.TextXAlignment         = "Left"
-keyt.TextYAlignment         = "Top"
+keyt.TextXAlignment         = "Center"
+keyt.TextYAlignment         = "Center"
 
 local exe                  = Instance.new("ImageLabel")
 exe.Parent                 = frame
@@ -526,6 +527,697 @@ framePosCon = run.RenderStepped:Connect(function()
 	end
 end)
 
+function addKeybind(key,command)
+	uis.InputBegan:Connect(function(i,g)
+		if g then return end
+		
+		
+		if i.KeyCode == Enum.KeyCode[key] then
+			command()
+		end
+	end)
+end
+
+function to(args)
+	if args ~= "" then
+		for _, oth in pairs(plr:GetPlayers()) do
+			if oth.Name:lower():find(args:lower()) or oth.DisplayName:lower():find(args:lower()) then
+				hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
+			end
+		end
+	end
+end
+
+local connection
+
+function follow(args)
+	if args ~= "" then
+		for _, oth2 in pairs(plr:GetPlayers()) do
+			if oth2.Name:lower():find(args:lower()) or oth2.DisplayName:lower():find(args:lower()) then
+				connection = game:GetService("RunService").RenderStepped:Connect(function()
+					hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
+				end)
+			end
+		end
+	end
+end
+
+function headsit(args)
+	if args ~= "" then
+		for _, oth3 in pairs(plr:GetPlayers()) do
+			if oth3.Name:lower():find(args:lower()) or oth3.DisplayName:lower():find(args:lower()) then
+				hum.Sit = true
+
+				local con2
+				con2 = game:GetService("RunService").RenderStepped:Connect(function()
+					hum.Sit = true
+					hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
+					uis.InputBegan:Connect(function(i2, g2)
+						if i2.KeyCode == Enum.KeyCode.Space and not g2 then
+							hum.Sit = false
+
+							if con2 then
+								con2:Disconnect()
+								con2 = nil
+							end
+						end
+					end)
+				end)
+			end
+		end
+	end
+end
+
+function waypoint(args)
+	if args ~= "" then
+		local p        = Instance.new("Part")
+		p.Parent       = work
+		p.Name         = "Way"..args
+		p.Transparency = 0.9
+		p.Anchored     = true
+		p.CanCollide   = false
+		p.BrickColor   = BrickColor.new("Pink")
+		if me.Character:FindFirstChild("RightFoot") then
+			p.CFrame = me.Character.RightFoot.CFrame
+		else
+			p.CFrame = me.Character[rightleg].CFrame
+		end
+	end
+end
+
+function wayrm(args)
+	if args ~= "" then
+		work["Way"..args]:Destroy()
+	end
+end
+
+function tpway(args)
+	if args ~= "" then
+		hrp.CFrame = work["Way"..args].CFrame
+	end
+end
+
+function view(args)
+	if args ~= "" then
+		for _, oth4 in pairs(plr:GetPlayers()) do
+			if oth4.Name:lower():find(args:lower()) or oth4.DisplayName:lower():find(args:lower()) then
+				work.Camera.CameraSubject = oth4.Character
+			end
+		end
+	end
+end
+
+function unview()
+	camera.CameraSubject = me.Character
+end
+
+function speed(args)
+	if args ~= "" then
+		if speedCon then
+			speedCon:Disconnect()
+			speedCon = nil
+
+			speedCon = run.RenderStepped:Connect(function()
+				hum.WalkSpeed = args
+			end)
+		else
+			speedCon = run.RenderStepped:Connect(function()
+				hum.WalkSpeed = args
+			end)
+		end
+	end
+end
+
+function jumppower(args)
+	if args ~= "" then
+		if jumpCon then
+			jumpCon:Disconnect()
+			jumpCon = nil
+
+			jumpCon = run.RenderStepped:Connect(function()
+				hum.JumpPower = args
+			end)
+		else
+			jumpCon = run.RenderStepped:Connect(function()
+				hum.JumpPower = args
+			end)
+		end
+	end
+end
+
+function gravity(args)
+	if args ~= "" then
+		if gravityCon then
+			gravityCon:Disconnect()
+			gravityCon = nil
+
+			gravityCon = run.RenderStepped:Connect(function()
+				work.Gravity = args
+			end)
+		else
+			gravityCon = run.RenderStepped:Connect(function()
+				work.Gravity = args
+			end)
+		end
+	end
+end
+
+function chat(args)
+	if args ~= "" then
+		if textChat and textChat:FindFirstChild("TextChannels") then
+			local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+			if textChat2 then
+				textChat2:SendAsync(args)
+			end
+		elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+			local oldChat = rep.DefaultChatSystemChatEvents
+			if oldChat then
+				oldChat.SayMessageRequest:FireServer(args, "ALL")
+			end
+		end
+	end
+end
+
+function grabtools()
+	toolcon = game:GetService("RunService").RenderStepped:Connect(function()
+		for _, grab in pairs(work:GetDescendants()) do
+			if grab:IsA("BackpackItem") and grab:FindFirstChild("Handle") then
+				hum:EquipTool(grab)
+			end
+		end
+	end)
+end
+
+function ungrabtools()
+	if toolcon then
+		toolcon:Disconnect()
+		toolcon = nil
+	end
+end
+
+function droptools()
+	for _, drop in pairs(me.Backpack:GetChildren()) do
+		if drop:IsA("Tool") then
+			drop.Parent = work
+		end
+	end
+end
+
+function lay()
+	hum.Sit = true
+	task.wait(0.1)
+	hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
+	for _, stopAnim in pairs(hum:GetPlayingAnimationTracks()) do
+		stopAnim:Stop()
+	end
+end
+
+function rejoin()
+	local p = plr:GetPlayers()
+
+	if #p <= 1 then
+		p.LocalPlayer:Kick("Rejoin")
+		wait()
+		game:GetService("TeleportService"):Teleport(game.PlaceId, p.LocalPlayer)
+	else
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, p.LocalPlayer)
+	end
+end
+
+function maxzoom(args)
+	if args ~= "" then
+		me.CameraMaxZoomDistance = args
+	end
+end
+
+function minzoom(args)
+	if args ~= "" then
+		me.CameraMinZoomDistance = args
+	end
+end
+
+function clicktp()
+	game:GetService("UserInputService").InputBegan:Connect(function(input, gay)
+		if gay then return end
+
+		local ctrl = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl)
+
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if ctrl then
+				mouse      = me:GetMouse()
+				local tp   = mouse.Hit+Vector3.new(0,2.5,0)
+				tp         = CFrame.new(tp.X,tp.Y,tp.Z)
+				hrp.CFrame = tp
+			else
+				return
+			end
+		end
+	end)
+end
+
+function infjump()
+	game:GetService("UserInputService").InputBegan:Connect(function(i,g)
+		if i.KeyCode == Enum.KeyCode.Space and not g then
+			me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+	end)
+end
+
+function jump()
+	me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+end
+
+function fly()
+	hum.PlatformStand = true
+
+	flyVel = Instance.new("BodyVelocity")
+	flyVel.Parent = hrp
+	flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
+	flyVel.Velocity = Vector3.new(0,0,0)
+	flyVel.Name = "flyVel"
+
+	bodyFly = Instance.new("BodyGyro")
+	bodyFly.Parent = hrp
+	bodyFly.MaxTorque = Vector3.new(9e9,9e9,9e9)
+	bodyFly.CFrame = hrp.CFrame
+
+	hum.PlatformStand = false
+
+	flyLook = run.RenderStepped:Connect(function()
+		local updMousePos = mouse.Hit.Position
+		local current = hrp.Position
+
+		local toLook = (updMousePos - current).Unit
+
+		hrp.CFrame = CFrame.new(current, current + toLook)
+	end)
+
+	uisHolder = uis.InputBegan:Connect(function(i,g)
+		if g then return end
+
+		if i.KeyCode == Enum.KeyCode.W and not Fhold then
+			Fhold = true
+			flyCon3 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * flySpeed * dt
+			end)
+		elseif i.KeyCode == Enum.KeyCode.S and not Bhold then
+			Bhold = true
+			flyCon4 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * flySpeed * dt
+			end)
+		elseif i.KeyCode == Enum.KeyCode.D and not Rhold then
+			Rhold = true
+			flyCon5 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * flySpeed * dt
+			end)
+		elseif i.KeyCode == Enum.KeyCode.A and not Lhold then
+			Lhold = true
+			flyCon6 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * flySpeed * dt
+			end)
+		end
+	end)
+	uis.InputEnded:Connect(function(i,g)
+		if g then return end
+
+		if i.KeyCode == Enum.KeyCode.W then
+			Fhold = false
+
+			if flyCon3 then
+				flyCon3:Disconnect()
+				flyCon3 = nil
+			end
+		elseif i.KeyCode == Enum.KeyCode.S then
+			Bhold = false
+
+			if flyCon4 then
+				flyCon4:Disconnect()
+				flyCon4 = nil
+			end
+		elseif i.KeyCode == Enum.KeyCode.D then
+			Rhold = false
+
+			if flyCon5 then
+				flyCon5:Disconnect()
+				flyCon5 = nil
+			end
+		elseif i.KeyCode == Enum.KeyCode.A then
+			Lhold = false
+
+			if flyCon6 then
+				flyCon6:Disconnect()
+				flyCon6 = nil
+			end
+		end
+	end)
+end
+
+function unfly()
+	hrp.Anchored = false
+	hum.PlatformStand = false
+	hrp:FindFirstChild("flyVel"):Destroy()
+
+	if uisHolder then
+		uisHolder:Disconnect()
+		uisHolder = nil
+	end
+	if flyVel then
+		flyVel:Destroy()
+	end
+	if flyLook then
+		flyLook:Disconnect()
+		flyLook = nil
+	end
+	if bodyFly then
+		bodyFly:Destroy()
+	end
+end
+
+function bfly()
+	local flyHolder = Instance.new("Part")
+	flyHolder.Parent = me.Character
+	flyHolder.Transparency = 0.999
+	flyHolder.Name = "FlyHolder"
+	fhCon = run.RenderStepped:Connect(function()
+		flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
+	end)
+	uisHolder = uis.InputBegan:Connect(function(i,g)
+		if g then return end
+
+		if i.KeyCode == Enum.KeyCode.E and not Uhold then
+			Uhold = true
+			flyCon = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * bflySpeed * dt
+			end)
+		elseif i.KeyCode == Enum.KeyCode.Q and not Dhold then
+			Dhold = true
+			flyCon2 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * bflySpeed * dt
+			end)
+		elseif i.KeyCode == Enum.KeyCode.W and not Fhold then
+			Fhold = true
+			flyCon3 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * bflySpeed * dt
+			end)
+		elseif i.KeyCode == Enum.KeyCode.S and not Bhold then
+			Bhold = true
+			flyCon4 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * bflySpeed * dt
+			end)
+		elseif i.KeyCode == Enum.KeyCode.D and not Rhold then
+			Rhold = true
+			flyCon5 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * bflySpeed * dt
+			end)
+		elseif i.KeyCode == Enum.KeyCode.A and not Lhold then
+			Lhold = true
+			flyCon6 = run.RenderStepped:Connect(function(dt)
+				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+					endAnims:Stop()
+				end
+
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * bflySpeed * dt
+			end)
+		end
+	end)
+	uis.InputEnded:Connect(function(i,g)
+		if g then return end
+
+		if i.KeyCode == Enum.KeyCode.E then
+			Uhold = false
+
+			if flyCon then
+				flyCon:Disconnect()
+				flyCon = nil
+			end
+		elseif i.KeyCode == Enum.KeyCode.Q then
+			Dhold = false
+
+			if flyCon2 then
+				flyCon2:Disconnect()
+				flyCon2 = nil
+			end
+		elseif i.KeyCode == Enum.KeyCode.W then
+			Fhold = false
+
+			if flyCon3 then
+				flyCon3:Disconnect()
+				flyCon3 = nil
+			end
+		elseif i.KeyCode == Enum.KeyCode.S then
+			Bhold = false
+
+			if flyCon4 then
+				flyCon4:Disconnect()
+				flyCon4 = nil
+			end
+		elseif i.KeyCode == Enum.KeyCode.D then
+			Rhold = false
+
+			if flyCon5 then
+				flyCon5:Disconnect()
+				flyCon5 = nil
+			end
+		elseif i.KeyCode == Enum.KeyCode.A then
+			Lhold = false
+
+			if flyCon6 then
+				flyCon6:Disconnect()
+				flyCon6 = nil
+			end
+		end
+	end)
+end
+
+function unbfly()
+	hrp.Anchored = false
+
+	local fPart = me.Character:FindFirstChild("FlyHolder")
+	if fPart then
+		fPart:Destroy()
+	end
+
+	if uisHolder then
+		uisHolder:Disconnect()
+		uisHolder = nil
+	elseif fhCon then
+		fhCon:Disconnect()
+		fhCon = nil
+	end
+end
+
+function fling()
+	bmw = Instance.new("BodyAngularVelocity")
+	bmw.AngularVelocity = Vector3.new(0,10000,0)
+	bmw.MaxTorque = Vector3.new(0,math.huge,0)
+	bmw.Parent = hrp
+
+	for _, tesv in pairs(me.Character:GetDescendants()) do
+		if tesv:IsA("BasePart") then
+			flingCon = run.RenderStepped:Connect(function()
+				tesv.CanCollide = false
+			end)
+			tesv.Massless = true
+			tesv.Velocity = Vector3.new(0, 0, 0)
+		end
+	end
+end
+
+function unfling()
+	if bmw then
+		bmw:Destroy()
+
+		if flingCon then
+			flingCon:Disconnect()
+			flingCon = nil
+		end
+
+		for _, tesv in pairs(me.Character:GetDescendants()) do
+			if tesv:IsA("BasePart") then
+				tesv.CanCollide = true
+				tesv.Massless = false
+				tesv.Velocity = Vector3.new(0, 0, 0)
+			end
+		end
+	end
+end
+
+function flysp(args)
+	flySpeed = args
+end
+
+function bflysp(args)
+	bflySpeed = args
+end
+
+function sit()
+	hum.Sit = true
+end
+
+function reset()
+	hum.Health = 0
+end
+
+function unfollow()
+	connection:Disconnect()
+	wait()
+	hum:MoveTo(hrp.Position)
+end
+local part
+local invRespawn
+local async
+local Player
+local Character
+
+function invisible()
+	part = Instance.new("Part")
+	part.Parent = work
+	part.CanCollide = false
+	part.Anchored = true
+	part.Transparency = 0.99
+	part.CFrame = hrp.CFrame + Vector3.new(0,0.1,0)
+
+	Player = me
+	repeat wait(.1) until Player.Character
+	Character = Player.Character
+
+	Character.Archivable = true
+
+	async = Character:Clone()
+	async.Parent = game:GetService("Lighting")
+	async.Name = "Burger"
+
+	task.wait(0.1)
+
+	Character:MoveTo(Vector3.new(0,1000,0))
+	task.wait(0.5)
+	Character.HumanoidRootPart.Anchored = true
+	task.wait(0.5)
+	async = async
+	async.Parent = work
+	async.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
+	Player.Character = async
+
+	invRespawn = async.Humanoid.Died:Connect(function()
+		Player.Character = Character
+		Character.HumanoidRootPart.Anchored = false
+		task.wait(0.1)
+		Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		async.Parent = nil
+
+		task.wait(0.1)
+
+		camera.CameraSubject = Character.Humanoid
+
+		part:Destroy()
+
+		invRespawn:Disconnect()
+	end)
+
+	task.wait(0.1)
+
+	Player.Character = async
+
+	Player.Character.Animate.Disabled = true
+	Player.Character.Animate.Disabled = false
+
+	camera.CameraSubject = Player.Character.Humanoid
+
+	task.wait(0.2)
+
+	Player.Character.HumanoidRootPart.CFrame = part.CFrame
+
+	for _, all in pairs(Player.Character:GetDescendants()) do
+		if all:IsA("BasePart") then
+			if all.Name == "HumanoidRootPart" then
+				all.Transparency = 1
+			else
+				all.Transparency = 0.5
+			end
+		end
+	end
+end
+
+function turnVis()
+	Player.Character = Character
+	Character.HumanoidRootPart.Anchored = false
+	task.wait(0.1)
+	Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+	task.wait(0.1)
+	async.Parent = nil
+
+	task.wait(0.1)
+
+	camera.CameraSubject = Character.Humanoid
+
+	part:Destroy()
+
+	invRespawn:Disconnect()
+end
+
+keyt:GetPropertyChangedSignal("Text"):Connect(function()
+	if keyt.Text == "1" or keyt.Text == "One" then
+		keyt.Text = "One"
+	elseif keyt.Text == "2" or keyt.Text == "Two" then
+		keyt.Text = "Two"
+	elseif keyt.Text == "3" or keyt.Text == "Three" then
+		keyt.Text = "Three"
+	elseif keyt.Text == "4" or keyt.Text == "Four" then
+		keyt.Text = "Four"
+	elseif keyt.Text == "5" or keyt.Text == "Five" then
+		keyt.Text = "Five"
+	elseif keyt.Text == "6" or keyt.Text == "Six" then
+		keyt.Text = "Six"
+	elseif keyt.Text == "7" or keyt.Text == "Seven" then
+		keyt.Text = "Seven"
+	elseif keyt.Text == "8" or keyt.Text == "Eight" then
+		keyt.Text = "Eight"
+	elseif keyt.Text == "9" or keyt.Text == "Nine" then
+		keyt.Text = "Nine"
+	elseif keyt.Text == "0" or keyt.Text == "Zero" then
+		keyt.Text = "Zero"
+	else
+		keyt.Text = keyt.Text:upper()
+	end
+end)
+
 text.FocusLost:Connect(function(e)
 	framePosCon = run.RenderStepped:Connect(function()
 		if not dragging then
@@ -548,602 +1240,227 @@ text.FocusLost:Connect(function(e)
 		end
 	end)
 	if e then
-		if text.Text:sub(1, 2) == "to" then --cmd to
+		if text.Text:lower():sub(1, 2) == "to" then --cmd to
 			local args = text.Text:sub(4)
-			if args ~= "" then
-				for _, oth in pairs(plr:GetPlayers()) do
-					if oth.Name:lower():find(args:lower()) or oth.DisplayName:lower():find(args:lower()) then
-						hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
-					end
-				end
-			end
-		elseif text.Text:sub(1, 6) == "follow" then --cmd follow
+			to(args)
+		elseif text.Text:lower():sub(1, 6) == "follow" then --cmd follow
 			local args2 = text.Text:sub(8)
-			if args2 ~= "" then
-				for _, oth2 in pairs(plr:GetPlayers()) do
-					if oth2.Name:lower():find(args2:lower()) or oth2.DisplayName:lower():find(args2:lower()) then
-						local connection
-						connection = game:GetService("RunService").RenderStepped:Connect(function()
-							hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
-							if text.Text == "unfollow" then
-								connection:Disconnect()
-								wait()
-								hum:MoveTo(hrp.Position)
-							end
-						end)
-					end
-				end
-			end
-		elseif text.Text:sub(1, 7) == "headsit" then --cmd headsit
+			follow(args2)
+		elseif text.Text:lower():match("unfollow") then --cmd unfollow
+			unfollow()
+		elseif text.Text:lower():sub(1, 7) == "headsit" then --cmd headsit
 			local args3 = text.Text:sub(9)
-			if args3 ~= "" then
-				for _, oth3 in pairs(plr:GetPlayers()) do
-					if oth3.Name:lower():find(args3:lower()) or oth3.DisplayName:lower():find(args3:lower()) then
-						hum.Sit = true
-
-						local con2
-						con2 = game:GetService("RunService").RenderStepped:Connect(function()
-							hum.Sit = true
-							hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
-							uis.InputBegan:Connect(function(i2, g2)
-								if i2.KeyCode == Enum.KeyCode.Space and not g2 then
-									hum.Sit = false
-
-									if con2 then
-										con2:Disconnect()
-										con2 = nil
-									end
-								end
-							end)
-						end)
-					end
-				end
-			end
-		elseif text.Text:sub(1, 8) == "waypoint" then --cmd waypoint
+			headsit(args3)
+		elseif text.Text:lower():sub(1, 8) == "waypoint" then --cmd waypoint
 			local args4 = text.Text:sub(10)
-			if args4 ~= "" then
-				local p        = Instance.new("Part")
-				p.Parent       = work
-				p.Name         = args4
-				p.Transparency = 0.9
-				p.Anchored     = true
-				p.CanCollide   = false
-				p.BrickColor   = BrickColor.new("Pink")
-				if me.Character:FindFirstChild("RightFoot") then
-					p.CFrame = me.Character.RightFoot.CFrame
-				else
-					p.CFrame = me.Character[rightleg].CFrame
-				end
-			end
-		elseif text.Text:sub(1, 5) == "wayrm" then --cmd wayrm
+			waypoint(args4)
+		elseif text.Text:lower():sub(1, 5) == "wayrm" then --cmd wayrm
 			local args5 = text.Text:sub(7)
-			if args5 ~= "" then
-				work[args5]:Destroy()
-			end
-		elseif text.Text:sub(1, 5) == "tpway" then --cmd tpway
+			wayrm(args5)
+		elseif text.Text:lower():sub(1, 5) == "tpway" then --cmd tpway
 			local args6 = text.Text:sub(7)
-			if args6 ~= "" then
-				hrp.CFrame = work[args6].CFrame
-			end
-		elseif text.Text:sub(1, 4) == "view" then --cmd view
+			tpway(args6)
+		elseif text.Text:lower():sub(1, 4) == "view" then --cmd view
 			local args7 = text.Text:sub(6)
-			if args7 ~= "" then
-				for _, oth4 in pairs(plr:GetPlayers()) do
-					if oth4.Name:lower():find(args7:lower()) or oth4.DisplayName:lower():find(args7:lower()) then
-						work.Camera.CameraSubject = oth4.Character
-					end
-				end
-			end
-		elseif text.Text == "unview" then --cmd unview
-			work.Camera.CameraSubject = me.Character
-		elseif text.Text:sub(1, 5) == "speed" then
+			view(args7)
+		elseif text.Text:lower():match("unview") then --cmd unview
+			unview()
+		elseif text.Text:lower():sub(1, 5) == "speed" then
 			local args8 = text.Text:sub(7)
-			if args8 ~= "" then
-				if speedCon then
-					speedCon:Disconnect()
-					speedCon = nil
-
-					speedCon = run.RenderStepped:Connect(function()
-						hum.WalkSpeed = args8
-					end)
-				else
-					speedCon = run.RenderStepped:Connect(function()
-						hum.WalkSpeed = args8
-					end)
-				end
-			end
-		elseif text.Text:sub(1, 9) == "jumppower" then --cmd jumppower
+			speed(args8)
+		elseif text.Text:lower():sub(1, 9) == "jumppower" then --cmd jumppower
 			local args9 = text.Text:sub(11)
-			if args9 ~= "" then
-				if jumpCon then
-					jumpCon:Disconnect()
-					jumpCon = nil
-
-					jumpCon = run.RenderStepped:Connect(function()
-						hum.JumpPower = args9
-					end)
-				else
-					jumpCon = run.RenderStepped:Connect(function()
-						hum.JumpPower = args9
-					end)
-				end
-			end
-		elseif text.Text:sub(1, 7) == "gravity" then --cmd gravity
+			jumppower(args9)
+		elseif text.Text:lower():sub(1, 7) == "gravity" then --cmd gravity
 			local grav = text.Text:sub(9)
-			if grav ~= "" then
-				if gravityCon then
-					gravityCon:Disconnect()
-					gravityCon = nil
-
-					gravityCon = run.RenderStepped:Connect(function()
-						work.Gravity = grav
-					end)
-				else
-					gravityCon = run.RenderStepped:Connect(function()
-						work.Gravity = grav
-					end)
-				end
-			end
-		elseif text.Text:sub(1,3) == "say" then --cmd say
+			gravity(grav)
+		elseif text.Text:lower():sub(1,3) == "say" then --cmd say
 			local say = text.Text:sub(5)
-			if say ~= "" then
-				if textChat and textChat:FindFirstChild("TextChannels") then
-					local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
-					if textChat2 then
-						textChat2:SendAsync(say)
-					end
-				elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
-					local oldChat = rep.DefaultChatSystemChatEvents
-					if oldChat then
-						oldChat.SayMessageRequest:FireServer(say, "ALL")
-					end
-				end
-			end
-		elseif text.Text == "grabtools" then --cmd grabtools
-			toolcon = game:GetService("RunService").RenderStepped:Connect(function()
-				for _, grab in pairs(work:GetDescendants()) do
-					if grab:IsA("BackpackItem") and grab:FindFirstChild("Handle") then
-						hum:EquipTool(grab)
-					end
-				end
-			end)
-		elseif text.Text == "ungrabtools" then --cmd ungrabtools
-			toolcon:Disconnect()
-		elseif text.Text == "droptools" then --cmd droptools
-			for _, drop in pairs(me.Backpack:GetChildren()) do
-				if drop:IsA("Tool") then
-					drop.Parent = work
-				end
-			end
-		elseif text.Text == "lay" then --cmd lay
-			hum.Sit = true
-			task.wait(0.1)
-			hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
-			for _, nigger in pairs(hum:GetPlayingAnimationTracks()) do
-				nigger:Stop()
-			end
-		elseif text.Text == "sit" then --cmd sit
-			hum.Sit = true
-		elseif text.Text == "reset" then --cmd reset
-			hum.Health = 0
-		elseif text.Text == "rejoin" then --cmd rejoin
-			local p = plr:GetPlayers()
-
-			if #p <= 1 then
-				p.LocalPlayer:Kick("Rejoin")
-				wait()
-				game:GetService("TeleportService"):Teleport(game.PlaceId, p.LocalPlayer)
-			else
-				game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, p.LocalPlayer)
-			end
-		elseif text.Text:sub(1, 7) == "maxzoom" then --cmd maxzoom
+			chat(say)
+		elseif text.Text:lower() == "grabtools" then --cmd grabtools
+			grabtools()
+		elseif text.Text:lower():match("ungrabtools") then --cmd ungrabtools
+			ungrabtools()
+		elseif text.Text:lower():match("droptools") then --cmd droptools
+			droptools()
+		elseif text.Text:lower():match("lay") then --cmd lay
+			lay()
+		elseif text.Text:lower():match("sit") then --cmd sit
+			sit()
+		elseif text.Text:lower():match("reset") then --cmd reset
+			reset()
+		elseif text.Text:lower():match("rejoin") then --cmd rejoin
+			rejoin()
+		elseif text.Text:lower():sub(1, 7) == "maxzoom" then --cmd maxzoom
 			local mz = text.Text:sub(9)
-			if mz ~= "" then
-				me.CameraMaxZoomDistance = mz
-			end
-		elseif text.Text:sub(1, 7) == "minzoom" then --cmd minzoom
+			maxzoom(mz)
+		elseif text.Text:lower():sub(1, 7) == "minzoom" then --cmd minzoom
 			local minz = text.Text:sub(9)
-			if minz ~= "" then
-				me.CameraMinZoomDistance = minz
-			end
-		elseif text.Text == "clicktp" then --cmd clicktp
-			game:GetService("UserInputService").InputBegan:Connect(function(input, gay)
-				if gay then return end
-
-				local ctrl = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl)
-
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					if ctrl then
-						mouse      = plr.LocalPlayer:GetMouse()
-						local tp   = mouse.Hit+Vector3.new(0,2.5,0)
-						tp         = CFrame.new(tp.X,tp.Y,tp.Z)
-						hrp.CFrame = tp
-					else
-						return
-					end
-				end
-			end)
-		elseif text.Text == "infjump" then --cmd infjump
-			game:GetService("UserInputService").InputBegan:Connect(function(i,g)
-				if i.KeyCode == Enum.KeyCode.Space and not g then
-					me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-				end
-			end)
-		elseif text.Text == "jump" then --cmd jump
-			me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-		elseif text.Text == "fly" then --cmd fly
-			hum.PlatformStand = true
-
-			flyVel = Instance.new("BodyVelocity")
-			flyVel.Parent = hrp
-			flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
-			flyVel.Velocity = Vector3.new(0,0,0)
-			flyVel.Name = "flyVel"
-
-			bodyFly = Instance.new("BodyGyro")
-			bodyFly.Parent = hrp
-			bodyFly.MaxTorque = Vector3.new(9e9,9e9,9e9)
-			bodyFly.CFrame = hrp.CFrame
-
-			hum.PlatformStand = false
-
-			flyLook = run.RenderStepped:Connect(function()
-				local updMousePos = mouse.Hit.Position
-				local current = hrp.Position
-
-				local toLook = (updMousePos - current).Unit
-
-				hrp.CFrame = CFrame.new(current, current + toLook)
-			end)
-
-			uisHolder = uis.InputBegan:Connect(function(i,g)
-				if g then return end
-
-				if i.KeyCode == Enum.KeyCode.W and not Fhold then
-					Fhold = true
-					flyCon3 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * flySpeed * dt
-					end)
-				elseif i.KeyCode == Enum.KeyCode.S and not Bhold then
-					Bhold = true
-					flyCon4 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * flySpeed * dt
-					end)
-				elseif i.KeyCode == Enum.KeyCode.D and not Rhold then
-					Rhold = true
-					flyCon5 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * flySpeed * dt
-					end)
-				elseif i.KeyCode == Enum.KeyCode.A and not Lhold then
-					Lhold = true
-					flyCon6 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * flySpeed * dt
-					end)
-				end
-			end)
-			uis.InputEnded:Connect(function(i,g)
-				if g then return end
-
-				if i.KeyCode == Enum.KeyCode.W then
-					Fhold = false
-
-					if flyCon3 then
-						flyCon3:Disconnect()
-						flyCon3 = nil
-					end
-				elseif i.KeyCode == Enum.KeyCode.S then
-					Bhold = false
-
-					if flyCon4 then
-						flyCon4:Disconnect()
-						flyCon4 = nil
-					end
-				elseif i.KeyCode == Enum.KeyCode.D then
-					Rhold = false
-
-					if flyCon5 then
-						flyCon5:Disconnect()
-						flyCon5 = nil
-					end
-				elseif i.KeyCode == Enum.KeyCode.A then
-					Lhold = false
-
-					if flyCon6 then
-						flyCon6:Disconnect()
-						flyCon6 = nil
-					end
-				end
-			end)
-		elseif text.Text == "unfly" then --cmd unfly
-			hrp.Anchored = false
-			hum.PlatformStand = false
-			hrp:FindFirstChild("flyVel"):Destroy()
-
-			if uisHolder then
-				uisHolder:Disconnect()
-				uisHolder = nil
-			end
-			if flyVel then
-				flyVel:Destroy()
-			end
-			if flyLook then
-				flyLook:Disconnect()
-				flyLook = nil
-			end
-			if bodyFly then
-				bodyFly:Destroy()
-			end
-		elseif text.Text == "bfly" then --cmd bfly
-			local flyHolder = Instance.new("Part")
-			flyHolder.Parent = me.Character
-			flyHolder.Transparency = 0.999
-			flyHolder.Name = "FlyHolder"
-			fhCon = run.RenderStepped:Connect(function()
-				flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
-			end)
-			uisHolder = uis.InputBegan:Connect(function(i,g)
-				if g then return end
-
-				if i.KeyCode == Enum.KeyCode.E and not Uhold then
-					Uhold = true
-					flyCon = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * bflySpeed * dt
-					end)
-				elseif i.KeyCode == Enum.KeyCode.Q and not Dhold then
-					Dhold = true
-					flyCon2 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * bflySpeed * dt
-					end)
-				elseif i.KeyCode == Enum.KeyCode.W and not Fhold then
-					Fhold = true
-					flyCon3 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * bflySpeed * dt
-					end)
-				elseif i.KeyCode == Enum.KeyCode.S and not Bhold then
-					Bhold = true
-					flyCon4 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * bflySpeed * dt
-					end)
-				elseif i.KeyCode == Enum.KeyCode.D and not Rhold then
-					Rhold = true
-					flyCon5 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * bflySpeed * dt
-					end)
-				elseif i.KeyCode == Enum.KeyCode.A and not Lhold then
-					Lhold = true
-					flyCon6 = run.RenderStepped:Connect(function(dt)
-						for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-							endAnims:Stop()
-						end
-
-						hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * bflySpeed * dt
-					end)
-				end
-			end)
-			uis.InputEnded:Connect(function(i,g)
-				if g then return end
-
-				if i.KeyCode == Enum.KeyCode.E then
-					Uhold = false
-
-					if flyCon then
-						flyCon:Disconnect()
-						flyCon = nil
-					end
-				elseif i.KeyCode == Enum.KeyCode.Q then
-					Dhold = false
-
-					if flyCon2 then
-						flyCon2:Disconnect()
-						flyCon2 = nil
-					end
-				elseif i.KeyCode == Enum.KeyCode.W then
-					Fhold = false
-
-					if flyCon3 then
-						flyCon3:Disconnect()
-						flyCon3 = nil
-					end
-				elseif i.KeyCode == Enum.KeyCode.S then
-					Bhold = false
-
-					if flyCon4 then
-						flyCon4:Disconnect()
-						flyCon4 = nil
-					end
-				elseif i.KeyCode == Enum.KeyCode.D then
-					Rhold = false
-
-					if flyCon5 then
-						flyCon5:Disconnect()
-						flyCon5 = nil
-					end
-				elseif i.KeyCode == Enum.KeyCode.A then
-					Lhold = false
-
-					if flyCon6 then
-						flyCon6:Disconnect()
-						flyCon6 = nil
-					end
-				end
-			end)
-		elseif text.Text == "unbfly" then --cmd unbfly
-			hrp.Anchored = false
-
-			local fPart = me.Character:FindFirstChild("FlyHolder")
-			if fPart then
-				fPart:Destroy()
-			end
-
-			if uisHolder then
-				uisHolder:Disconnect()
-				uisHolder = nil
-			elseif fhCon then
-				fhCon:Disconnect()
-				fhCon = nil
-			end
-		elseif text.Text == "fling" then --cmd fling
-			bmw = Instance.new("BodyAngularVelocity")
-			bmw.AngularVelocity = Vector3.new(0,10000,0)
-			bmw.MaxTorque = Vector3.new(0,math.huge,0)
-			bmw.Parent = hrp
-
-			for _, tesv in pairs(me.Character:GetDescendants()) do
-				if tesv:IsA("BasePart") then
-					flingCon = run.RenderStepped:Connect(function()
-						tesv.CanCollide = false
-					end)
-					tesv.Massless = true
-					tesv.Velocity = Vector3.new(0, 0, 0)
-				end
-			end
-		elseif text.Text == "unfling" then --cmd unfling
-			if bmw then
-				bmw:Destroy()
-
-				if flingCon then
-					flingCon:Disconnect()
-					flingCon = nil
-				end
-
-				for _, tesv in pairs(me.Character:GetDescendants()) do
-					if tesv:IsA("BasePart") then
-						tesv.CanCollide = true
-						tesv.Massless = false
-						tesv.Velocity = Vector3.new(0, 0, 0)
-					end
-				end
-			end
-		elseif text.Text:sub(1,5) == "flysp" then --cmd flysp
+			minzoom(minz)
+		elseif text.Text:lower():match("clicktp") then --cmd clicktp
+			clicktp()
+		elseif text.Text:lower():match("infjump") then --cmd infjump
+			infjump()
+		elseif text.Text:lower() == "jump" then --cmd jump
+			jump()
+		elseif text.Text:lower() == "fly" then --cmd fly
+			fly()
+		elseif text.Text:lower():match("unfly") then --cmd unfly
+			unfly()
+		elseif text.Text:lower() == "bfly" then --cmd bfly
+			bfly()
+		elseif text.Text:lower():match("unbfly") then --cmd unbfly
+			unbfly()
+		elseif text.Text:lower() == "fling" then --cmd fling
+			fling()
+		elseif text.Text:lower():match("unfling") then --cmd unfling
+			unfling()
+		elseif text.Text:lower():sub(1,5) == "flysp" then --cmd flysp
 			local flyspArgs = text.Text:sub(7)
-			flySpeed = flyspArgs
-		elseif text.Text:sub(1,6) == "bflysp" then --cmd bflysp
+			flysp(flyspArgs)
+		elseif text.Text:lower():sub(1,6) == "bflysp" then --cmd bflysp
 			local bflyspArgs = text.Text:sub(8)
-			bflySpeed = bflyspArgs
-		elseif text.Text == "invisible" or text.Text == "invis" then --cmd invisible
-			local part = Instance.new("Part")
-			part.Parent = work
-			part.CanCollide = false
-			part.Anchored = true
-			part.Transparency = 0.99
-			part.CFrame = hrp.CFrame + Vector3.new(0,0.1,0)
-
-			local Player = me
-			repeat wait(.1) until Player.Character
-			local Character = Player.Character
-
-			Character.Archivable = true
-
-			local async = Character:Clone()
-			async.Parent = game:GetService("Lighting")
-			async.Name = "Burger"
-
-			task.wait(0.1)
-
-			Character:MoveTo(Vector3.new(0,1000,0))
-			task.wait(0.5)
-			Character.HumanoidRootPart.Anchored = true
-			task.wait(0.5)
-			async = async
-			async.Parent = work
-			async.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
-			Player.Character = async
-
-			local invRespawn
-			invRespawn = async.Humanoid.Died:Connect(function()
-				Player.Character = Character
-				Character.HumanoidRootPart.Anchored = false
-				task.wait(0.1)
-				Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
-				task.wait(0.1)
-				async.Parent = nil
-
-				task.wait(0.1)
-
-				camera.CameraSubject = Character.Humanoid
-
-				part:Destroy()
-
-				invRespawn:Disconnect()
-			end)
-
-			function turnVis()
-				Player.Character = Character
-				Character.HumanoidRootPart.Anchored = false
-				task.wait(0.1)
-				Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
-				task.wait(0.1)
-				async.Parent = nil
-
-				task.wait(0.1)
-
-				camera.CameraSubject = Character.Humanoid
-
-				part:Destroy()
-
-				invRespawn:Disconnect()
-			end
-
-			task.wait(0.1)
-
-			Player.Character = async
-
-			Player.Character.Animate.Disabled = true
-			Player.Character.Animate.Disabled = false
-
-			camera.CameraSubject = Player.Character.Humanoid
-
-			task.wait(0.2)
-
-			Player.Character.HumanoidRootPart.CFrame = part.CFrame
-
-			for _, all in pairs(Player.Character:GetDescendants()) do
-				if all:IsA("BasePart") then
-					if all.Name == "HumanoidRootPart" then
-						all.Transparency = 1
-					else
-						all.Transparency = 0.5
-					end
-				end
-			end
-		elseif text.Text == "visible" or text.Text == "vis" then --cmd visible
+			bflysp(bflyspArgs)
+		elseif text.Text:lower():match("invisible") or text.Text:lower() == "invis" then --cmd invisible
+			invisible()
+		elseif text.Text:lower():match("visible") or text.Text:lower() == "vis" then --cmd visible
 			turnVis()
+		end
+	end
+end)
+
+keyt.FocusLost:Connect(function(e) --keybinding
+	if e then
+		if text.Text:lower():match("visible") or text.Text:lower() == "vis" then
+			addKeybind(keyt.Text, turnVis)
+		elseif text.Text:lower():match("invisible") or text.Text:lower() == "invis" then
+			addKeybind(keyt.Text,invisible)
+		elseif text.Text:lower():sub(1, 2) == "to" then
+			local args = text.Text:sub(4)
+			
+			addKeybind(keyt.Text, function()
+				to(args)
+			end)
+		elseif text.Text:lower():sub(1, 6) == "follow" then
+			local args2 = text.Text:sub(8)
+			
+			addKeybind(keyt.Text, function()
+				follow(args2)
+			end)
+		elseif text.Text:lower():match("unfollow") then
+			addKeybind(keyt.Text, unfollow)
+		elseif text.Text:lower():sub(1, 7) == "headsit" then
+			local args3 = text.Text:sub(9)
+			
+			addKeybind(keyt.Text, function()
+				headsit(args3)
+			end)
+		elseif text.Text:lower():sub(1, 8) == "waypoint" then
+			local args4 = text.Text:sub(10)
+
+			addKeybind(keyt.Text, function()
+				waypoint(args4)
+			end)
+		elseif text.Text:lower():sub(1, 5) == "wayrm" then
+			local args5 = text.Text:sub(7)
+			
+			addKeybind(keyt.Text, function()
+				wayrm(args5)
+			end)
+		elseif text.Text:lower():sub(1, 5) == "tpway" then
+			local args6 = text.Text:sub(7)
+			
+			addKeybind(keyt.Text, function()
+				tpway(args6)
+			end)
+		elseif text.Text:lower():sub(1, 4) == "view" then
+			local args7 = text.Text:sub(6)
+			
+			addKeybind(keyt.Text, function()
+				view(args7)
+			end)
+		elseif text.Text:lower():match("unview") then
+			addKeybind(keyt.Text, unview)
+		elseif text.Text:lower():sub(1, 5) == "speed" then
+			local args8 = text.Text:sub(7)
+			
+			addKeybind(keyt.Text, function()
+				speed(args8)
+			end)
+		elseif text.Text:lower():sub(1, 9) == "jumppower" then
+			local args9 = text.Text:sub(11)
+			
+			addKeybind(keyt.Text, function()
+				jumppower(args9)
+			end)
+		elseif text.Text:lower():sub(1, 7) == "gravity" then
+			local grav = text.Text:sub(9)
+			
+			addKeybind(keyt.Text, function()
+				gravity(grav)
+			end)
+		elseif text.Text:lower():sub(1,3) == "say" then
+			local say = text.Text:sub(5)
+			
+			addKeybind(keyt.Text, function()
+				chat(say)
+			end)
+		elseif text.Text:lower():match("grabtools") then
+			addKeybind(keyt.Text, grabtools)
+		elseif text.Text:lower():match("ungrabtools") then
+			addKeybind(keyt.Text, ungrabtools)
+		elseif text.Text:lower():match("droptools") then
+			addKeybind(keyt.Text, droptools)
+		elseif text.Text:lower():match("lay") then
+			addKeybind(keyt.Text, lay)
+		elseif text.Text:lower():match("sit") then
+			addKeybind(keyt.Text, sit)
+		elseif text.Text:lower():match("reset") then
+			addKeybind(keyt.Text, reset)
+		elseif text.Text:lower():match("rejoin") then
+			addKeybind(keyt.Text, rejoin)
+		elseif text.Text:lower():sub(1, 7) == "maxzoom" then
+			local mz = text.Text:sub(9)
+			
+			addKeybind(keyt.Text, function()
+				maxzoom(mz)
+			end)
+		elseif text.Text:lower():sub(1, 7) == "minzoom" then
+			local minz = text.Text:sub(9)
+			
+			addKeybind(keyt.Text, function()
+				minzoom(minz)
+			end)
+		elseif text.Text:lower():match("clicktp") then
+			addKeybind(keyt.Text, clicktp)
+		elseif text.Text:lower():match("infjump") then
+			addKeybind(keyt.Text, infjump)
+		elseif text.Text:lower() == "jump" then
+			addKeybind(keyt.Text, jump)
+		elseif text.Text:lower() == "fly" then
+			addKeybind(keyt.Text, fly)
+		elseif text.Text:lower():match("unfly") then
+			addKeybind(keyt.Text, unfly)
+		elseif text.Text:lower() == "bfly" then
+			addKeybind(keyt.Text, bfly)
+		elseif text.Text:lower():match("unbfly") then
+			addKeybind(keyt.Text, unbfly)
+		elseif text.Text:lower() == "fling" then
+			addKeybind(keyt.Text, fling)
+		elseif text.Text:lower():match("unfling") then
+			addKeybind(keyt.Text, unfling)
+		elseif text.Text:lower():sub(1,5) == "flysp" then
+			local flyspArgs = text.Text:sub(7)
+			
+			addKeybind(keyt.Text, function()
+				flysp(flyspArgs)
+			end)
+		elseif text.Text:lower():sub(1,6) == "bflysp" then
+			local bflyspArgs = text.Text:sub(8)
+			
+			addKeybind(keyt.Text, function()
+				bflysp(bflyspArgs)
+			end)
 		end
 	end
 end)
