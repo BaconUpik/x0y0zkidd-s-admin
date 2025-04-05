@@ -74,7 +74,7 @@ local frame            = Instance.new("Frame")
 frame.Parent           = screen
 frame.Size             = UDim2.new(0, 270, 0, 350)
 frame.BackgroundColor3 = Color3.fromRGB(255,20,147)
-frame.Position         = UDim2.new(0,1649,0,971)
+frame.Position         = UDim2.new(0, 1340, 0, 550)
 
 local keyt                  = Instance.new("TextBox")
 keyt.Parent                 = frame
@@ -470,17 +470,17 @@ end)
 
 frame.MouseEnter:Connect(function()
 	mouseFrameDelay = true
-	frame.Position = UDim2.new(0,1649,0,659)
+	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,661)
 end)
 frame.MouseLeave:Connect(function()
 	mouseFrameDelay = false
 	wait(1.5)
 	if not mouseFrameDelay then
-		frame.Position = UDim2.new(0,1649,0,971)
+		frame.Position = UDim2.new(0,frame.Position.X.Offset,0,971)
 	end
 end)
 text.Focused:Connect(function()
-	frame.Position = UDim2.new(0,1649,0,659)
+	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,661)
 end)
 
 text.FocusLost:Connect(function(e)
