@@ -74,7 +74,7 @@ local frame            = Instance.new("Frame")
 frame.Parent           = screen
 frame.Size             = UDim2.new(0, 270, 0, 350)
 frame.BackgroundColor3 = Color3.fromRGB(255,20,147)
-frame.Position         = UDim2.new(0, 1340, 0, 550)
+frame.Position         = UDim2.new(0,1649,0,971)
 
 local keyt                  = Instance.new("TextBox")
 keyt.Parent                 = frame
@@ -446,12 +446,15 @@ local startPos
 
 local mouseFrameDelay = true
 
+local pos1 = 661
+local pos2 = 971
+
 frame.InputBegan:Connect(function(inp)
 	if inp.UserInputType == Enum.UserInputType.MouseButton1 then
 		dragging = true
 		dragStart = inp.Position
 		startPos = frame.Position
-		
+
 		inp.Changed:Connect(function()
 			if inp.UserInputState == Enum.UserInputState.End then
 				dragging = false
@@ -463,24 +466,24 @@ end)
 uis.InputChanged:Connect(function(inp)
 	if dragging and inp.UserInputType == Enum.UserInputType.MouseMovement then
 		local delta = inp.Position - dragStart
-		
+
 		frame.Position = startPos + UDim2.new(0,delta.X,0,0)
 	end
 end)
 
 frame.MouseEnter:Connect(function()
 	mouseFrameDelay = true
-	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,661)
+	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos1)
 end)
 frame.MouseLeave:Connect(function()
 	mouseFrameDelay = false
 	wait(1.5)
 	if not mouseFrameDelay then
-		frame.Position = UDim2.new(0,frame.Position.X.Offset,0,971)
+		frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos2)
 	end
 end)
 text.Focused:Connect(function()
-	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,661)
+	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos1)
 end)
 
 text.FocusLost:Connect(function(e)
@@ -696,7 +699,7 @@ text.FocusLost:Connect(function(e)
 						tp         = CFrame.new(tp.X,tp.Y,tp.Z)
 						hrp.CFrame = tp
 					else
-						print("Only m1 :(")
+						return
 					end
 				end
 			end)
@@ -1012,7 +1015,7 @@ text.FocusLost:Connect(function(e)
 			async.Name = "Burger"
 
 			task.wait(0.1)
-			
+
 			Character:MoveTo(Vector3.new(0,1000,0))
 			task.wait(0.5)
 			Character.HumanoidRootPart.Anchored = true
