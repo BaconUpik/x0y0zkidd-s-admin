@@ -450,7 +450,15 @@ local mouseFrameDelay = true
 local pos1 = 661
 local pos2 = 971
 
+local hovering = false
+
 local lastRes = guiService:GetScreenResolution()
+
+local function setY(posY)
+	if not dragging then
+		frame.Position = UDim2.new(0,frame.Position.X.Offset,0,posY)
+	end
+end
 
 frame.InputBegan:Connect(function(inp)
 	if inp.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -475,27 +483,32 @@ uis.InputChanged:Connect(function(inp)
 end)
 
 frame.MouseEnter:Connect(function()
+	hovering = true
 	mouseFrameDelay = true
-	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos1)
 end)
 frame.MouseLeave:Connect(function()
-	mouseFrameDelay = false
-	wait(1.5)
-	if not mouseFrameDelay then
-		frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos2)
-	end
+	hovering = false
+	task.delay(1.5,function()
+		if not hovering then
+			mouseFrameDelay = false
+		end
+	end)
 end)
 text.Focused:Connect(function()
 	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos1)
 end)
 
 run.RenderStepped:Connect(function()
+	if not dragging then
+		setY(mouseFrameDelay and pos1 or pos2)
+	end
+	
 	local currentRes = guiService:GetScreenResolution()
 	
 	if currentRes ~= lastRes then
 		print("Why.")
 		
-		if currentRes.X > lastRes.X and currentRes.Y > lastRes.Y then
+		if currentRes.X > lastRes.X or currentRes.Y > lastRes.Y then
 			pos1 = 729
 			pos2 = 1042
 		else
