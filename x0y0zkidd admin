@@ -1104,7 +1104,7 @@ for _, control in pairs(plr:GetPlayers()) do
 	end
 end
 
-screen.Parent = game:GetSevice("CoreGui")
+screen.Parent = game:GetService("CoreGui")
 
 --[[
     BIG THANKS TO: Infinite Yield For help! :D
