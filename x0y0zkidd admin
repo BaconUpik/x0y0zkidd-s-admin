@@ -399,6 +399,10 @@ textT.FocusLost:Connect(function(ent)
 	end
 end)
 
+run.RenderStepped:Connect(function()
+	keyt.TextColor3 = Color3.fromRGB(255,255,255)
+end)
+
 local btnT4            = Instance.new("TextButton")
 btnT4.Parent           = frame3
 btnT4.Size             = UDim2.new(0, 55, 0, 25)
