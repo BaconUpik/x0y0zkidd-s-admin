@@ -11,6 +11,7 @@ local uis = game:GetService("UserInputService")
 local virtual = game:GetService("VirtualInputManager")
 local rep = game:GetService("ReplicatedStorage")
 local textChat = game:GetService("TextChatService")
+local guiService = game:GetService("GuiService")
 
 local mouse = me:GetMouse()
 local camera = work.CurrentCamera
@@ -449,6 +450,8 @@ local mouseFrameDelay = true
 local pos1 = 661
 local pos2 = 971
 
+local lastRes = guiService:GetScreenResolution()
+
 frame.InputBegan:Connect(function(inp)
 	if inp.UserInputType == Enum.UserInputType.MouseButton1 then
 		dragging = true
@@ -484,6 +487,23 @@ frame.MouseLeave:Connect(function()
 end)
 text.Focused:Connect(function()
 	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos1)
+end)
+
+run.RenderStepped:Connect(function()
+	local currentRes = guiService:GetScreenResolution()
+	
+	if currentRes ~= lastRes then
+		print("Why.")
+		
+		if currentRes.X > lastRes.X and currentRes.Y > lastRes.Y then
+			pos1 = 729
+			pos2 = 1042
+		else
+			pos1 = 661
+			pos2 = 971
+		end
+		lastRes = currentRes
+	end
 end)
 
 text.FocusLost:Connect(function(e)
