@@ -982,7 +982,7 @@ text.FocusLost:Connect(function(e)
 			local invRespawn
 			invRespawn = async.Humanoid.Died:Connect(function()
 				Player.Character = Character
-				Character.HumanoidRootPart.Anchored = true
+				Character.HumanoidRootPart.Anchored = false
 				task.wait(0.1)
 				Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
 				task.wait(0.1)
@@ -999,7 +999,7 @@ text.FocusLost:Connect(function(e)
 
 			function turnVis()
 				Player.Character = Character
-				Character.HumanoidRootPart.Anchored = true
+				Character.HumanoidRootPart.Anchored = false
 				task.wait(0.1)
 				Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
 				task.wait(0.1)
