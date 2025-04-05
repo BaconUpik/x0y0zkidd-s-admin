@@ -76,10 +76,6 @@ frame.Size             = UDim2.new(0, 270, 0, 350)
 frame.BackgroundColor3 = Color3.fromRGB(255,20,147)
 frame.Position         = UDim2.new(0, 1340, 0, 550)
 
-frame.Active     = true
-frame.Selectable = true
-frame.Draggable  = true
-
 local keyt                  = Instance.new("TextBox")
 keyt.Parent                 = frame
 keyt.Size                   = UDim2.new(0, 105, 0, 45)
@@ -430,6 +426,7 @@ btn3.MouseButton1Click:Connect(function()
 	for _, com in pairs(screen:GetChildren()) do
 		if com.Name == "f2" then
 			com.Visible = true
+			com.Position = UDim2.new(0,frame.Position.X.Offset + -350,0,frame.Position.Y.Offset + -100)
 		end
 	end
 end)
@@ -438,8 +435,52 @@ btn4.MouseButton1Click:Connect(function()
 	for _, the in pairs(screen:GetChildren()) do
 		if the.Name == "f3" then
 			the.Visible = true
+			the.Position = UDim2.new(0,frame.Position.X.Offset + 20,0,frame.Position.Y.Offset + -300)
 		end
 	end
+end)
+
+local dragging = false
+local dragStart
+local startPos
+
+local mouseFrameDelay = true
+
+frame.InputBegan:Connect(function(inp)
+	if inp.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = inp.Position
+		startPos = frame.Position
+		
+		inp.Changed:Connect(function()
+			if inp.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+uis.InputChanged:Connect(function(inp)
+	if dragging and inp.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = inp.Position - dragStart
+		
+		frame.Position = startPos + UDim2.new(0,delta.X,0,0)
+	end
+end)
+
+frame.MouseEnter:Connect(function()
+	mouseFrameDelay = true
+	frame.Position = UDim2.new(0,1649,0,659)
+end)
+frame.MouseLeave:Connect(function()
+	mouseFrameDelay = false
+	wait(1.5)
+	if not mouseFrameDelay then
+		frame.Position = UDim2.new(0,1649,0,971)
+	end
+end)
+text.Focused:Connect(function()
+	frame.Position = UDim2.new(0,1649,0,659)
 end)
 
 text.FocusLost:Connect(function(e)
