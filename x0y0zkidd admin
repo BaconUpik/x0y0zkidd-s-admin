@@ -178,7 +178,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = frame2
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility"
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint"
 label2.Position        = UDim2.new(0, 155, 0, 255)
 
 local labelC           = Instance.new("TextLabel")
@@ -1196,6 +1196,21 @@ function turnVis()
 	invRespawn:Disconnect()
 end
 
+local isSpawnpoint
+
+function spawnpoint()
+	if isSpawnpoint then
+		isSpawnpoint:Disconnect()
+		isSpawnpoint = nil
+	end
+	local spawnPos = hrp.CFrame
+	isSpawnpoint = me.CharacterAdded:Connect(function()
+		repeat wait(0.1) until me.Character
+		
+		hrp.CFrame = spawnPos
+	end)
+end
+
 keyt:GetPropertyChangedSignal("Text"):Connect(function()
 	if keyt.Text == "1" or keyt.Text == "One" then
 		keyt.Text = "One"
@@ -1329,6 +1344,8 @@ text.FocusLost:Connect(function(e)
 			invisible()
 		elseif text.Text:lower():match("visible") or text.Text:lower() == "vis" then --cmd visible
 			turnVis()
+		elseif text.Text:lower():match("spawnpoint") then
+			spawnpoint()
 		end
 	end
 end)
@@ -1465,6 +1482,8 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, function()
 				bflysp(bflyspArgs)
 			end)
+		elseif text.Text:lower():match("spawnpoint") then
+			addKeybind(keyt.Text, spawnpoint)
 		end
 	end
 end)
