@@ -92,6 +92,7 @@ keyt.Font                   = Enum.Font.GothamBold
 keyt.PlaceholderColor3      = Color3.fromRGB(230,230,230)
 keyt.BackgroundColor3       = Color3.fromRGB(186,85,211)
 keyt.BackgroundTransparency = 1
+keyt.TextScaled = false
 keyt.TextXAlignment         = "Center"
 keyt.TextYAlignment         = "Center"
 
@@ -163,7 +164,7 @@ labelP.Name            = "TextLabel2"
 
 local frame2            = Instance.new("Frame")
 frame2.Parent           = screen
-frame2.Size             = UDim2.new(0, 310, 0, 495)
+frame2.Size             = UDim2.new(0, 310, 0, 565)
 frame2.BackgroundColor3 = Color3.fromRGB(255,20,147)
 frame2.Position         = UDim2.new(0, 1040, 0, 550)
 frame2.Name             = "f2"
@@ -178,8 +179,8 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = frame2
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint"
-label2.Position        = UDim2.new(0, 155, 0, 255)
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Position        = UDim2.new(0, 155, 0, 285)
 
 local labelC           = Instance.new("TextLabel")
 labelC.Parent          = frame2
@@ -528,6 +529,60 @@ framePosCon = run.RenderStepped:Connect(function()
 			pos2 = 971
 		end
 		lastRes = currentRes
+	end
+end)
+
+uis.InputBegan:Connect(function(i,g)
+	if i.KeyCode == Enum.KeyCode.KeypadOne then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadOne"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadTwo then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadTwo"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadThree then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadThree"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadFour then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadFour"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadFive then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadFive"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadSix then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadSix"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadSeven then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadSeven"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadEight then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadEight"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadNine then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadNine"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadZero then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadZero"
+		end
 	end
 end)
 
@@ -1232,6 +1287,8 @@ keyt:GetPropertyChangedSignal("Text"):Connect(function()
 		keyt.Text = "Nine"
 	elseif keyt.Text == "0" or keyt.Text == "Zero" then
 		keyt.Text = "Zero"
+	elseif keyt.Text:match"Keypad" then
+		return
 	else
 		keyt.Text = keyt.Text:upper()
 	end
