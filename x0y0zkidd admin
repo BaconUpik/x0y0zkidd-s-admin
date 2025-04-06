@@ -645,7 +645,9 @@ function addKeybind(key,command)
 	end)
 end
 
-function to(args)
+--first function
+
+function to(args) --cmd to
 	if args ~= "" then
 		for _, oth in pairs(plr:GetPlayers()) do
 			if oth.Name:lower():find(args:lower()) or oth.DisplayName:lower():find(args:lower()) then
@@ -657,7 +659,7 @@ end
 
 local connection
 
-function follow(args)
+function follow(args) --cmd follow
 	if args ~= "" then
 		for _, oth2 in pairs(plr:GetPlayers()) do
 			if oth2.Name:lower():find(args:lower()) or oth2.DisplayName:lower():find(args:lower()) then
@@ -669,7 +671,7 @@ function follow(args)
 	end
 end
 
-function headsit(args)
+function headsit(args) --cmd headsit
 	if args ~= "" then
 		for _, oth3 in pairs(plr:GetPlayers()) do
 			if oth3.Name:lower():find(args:lower()) or oth3.DisplayName:lower():find(args:lower()) then
@@ -695,7 +697,7 @@ function headsit(args)
 	end
 end
 
-function waypoint(args)
+function waypoint(args) --cmd waypoint
 	if args ~= "" then
 		local p        = Instance.new("Part")
 		p.Parent       = work
@@ -712,19 +714,19 @@ function waypoint(args)
 	end
 end
 
-function wayrm(args)
+function wayrm(args) --cmd wayrm
 	if args ~= "" then
 		work["Way"..args]:Destroy()
 	end
 end
 
-function tpway(args)
+function tpway(args) --cmd tpway
 	if args ~= "" then
 		hrp.CFrame = work["Way"..args].CFrame
 	end
 end
 
-function view(args)
+function view(args) --cmd view
 	if args ~= "" then
 		for _, oth4 in pairs(plr:GetPlayers()) do
 			if oth4.Name:lower():find(args:lower()) or oth4.DisplayName:lower():find(args:lower()) then
@@ -734,11 +736,11 @@ function view(args)
 	end
 end
 
-function unview()
+function unview() --cmd unview
 	camera.CameraSubject = me.Character
 end
 
-function speed(args)
+function speed(args) --cmd speed
 	if args ~= "" then
 		if speedCon then
 			speedCon:Disconnect()
@@ -755,7 +757,7 @@ function speed(args)
 	end
 end
 
-function jumppower(args)
+function jumppower(args) --cmd jumppower
 	if args ~= "" then
 		if jumpCon then
 			jumpCon:Disconnect()
@@ -772,7 +774,7 @@ function jumppower(args)
 	end
 end
 
-function gravity(args)
+function gravity(args) --cmd gravity
 	if args ~= "" then
 		if gravityCon then
 			gravityCon:Disconnect()
@@ -789,7 +791,7 @@ function gravity(args)
 	end
 end
 
-function chat(args)
+function chat(args) --cmd say
 	if args ~= "" then
 		if textChat and textChat:FindFirstChild("TextChannels") then
 			local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
@@ -805,7 +807,7 @@ function chat(args)
 	end
 end
 
-function grabtools()
+function grabtools() --cmd grabtools
 	toolcon = game:GetService("RunService").RenderStepped:Connect(function()
 		for _, grab in pairs(work:GetDescendants()) do
 			if grab:IsA("BackpackItem") and grab:FindFirstChild("Handle") then
@@ -815,14 +817,14 @@ function grabtools()
 	end)
 end
 
-function ungrabtools()
+function ungrabtools() --cmd ungrabtools
 	if toolcon then
 		toolcon:Disconnect()
 		toolcon = nil
 	end
 end
 
-function droptools()
+function droptools() --cmd droptools
 	for _, drop in pairs(me.Backpack:GetChildren()) do
 		if drop:IsA("Tool") then
 			drop.Parent = work
@@ -830,7 +832,7 @@ function droptools()
 	end
 end
 
-function lay()
+function lay() --cmd lay
 	hum.Sit = true
 	task.wait(0.1)
 	hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
@@ -839,7 +841,7 @@ function lay()
 	end
 end
 
-function rejoin()
+function rejoin() --cmd rejoin
 	local p = plr:GetPlayers()
 
 	if #p <= 1 then
@@ -851,19 +853,19 @@ function rejoin()
 	end
 end
 
-function maxzoom(args)
+function maxzoom(args) --cmd maxzoom
 	if args ~= "" then
 		me.CameraMaxZoomDistance = args
 	end
 end
 
-function minzoom(args)
+function minzoom(args) --cmd minzoom
 	if args ~= "" then
 		me.CameraMinZoomDistance = args
 	end
 end
 
-function clicktp()
+function clicktp() --cmd clicktp
 	game:GetService("UserInputService").InputBegan:Connect(function(input, gay)
 		if gay then return end
 
@@ -882,7 +884,7 @@ function clicktp()
 	end)
 end
 
-function infjump()
+function infjump() --cmd infjump
 	game:GetService("UserInputService").InputBegan:Connect(function(i,g)
 		if i.KeyCode == Enum.KeyCode.Space and not g then
 			me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
@@ -890,11 +892,11 @@ function infjump()
 	end)
 end
 
-function jump()
+function jump() --cmd jump
 	me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 end
 
-function fly()
+function fly() --cmd fly
 	hum.PlatformStand = true
 
 	flyVel = Instance.new("BodyVelocity")
@@ -995,7 +997,7 @@ function fly()
 	end)
 end
 
-function unfly()
+function unfly() --cmd unfly
 	hrp.Anchored = false
 	hum.PlatformStand = false
 	hrp:FindFirstChild("flyVel"):Destroy()
@@ -1016,7 +1018,7 @@ function unfly()
 	end
 end
 
-function bfly()
+function bfly() --cmd bfly
 	local flyHolder = Instance.new("Part")
 	flyHolder.Parent = me.Character
 	flyHolder.Transparency = 0.999
@@ -1132,7 +1134,7 @@ function bfly()
 	end)
 end
 
-function unbfly()
+function unbfly() --cmd unbfly
 	hrp.Anchored = false
 
 	local fPart = me.Character:FindFirstChild("FlyHolder")
@@ -1149,7 +1151,7 @@ function unbfly()
 	end
 end
 
-function fling()
+function fling() --cmd fling
 	bmw = Instance.new("BodyAngularVelocity")
 	bmw.AngularVelocity = Vector3.new(0,10000,0)
 	bmw.MaxTorque = Vector3.new(0,math.huge,0)
@@ -1166,7 +1168,7 @@ function fling()
 	end
 end
 
-function unfling()
+function unfling() --cmd unfling
 	if bmw then
 		bmw:Destroy()
 
@@ -1185,23 +1187,23 @@ function unfling()
 	end
 end
 
-function flysp(args)
+function flysp(args) --cmd flysp
 	flySpeed = args
 end
 
-function bflysp(args)
+function bflysp(args) --cmd bflysp
 	bflySpeed = args
 end
 
-function sit()
+function sit() --cmd sit
 	hum.Sit = true
 end
 
-function reset()
+function reset() --cmd reset
 	hum.Health = 0
 end
 
-function unfollow()
+function unfollow() --cmd unfollow
 	connection:Disconnect()
 	wait()
 	hum:MoveTo(hrp.Position)
@@ -1212,7 +1214,7 @@ local async
 local Player
 local Character
 
-function invisible()
+function invisible() --cmd invisible
 	part = Instance.new("Part")
 	part.Parent = work
 	part.CanCollide = false
@@ -1282,7 +1284,7 @@ function invisible()
 	end
 end
 
-function turnVis()
+function turnVis() --cmd visible
 	Player.Character = Character
 	Character.HumanoidRootPart.Anchored = false
 	task.wait(0.1)
@@ -1301,7 +1303,7 @@ end
 
 local isSpawnpoint
 
-function spawnpoint()
+function spawnpoint() --cmd spawnpoint
 	if isSpawnpoint then
 		isSpawnpoint:Disconnect()
 		isSpawnpoint = nil
@@ -1314,13 +1316,19 @@ function spawnpoint()
 	end)
 end
 
-function day()
+function day() --cmd day
 	game:GetService("Lighting").ClockTime = 14
 end
 
-function night()
+function night() --cmd night
 	game:GetService("Lighting").ClockTime = 0
 end
+
+function exit() --cmd exit
+	game:Shutdown()
+end
+
+--last function
 
 keyt:GetPropertyChangedSignal("Text"):Connect(function()
 	if keyt.Text == "1" or keyt.Text == "One" then
@@ -1372,90 +1380,90 @@ text.FocusLost:Connect(function(e)
 		end
 	end)
 	if e then
-		if text.Text:lower():sub(1, 2) == "to" then --cmd to
+		if text.Text:lower():sub(1, 2) == "to" then
 			local args = text.Text:sub(4)
 			to(args)
-		elseif text.Text:lower():sub(1, 6) == "follow" then --cmd follow
+		elseif text.Text:lower():sub(1, 6) == "follow" then
 			local args2 = text.Text:sub(8)
 			follow(args2)
-		elseif text.Text:lower():match("unfollow") then --cmd unfollow
+		elseif text.Text:lower():match("unfollow") then
 			unfollow()
-		elseif text.Text:lower():sub(1, 7) == "headsit" then --cmd headsit
+		elseif text.Text:lower():sub(1, 7) == "headsit" then
 			local args3 = text.Text:sub(9)
 			headsit(args3)
-		elseif text.Text:lower():sub(1, 8) == "waypoint" then --cmd waypoint
+		elseif text.Text:lower():sub(1, 8) == "waypoint" then
 			local args4 = text.Text:sub(10)
 			waypoint(args4)
-		elseif text.Text:lower():sub(1, 5) == "wayrm" then --cmd wayrm
+		elseif text.Text:lower():sub(1, 5) == "wayrm" then
 			local args5 = text.Text:sub(7)
 			wayrm(args5)
-		elseif text.Text:lower():sub(1, 5) == "tpway" then --cmd tpway
+		elseif text.Text:lower():sub(1, 5) == "tpway" then
 			local args6 = text.Text:sub(7)
 			tpway(args6)
-		elseif text.Text:lower():sub(1, 4) == "view" then --cmd view
+		elseif text.Text:lower():sub(1, 4) == "view" then
 			local args7 = text.Text:sub(6)
 			view(args7)
-		elseif text.Text:lower():match("unview") then --cmd unview
+		elseif text.Text:lower():match("unview") then
 			unview()
 		elseif text.Text:lower():sub(1, 5) == "speed" then
 			local args8 = text.Text:sub(7)
 			speed(args8)
-		elseif text.Text:lower():sub(1, 9) == "jumppower" then --cmd jumppower
+		elseif text.Text:lower():sub(1, 9) == "jumppower" then
 			local args9 = text.Text:sub(11)
 			jumppower(args9)
-		elseif text.Text:lower():sub(1, 7) == "gravity" then --cmd gravity
+		elseif text.Text:lower():sub(1, 7) == "gravity" then
 			local grav = text.Text:sub(9)
 			gravity(grav)
-		elseif text.Text:lower():sub(1,3) == "say" then --cmd say
+		elseif text.Text:lower():sub(1,3) == "say" then
 			local say = text.Text:sub(5)
 			chat(say)
-		elseif text.Text:lower() == "grabtools" then --cmd grabtools
+		elseif text.Text:lower() == "grabtools" then
 			grabtools()
-		elseif text.Text:lower():match("ungrabtools") then --cmd ungrabtools
+		elseif text.Text:lower():match("ungrabtools") then
 			ungrabtools()
-		elseif text.Text:lower():match("droptools") then --cmd droptools
+		elseif text.Text:lower():match("droptools") then
 			droptools()
-		elseif text.Text:lower():match("lay") then --cmd lay
+		elseif text.Text:lower():match("lay") then
 			lay()
-		elseif text.Text:lower():match("sit") then --cmd sit
+		elseif text.Text:lower():match("sit") then
 			sit()
-		elseif text.Text:lower():match("reset") then --cmd reset
+		elseif text.Text:lower():match("reset") then
 			reset()
-		elseif text.Text:lower():match("rejoin") then --cmd rejoin
+		elseif text.Text:lower():match("rejoin") then
 			rejoin()
-		elseif text.Text:lower():sub(1, 7) == "maxzoom" then --cmd maxzoom
+		elseif text.Text:lower():sub(1, 7) == "maxzoom" then
 			local mz = text.Text:sub(9)
 			maxzoom(mz)
-		elseif text.Text:lower():sub(1, 7) == "minzoom" then --cmd minzoom
+		elseif text.Text:lower():sub(1, 7) == "minzoom" then
 			local minz = text.Text:sub(9)
 			minzoom(minz)
-		elseif text.Text:lower():match("clicktp") then --cmd clicktp
+		elseif text.Text:lower():match("clicktp") then
 			clicktp()
-		elseif text.Text:lower():match("infjump") then --cmd infjump
+		elseif text.Text:lower():match("infjump") then
 			infjump()
-		elseif text.Text:lower() == "jump" then --cmd jump
+		elseif text.Text:lower() == "jump" then
 			jump()
-		elseif text.Text:lower() == "fly" then --cmd fly
+		elseif text.Text:lower() == "fly" then
 			fly()
-		elseif text.Text:lower():match("unfly") then --cmd unfly
+		elseif text.Text:lower():match("unfly") then
 			unfly()
-		elseif text.Text:lower() == "bfly" then --cmd bfly
+		elseif text.Text:lower() == "bfly" then
 			bfly()
-		elseif text.Text:lower():match("unbfly") then --cmd unbfly
+		elseif text.Text:lower():match("unbfly") then
 			unbfly()
-		elseif text.Text:lower() == "fling" then --cmd fling
+		elseif text.Text:lower() == "fling" then
 			fling()
-		elseif text.Text:lower():match("unfling") then --cmd unfling
+		elseif text.Text:lower():match("unfling") then
 			unfling()
-		elseif text.Text:lower():sub(1,5) == "flysp" then --cmd flysp
+		elseif text.Text:lower():sub(1,5) == "flysp" then
 			local flyspArgs = text.Text:sub(7)
 			flysp(flyspArgs)
-		elseif text.Text:lower():sub(1,6) == "bflysp" then --cmd bflysp
+		elseif text.Text:lower():sub(1,6) == "bflysp" then
 			local bflyspArgs = text.Text:sub(8)
 			bflysp(bflyspArgs)
-		elseif text.Text:lower():match("invisible") or text.Text:lower() == "invis" then --cmd invisible
+		elseif text.Text:lower():match("invisible") or text.Text:lower() == "invis" then
 			invisible()
-		elseif text.Text:lower():match("visible") or text.Text:lower() == "vis" then --cmd visible
+		elseif text.Text:lower():match("visible") or text.Text:lower() == "vis" then
 			turnVis()
 		elseif text.Text:lower():match("spawnpoint") then
 			spawnpoint()
@@ -1463,6 +1471,8 @@ text.FocusLost:Connect(function(e)
 			day()
 		elseif text.Text:lower():match("night") then
 			night()
+		elseif text.Text:lower():match("exit") then
+			exit()
 		end
 	end
 end)
@@ -1473,7 +1483,7 @@ pret.FocusLost:Connect(function(e)
 	end
 end)
 
-me.Chatted:Connect(function(cht)
+me.Chatted:Connect(function(cht) --cht cmd
 	local inp = cht
 
 	if inp:sub(1,#prefix) == prefix then
@@ -1487,90 +1497,90 @@ me.Chatted:Connect(function(cht)
 			table.insert(args, split[i])
 		end
 
-		if cmd == "to" then --cmd to
+		if cmd == "to" then
 			local target = args[1]
 			to(target)
-		elseif cmd == "follow" then --cmd follow
+		elseif cmd == "follow" then
 			local target = args[1]
 			follow(target)
-		elseif cmd == "unfollow" then --cmd unfollow
+		elseif cmd == "unfollow" then
 			unfollow()
-		elseif cmd == "headsit" then --cmd headsit
+		elseif cmd == "headsit" then
 			local target = args[1]
 			headsit(target)
-		elseif cmd == "waypoint" then --cmd waypoint
+		elseif cmd == "waypoint" then
 			local target = args[1]
 			waypoint(target)
-		elseif cmd == "wayrm" then --cmd wayrm
+		elseif cmd == "wayrm" then
 			local target = args[1]
 			wayrm(target)
-		elseif cmd == "tpway" then --cmd tpway
+		elseif cmd == "tpway" then
 			local target = args[1]
 			tpway(target)
-		elseif cmd == "view" then --cmd view
+		elseif cmd == "view" then
 			local target = args[1]
 			view(target)
-		elseif cmd == "unview" then --cmd unview
+		elseif cmd == "unview" then
 			unview()
 		elseif cmd == "speed" then
 			local target = args[1]
 			speed(target)
-		elseif cmd == "jumppower" then --cmd jumppower
+		elseif cmd == "jumppower" then
 			local target = args[1]
 			jumppower(target)
-		elseif cmd == "gravity" then --cmd gravity
+		elseif cmd == "gravity" then
 			local target = args[1]
 			gravity(target)
-		elseif cmd == "say" then --cmd say
+		elseif cmd == "say" then
 			local target = args[1]
 			chat(target)
-		elseif cmd == "grabtools" then --cmd grabtools
+		elseif cmd == "grabtools" then
 			grabtools()
-		elseif cmd == "ungrabtools" then --cmd ungrabtools
+		elseif cmd == "ungrabtools" then
 			ungrabtools()
-		elseif cmd == "droptools" then --cmd droptools
+		elseif cmd == "droptools" then
 			droptools()
-		elseif cmd == "lay" then --cmd lay
+		elseif cmd == "lay" then
 			lay()
-		elseif cmd == "sit" then --cmd sit
+		elseif cmd == "sit" then
 			sit()
-		elseif cmd == "reset" then --cmd reset
+		elseif cmd == "reset" then
 			reset()
-		elseif cmd == "rejoin" then --cmd rejoin
+		elseif cmd == "rejoin" then
 			rejoin()
-		elseif cmd == "maxzoom" then --cmd maxzoom
+		elseif cmd == "maxzoom" then
 			local target = args[1]
 			maxzoom(target)
-		elseif cmd == "minzoom" then --cmd minzoom
+		elseif cmd == "minzoom" then
 			local target = args[1]
 			minzoom(target)
-		elseif cmd == "clicktp" then --cmd clicktp
+		elseif cmd == "clicktp" then
 			clicktp()
-		elseif cmd == "infjump" then --cmd infjump
+		elseif cmd == "infjump" then
 			infjump()
-		elseif cmd == "jump" then --cmd jump
+		elseif cmd == "jump" then
 			jump()
-		elseif cmd == "fly" then --cmd fly
+		elseif cmd == "fly" then
 			fly()
-		elseif cmd == "unfly" then --cmd unfly
+		elseif cmd == "unfly" then
 			unfly()
-		elseif cmd == "bfly" then --cmd bfly
+		elseif cmd == "bfly" then
 			bfly()
-		elseif cmd == "unbfly" then --cmd unbfly
+		elseif cmd == "unbfly" then
 			unbfly()
-		elseif cmd == "fling" then --cmd fling
+		elseif cmd == "fling" then
 			fling()
-		elseif cmd == "unfling" then --cmd unfling
+		elseif cmd == "unfling" then
 			unfling()
-		elseif cmd == "flysp" then --cmd flysp
+		elseif cmd == "flysp" then
 			local target = args[1]
 			flysp(target)
-		elseif cmd == "bflysp" then --cmd bflysp
+		elseif cmd == "bflysp" then
 			local target = args[1]
 			bflysp(target)
-		elseif cmd == "invisible" or cmd == "invis" then --cmd invisible
+		elseif cmd == "invisible" or cmd == "invis" then
 			invisible()
-		elseif cmd == "visible" or cmd == "vis" then --cmd visible
+		elseif cmd == "visible" or cmd == "vis" then
 			turnVis()
 		elseif cmd == "spawnpoint" then
 			spawnpoint()
@@ -1578,6 +1588,8 @@ me.Chatted:Connect(function(cht)
 			day()
 		elseif cmd == "night" then
 			night()
+		elseif cmd == "exit" then
+			exit()
 		end
 	end
 end)
@@ -1720,6 +1732,8 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, day)
 		elseif text.Text:lower():match("night") then
 			addKeybind(keyt.Text, night)
+		elseif text.Text:lower():match("exit") then
+			addKeybind(keyt.Text, exit)
 		end
 	end
 end)
