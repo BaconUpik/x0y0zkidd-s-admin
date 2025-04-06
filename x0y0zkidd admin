@@ -211,11 +211,13 @@ layout.Padding = UDim.new(0,5)
 layout.SortOrder = Enum.SortOrder.LayoutOrder
 layout.VerticalAlignment = Enum.VerticalAlignment.Top
 
+--command list, cmdlist, cmd list, commands, cmds
+
 local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -701,8 +703,9 @@ function waypoint(args) --cmd waypoint
 	if args ~= "" then
 		local p        = Instance.new("Part")
 		p.Parent       = work
+		p.Size         = Vector3.new(0.2,1000,0.2)
 		p.Name         = "Way"..args
-		p.Transparency = 0.9
+		p.Transparency = 0.8
 		p.Anchored     = true
 		p.CanCollide   = false
 		p.BrickColor   = BrickColor.new("Pink")
