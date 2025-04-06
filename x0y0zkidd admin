@@ -66,6 +66,10 @@ local flingCon
 local flyVel
 local bodyFly
 
+local prefix = ";"
+
+local chatCon
+
 local screen  = Instance.new("ScreenGui")
 screen.Name   = "xyz_admin"
 screen.Parent = me.PlayerGui
@@ -81,7 +85,7 @@ frame.Position         = UDim2.new(0,1649,0,971)
 local keyt                  = Instance.new("TextBox")
 keyt.Parent                 = frame
 keyt.Size                   = UDim2.new(0, 105, 0, 45)
-keyt.Position               = UDim2.new(0, 85, 0, 174)
+keyt.Position               = UDim2.new(0, 38, 0, 174)
 keyt.Text                   = ""
 keyt.TextColor3             = Color3.fromRGB(255,255,255)
 keyt.TextSize               = 16
@@ -96,6 +100,11 @@ keyt.TextScaled = false
 keyt.TextXAlignment         = "Center"
 keyt.TextYAlignment         = "Center"
 
+local pret = keyt:Clone()
+pret.Parent = frame
+pret.Position = UDim2.new(0,keyt.Position.X.Offset + 100,0,keyt.Position.Y.Offset)
+pret.PlaceholderText = "Chat '"..prefix.."' Prefix"
+
 local exe                  = Instance.new("ImageLabel")
 exe.Parent                 = frame
 exe.Size                   = keyt.Size
@@ -104,6 +113,11 @@ exe.BackgroundTransparency = 1
 exe.Image                  = "rbxassetid://89760411485169"
 exe.ZIndex                 = 1
 keyt.ZIndex                = 2
+
+local exe2 = exe:Clone()
+exe2.Parent = frame
+exe2.Position = UDim2.new(0,pret.Position.X.Offset,0,pret.Position.Y.Offset)
+pret.ZIndex = 2
 
 local btn            = Instance.new("TextButton")
 btn.Parent           = frame
@@ -402,6 +416,8 @@ end)
 
 run.RenderStepped:Connect(function()
 	keyt.TextColor3 = Color3.fromRGB(255,255,255)
+	pret.TextColor3 = Color3.fromRGB(255,255,255)
+	pret.PlaceholderText = "Chat '"..prefix.."' Prefix"
 end)
 
 local btnT4            = Instance.new("TextButton")
@@ -1402,6 +1418,117 @@ text.FocusLost:Connect(function(e)
 		elseif text.Text:lower():match("visible") or text.Text:lower() == "vis" then --cmd visible
 			turnVis()
 		elseif text.Text:lower():match("spawnpoint") then
+			spawnpoint()
+		end
+	end
+end)
+
+pret.FocusLost:Connect(function(e)
+	if e then
+		prefix = pret.Text
+	end
+end)
+
+me.Chatted:Connect(function(cht)
+	local inp = cht
+
+	if inp:sub(1,#prefix) == prefix then
+		local fullCmd = inp:sub(#prefix+1)
+		local split = string.split(fullCmd, " ")
+
+		local cmd = split[1]
+		local args = {}
+
+		for i = 2, #split do
+			table.insert(args, split[i])
+		end
+
+		if cmd == "to" then --cmd to
+			local target = args[1]
+			to(target)
+		elseif cmd == "follow" then --cmd follow
+			local target = args[1]
+			follow(target)
+		elseif cmd == "unfollow" then --cmd unfollow
+			unfollow()
+		elseif cmd == "headsit" then --cmd headsit
+			local target = args[1]
+			headsit(target)
+		elseif cmd == "waypoint" then --cmd waypoint
+			local target = args[1]
+			waypoint(target)
+		elseif cmd == "wayrm" then --cmd wayrm
+			local target = args[1]
+			wayrm(target)
+		elseif cmd == "tpway" then --cmd tpway
+			local target = args[1]
+			tpway(target)
+		elseif cmd == "view" then --cmd view
+			local target = args[1]
+			view(target)
+		elseif cmd == "unview" then --cmd unview
+			unview()
+		elseif cmd == "speed" then
+			local target = args[1]
+			speed(target)
+		elseif cmd == "jumppower" then --cmd jumppower
+			local target = args[1]
+			jumppower(target)
+		elseif cmd == "gravity" then --cmd gravity
+			local target = args[1]
+			gravity(target)
+		elseif cmd == "say" then --cmd say
+			local target = args[1]
+			chat(target)
+		elseif cmd == "grabtools" then --cmd grabtools
+			grabtools()
+		elseif cmd == "ungrabtools" then --cmd ungrabtools
+			ungrabtools()
+		elseif cmd == "droptools" then --cmd droptools
+			droptools()
+		elseif cmd == "lay" then --cmd lay
+			lay()
+		elseif cmd == "sit" then --cmd sit
+			sit()
+		elseif cmd == "reset" then --cmd reset
+			reset()
+		elseif cmd == "rejoin" then --cmd rejoin
+			rejoin()
+		elseif cmd == "maxzoom" then --cmd maxzoom
+			local target = args[1]
+			maxzoom(target)
+		elseif cmd == "minzoom" then --cmd minzoom
+			local target = args[1]
+			minzoom(target)
+		elseif cmd == "clicktp" then --cmd clicktp
+			clicktp()
+		elseif cmd == "infjump" then --cmd infjump
+			infjump()
+		elseif cmd == "jump" then --cmd jump
+			jump()
+		elseif cmd == "fly" then --cmd fly
+			fly()
+		elseif cmd == "unfly" then --cmd unfly
+			unfly()
+		elseif cmd == "bfly" then --cmd bfly
+			bfly()
+		elseif cmd == "unbfly" then --cmd unbfly
+			unbfly()
+		elseif cmd == "fling" then --cmd fling
+			fling()
+		elseif cmd == "unfling" then --cmd unfling
+			unfling()
+		elseif cmd == "flysp" then --cmd flysp
+			local target = args[1]
+			flysp(target)
+		elseif cmd == "bflysp" then --cmd bflysp
+			local target = args[1]
+			bflysp(target)
+		elseif cmd == "invisible" or cmd == "invis" then --cmd invisible
+			invisible()
+		elseif cmd == "visible" or cmd == "vis" then --cmd visible
+			turnVis()
+		elseif cmd == "spawnpoint" then
 			spawnpoint()
 		end
 	end
