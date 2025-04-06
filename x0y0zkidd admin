@@ -178,23 +178,47 @@ labelP.Name            = "TextLabel2"
 
 local frame2            = Instance.new("Frame")
 frame2.Parent           = screen
-frame2.Size             = UDim2.new(0, 310, 0, 565)
+frame2.Size             = UDim2.new(0, 310, 0, 480)
 frame2.BackgroundColor3 = Color3.fromRGB(255,20,147)
 frame2.Position         = UDim2.new(0, 1040, 0, 550)
 frame2.Name             = "f2"
 frame2.Visible = false
 
-
 frame2.Active     = true
 frame2.Selectable = true
 frame2.Draggable  = true
 
+local scroll = Instance.new("ScrollingFrame")
+scroll.Parent = frame2
+scroll.Size = UDim2.new(0,290,0,440)
+scroll.Position = UDim2.new(0,10,0,30)
+scroll.BackgroundColor3 = Color3.fromRGB(255,20,147)
+scroll.AutomaticCanvasSize = Enum.AutomaticSize.XY
+scroll.ScrollingDirection = Enum.ScrollingDirection.XY
+scroll.ScrollBarThickness = 6
+
+local scrlFrame            = Instance.new("Frame")
+scrlFrame.Parent           = scroll
+scrlFrame.BackgroundColor3 = Color3.fromRGB(255,20,147)
+scrlFrame.Position         = UDim2.new(0,0,0,0)
+scrlFrame.BorderSizePixel = 0
+scrlFrame.AutomaticSize = Enum.AutomaticSize.XY
+scrlFrame.Name             = "scrlFrame"
+
+local layout = Instance.new("UIListLayout")
+layout.Parent = scrlFrame
+layout.Padding = UDim.new(0,5)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.VerticalAlignment = Enum.VerticalAlignment.Top
+
 local label2           = Instance.new("TextLabel")
-label2.Parent          = frame2
+label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
-label2.Position        = UDim2.new(0, 155, 0, 285)
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Position        = UDim2.new(0,100,0,0)
+label2.AutomaticSize = Enum.AutomaticSize.XY
+label2.BackgroundTransparency = 1
 
 local labelC           = Instance.new("TextLabel")
 labelC.Parent          = frame2
@@ -266,7 +290,7 @@ btnT3.Name             = "btnT3"
 
 btnT.MouseButton1Click:Connect(function()
 	for _, col in pairs(screen:GetDescendants()) do
-		if col:IsA("Frame") then
+		if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 			col.BackgroundColor3 = Color3.fromRGB(254,254,254)
 		elseif col:IsA("TextButton") or col:IsA("TextBox") then
 			col.BackgroundColor3 = Color3.fromRGB(220,220,220)
@@ -279,7 +303,7 @@ end)
 
 btnT2.MouseButton1Click:Connect(function()
 	for _, col in pairs(screen:GetDescendants()) do
-		if col:IsA("Frame") then
+		if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 			col.BackgroundColor3 = Color3.fromRGB(0,0,0)
 		elseif col:IsA("TextButton") or col:IsA("TextBox") then
 			col.BackgroundColor3 = Color3.fromRGB(100,100,100)
@@ -292,7 +316,7 @@ end)
 
 btnT3.MouseButton1Click:Connect(function()
 	for _, col in pairs(screen:GetDescendants()) do
-		if col:IsA("Frame") then
+		if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 			col.BackgroundColor3 = Color3.fromRGB(255,20,147)
 		elseif col:IsA("TextButton") or col:IsA("TextBox") then
 			col.BackgroundColor3 = Color3.fromRGB(186,85,211)
@@ -301,6 +325,14 @@ btnT3.MouseButton1Click:Connect(function()
 			col.TextColor3 = Color3.fromRGB(0,0,0)
 		end
 	end
+	btn.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btn.TextColor3 = Color3.fromRGB(255,0,0)
+	
+	btnX.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btnX.TextColor3 = Color3.fromRGB(255,0,0)
+	
+	btnX2.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btnX2.TextColor3 = Color3.fromRGB(255,0,0)
 end)
 
 local labelT           = Instance.new("TextLabel")
@@ -326,16 +358,16 @@ textT.Name              = "textT"
 local labelT2           = Instance.new("TextLabel")
 labelT2.Parent          = frame3
 labelT2.BorderSizePixel = 0
-labelT2.Text            = "Example:\nblue"
-labelT2.TextSize        = 10
-labelT2.Position        = UDim2.new(0, 200, 0, 186)
+labelT2.Text            = "Colors:\nred\norange\nyellow\ngreen\nblue\npurple\npink"
+labelT2.TextSize        = 11
+labelT2.Position        = UDim2.new(0, 200, 0, 126)
 labelT2.Name            = "labelT2"
 
 textT.FocusLost:Connect(function(ent)
 	if ent then
-		if textT.Text == "blue" then
+		if textT.Text:lower():match("blue") then
 			for _, col in pairs(screen:GetDescendants()) do
-				if col:IsA("Frame") then
+				if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 					col.BackgroundColor3 = Color3.fromRGB(0,0,255)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(0,125,255)
@@ -344,9 +376,9 @@ textT.FocusLost:Connect(function(ent)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
 				end
 			end
-		elseif textT.Text == "red" then
+		elseif textT.Text:lower():match("red") then
 			for _, col in pairs(screen:GetDescendants()) do
-				if col:IsA("Frame") then
+				if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,0,0)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,126,126)
@@ -355,9 +387,9 @@ textT.FocusLost:Connect(function(ent)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
 				end
 			end
-		elseif textT.Text == "green" then
+		elseif textT.Text:lower():match("green") then
 			for _, col in pairs(screen:GetDescendants()) do
-				if col:IsA("Frame") then
+				if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 					col.BackgroundColor3 = Color3.fromRGB(0,255,0)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(0,200,0)
@@ -366,9 +398,9 @@ textT.FocusLost:Connect(function(ent)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
 				end
 			end
-		elseif textT.Text == "orange" then
+		elseif textT.Text:lower():match("orange") then
 			for _, col in pairs(screen:GetDescendants()) do
-				if col:IsA("Frame") then
+				if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,135,0)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,159,102)
@@ -377,9 +409,9 @@ textT.FocusLost:Connect(function(ent)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
 				end
 			end
-		elseif textT.Text == "yellow" then
+		elseif textT.Text:lower():match("yellow") then
 			for _, col in pairs(screen:GetDescendants()) do
-				if col:IsA("Frame") then
+				if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,0)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(188,255,0)
@@ -388,9 +420,9 @@ textT.FocusLost:Connect(function(ent)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
 				end
 			end
-		elseif textT.Text == "purple" then
+		elseif textT.Text:lower():match("purple") then
 			for _, col in pairs(screen:GetDescendants()) do
-				if col:IsA("Frame") then
+				if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 					col.BackgroundColor3 = Color3.fromRGB(170,0,255)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(215,135,255)
@@ -399,9 +431,9 @@ textT.FocusLost:Connect(function(ent)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
 				end
 			end
-		elseif textT.Text == "pink" then
+		elseif textT.Text:lower():match("pink") then
 			for _, col in pairs(screen:GetDescendants()) do
-				if col:IsA("Frame") then
+				if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,155,255)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(215,135,255)
@@ -449,7 +481,7 @@ btn3.MouseButton1Click:Connect(function()
 	for _, com in pairs(screen:GetChildren()) do
 		if com.Name == "f2" then
 			com.Visible = true
-			com.Position = UDim2.new(0,frame.Position.X.Offset + -350,0,frame.Position.Y.Offset + -100)
+			com.Position = UDim2.new(0,frame.Position.X.Offset + -350,0,frame.Position.Y.Offset + -150)
 		end
 	end
 end)
@@ -1282,6 +1314,14 @@ function spawnpoint()
 	end)
 end
 
+function day()
+	game:GetService("Lighting").ClockTime = 14
+end
+
+function night()
+	game:GetService("Lighting").ClockTime = 0
+end
+
 keyt:GetPropertyChangedSignal("Text"):Connect(function()
 	if keyt.Text == "1" or keyt.Text == "One" then
 		keyt.Text = "One"
@@ -1419,6 +1459,10 @@ text.FocusLost:Connect(function(e)
 			turnVis()
 		elseif text.Text:lower():match("spawnpoint") then
 			spawnpoint()
+		elseif text.Text:lower():match("day") then
+			day()
+		elseif text.Text:lower():match("night") then
+			night()
 		end
 	end
 end)
@@ -1530,6 +1574,10 @@ me.Chatted:Connect(function(cht)
 			turnVis()
 		elseif cmd == "spawnpoint" then
 			spawnpoint()
+		elseif cmd == "day" then
+			day()
+		elseif cmd == "night" then
+			night()
 		end
 	end
 end)
@@ -1668,6 +1716,10 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			end)
 		elseif text.Text:lower():match("spawnpoint") then
 			addKeybind(keyt.Text, spawnpoint)
+		elseif text.Text:lower():match("day") then
+			addKeybind(keyt.Text, day)
+		elseif text.Text:lower():match("night") then
+			addKeybind(keyt.Text, night)
 		end
 	end
 end)
