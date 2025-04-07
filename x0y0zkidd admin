@@ -217,7 +217,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -1331,6 +1331,58 @@ function exit() --cmd exit
 	game:Shutdown()
 end
 
+local enums
+local swimCon
+local isSwimDead
+local isSwimming = false
+
+function swim()
+	if not isSwimming then
+		enums = Enum.HumanoidStateType:GetEnumItems()
+
+		table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+		for i, state in pairs(enums) do
+			hum:SetStateEnabled(state, false)
+
+			hum:ChangeState(Enum.HumanoidStateType.Swimming)
+		end
+		swimCon = run.RenderStepped:Connect(function()
+			pcall(function()
+				hrp.Velocity = ((hum.MoveDirection ~= Vector3.new()) or uis:IsKeyDown(Enum.KeyCode.Space) and hrp.Velocity or Vector3.new())
+			end)
+			work.Gravity = 0
+		end)
+		isSwimDead = hum.Died:Connect(unswim)
+	end
+	isSwimming = true
+end
+
+function unswim()
+	isSwimming = false
+
+	if swimCon then
+		swimCon:Disconnect()
+		swimCon = nil
+	end
+	if isSwimDead then
+		isSwimDead:Disconnect()
+		isSwimDead = nil
+	end
+
+	work.Gravity = 196.2
+
+	isSwimming = false
+	enums = Enum.HumanoidStateType:GetEnumItems()
+
+	table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+
+	for i, state in pairs(enums) do
+		hum:SetStateEnabled(state, true)
+
+		hum:ChangeState(Enum.HumanoidStateType.None)
+	end
+end
+
 --last function
 
 keyt:GetPropertyChangedSignal("Text"):Connect(function()
@@ -1476,6 +1528,10 @@ text.FocusLost:Connect(function(e)
 			night()
 		elseif text.Text:lower():match("exit") then
 			exit()
+		elseif text.Text:lower() == "swim" then
+			swim()
+		elseif text.Text:lower():match("unswim") then
+			unswim()
 		end
 	end
 end)
@@ -1593,6 +1649,10 @@ me.Chatted:Connect(function(cht) --cht cmd
 			night()
 		elseif cmd == "exit" then
 			exit()
+		elseif cmd == "swim" then
+			swim()
+		elseif cmd == "unswim" then
+			unswim()
 		end
 	end
 end)
@@ -1737,6 +1797,10 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, night)
 		elseif text.Text:lower():match("exit") then
 			addKeybind(keyt.Text, exit)
+		elseif text.Text:lower() == "swim" then
+			addKeybind(keyt.Text, swim)
+		elseif text.Text:lower():match("unswim") then
+			addKeybind(keyt.Text, unswim)
 		end
 	end
 end)
