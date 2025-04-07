@@ -745,51 +745,63 @@ end
 
 function speed(args) --cmd speed
 	if args ~= "" then
-		if speedCon then
-			speedCon:Disconnect()
-			speedCon = nil
+		hum.WalkSpeed = args
+		task.wait(0.2)
+		if hum.Speed ~= args then
+			if speedCon then
+				speedCon:Disconnect()
+				speedCon = nil
 
-			speedCon = run.RenderStepped:Connect(function()
-				hum.WalkSpeed = args
-			end)
-		else
-			speedCon = run.RenderStepped:Connect(function()
-				hum.WalkSpeed = args
-			end)
+				speedCon = run.RenderStepped:Connect(function()
+					hum.WalkSpeed = args
+				end)
+			else
+				speedCon = run.RenderStepped:Connect(function()
+					hum.WalkSpeed = args
+				end)
+			end
 		end
 	end
 end
 
 function jumppower(args) --cmd jumppower
 	if args ~= "" then
-		if jumpCon then
-			jumpCon:Disconnect()
-			jumpCon = nil
+		hum.JumpPower = args
+		task.wait(0.2)
+		if hum.JumpPower ~= args then
+			if jumpCon then
+				jumpCon:Disconnect()
+				jumpCon = nil
 
-			jumpCon = run.RenderStepped:Connect(function()
-				hum.JumpPower = args
-			end)
-		else
-			jumpCon = run.RenderStepped:Connect(function()
-				hum.JumpPower = args
-			end)
+				jumpCon = run.RenderStepped:Connect(function()
+					hum.JumpPower = args
+				end)
+			else
+				jumpCon = run.RenderStepped:Connect(function()
+					hum.JumpPower = args
+				end)
+			end
 		end
 	end
 end
 
 function gravity(args) --cmd gravity
 	if args ~= "" then
-		if gravityCon then
-			gravityCon:Disconnect()
-			gravityCon = nil
+		work.Gravity = args
+		task.wait(0.2)
+		if work.Gravity ~= args then
+			if gravityCon then
+				gravityCon:Disconnect()
+				gravityCon = nil
 
-			gravityCon = run.RenderStepped:Connect(function()
-				work.Gravity = args
-			end)
-		else
-			gravityCon = run.RenderStepped:Connect(function()
-				work.Gravity = args
-			end)
+				gravityCon = run.RenderStepped:Connect(function()
+					work.Gravity = args
+				end)
+			else
+				gravityCon = run.RenderStepped:Connect(function()
+					work.Gravity = args
+				end)
+			end
 		end
 	end
 end
