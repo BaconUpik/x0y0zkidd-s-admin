@@ -680,7 +680,7 @@ function headsit(args) --cmd headsit
 				hum.Sit = true
 
 				local con2
-				con2 = game:GetService("RunService").RenderStepped:Connect(function()
+				con2 = game:GetService("RunService").Heartbeat:Connect(function()
 					hum.Sit = true
 					hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
 					uis.InputBegan:Connect(function(i2, g2)
@@ -912,8 +912,7 @@ function fly() --cmd fly
 	bodyFly.Parent = hrp
 	bodyFly.MaxTorque = Vector3.new(9e9,9e9,9e9)
 	bodyFly.CFrame = hrp.CFrame
-
-	hum.PlatformStand = false
+	bodyFly.Name = "bodyFly"
 
 	flyLook = run.RenderStepped:Connect(function()
 		local updMousePos = mouse.Hit.Position
@@ -1001,9 +1000,9 @@ function fly() --cmd fly
 end
 
 function unfly() --cmd unfly
-	hrp.Anchored = false
 	hum.PlatformStand = false
 	hrp:FindFirstChild("flyVel"):Destroy()
+	hrp:FindFirstChild("bodyFly"):Destroy()
 
 	if uisHolder then
 		uisHolder:Disconnect()
