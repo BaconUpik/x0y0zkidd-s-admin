@@ -1252,8 +1252,11 @@ function reset() --cmd reset
 end
 
 function unfollow() --cmd unfollow
-	connection:Disconnect()
-	wait()
+	if connection then
+		connection:Disconnect()
+		connection = nil
+	end
+	task.wait(0.1)
 	hum:MoveTo(hrp.Position)
 end
 local part
