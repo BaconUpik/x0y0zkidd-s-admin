@@ -902,15 +902,30 @@ function rejoin() --cmd rejoin
 	end
 end
 
+local maxCon
+local minCon
+
 function maxzoom(args) --cmd maxzoom
 	if args ~= "" then
 		me.CameraMaxZoomDistance = args
+		task.wait(0.5)
+		if me.CameraMaxZoomDistance ~= args then
+			maxCon = run.RenderStepped:Connect(function()
+				me.CameraMaxZoomDistance = args
+			end)
+		end
 	end
 end
 
 function minzoom(args) --cmd minzoom
 	if args ~= "" then
 		me.CameraMinZoomDistance = args
+		task.wait(0.5)
+		if me.CameraMinZoomDistance ~= args then
+			minCon = run.RenderStepped:Connect(function()
+				me.CameraMinZoomDistance = args
+			end)
+		end
 	end
 end
 
