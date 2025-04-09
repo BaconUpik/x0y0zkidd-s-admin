@@ -358,10 +358,10 @@ btnT3.MouseButton1Click:Connect(function()
 	end
 	btn.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	btn.TextColor3 = Color3.fromRGB(255,0,0)
-	
+
 	btnX.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	btnX.TextColor3 = Color3.fromRGB(255,0,0)
-	
+
 	btnX2.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	btnX2.TextColor3 = Color3.fromRGB(255,0,0)
 end)
@@ -672,8 +672,8 @@ end)
 function addKeybind(key,command)
 	uis.InputBegan:Connect(function(i,g)
 		if g then return end
-		
-		
+
+
 		if i.KeyCode == Enum.KeyCode[key] then
 			command()
 		end
@@ -1358,7 +1358,7 @@ function spawnpoint() --cmd spawnpoint
 	local spawnPos = hrp.CFrame
 	isSpawnpoint = me.CharacterAdded:Connect(function()
 		repeat wait(0.1) until me.Character
-		
+
 		hrp.CFrame = spawnPos
 	end)
 end
@@ -1438,63 +1438,70 @@ local eDown
 local qDown
 
 function float() --cmd float
-	plat = Instance.new("Part")
-	plat.Parent = work
-	plat.Size = Vector3.new(3,1,3)
-	plat.Transparency = 1
-	
-	floatValue = -3.2
-	
-	platCon = run.RenderStepped:Connect(function()
-		plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
-	end)
-	eUp = mouse.KeyUp:Connect(function(key)
-		if key == "e" then
-			floatValue = floatValue + 0.5
-		end
-	end)
-	eDown = mouse.KeyDown:Connect(function(key)
-		if key == "e" then
-			floatValue = floatValue + 0.5
-		end
-	end)
-	qUp = mouse.KeyUp:Connect(function(key)
-		if key == "q" then
-			floatValue = floatValue + -0.5
-		end
-	end)
-	qDown = mouse.KeyDown:Connect(function(key)
-		if key == "q" then
-			floatValue = floatValue + -0.5
-		end
-	end)
-	platDied = hum.Died:Connect(function()
-		platDied:Disconnect()
-		platDied = nil
-		if plat then
-			plat:Destroy()
-		end
-		if platCon then
-			platCon:Disconnect()
-			platCon = nil
-		end
-		if eUp then
-			eUp:Disconnect()
-			eUp = nil
-		end
-		if eDown then
-			eDown:Disconnect()
-			eDown = nil
-		end
-		if qUp then
-			qUp:Disconnect()
-			qUp = nil
-		end
-		if qDown then
-			qDown:Disconnect()
-			qDown = nil
-		end
-	end)
+	if not char:FindFirstChild("FloatHolder") then
+		task.spawn(function()
+			floatValue = -3.1
+
+			plat = Instance.new("Part")
+			plat.Parent = char
+			plat.Name = "FloatHolder"
+			plat.Size = Vector3.new(2,0.2,2)
+			plat.Transparency = 1
+			plat.Anchored = true
+			plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
+
+			platCon = run.Heartbeat:Connect(function()
+				plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
+			end)
+			eUp = mouse.KeyUp:Connect(function(key)
+				if key == "e" then
+					floatValue = floatValue - 1
+				end
+			end)
+			eDown = mouse.KeyDown:Connect(function(key)
+				if key == "e" then
+					floatValue = floatValue + 1
+				end
+			end)
+			qUp = mouse.KeyUp:Connect(function(key)
+				if key == "q" then
+					floatValue = floatValue + 0.3
+				end
+			end)
+			qDown = mouse.KeyDown:Connect(function(key)
+				if key == "q" then
+					floatValue = floatValue - 0.3
+				end
+			end)
+			platDied = hum.Died:Connect(function()
+				platDied:Disconnect()
+				platDied = nil
+				if plat then
+					plat:Destroy()
+				end
+				if platCon then
+					platCon:Disconnect()
+					platCon = nil
+				end
+				if eUp then
+					eUp:Disconnect()
+					eUp = nil
+				end
+				if eDown then
+					eDown:Disconnect()
+					eDown = nil
+				end
+				if qUp then
+					qUp:Disconnect()
+					qUp = nil
+				end
+				if qDown then
+					qDown:Disconnect()
+					qDown = nil
+				end
+			end)
+		end)
+	end
 end
 
 function unfloat() --cmd unfloat
@@ -1872,13 +1879,13 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text,invisible)
 		elseif text.Text:lower():sub(1, 2) == "to" then
 			local args = text.Text:sub(4)
-			
+
 			addKeybind(keyt.Text, function()
 				to(args)
 			end)
 		elseif text.Text:lower():sub(1, 6) == "follow" then
 			local args2 = text.Text:sub(8)
-			
+
 			addKeybind(keyt.Text, function()
 				follow(args2)
 			end)
@@ -1886,7 +1893,7 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, unfollow)
 		elseif text.Text:lower():sub(1, 7) == "headsit" then
 			local args3 = text.Text:sub(9)
-			
+
 			addKeybind(keyt.Text, function()
 				headsit(args3)
 			end)
@@ -1898,19 +1905,19 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			end)
 		elseif text.Text:lower():sub(1, 5) == "wayrm" then
 			local args5 = text.Text:sub(7)
-			
+
 			addKeybind(keyt.Text, function()
 				wayrm(args5)
 			end)
 		elseif text.Text:lower():sub(1, 5) == "tpway" then
 			local args6 = text.Text:sub(7)
-			
+
 			addKeybind(keyt.Text, function()
 				tpway(args6)
 			end)
 		elseif text.Text:lower():sub(1, 4) == "view" then
 			local args7 = text.Text:sub(6)
-			
+
 			addKeybind(keyt.Text, function()
 				view(args7)
 			end)
@@ -1918,25 +1925,25 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, unview)
 		elseif text.Text:lower():sub(1, 5) == "speed" then
 			local args8 = text.Text:sub(7)
-			
+
 			addKeybind(keyt.Text, function()
 				speed(args8)
 			end)
 		elseif text.Text:lower():sub(1, 9) == "jumppower" then
 			local args9 = text.Text:sub(11)
-			
+
 			addKeybind(keyt.Text, function()
 				jumppower(args9)
 			end)
 		elseif text.Text:lower():sub(1, 7) == "gravity" then
 			local grav = text.Text:sub(9)
-			
+
 			addKeybind(keyt.Text, function()
 				gravity(grav)
 			end)
 		elseif text.Text:lower():sub(1,3) == "say" then
 			local say = text.Text:sub(5)
-			
+
 			addKeybind(keyt.Text, function()
 				chat(say)
 			end)
@@ -1956,13 +1963,13 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, rejoin)
 		elseif text.Text:lower():sub(1, 7) == "maxzoom" then
 			local mz = text.Text:sub(9)
-			
+
 			addKeybind(keyt.Text, function()
 				maxzoom(mz)
 			end)
 		elseif text.Text:lower():sub(1, 7) == "minzoom" then
 			local minz = text.Text:sub(9)
-			
+
 			addKeybind(keyt.Text, function()
 				minzoom(minz)
 			end)
@@ -1986,13 +1993,13 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, unfling)
 		elseif text.Text:lower():sub(1,5) == "flysp" then
 			local flyspArgs = text.Text:sub(7)
-			
+
 			addKeybind(keyt.Text, function()
 				flysp(flyspArgs)
 			end)
 		elseif text.Text:lower():sub(1,6) == "bflysp" then
 			local bflyspArgs = text.Text:sub(8)
-			
+
 			addKeybind(keyt.Text, function()
 				bflysp(bflyspArgs)
 			end)
