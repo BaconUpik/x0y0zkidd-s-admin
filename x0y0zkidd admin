@@ -2,7 +2,7 @@
 
 local plr = game:GetService("Players")
 local me  = plr.LocalPlayer
-local char = me.Character
+local char = me.Character or me.CharacterAdded:Wait()
 local hum = char:WaitForChild("Humanoid")
 local hrp = char:WaitForChild("HumanoidRootPart")
 
@@ -13,6 +13,7 @@ local virtual = game:GetService("VirtualInputManager")
 local rep = game:GetService("ReplicatedStorage")
 local textChat = game:GetService("TextChatService")
 local guiService = game:GetService("GuiService")
+local starterGui = game:GetService("StarterGui")
 
 local mouse = me:GetMouse()
 local camera = work.CurrentCamera
@@ -246,7 +247,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray / noxray //toggle XRay vision\nnoclip / clip //togle noclip\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray / noxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset>\ndisable <inventory, emotes, playerlist, reset, chat>\nenableAll / disableAll ( inv, plrList, emotes, reset, chat )\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -1569,6 +1570,59 @@ function clip() --cmd clip
 	end
 end
 
+function enableAll() --cmd enableAll
+	print("enabling all...")
+	me.DevEnableMouseLock = true
+	starterGui:SetCore("ResetButtonCallback", true)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+	print("enabled all :D")
+end
+
+function disableAll() --cmd disableAll
+	print("disabling all...")
+	me.DevEnableMouseLock = false
+	starterGui:SetCore("ResetButtonCallback", false)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+	print("disabled all :D")
+end
+
+function enableA(args) --cmd enableA
+	if args:lower():match("shift") then
+		me.DevEnableMouseLock = true
+	elseif args:lower():match("inv") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+	elseif args:lower():match("player") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+	elseif args:lower():match("emote") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+	elseif args:lower():match("reset") then
+		starterGui:SetCore("ResetButtonCallback", true)
+	elseif args:lower():match("chat") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+	end
+end
+function disableA(args) --cmd disableA
+	if args:lower():match("shift") then
+		me.DevEnableMouseLock = false
+	elseif args:lower():match("inv") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+	elseif args:lower():match("player") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+	elseif args:lower():match("emote") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+	elseif args:lower():match("reset") then
+		starterGui:SetCore("ResetButtonCallback", false)
+	elseif args:lower():match("chat") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+	end
+end
+
 --last function
 
 keyt:GetPropertyChangedSignal("Text"):Connect(function()
@@ -1664,11 +1718,11 @@ text.FocusLost:Connect(function(e)
 			ungrabtools()
 		elseif text.Text:lower():match("droptools") then
 			droptools()
-		elseif text.Text:lower():match("lay") then
+		elseif text.Text:lower() == "lay" then
 			lay()
 		elseif text.Text:lower():match("sit") then
 			sit()
-		elseif text.Text:lower():match("reset") then
+		elseif text.Text:lower() == "reset" then
 			reset()
 		elseif text.Text:lower():match("rejoin") then
 			rejoin()
@@ -1730,6 +1784,17 @@ text.FocusLost:Connect(function(e)
 			noclip()
 		elseif text.Text:lower() == "clip" then
 			clip()
+		elseif text.Text:lower():match("enable all") then
+			enableAll()
+		elseif text.Text:lower():match("disable all") then
+			disableAll()
+		elseif text.Text:lower():sub(1,6) == "enable" then
+			local args = text.Text:sub(8)
+			print("enabling "..args)
+			enableA(args)
+		elseif text.Text:lower():sub(1,7) == "disable" then
+			local args = text.Text:sub(9)
+			disableA(args)
 		end
 	end
 end)
@@ -1867,6 +1932,16 @@ chatCon = me.Chatted:Connect(function(cht) --cht cmd
 			noclip()
 		elseif cmd == "clip" then
 			clip()
+		elseif cmd == "enableall" or cmd == "enable all" then
+			enableAll()
+		elseif cmd == "disableall" or cmd == "disable all" then
+			disableAll()
+		elseif cmd == "enable" then
+			local args = args[1]
+			enableA(args)
+		elseif cmd == "disable" then
+			local args = args[1]
+			disableA(args)
 		end
 	end
 end)
@@ -1953,11 +2028,11 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, ungrabtools)
 		elseif text.Text:lower():match("droptools") then
 			addKeybind(keyt.Text, droptools)
-		elseif text.Text:lower():match("lay") then
+		elseif text.Text:lower() =="lay" then
 			addKeybind(keyt.Text, lay)
 		elseif text.Text:lower():match("sit") then
 			addKeybind(keyt.Text, sit)
-		elseif text.Text:lower():match("reset") then
+		elseif text.Text:lower() == "reset" then
 			addKeybind(keyt.Text, reset)
 		elseif text.Text:lower():match("rejoin") then
 			addKeybind(keyt.Text, rejoin)
@@ -2027,6 +2102,20 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, noclip)
 		elseif text.Text:lower() == "clip" then
 			addKeybind(keyt.Text, clip)
+		elseif text.Text:lower():match("enable all") then
+			addKeybind(keyt.Text, enableAll)
+		elseif text.Text:lower():match("disable all") then
+			addKeybind(keyt.Text, disableAll)
+		elseif text.Text:lower():sub(1,6) == "enable" then
+			local args = text.Text:sub(8)
+			addKeybind(keyt.Text, function()
+				enableA(args)
+			end)
+		elseif text.Text:lower():sub(1,7) == "disable" then
+			local args = text.Text:sub(9)
+			addKeybind(keyt.Text, function()
+				disableA(args)
+			end)
 		end
 	end
 end)
