@@ -894,7 +894,7 @@ end
 
 function lay() --cmd lay
 	hum.Sit = true
-	task.wait(0.1)
+	task.wait(0.15)
 	hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
 	for _, stopAnim in pairs(hum:GetPlayingAnimationTracks()) do
 		stopAnim:Stop()
