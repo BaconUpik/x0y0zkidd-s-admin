@@ -37,7 +37,11 @@ local Bhold
 local Rhold = false
 local Lhold = false
 
-local uisHolder
+local uisHolderDown
+local uisHolderUp
+
+local uisHolderDown2
+local uisHolderUp2
 
 local work = game:GetService("Workspace")
 
@@ -984,11 +988,8 @@ function fly() --cmd fly
 		hrp.CFrame = CFrame.new(current, current + toLook)
 	end)
 
-	uisHolder = uis.InputBegan:Connect(function(i,g)
-		if g then return end
-
-		if i.KeyCode == Enum.KeyCode.W and not Fhold then
-			Fhold = true
+	uisHolderDown = mouse.KeyDown:Connect(function(key)
+		if key == "w" then
 			flyCon3 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -996,8 +997,7 @@ function fly() --cmd fly
 
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * flySpeed * dt
 			end)
-		elseif i.KeyCode == Enum.KeyCode.S and not Bhold then
-			Bhold = true
+		elseif key == "s" then
 			flyCon4 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1005,8 +1005,7 @@ function fly() --cmd fly
 
 				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * flySpeed * dt
 			end)
-		elseif i.KeyCode == Enum.KeyCode.D and not Rhold then
-			Rhold = true
+		elseif key == "d" then
 			flyCon5 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1014,8 +1013,7 @@ function fly() --cmd fly
 
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * flySpeed * dt
 			end)
-		elseif i.KeyCode == Enum.KeyCode.A and not Lhold then
-			Lhold = true
+		elseif key == "a" then
 			flyCon6 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1025,33 +1023,23 @@ function fly() --cmd fly
 			end)
 		end
 	end)
-	uis.InputEnded:Connect(function(i,g)
-		if g then return end
-
-		if i.KeyCode == Enum.KeyCode.W then
-			Fhold = false
-
+	uisHolderUp = mouse.KeyUp:Connect(function(key)
+		if key == "w" then
 			if flyCon3 then
 				flyCon3:Disconnect()
 				flyCon3 = nil
 			end
-		elseif i.KeyCode == Enum.KeyCode.S then
-			Bhold = false
-
+		elseif key == "s" then
 			if flyCon4 then
 				flyCon4:Disconnect()
 				flyCon4 = nil
 			end
-		elseif i.KeyCode == Enum.KeyCode.D then
-			Rhold = false
-
+		elseif key == "d" then
 			if flyCon5 then
 				flyCon5:Disconnect()
 				flyCon5 = nil
 			end
-		elseif i.KeyCode == Enum.KeyCode.A then
-			Lhold = false
-
+		elseif key == "a" then
 			if flyCon6 then
 				flyCon6:Disconnect()
 				flyCon6 = nil
@@ -1065,9 +1053,13 @@ function unfly() --cmd unfly
 	hrp:FindFirstChild("flyVel"):Destroy()
 	hrp:FindFirstChild("bodyFly"):Destroy()
 
-	if uisHolder then
-		uisHolder:Disconnect()
-		uisHolder = nil
+	if uisHolderDown then
+		uisHolderDown:Disconnect()
+		uisHolderDown = nil
+	end
+	if uisHolderUp then
+		uisHolderUp:Disconnect()
+		uisHolderUp = nil
 	end
 	if flyVel then
 		flyVel:Destroy()
@@ -1089,11 +1081,10 @@ function bfly() --cmd bfly
 	fhCon = run.RenderStepped:Connect(function()
 		flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
 	end)
-	uisHolder = uis.InputBegan:Connect(function(i,g)
+	uisHolderDown2 = mouse.KeyDown:Connect(function(key)
 		if g then return end
 
-		if i.KeyCode == Enum.KeyCode.E and not Uhold then
-			Uhold = true
+		if key == "e" then
 			flyCon = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1101,8 +1092,7 @@ function bfly() --cmd bfly
 
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * bflySpeed * dt
 			end)
-		elseif i.KeyCode == Enum.KeyCode.Q and not Dhold then
-			Dhold = true
+		elseif key == "q" then
 			flyCon2 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1110,8 +1100,7 @@ function bfly() --cmd bfly
 
 				hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * bflySpeed * dt
 			end)
-		elseif i.KeyCode == Enum.KeyCode.W and not Fhold then
-			Fhold = true
+		elseif key == "w" then
 			flyCon3 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1119,8 +1108,7 @@ function bfly() --cmd bfly
 
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * bflySpeed * dt
 			end)
-		elseif i.KeyCode == Enum.KeyCode.S and not Bhold then
-			Bhold = true
+		elseif key == "s" then
 			flyCon4 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1128,8 +1116,7 @@ function bfly() --cmd bfly
 
 				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * bflySpeed * dt
 			end)
-		elseif i.KeyCode == Enum.KeyCode.D and not Rhold then
-			Rhold = true
+		elseif key == "d" then
 			flyCon5 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1137,8 +1124,7 @@ function bfly() --cmd bfly
 
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * bflySpeed * dt
 			end)
-		elseif i.KeyCode == Enum.KeyCode.A and not Lhold then
-			Lhold = true
+		elseif key == "a" then
 			flyCon6 = run.RenderStepped:Connect(function(dt)
 				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
 					endAnims:Stop()
@@ -1148,47 +1134,33 @@ function bfly() --cmd bfly
 			end)
 		end
 	end)
-	uis.InputEnded:Connect(function(i,g)
-		if g then return end
-
-		if i.KeyCode == Enum.KeyCode.E then
-			Uhold = false
-
+	uisHolderUp2 = mouse.KeyUp:Connect(function(key)
+		if key == "e" then
 			if flyCon then
 				flyCon:Disconnect()
 				flyCon = nil
 			end
-		elseif i.KeyCode == Enum.KeyCode.Q then
-			Dhold = false
-
+		elseif key == "q" then
 			if flyCon2 then
 				flyCon2:Disconnect()
 				flyCon2 = nil
 			end
-		elseif i.KeyCode == Enum.KeyCode.W then
-			Fhold = false
-
+		elseif key == "w" then
 			if flyCon3 then
 				flyCon3:Disconnect()
 				flyCon3 = nil
 			end
-		elseif i.KeyCode == Enum.KeyCode.S then
-			Bhold = false
-
+		elseif key == "s" then
 			if flyCon4 then
 				flyCon4:Disconnect()
 				flyCon4 = nil
 			end
-		elseif i.KeyCode == Enum.KeyCode.D then
-			Rhold = false
-
+		elseif key == "d" then
 			if flyCon5 then
 				flyCon5:Disconnect()
 				flyCon5 = nil
 			end
-		elseif i.KeyCode == Enum.KeyCode.A then
-			Lhold = false
-
+		elseif key == "a" then
 			if flyCon6 then
 				flyCon6:Disconnect()
 				flyCon6 = nil
@@ -1198,17 +1170,20 @@ function bfly() --cmd bfly
 end
 
 function unbfly() --cmd unbfly
-	hrp.Anchored = false
-
-	local fPart = me.Character:FindFirstChild("FlyHolder")
+	local fPart = char:FindFirstChild("FlyHolder")
 	if fPart then
 		fPart:Destroy()
 	end
 
-	if uisHolder then
-		uisHolder:Disconnect()
-		uisHolder = nil
-	elseif fhCon then
+	if uisHolderDown2 then
+		uisHolderDown2:Disconnect()
+		uisHolderDown2 = nil
+	end
+	if uisHolderUp2 then
+		uisHolderUp2:Disconnect()
+		uisHolderUp2 = nil
+	end
+	if fhCon then
 		fhCon:Disconnect()
 		fhCon = nil
 	end
