@@ -14,6 +14,7 @@ local rep = game:GetService("ReplicatedStorage")
 local textChat = game:GetService("TextChatService")
 local guiService = game:GetService("GuiService")
 local starterGui = game:GetService("StarterGui")
+local light = game:GetService("Lighting")
 
 local mouse = me:GetMouse()
 local camera = work.CurrentCamera
@@ -691,7 +692,9 @@ function to(args) --cmd to
 	if args ~= "" then
 		for _, oth in pairs(plr:GetPlayers()) do
 			if oth.Name:lower():find(args:lower()) or oth.DisplayName:lower():find(args:lower()) then
-				hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
+				if oth.Character:FindFirstChild("HumanoidRootPart") then
+					hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
+				end
 			end
 		end
 	end
@@ -704,7 +707,9 @@ function follow(args) --cmd follow
 		for _, oth2 in pairs(plr:GetPlayers()) do
 			if oth2.Name:lower():find(args:lower()) or oth2.DisplayName:lower():find(args:lower()) then
 				connection = game:GetService("RunService").RenderStepped:Connect(function()
-					hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
+					if oth2.Character:FindFirstChild("HumanoidRootPart") then
+						hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
+					end
 				end)
 			end
 		end
@@ -715,23 +720,25 @@ function headsit(args) --cmd headsit
 	if args ~= "" then
 		for _, oth3 in pairs(plr:GetPlayers()) do
 			if oth3.Name:lower():find(args:lower()) or oth3.DisplayName:lower():find(args:lower()) then
-				hum.Sit = true
-
-				local con2
-				con2 = game:GetService("RunService").Heartbeat:Connect(function()
+				if oth3.Character:FindFirstChild("HumanoidRootPart") then
 					hum.Sit = true
-					hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
-					uis.InputBegan:Connect(function(i2, g2)
-						if i2.KeyCode == Enum.KeyCode.Space and not g2 then
-							hum.Sit = false
 
-							if con2 then
-								con2:Disconnect()
-								con2 = nil
+					local con2
+					con2 = game:GetService("RunService").Heartbeat:Connect(function()
+						hum.Sit = true
+						hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
+						uis.InputBegan:Connect(function(i2, g2)
+							if i2.KeyCode == Enum.KeyCode.Space and not g2 then
+								hum.Sit = false
+
+								if con2 then
+									con2:Disconnect()
+									con2 = nil
+								end
 							end
-						end
+						end)
 					end)
-				end)
+				end
 			end
 		end
 	end
@@ -778,7 +785,7 @@ function view(args) --cmd view
 end
 
 function unview() --cmd unview
-	camera.CameraSubject = me.Character
+	camera.CameraSubject = char
 end
 
 function speed(args) --cmd speed
@@ -955,13 +962,13 @@ end
 function infjump() --cmd infjump
 	game:GetService("UserInputService").InputBegan:Connect(function(i,g)
 		if i.KeyCode == Enum.KeyCode.Space and not g then
-			me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+			hum:ChangeState(Enum.HumanoidStateType.Jumping)
 		end
 	end)
 end
 
 function jump() --cmd jump
-	me.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+	hum:ChangeState(Enum.HumanoidStateType.Jumping)
 end
 
 function fly() --cmd fly
