@@ -2139,9 +2139,13 @@ end)
 uis.InputBegan:Connect(function(i, g)
 	if i.KeyCode == Enum.KeyCode.Semicolon and not g then
 		text:CaptureFocus()
-		wait(0)
+		task.wait(0.1)
 		text.Text = ""
 	end
+end)
+
+run.RenderStepped:Connect(function()
+	text.Text:gsub(";", "")
 end)
 
 for _, control in pairs(plr:GetPlayers()) do
