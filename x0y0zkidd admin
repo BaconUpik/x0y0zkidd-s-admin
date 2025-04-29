@@ -973,6 +973,13 @@ function jump() --cmd jump
 end
 
 function fly() --cmd fly
+	if hrp:FindFirstChild("flyVel") then
+		return
+	end
+	if hrp:FindFirstChild("bodyFly") then
+		return
+	end
+	
 	hum.PlatformStand = true
 
 	flyVel = Instance.new("BodyVelocity")
