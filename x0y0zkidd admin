@@ -1002,10 +1002,6 @@ function fly() --cmd fly
 
 		hrp.CFrame = CFrame.new(current, current + toLook)
 	end)
-	
-	for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-		endAnims:Stop()
-	end
 
 	uisHolderDown = mouse.KeyDown:Connect(function(key)
 		if key == "w" then
@@ -1090,9 +1086,6 @@ function bfly() --cmd bfly
 	fhCon = run.RenderStepped:Connect(function()
 		flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
 	end)
-	for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-		endAnims:Stop()
-	end
 	uisHolderDown2 = mouse.KeyDown:Connect(function(key)
 		if g then return end
 
