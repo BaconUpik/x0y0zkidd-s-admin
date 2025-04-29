@@ -1078,15 +1078,6 @@ function unfly() --cmd unfly
 	if bodyFly then
 		bodyFly:Destroy()
 	end
-
-	uisHolderDown:Disconnect()
-	uisHolderDown = nil
-	
-	uisHolderUp:Disconnect()
-	uisHolderUp = nil
-
-	flyLook:Disconnect()
-	flyLook = nil
 end
 
 function bfly() --cmd bfly
