@@ -2116,6 +2116,8 @@ end)
 uis.InputBegan:Connect(function(i, g)
 	if i.KeyCode == Enum.KeyCode.Semicolon and not g then
 		text:CaptureFocus()
+		task.wait(0.5)
+		text.Text = ""
 	end
 end)
 
