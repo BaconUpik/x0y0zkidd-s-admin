@@ -1090,6 +1090,8 @@ function unfly() --cmd unfly
 end
 
 function bfly() --cmd bfly
+	if char:FindFirstChild("FlyHolder") then return end
+	
 	local flyHolder = Instance.new("Part")
 	flyHolder.Parent = me.Character
 	flyHolder.Transparency = 0.999
