@@ -1074,6 +1074,22 @@ function unfly() --cmd unfly
 	if bodyFly then
 		bodyFly:Destroy()
 	end
+	if flyCon3 then
+		flyCon3:Disconnect()
+		flyCon3 = nil
+	end
+	if flyCon4 then
+		flyCon4:Disconnect()
+		flyCon4 = nil
+	end
+	if flyCon5 then
+		flyCon5:Disconnect()
+		flyCon5 = nil
+	end
+	if flyCon6 then
+		flyCon6:Disconnect()
+		flyCon6 = nil
+	end
 end
 
 function bfly() --cmd bfly
