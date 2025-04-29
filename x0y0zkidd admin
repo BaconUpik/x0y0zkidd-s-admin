@@ -1,3 +1,4 @@
+print("Hello world!")
 --x0y0zkidd admin script ANOTHER SUPER MEGA UPDATE + FIX!!! :D
 
 local plr = game:GetService("Players")
@@ -994,38 +995,26 @@ function fly() --cmd fly
 
 		hrp.CFrame = CFrame.new(current, current + toLook)
 	end)
+	
+	for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+		endAnims:Stop()
+	end
 
 	uisHolderDown = mouse.KeyDown:Connect(function(key)
 		if key == "w" then
-			flyCon3 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon3 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * flySpeed * dt
 			end)
 		elseif key == "s" then
-			flyCon4 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon4 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * flySpeed * dt
 			end)
 		elseif key == "d" then
-			flyCon5 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon5 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * flySpeed * dt
 			end)
 		elseif key == "a" then
-			flyCon6 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon6 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * flySpeed * dt
 			end)
 		end
@@ -1092,55 +1081,34 @@ function bfly() --cmd bfly
 	fhCon = run.RenderStepped:Connect(function()
 		flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
 	end)
+	for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
+		endAnims:Stop()
+	end
 	uisHolderDown2 = mouse.KeyDown:Connect(function(key)
 		if g then return end
 
 		if key == "e" then
-			flyCon = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * bflySpeed * dt
 			end)
 		elseif key == "q" then
-			flyCon2 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon2 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * bflySpeed * dt
 			end)
 		elseif key == "w" then
-			flyCon3 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon3 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * bflySpeed * dt
 			end)
 		elseif key == "s" then
-			flyCon4 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon4 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * bflySpeed * dt
 			end)
 		elseif key == "d" then
-			flyCon5 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon5 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * bflySpeed * dt
 			end)
 		elseif key == "a" then
-			flyCon6 = run.RenderStepped:Connect(function(dt)
-				for _, endAnims in pairs(hum:GetPlayingAnimationTracks()) do
-					endAnims:Stop()
-				end
-
+			flyCon6 = run.Heartbeat:Connect(function(dt)
 				hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * bflySpeed * dt
 			end)
 		end
