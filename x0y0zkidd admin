@@ -1057,6 +1057,12 @@ end
 
 function unfly() --cmd unfly
 	hum.PlatformStand = false
+	if hrp:FindFirstChild("flyVel") then
+		hrp:FindFirstChild("flyVel"):Destroy()
+	end
+	if hrp:FindFirstChild("bodyFly") then
+		hrp:FindFirstChild("bodyFly"):Destroy()
+	end
 
 	if uisHolderDown then
 		uisHolderDown:Disconnect()
