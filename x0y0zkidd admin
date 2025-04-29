@@ -2145,7 +2145,7 @@ uis.InputBegan:Connect(function(i, g)
 end)
 
 run.RenderStepped:Connect(function()
-	text.Text:gsub(";", "")
+	text.Text = text.Text:gsub(";", "")
 end)
 
 for _, control in pairs(plr:GetPlayers()) do
