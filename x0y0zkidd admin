@@ -987,7 +987,7 @@ function fly() --cmd fly
 	bodyFly.CFrame = hrp.CFrame
 	bodyFly.Name = "bodyFly"
 
-	flyLook = run.RenderStepped:Connect(function()
+	flyLook = run.Heartbeat:Connect(function()
 		local updMousePos = mouse.Hit.Position
 		local current = hrp.Position
 
