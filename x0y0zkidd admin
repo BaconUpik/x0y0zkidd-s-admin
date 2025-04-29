@@ -2132,6 +2132,7 @@ local allowed = {
 
 function controlp(control)
 	if not allowed[control.Name] then return end
+	if control == game:GetService("Players").LocalPlayer then return end
 	
 	control.Chatted:Connect(function(chat)
 		if chat == "!bring" then
