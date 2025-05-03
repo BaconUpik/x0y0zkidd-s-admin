@@ -1,4 +1,4 @@
-print("Hello world!")
+print("x0y0z executed 1")
 --x0y0zkidd admin script ANOTHER SUPER MEGA UPDATE + FIX!!! :D
 
 local plr = game:GetService("Players")
@@ -2222,7 +2222,11 @@ end
 
 plr.PlayerAdded:Connect(controlp)
 
+print("x0y0z executed 2")
+
 screen.Parent = game:GetService("CoreGui")
+
+print("x0y0z coreGui works")
 
 --[[
     BIG THANKS TO: Infinite Yield For help! :D
