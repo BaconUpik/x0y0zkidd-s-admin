@@ -1613,7 +1613,7 @@ function disableA(args) --cmd disableA
 	end
 end
 
-function teleport()
+function teleport() --cmd teleport
 	mouse = me:GetMouse()
 
 	local tp2 = mouse.Hit + Vector3.new(0,2.5,0)
