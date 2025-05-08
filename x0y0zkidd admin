@@ -1378,7 +1378,7 @@ function sit() --cmd sit
 end
 
 function reset() --cmd reset
-	hum.Health = 0
+	hum:ChangeState(Enum.HumanoidStateType.Dead)
 end
 
 function unfollow() --cmd unfollow
