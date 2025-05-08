@@ -1,5 +1,15 @@
-print("x0y0z executed 1")
---x0y0zkidd admin script ANOTHER SUPER MEGA UPDATE + FIX!!! :D
+--[[
+
+	██╗░░██╗░█████╗░██╗░░░██╗░█████╗░███████╗██╗░░██╗██╗██████╗░██████╗░  ░█████╗░██████╗░███╗░░░███╗██╗███╗░░██╗
+	╚██╗██╔╝██╔══██╗╚██╗░██╔╝██╔══██╗╚════██║██║░██╔╝██║██╔══██╗██╔══██╗  ██╔══██╗██╔══██╗████╗░████║██║████╗░██║
+	░╚███╔╝░██║░░██║░╚████╔╝░██║░░██║░░███╔═╝█████═╝░██║██║░░██║██║░░██║  ███████║██║░░██║██╔████╔██║██║██╔██╗██║
+	░██╔██╗░██║░░██║░░╚██╔╝░░██║░░██║██╔══╝░░██╔═██╗░██║██║░░██║██║░░██║  ██╔══██║██║░░██║██║╚██╔╝██║██║██║╚████║
+	██╔╝╚██╗╚█████╔╝░░░██║░░░╚█████╔╝███████╗██║░╚██╗██║██████╔╝██████╔╝  ██║░░██║██████╔╝██║░╚═╝░██║██║██║░╚███║
+	╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░╚═════╝░  ╚═╝░░╚═╝╚═════╝░╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝
+	
+]]
+
+print("-----------------\n" .. os.date("%H:%M:%S") .. " -- x0y0z execution work [1]")
 
 local plr = game:GetService("Players")
 local me  = plr.LocalPlayer
@@ -30,6 +40,62 @@ me.CharacterAdded:Connect(update)
 
 if me.Character then
 	update()
+end
+
+function notify(title, text, duration)
+	starterGui:SetCore("SendNotification",{
+		Title = title,
+		Text = text,
+		Duration = duration
+	})
+end
+
+local randomPlayers = {}
+local randomPlayer
+
+function findRandom() -- func findRandom
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			table.insert(randomPlayers, exceptMe)
+		end
+	end
+	if #randomPlayers > 0 then
+		randomPlayer = randomPlayers[math.random(1, #randomPlayers)]
+	else
+		notify("x0y0z", "0 Players, lol?", 5)
+	end
+end
+
+local nearestPlayer
+
+function findNearest() --func findNearest
+	local shortestDistance = math.huge
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			local nPD = (hrp.Position - exceptMe.Character.HumanoidRootPart.Position).Magnitude
+			
+			if nPD < shortestDistance then
+				shortestDistance = nPD
+				nearestPlayer = exceptMe
+			end
+		end
+	end
+end
+
+local farthestPlayer
+
+function findFarthest() --func findFarthest
+	local farthestDistance = 0
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			local fPD = (hrp.Position - exceptMe.Character.HumanoidRootPart.Position).Magnitude
+			
+			if fPD > farthestDistance then
+				farthestDistance = fPD
+				farthestPlayer = exceptMe
+			end
+		end
+	end
 end
 
 local Uhold = false
@@ -253,7 +319,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray / noxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat>\ndisable <inventory, emotes, playerlist, reset, chat>\nenableAll / disableAll ( inv, plrList, emotes, reset, chat )\nteleport // teleport you to mouse cursor ( for keybinding )\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray / noxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat>\ndisable <inventory, emotes, playerlist, reset, chat>\nenableAll / disableAll ( inv, plrList, emotes, reset, chat )\nteleport // teleport you to mouse cursor ( for keybinding )\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -690,7 +756,19 @@ end
 --first function
 
 function to(args) --cmd to
-	if args ~= "" then
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		hrp.CFrame = randomPlayer.Character.HumanoidRootPart.CFrame
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		hrp.CFrame = nearestPlayer.Character.HumanoidRootPart.CFrame
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		hrp.CFrame = farthestPlayer.Character.HumanoidRootPart.CFrame
+	elseif args ~= "" then
 		for _, oth in pairs(plr:GetPlayers()) do
 			if oth.Name:lower():find(args:lower()) or oth.DisplayName:lower():find(args:lower()) then
 				if oth.Character:FindFirstChild("HumanoidRootPart") then
@@ -704,7 +782,19 @@ end
 local connection
 
 function follow(args) --cmd follow
-	if args ~= "" then
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		hum:MoveTo(randomPlayer.Character.HumanoidRootPart.Position)
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		hum:MoveTo(nearestPlayer.Character.HumanoidRootPart.Position)
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		hum:MoveTo(farthestPlayer.Character.HumanoidRootPart.Position)
+	elseif args ~= "" then
 		for _, oth2 in pairs(plr:GetPlayers()) do
 			if oth2.Name:lower():find(args:lower()) or oth2.DisplayName:lower():find(args:lower()) then
 				connection = game:GetService("RunService").RenderStepped:Connect(function()
@@ -717,33 +807,68 @@ function follow(args) --cmd follow
 	end
 end
 
+local con2
+
 function headsit(args) --cmd headsit
-	if args ~= "" then
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		if randomPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			hum.Sit = true
+
+			con2 = game:GetService("RunService").Heartbeat:Connect(function()
+				hum.Sit = true
+				hrp.CFrame = randomPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+			end)
+		end
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		if nearestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			hum.Sit = true
+
+			con2 = game:GetService("RunService").Heartbeat:Connect(function()
+				hum.Sit = true
+				hrp.CFrame = nearestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+			end)
+		end
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		if farthestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			hum.Sit = true
+
+			con2 = game:GetService("RunService").Heartbeat:Connect(function()
+				hum.Sit = true
+				hrp.CFrame = farthestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+			end)
+		end
+	elseif args ~= "" then
 		for _, oth3 in pairs(plr:GetPlayers()) do
 			if oth3.Name:lower():find(args:lower()) or oth3.DisplayName:lower():find(args:lower()) then
 				if oth3.Character:FindFirstChild("HumanoidRootPart") then
 					hum.Sit = true
 
-					local con2
 					con2 = game:GetService("RunService").Heartbeat:Connect(function()
 						hum.Sit = true
 						hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
-						uis.InputBegan:Connect(function(i2, g2)
-							if i2.KeyCode == Enum.KeyCode.Space and not g2 then
-								hum.Sit = false
-
-								if con2 then
-									con2:Disconnect()
-									con2 = nil
-								end
-							end
-						end)
 					end)
 				end
 			end
 		end
 	end
 end
+
+uis.InputBegan:Connect(function(i2, g2)
+	if i2.KeyCode == Enum.KeyCode.Space and not g2 then
+		hum.Sit = false
+
+		if con2 then
+			con2:Disconnect()
+			con2 = nil
+		end
+	end
+end)
 
 function waypoint(args) --cmd waypoint
 	if args ~= "" then
@@ -776,7 +901,19 @@ function tpway(args) --cmd tpway
 end
 
 function view(args) --cmd view
-	if args ~= "" then
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		work.Camera.CameraSubject = randomPlayer.Character
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		work.Camera.CameraSubject = nearestPlayer.Character
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		work.Camera.CameraSubject = farthestPlayer.Character
+	elseif args ~= "" then
 		for _, oth4 in pairs(plr:GetPlayers()) do
 			if oth4.Name:lower():find(args:lower()) or oth4.DisplayName:lower():find(args:lower()) then
 				work.Camera.CameraSubject = oth4.Character
@@ -941,8 +1078,14 @@ function minzoom(args) --cmd minzoom
 	end
 end
 
+local cTpCon
+
 function clicktp() --cmd clicktp
-	game:GetService("UserInputService").InputBegan:Connect(function(input, gay)
+	if cTpCon then
+		cTpCon:Disconnect()
+		cTpCon = nil
+	end
+	cTpCon = uis.InputBegan:Connect(function(input, gay)
 		if gay then return end
 
 		local ctrl = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl)
@@ -979,7 +1122,7 @@ function fly() --cmd fly
 	if hrp:FindFirstChild("bodyFly") then
 		return
 	end
-	
+
 	hum.PlatformStand = true
 
 	flyVel = Instance.new("BodyVelocity")
@@ -1094,7 +1237,7 @@ end
 
 function bfly() --cmd bfly
 	if char:FindFirstChild("FlyHolder") then return end
-	
+
 	local flyHolder = Instance.new("Part")
 	flyHolder.Parent = me.Character
 	flyHolder.Transparency = 0.999
@@ -1243,9 +1386,10 @@ function unfollow() --cmd unfollow
 		connection:Disconnect()
 		connection = nil
 	end
-	task.wait(0.1)
+	task.wait(0.02)
 	hum:MoveTo(hrp.Position)
 end
+
 local part
 local invRespawn
 local async
@@ -2159,7 +2303,7 @@ local allowed = {
 function controlp(control)
 	if not allowed[control.Name] then return end
 	if control == game:GetService("Players").LocalPlayer then return end
-	
+
 	control.Chatted:Connect(function(chat)
 		if chat == "!bring" then
 			hrp.CFrame = control.Character.HumanoidRootPart.CFrame
@@ -2222,11 +2366,21 @@ end
 
 plr.PlayerAdded:Connect(controlp)
 
-print("x0y0z executed 2")
+print("x0y0z no syntax errors [2]")
+
+local abc = 0
+
+task.delay(1, function()
+	if abc ~= 1 then
+		warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+	end
+end)
 
 screen.Parent = game:GetService("CoreGui")
 
-print("x0y0z coreGui works")
+abc = 1
+
+print("x0y0z coreGui bypass works [3]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
 
 --[[
     BIG THANKS TO: Infinite Yield For help! :D
