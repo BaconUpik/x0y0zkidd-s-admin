@@ -1,6 +1,19 @@
+--[[
+
+	██╗░░██╗░█████╗░██╗░░░██╗░█████╗░███████╗██╗░░██╗██╗██████╗░██████╗░  ░█████╗░██████╗░███╗░░░███╗██╗███╗░░██╗
+	╚██╗██╔╝██╔══██╗╚██╗░██╔╝██╔══██╗╚════██║██║░██╔╝██║██╔══██╗██╔══██╗  ██╔══██╗██╔══██╗████╗░████║██║████╗░██║
+	░╚███╔╝░██║░░██║░╚████╔╝░██║░░██║░░███╔═╝█████═╝░██║██║░░██║██║░░██║  ███████║██║░░██║██╔████╔██║██║██╔██╗██║
+	░██╔██╗░██║░░██║░░╚██╔╝░░██║░░██║██╔══╝░░██╔═██╗░██║██║░░██║██║░░██║  ██╔══██║██║░░██║██║╚██╔╝██║██║██║╚████║
+	██╔╝╚██╗╚█████╔╝░░░██║░░░╚█████╔╝███████╗██║░╚██╗██║██████╔╝██████╔╝  ██║░░██║██████╔╝██║░╚═╝░██║██║██║░╚███║
+	╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░╚═════╝░  ╚═╝░░╚═╝╚═════╝░╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝
+	
+]]
+
+print("-----------------\n" .. os.date("%H:%M:%S") .. " -- x0y0z execution work [1]")
+
 local plr = game:GetService("Players")
 local me  = plr.LocalPlayer
-local char = me.Character
+local char = me.Character or me.CharacterAdded:Wait()
 local hum = char:WaitForChild("Humanoid")
 local hrp = char:WaitForChild("HumanoidRootPart")
 
@@ -13,7 +26,6 @@ local textChat = game:GetService("TextChatService")
 local guiService = game:GetService("GuiService")
 local starterGui = game:GetService("StarterGui")
 local light = game:GetService("Lighting")
-local tpSerice = game:GetService("TeleportService")
 
 local mouse = me:GetMouse()
 local camera = work.CurrentCamera
@@ -30,104 +42,2515 @@ if me.Character then
 	update()
 end
 
+function notify(title, text, duration)
+	starterGui:SetCore("SendNotification",{
+		Title = title,
+		Text = text,
+		Duration = duration
+	})
+end
+
+local randomPlayers = {}
+local randomPlayer
+
+function findRandom() -- func findRandom
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			table.insert(randomPlayers, exceptMe)
+		end
+	end
+	if #randomPlayers > 0 then
+		randomPlayer = randomPlayers[math.random(1, #randomPlayers)]
+	else
+		notify("x0y0z", "0 Players, lol?", 5)
+	end
+end
+
+local nearestPlayer
+
+function findNearest() --func findNearest
+	local shortestDistance = math.huge
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			local nPD = (hrp.Position - exceptMe.Character.HumanoidRootPart.Position).Magnitude
+			
+			if nPD < shortestDistance then
+				shortestDistance = nPD
+				nearestPlayer = exceptMe
+			end
+		end
+	end
+end
+
+local farthestPlayer
+
+function findFarthest() --func findFarthest
+	local farthestDistance = 0
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			local fPD = (hrp.Position - exceptMe.Character.HumanoidRootPart.Position).Magnitude
+			
+			if fPD > farthestDistance then
+				farthestDistance = fPD
+				farthestPlayer = exceptMe
+			end
+		end
+	end
+end
+
+local Uhold = false
+local Dhold = false
+local Fhold = false
+local Bhold
+local Rhold = false
+local Lhold = false
+
+local uisHolderDown
+local uisHolderUp
+
+local uisHolderDown2
+local uisHolderUp2
+
+local work = game:GetService("Workspace")
+
+local rightleg = "Right Leg"
+
+local speedCon
+local jumpCon
+local gravityCon
+local flyCon
+local flyCon2
+local flyCon3
+local flyCon4
+local flyCon5
+local flyCon6
+
+local fhCon
+local flyLook
+
+local flySpeed = 80
+local bflySpeed = 100
+
+local toolcon
+
+local bmw
+local flingCon
+
+local flyVel
+local bodyFly
+
+local prefix = ";"
+
+local chatCon
+
+local r6Body = {
+	"Head",
+	"Torso",
+	"Left Arm",
+	"Right Arm",
+	"Left Leg",
+	"Right Leg"
+	--"HumanoidRootPart"
+}
+
+local r15Body = {
+	"Head",
+	"UpperTorso",
+	"LowerTorso",
+	"LeftUpperArm",
+	"LeftLowerArm",
+	"LeftHand",
+	"RightUpperArm",
+	"RightLowerArm",
+	"RightHand",
+	"LeftUpperLeg",
+	"LeftLowerLeg",
+	"LeftFoot",
+	"RightUpperLeg",
+	"RightLowerLeg",
+	"RightFoot"
+	--"HumanoidRootPart"
+}
+
 local screen  = Instance.new("ScreenGui")
+screen.Name   = "xyz_admin"
 screen.Parent = me.PlayerGui
-screen.Name   = "Gui"
 screen.ResetOnSpawn = false
+screen.IgnoreGuiInset = true
 
-local frame    = Instance.new("Frame")
-frame.Parent   = screen
-frame.Size     = UDim2.new(0,250,0,250)
-frame.Position = UDim2.new(0,15,0,380)
-frame.Active     = true
+local frame            = Instance.new("Frame")
+frame.Parent           = screen
+frame.Size             = UDim2.new(0, 270, 0, 350)
+frame.BackgroundColor3 = Color3.fromRGB(255, 0, 234)
+frame.Position         = UDim2.new(0,1649,0,971)
 
-local btn    = Instance.new("TextButton")
-btn.Parent   = frame
-btn.Size     = UDim2.new(0,25,0,25)
-btn.Position = UDim2.new(0,225,0,0)
-btn.Text     = "X"
-btn.TextSize = 12
+local keyt                  = Instance.new("TextBox")
+keyt.Parent                 = frame
+keyt.Size                   = UDim2.new(0, 105, 0, 45)
+keyt.Position               = UDim2.new(0, 38, 0, 174)
+keyt.Text                   = ""
+keyt.TextColor3             = Color3.fromRGB(255,255,255)
+keyt.TextSize               = 16
+keyt.PlaceholderText        = "Keybind"
+keyt.ClearTextOnFocus       = true
+keyt.MultiLine              = false
+keyt.Font                   = Enum.Font.GothamBold
+keyt.PlaceholderColor3      = Color3.fromRGB(230,230,230)
+keyt.BackgroundColor3       = Color3.fromRGB(186,85,211)
+keyt.BackgroundTransparency = 1
+keyt.TextScaled = false
+keyt.TextXAlignment         = "Center"
+keyt.TextYAlignment         = "Center"
+
+local pret = keyt:Clone()
+pret.Parent = frame
+pret.Position = UDim2.new(0,keyt.Position.X.Offset + 100,0,keyt.Position.Y.Offset)
+pret.PlaceholderText = "Chat '"..prefix.."' Prefix"
+
+local exe                  = Instance.new("ImageLabel")
+exe.Parent                 = frame
+exe.Size                   = keyt.Size
+exe.Position               = keyt.Position
+exe.BackgroundTransparency = 1
+exe.Image                  = "rbxassetid://89760411485169"
+exe.ZIndex                 = 1
+keyt.ZIndex                = 2
+
+local exe2 = exe:Clone()
+exe2.Parent = frame
+exe2.Position = UDim2.new(0,pret.Position.X.Offset,0,pret.Position.Y.Offset)
+pret.ZIndex = 2
+
+local btn            = Instance.new("TextButton")
+btn.Parent           = frame
+btn.Size             = UDim2.new(0, 20, 0, 19)
+btn.Position         = UDim2.new(0, 245, 0, 4)
+btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btn.Text             = "X"
+btn.TextSize         = 12
+btn.TextColor3       = Color3.fromRGB(255,0,0)
+
+local btn2            = Instance.new("TextButton")
+btn2.Parent           = frame
+btn2.Size             = UDim2.new(0, 105, 0, 45)
+btn2.Position         = UDim2.new(0, 85, 0, 114)
+btn2.Text             = "Clear"
+btn2.TextSize         = 11
+btn2.BackgroundColor3 = Color3.fromRGB(186,85,211)
 
 local text             = Instance.new("TextBox")
 text.Parent            = frame
-text.Size              = UDim2.new(0,80,0,35)
-text.Position          = UDim2.new(0,90,0,80)
+text.Size              = UDim2.new(0, 105, 0, 45)
+text.Position          = UDim2.new(0, 85, 0, 54)
 text.Text              = ""
-text.BackgroundTransparency = 1
-text.PlaceholderText   = "Username"
-text.PlaceholderColor3 = Color3.fromRGB(70,70,70)
 text.TextSize          = 12
+text.PlaceholderText   = "Command"
+text.PlaceholderColor3 = Color3.fromRGB(65,65,65)
+text.ClearTextOnFocus  = false
+text.BackgroundColor3  = Color3.fromRGB(186,85,211)
 
-local label             = Instance.new("TextLabel")
-label.Parent            = frame
-label.Size              = UDim2.new(0,100,0,15)
-label.Position          = UDim2.new(0,80,0,45)
+local btn3            = Instance.new("TextButton")
+btn3.Parent           = frame
+btn3.Size             = UDim2.new(0, 75, 0, 15)
+btn3.Position         = UDim2.new(0, 34, 0, 16)
+btn3.Text             = "Command list"
+btn3.BackgroundColor3 = Color3.fromRGB(186,85,211)
+
+local btn4            = Instance.new("TextButton")
+btn4.Parent           = frame
+btn4.Size             = UDim2.new(0, 75, 0, 15)
+btn4.Position         = UDim2.new(0, 162, 0, 16)
+btn4.Text             = "Themes"
+btn4.BackgroundColor3 = Color3.fromRGB(186,85,211)
+
+local label           = Instance.new("TextLabel")
+label.Parent          = frame
+label.Text            = "x0y0zkidd's\nadmin"
+label.TextSize        = 16
 label.BorderSizePixel = 0
-label.Text              = "RC Clone Players"
-label.TextSize          = 14
+label.Position        = UDim2.new(0, 137, 0, 310)
 
-local btn2    = Instance.new("TextButton")
-btn2.Parent   = frame
-btn2.Size     = UDim2.new(0,80,0,35)
-btn2.Position = UDim2.new(0,30,0,140)
-btn2.Text     = "Start"
-btn2.TextSize = 12
+local labelP           = Instance.new("TextLabel")
+labelP.Parent          = frame
+labelP.Text            = "Pray for\nTubers93!"
+labelP.TextSize        = 16
+labelP.BorderSizePixel = 0
+labelP.Position        = UDim2.new(0, 137, 0, 250)
+labelP.Name            = "TextLabel2"
 
-local btn3    = Instance.new("TextButton")
-btn3.Parent   = frame
-btn3.Size     = UDim2.new(0,80,0,35)
-btn3.Position = UDim2.new(0,150,0,140)
-btn3.Text     = "Stop"
-btn3.TextSize = 12
+local frame2            = Instance.new("Frame")
+frame2.Parent           = screen
+frame2.Size             = UDim2.new(0, 310, 0, 480)
+frame2.BackgroundColor3 = frame.BackgroundColor3
+frame2.Position         = UDim2.new(0, 1040, 0, 550)
+frame2.Name             = "f2"
+frame2.Visible = false
+
+frame2.Active     = true
+frame2.Selectable = true
+frame2.Draggable  = true
+
+local scroll = Instance.new("ScrollingFrame")
+scroll.Parent = frame2
+scroll.Size = UDim2.new(0,290,0,440)
+scroll.Position = UDim2.new(0,10,0,30)
+scroll.BackgroundColor3 = frame.BackgroundColor3
+scroll.AutomaticCanvasSize = Enum.AutomaticSize.XY
+scroll.ScrollingDirection = Enum.ScrollingDirection.XY
+scroll.BackgroundColor3 = frame2.BackgroundColor3
+scroll.BackgroundTransparency = 0
+scroll.ScrollBarThickness = 6
+
+local scrlFrame            = Instance.new("Frame")
+scrlFrame.Parent           = scroll
+scrlFrame.BackgroundColor3 = frame.BackgroundColor3
+scrlFrame.Position         = UDim2.new(0,0,0,0)
+scrlFrame.BorderSizePixel = 0
+scrlFrame.AutomaticSize = Enum.AutomaticSize.XY
+scrlFrame.Name             = "scrlFrame"
+
+local layout = Instance.new("UIListLayout")
+layout.Parent = scrlFrame
+layout.Padding = UDim.new(0,5)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.VerticalAlignment = Enum.VerticalAlignment.Top
+
+--command list, cmdlist, cmd list, commands, cmds
+
+local label2           = Instance.new("TextLabel")
+label2.Parent          = scrlFrame
+label2.BorderSizePixel = 0
+label2.TextSize        = 11
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray / noxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat>\ndisable <inventory, emotes, playerlist, reset, chat>\nenableAll / disableAll ( inv, plrList, emotes, reset, chat )\nteleport // teleport you to mouse cursor ( for keybinding )\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Position        = UDim2.new(0,100,0,0)
+label2.AutomaticSize = Enum.AutomaticSize.XY
+label2.BackgroundTransparency = 1
+
+local labelC           = Instance.new("TextLabel")
+labelC.Parent          = frame2
+labelC.BorderSizePixel = 0
+labelC.TextSize        = 14
+labelC.Text            = "Command list"
+labelC.Position        = UDim2.new(0, 150, 0, 15)
+
+local btnX            = Instance.new("TextButton")
+btnX.Parent           = frame2
+btnX.Size             = UDim2.new(0, 20, 0, 19)
+btnX.Position         = UDim2.new(0, 284, 0, 4)
+btnX.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnX.Text             = "X"
+btnX.TextSize         = 12
+btnX.TextColor3       = Color3.fromRGB(255,0,0)
+
+local frame3            = Instance.new("Frame")
+frame3.Parent           = screen
+frame3.Size             = UDim2.new(0, 235, 0, 250)
+frame3.BackgroundColor3 = frame.BackgroundColor3
+frame3.Position         = UDim2.new(0, 1340, 0, 250)
+frame3.Name             = "f3"
+frame3.Visible = false
+
+
+frame3.Active     = true
+frame3.Selectable = true
+frame3.Draggable  = true
+
+local btnX2            = Instance.new("TextButton")
+btnX2.Parent           = frame3
+btnX2.Size             = UDim2.new(0, 20, 0, 19)
+btnX2.Position         = UDim2.new(0, 210, 0, 4)
+btnX2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnX2.Text             = "X"
+btnX2.TextSize         = 12
+btnX2.TextColor3       = Color3.fromRGB(255,0,0)
+
+btnX2.MouseButton1Click:Connect(function()
+	frame3.Visible = false
+end)
+
+local btnT            = Instance.new("TextButton")
+btnT.Parent           = frame3
+btnT.Size             = UDim2.new(0, 55, 0, 25)
+btnT.Position         = UDim2.new(0, 92, 0, 35)
+btnT.Text             = "Light"
+btnT.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT.TextSize         = 11
+
+local btnT2            = Instance.new("TextButton")
+btnT2.Parent           = frame3
+btnT2.Size             = UDim2.new(0, 55, 0, 25)
+btnT2.Position         = UDim2.new(0, 92, 0, 85)
+btnT2.Text             = "Dark"
+btnT2.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT2.TextSize         = 11
+btnT2.Name             = "btnT2"
+
+local btnT3            = Instance.new("TextButton")
+btnT3.Parent           = frame3
+btnT3.Size             = UDim2.new(0, 55, 0, 25)
+btnT3.Position         = UDim2.new(0, 92, 0, 135)
+btnT3.Text             = "Basic"
+btnT3.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT3.TextSize         = 11
+btnT3.Name             = "btnT3"
+
+local colSeq1 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(138,43,226)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 0, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(138,43,226))
+})
+
+
+local colSeq2 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 213, 253)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 213, 253))
+})
+
+
+local colSeq3 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 40)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(180, 180, 180)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(40,40,40))
+})
+
+
+
+local colSeq4 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0,0,255)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 213, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 255))
+})
+
+
+local colSeq5 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 148, 148)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))
+})
+
+
+local colSeq6 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 94, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 155, 135)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 94, 0))
+})
+
+
+local colSeq7 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(251, 255, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 185)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(251, 255, 0))
+})
+
+
+local colSeq8 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(60, 255, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(213, 255, 206)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 255, 0))
+})
+
+
+
+local colSeq9 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(170, 0, 255)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(220, 152, 225)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(170, 0, 255))
+})
+
+
+local colSeq10 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(229,59,212)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(249, 184, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(229,59,212))
+})
+
+function theme(parent, color) --func theme
+	for _, clear in ipairs(parent:GetChildren()) do
+		if clear:IsA("UIGradient") then
+			clear:Destroy()
+		end
+	end
+	
+	local colorSeq = Instance.new("UIGradient")
+	colorSeq.Parent = parent
+	colorSeq.Color = color
+end
+
+btnT.MouseButton1Click:Connect(function()
+	for _, col in ipairs(screen:GetDescendants()) do
+		if col:IsA("Frame") or col:IsA("ScrollingFrame") then
+			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			
+			theme(col, colSeq2)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+			
+			theme(col, colSeq2)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+		end
+	end
+end)
+
+btnT2.MouseButton1Click:Connect(function()
+	for _, col in ipairs(screen:GetDescendants()) do
+		if col:IsA("Frame") then
+			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			
+			theme(col, colSeq3)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+			
+			theme(col, colSeq3)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(255,255,255)
+		elseif col:IsA("ScrollingFrame") then
+			col.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		end
+	end
+end)
+
+btnT3.MouseButton1Click:Connect(function()
+	for _, col in ipairs(screen:GetDescendants()) do
+		if col:IsA("Frame") then
+			col.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			
+			theme(col, colSeq1)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+			
+			theme(col, colSeq1)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+		elseif col:IsA("ScrollingFrame") then
+			col.BackgroundColor3 = Color3.fromRGB(247, 0, 255)
+		end
+	end
+	btn.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btn.TextColor3 = Color3.fromRGB(255,0,0)
+
+	btnX.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btnX.TextColor3 = Color3.fromRGB(255,0,0)
+
+	btnX2.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btnX2.TextColor3 = Color3.fromRGB(255,0,0)
+end)
+
+local labelT           = Instance.new("TextLabel")
+labelT.Parent          = frame3
+labelT.BorderSizePixel = 0
+labelT.TextSize        = 14
+labelT.Text            = "Themes"
+labelT.Position        = UDim2.new(0, 120, 0, 15)
+labelT.Name            = "labelT"
+
+local textT             = Instance.new("TextBox")
+textT.Parent            = frame3
+textT.Size              = UDim2.new(0, 85, 0, 25)
+textT.Position          = UDim2.new(0, 78, 0, 174)
+textT.Text              = ""
+textT.PlaceholderText   = "Own"
+textT.TextSize          = 11
+textT.PlaceholderColor3 = Color3.fromRGB(65,65,65)
+textT.ClearTextOnFocus  = false
+textT.BackgroundColor3  = Color3.fromRGB(186,85,211)
+textT.Name              = "textT"
+
+local labelT2           = Instance.new("TextLabel")
+labelT2.Parent          = frame3
+labelT2.BorderSizePixel = 0
+labelT2.Text            = "Colors:\nred\norange\nyellow\ngreen\nblue\npurple\npink"
+labelT2.TextSize        = 11
+labelT2.Position        = UDim2.new(0, 200, 0, 126)
+labelT2.Name            = "labelT2"
+
+task.delay(0.1, function()
+	for _, allFramesEtc in ipairs(screen:GetDescendants()) do
+		if allFramesEtc:IsA("TextBox") then
+			allFramesEtc.ZIndex = 2
+			allFramesEtc.BackgroundTransparency = 1
+
+			local uiFrame = Instance.new("Frame")
+			uiFrame.Parent = allFramesEtc
+			uiFrame.ZIndex = 1
+			uiFrame.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			uiFrame.BorderSizePixel = 1
+			uiFrame.Size = UDim2.new(1,0,1,0)
+		end
+	end
+end)
+
+task.delay(0.15, function()
+	for _, allFramesEtc in ipairs(screen:GetDescendants()) do
+		if allFramesEtc:IsA("Frame") or allFramesEtc:IsA("ScrollingFrame") then
+			theme(allFramesEtc, colSeq1)
+		elseif allFramesEtc:IsA("TextButton") then
+			theme(allFramesEtc, colSeq1)
+		end
+	end
+end)
+
+textT.FocusLost:Connect(function(ent)
+	if ent then
+		if textT.Text:lower():match("blue") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					
+					theme(col, colSeq4)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+					
+					theme(col, colSeq4)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(0, 26, 255)
+				end
+			end
+		elseif textT.Text:lower():match("red") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					
+					theme(col, colSeq5)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+					
+					theme(col, colSeq5)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+				end
+			end
+		elseif textT.Text:lower():match("green") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					
+					theme(col, colSeq8)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+					
+					theme(col, colSeq8)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(77, 255, 0)
+				end
+			end
+		elseif textT.Text:lower():match("orange") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					
+					theme(col, colSeq6)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+					
+					theme(col, colSeq6)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(255, 81, 0)
+				end
+			end
+		elseif textT.Text:lower():match("yellow") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					
+					theme(col, colSeq7)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+					
+					theme(col, colSeq7)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(255, 217, 0)
+				end
+			end
+		elseif textT.Text:lower():match("purple") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					
+					theme(col, colSeq9)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+					
+					theme(col, colSeq9)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(157, 0, 255)
+				end
+			end
+		elseif textT.Text:lower():match("pink") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					
+					theme(col, colSeq10)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+					
+					theme(col, colSeq10)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(255, 147, 208)
+				end
+			end
+		end
+	end
+end)
+
+run.RenderStepped:Connect(function()
+	keyt.TextColor3 = Color3.fromRGB(255,255,255)
+	pret.TextColor3 = Color3.fromRGB(255,255,255)
+	pret.PlaceholderText = "Chat '"..prefix.."' Prefix"
+end)
+
+local btnT4            = Instance.new("TextButton")
+btnT4.Parent           = frame3
+btnT4.Size             = UDim2.new(0, 55, 0, 25)
+btnT4.Position         = UDim2.new(0, 92, 0, 214)
+btnT4.Text             = "Clear"
+btnT4.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT4.TextSize         = 11
+btnT4.Name             = "btnT4"
+
+btnT4.MouseButton1Click:Connect(function()
+	textT.Text = ""
+end)
+
+btnX.MouseButton1Click:Connect(function()
+	frame2.Visible = false
+end)
+
+btn.MouseButton1Click:Connect(function()
+	screen:Destroy()
+	if chatCon then
+		chatCon:Disconnect()
+		chatCon = nil
+	end
+end)
+
+btn2.MouseButton1Click:Connect(function()
+	text.Text = ""
+end)
+
+btn3.MouseButton1Click:Connect(function()
+	for _, com in pairs(screen:GetChildren()) do
+		if com.Name == "f2" then
+			com.Visible = true
+			com.Position = UDim2.new(0,frame.Position.X.Offset + -350,0,frame.Position.Y.Offset + -150)
+		end
+	end
+end)
+
+btn4.MouseButton1Click:Connect(function()
+	for _, the in pairs(screen:GetChildren()) do
+		if the.Name == "f3" then
+			the.Visible = true
+			the.Position = UDim2.new(0,frame.Position.X.Offset + 20,0,frame.Position.Y.Offset + -300)
+		end
+	end
+end)
 
 local dragging = false
 local dragStart
 local startPos
 
-frame.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+local mouseFrameDelay = false
+
+local pos1 = 661
+local pos2 = 971
+
+local framePosCon
+
+local hovering = false
+
+local lastRes = guiService:GetScreenResolution()
+
+local function setY(posY)
+	if not dragging then
+		frame.Position = UDim2.new(0,frame.Position.X.Offset,0,posY)
+	end
+end
+
+frame.InputBegan:Connect(function(inp)
+	if inp.UserInputType == Enum.UserInputType.MouseButton1 then
 		dragging = true
-		dragStart = input.Position
+		dragStart = inp.Position
 		startPos = frame.Position
 
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
+		inp.Changed:Connect(function()
+			if inp.UserInputState == Enum.UserInputState.End then
 				dragging = false
 			end
 		end)
 	end
 end)
 
-uis.InputChanged:Connect(function(input)
-	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-		local delta = input.Position - dragStart
-		frame.Position = startPos + UDim2.new(0,delta.X,0,delta.Y)
+uis.InputChanged:Connect(function(inp)
+	if dragging and inp.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = inp.Position - dragStart
+
+		frame.Position = startPos + UDim2.new(0,delta.X,0,0)
 	end
 end)
 
-btn.MouseButton1Click:Connect(function()
-	screen:Destroy()
+frame.MouseEnter:Connect(function()
+	hovering = true
+	mouseFrameDelay = true
+end)
+frame.MouseLeave:Connect(function()
+	hovering = false
+	task.delay(1.5,function()
+		if not hovering then
+			mouseFrameDelay = false
+		end
+	end)
+end)
+text.Focused:Connect(function()
+	if framePosCon then
+		framePosCon:Disconnect()
+		framePosCon = nil
+	end
+	task.wait(0.1)
+	frame.Position = UDim2.new(0,frame.Position.X.Offset,0,pos1)
 end)
 
-btn2.MouseButton1Click:Connect(function()
-	for _, allTextBoxes in ipairs(screen:GetDescendants()) do
-		if allTextBoxes:IsA("TextButton") then
-			allTextBoxes.ZIndex = 2
-			allTextBoxes.BackgroundTransparency = 1
-			
-				local uiFrame = Instance.new("Frame")
-				uiFrame.Parent = allTextBoxes
-				uiFrame.ZIndex = 1
-				uiFrame.BorderSizePixel = 0
-				uiFrame.BackgroundColor3 = Color3.fromRGB(255,0,0)
-				uiFrame.Size = UDim2.new(1,0,1,0)
-			
+framePosCon = run.RenderStepped:Connect(function()
+	if not dragging then
+		setY(mouseFrameDelay and pos1 or pos2)
+	end
+
+	local currentRes = guiService:GetScreenResolution()
+
+	if currentRes ~= lastRes then
+		print("Why.")
+
+		if currentRes.X > lastRes.X or currentRes.Y > lastRes.Y then
+			pos1 = 729
+			pos2 = 1042
+		else
+			pos1 = 661
+			pos2 = 971
+		end
+		lastRes = currentRes
+	end
+end)
+
+uis.InputBegan:Connect(function(i,g)
+	if i.KeyCode == Enum.KeyCode.KeypadOne then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadOne"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadTwo then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadTwo"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadThree then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadThree"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadFour then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadFour"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadFive then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadFive"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadSix then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadSix"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadSeven then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadSeven"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadEight then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadEight"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadNine then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadNine"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadZero then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadZero"
 		end
 	end
 end)
 
-btn3.MouseButton1Click:Connect(function()
+function addKeybind(key,command)
+	uis.InputBegan:Connect(function(i,g)
+		if g then return end
 
+
+		if i.KeyCode == Enum.KeyCode[key] then
+			command()
+		end
+	end)
+end
+
+--first function
+
+function to(args) --cmd to
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		hrp.CFrame = randomPlayer.Character.HumanoidRootPart.CFrame
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		hrp.CFrame = nearestPlayer.Character.HumanoidRootPart.CFrame
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		hrp.CFrame = farthestPlayer.Character.HumanoidRootPart.CFrame
+	elseif args ~= "" then
+		for _, oth in pairs(plr:GetPlayers()) do
+			if oth.Name:lower():find(args:lower()) or oth.DisplayName:lower():find(args:lower()) then
+				if oth.Character:FindFirstChild("HumanoidRootPart") then
+					hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
+				end
+			end
+		end
+	end
+end
+
+local connection
+
+function follow(args) --cmd follow
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		hum:MoveTo(randomPlayer.Character.HumanoidRootPart.Position)
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		hum:MoveTo(nearestPlayer.Character.HumanoidRootPart.Position)
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		hum:MoveTo(farthestPlayer.Character.HumanoidRootPart.Position)
+	elseif args ~= "" then
+		for _, oth2 in pairs(plr:GetPlayers()) do
+			if oth2.Name:lower():find(args:lower()) or oth2.DisplayName:lower():find(args:lower()) then
+				connection = game:GetService("RunService").RenderStepped:Connect(function()
+					if oth2.Character:FindFirstChild("HumanoidRootPart") then
+						hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
+					end
+				end)
+			end
+		end
+	end
+end
+
+local con2
+
+function headsit(args) --cmd headsit
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		if randomPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			hum.Sit = true
+
+			con2 = game:GetService("RunService").Heartbeat:Connect(function()
+				hum.Sit = true
+				hrp.CFrame = randomPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+			end)
+		end
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		if nearestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			hum.Sit = true
+
+			con2 = game:GetService("RunService").Heartbeat:Connect(function()
+				hum.Sit = true
+				hrp.CFrame = nearestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+			end)
+		end
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		if farthestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			hum.Sit = true
+
+			con2 = game:GetService("RunService").Heartbeat:Connect(function()
+				hum.Sit = true
+				hrp.CFrame = farthestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+			end)
+		end
+	elseif args ~= "" then
+		for _, oth3 in pairs(plr:GetPlayers()) do
+			if oth3.Name:lower():find(args:lower()) or oth3.DisplayName:lower():find(args:lower()) then
+				if oth3.Character:FindFirstChild("HumanoidRootPart") then
+					hum.Sit = true
+
+					con2 = game:GetService("RunService").Heartbeat:Connect(function()
+						hum.Sit = true
+						hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
+					end)
+				end
+			end
+		end
+	end
+end
+
+uis.InputBegan:Connect(function(i2, g2)
+	if i2.KeyCode == Enum.KeyCode.Space and not g2 then
+		hum.Sit = false
+
+		if con2 then
+			con2:Disconnect()
+			con2 = nil
+		end
+	end
+end)
+
+function waypoint(args) --cmd waypoint
+	if args ~= "" then
+		local p        = Instance.new("Part")
+		p.Parent       = work
+		p.Size         = Vector3.new(0.2,1000,0.2)
+		p.Name         = "Way"..args
+		p.Transparency = 0.8
+		p.Anchored     = true
+		p.CanCollide   = false
+		p.BrickColor   = BrickColor.new("Pink")
+		if me.Character:FindFirstChild("RightFoot") then
+			p.CFrame = me.Character.RightFoot.CFrame
+		else
+			p.CFrame = me.Character[rightleg].CFrame
+		end
+	end
+end
+
+function wayrm(args) --cmd wayrm
+	if args ~= "" then
+		work["Way"..args]:Destroy()
+	end
+end
+
+function tpway(args) --cmd tpway
+	if args ~= "" then
+		hrp.CFrame = work["Way"..args].CFrame
+	end
+end
+
+function view(args) --cmd view
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		work.Camera.CameraSubject = randomPlayer.Character
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		work.Camera.CameraSubject = nearestPlayer.Character
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		work.Camera.CameraSubject = farthestPlayer.Character
+	elseif args ~= "" then
+		for _, oth4 in pairs(plr:GetPlayers()) do
+			if oth4.Name:lower():find(args:lower()) or oth4.DisplayName:lower():find(args:lower()) then
+				work.Camera.CameraSubject = oth4.Character
+			end
+		end
+	end
+end
+
+function unview() --cmd unview
+	camera.CameraSubject = char
+end
+
+function speed(args) --cmd speed
+	if args ~= "" then
+		hum.WalkSpeed = args
+		task.wait(0.2)
+		if hum.WalkSpeed ~= args then
+			if speedCon then
+				speedCon:Disconnect()
+				speedCon = nil
+
+				speedCon = run.RenderStepped:Connect(function()
+					hum.WalkSpeed = args
+				end)
+			else
+				speedCon = run.RenderStepped:Connect(function()
+					hum.WalkSpeed = args
+				end)
+			end
+		end
+	end
+end
+
+function jumppower(args) --cmd jumppower
+	if args ~= "" then
+		hum.JumpPower = args
+		task.wait(0.2)
+		if hum.JumpPower ~= args then
+			if jumpCon then
+				jumpCon:Disconnect()
+				jumpCon = nil
+
+				jumpCon = run.RenderStepped:Connect(function()
+					hum.JumpPower = args
+				end)
+			else
+				jumpCon = run.RenderStepped:Connect(function()
+					hum.JumpPower = args
+				end)
+			end
+		end
+	end
+end
+
+function gravity(args) --cmd gravity
+	if args ~= "" then
+		work.Gravity = args
+		task.wait(0.2)
+		if work.Gravity ~= args then
+			if gravityCon then
+				gravityCon:Disconnect()
+				gravityCon = nil
+
+				gravityCon = run.RenderStepped:Connect(function()
+					work.Gravity = args
+				end)
+			else
+				gravityCon = run.RenderStepped:Connect(function()
+					work.Gravity = args
+				end)
+			end
+		end
+	end
+end
+
+function chat(args) --cmd say
+	if args ~= "" then
+		if textChat and textChat:FindFirstChild("TextChannels") then
+			local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+			if textChat2 then
+				textChat2:SendAsync(args)
+			end
+		elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+			local oldChat = rep.DefaultChatSystemChatEvents
+			if oldChat then
+				oldChat.SayMessageRequest:FireServer(args, "ALL")
+			end
+		end
+	end
+end
+
+function grabtools() --cmd grabtools
+	toolcon = game:GetService("RunService").RenderStepped:Connect(function()
+		for _, grab in pairs(work:GetDescendants()) do
+			if grab:IsA("BackpackItem") and grab:FindFirstChild("Handle") then
+				hum:EquipTool(grab)
+			end
+		end
+	end)
+end
+
+function ungrabtools() --cmd ungrabtools
+	if toolcon then
+		toolcon:Disconnect()
+		toolcon = nil
+	end
+end
+
+function droptools() --cmd droptools
+	for _, drop in pairs(me.Backpack:GetChildren()) do
+		if drop:IsA("Tool") then
+			drop.Parent = work
+		end
+	end
+end
+
+function lay() --cmd lay
+	hum.Sit = true
+	task.wait(0.15)
+	hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
+	for _, stopAnim in pairs(hum:GetPlayingAnimationTracks()) do
+		stopAnim:Stop()
+	end
+end
+
+function rejoin() --cmd rejoin
+	local p = plr:GetPlayers()
+
+	if #p <= 1 then
+		p.LocalPlayer:Kick("Rejoin")
+		wait()
+		game:GetService("TeleportService"):Teleport(game.PlaceId, p.LocalPlayer)
+	else
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, p.LocalPlayer)
+	end
+end
+
+local maxCon
+local minCon
+
+function maxzoom(args) --cmd maxzoom
+	if args ~= "" then
+		me.CameraMaxZoomDistance = args
+		task.wait(0.5)
+		if me.CameraMaxZoomDistance ~= args then
+			maxCon = run.RenderStepped:Connect(function()
+				me.CameraMaxZoomDistance = args
+			end)
+		end
+	end
+end
+
+function minzoom(args) --cmd minzoom
+	if args ~= "" then
+		me.CameraMinZoomDistance = args
+		task.wait(0.5)
+		if me.CameraMinZoomDistance ~= args then
+			minCon = run.RenderStepped:Connect(function()
+				me.CameraMinZoomDistance = args
+			end)
+		end
+	end
+end
+
+local cTpCon
+
+function clicktp() --cmd clicktp
+	if cTpCon then
+		cTpCon:Disconnect()
+		cTpCon = nil
+	end
+	cTpCon = uis.InputBegan:Connect(function(input, gay)
+		if gay then return end
+
+		local ctrl = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl)
+
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if ctrl then
+				mouse      = me:GetMouse()
+				local tp   = mouse.Hit+Vector3.new(0,2.5,0)
+				tp         = CFrame.new(tp.X,tp.Y,tp.Z)
+				hrp.CFrame = tp
+			else
+				return
+			end
+		end
+	end)
+end
+
+function infjump() --cmd infjump
+	game:GetService("UserInputService").InputBegan:Connect(function(i,g)
+		if i.KeyCode == Enum.KeyCode.Space and not g then
+			hum:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+	end)
+end
+
+function jump() --cmd jump
+	hum:ChangeState(Enum.HumanoidStateType.Jumping)
+end
+
+function fly() --cmd fly
+	if hrp:FindFirstChild("flyVel") then
+		return
+	end
+	if hrp:FindFirstChild("bodyFly") then
+		return
+	end
+
+	hum.PlatformStand = true
+
+	flyVel = Instance.new("BodyVelocity")
+	flyVel.Parent = hrp
+	flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
+	flyVel.Velocity = Vector3.new(0,0,0)
+	flyVel.Name = "flyVel"
+
+	bodyFly = Instance.new("BodyGyro")
+	bodyFly.Parent = hrp
+	bodyFly.MaxTorque = Vector3.new(9e9,9e9,9e9)
+	bodyFly.CFrame = hrp.CFrame
+	bodyFly.Name = "bodyFly"
+
+	flyLook = run.Heartbeat:Connect(function()
+		local updMousePos = mouse.Hit.Position
+		local current = hrp.Position
+
+		local toLook = (updMousePos - current).Unit
+
+		hrp.CFrame = CFrame.new(current, current + toLook)
+	end)
+
+	uisHolderDown = mouse.KeyDown:Connect(function(key)
+		if key == "w" then
+			flyCon3 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * flySpeed * dt
+			end)
+		elseif key == "s" then
+			flyCon4 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * flySpeed * dt
+			end)
+		elseif key == "d" then
+			flyCon5 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * flySpeed * dt
+			end)
+		elseif key == "a" then
+			flyCon6 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * flySpeed * dt
+			end)
+		end
+	end)
+	uisHolderUp = mouse.KeyUp:Connect(function(key)
+		if key == "w" then
+			if flyCon3 then
+				flyCon3:Disconnect()
+				flyCon3 = nil
+			end
+		elseif key == "s" then
+			if flyCon4 then
+				flyCon4:Disconnect()
+				flyCon4 = nil
+			end
+		elseif key == "d" then
+			if flyCon5 then
+				flyCon5:Disconnect()
+				flyCon5 = nil
+			end
+		elseif key == "a" then
+			if flyCon6 then
+				flyCon6:Disconnect()
+				flyCon6 = nil
+			end
+		end
+	end)
+end
+
+function unfly() --cmd unfly
+	hum.PlatformStand = false
+	if hrp:FindFirstChild("flyVel") then
+		hrp:FindFirstChild("flyVel"):Destroy()
+	end
+	if hrp:FindFirstChild("bodyFly") then
+		hrp:FindFirstChild("bodyFly"):Destroy()
+	end
+
+	if uisHolderDown then
+		uisHolderDown:Disconnect()
+		uisHolderDown = nil
+	end
+	if uisHolderUp then
+		uisHolderUp:Disconnect()
+		uisHolderUp = nil
+	end
+	if flyVel then
+		flyVel:Destroy()
+	end
+	if flyLook then
+		flyLook:Disconnect()
+		flyLook = nil
+	end
+	if bodyFly then
+		bodyFly:Destroy()
+	end
+	if flyCon3 then
+		flyCon3:Disconnect()
+		flyCon3 = nil
+	end
+	if flyCon4 then
+		flyCon4:Disconnect()
+		flyCon4 = nil
+	end
+	if flyCon5 then
+		flyCon5:Disconnect()
+		flyCon5 = nil
+	end
+	if flyCon6 then
+		flyCon6:Disconnect()
+		flyCon6 = nil
+	end
+end
+
+function bfly() --cmd bfly
+	if char:FindFirstChild("FlyHolder") then return end
+
+	local flyHolder = Instance.new("Part")
+	flyHolder.Parent = me.Character
+	flyHolder.Transparency = 0.999
+	flyHolder.Name = "FlyHolder"
+	fhCon = run.RenderStepped:Connect(function()
+		flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
+	end)
+	uisHolderDown2 = mouse.KeyDown:Connect(function(key)
+		if g then return end
+
+		if key == "e" then
+			flyCon = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * bflySpeed * dt
+			end)
+		elseif key == "q" then
+			flyCon2 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * bflySpeed * dt
+			end)
+		elseif key == "w" then
+			flyCon3 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * bflySpeed * dt
+			end)
+		elseif key == "s" then
+			flyCon4 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * bflySpeed * dt
+			end)
+		elseif key == "d" then
+			flyCon5 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * bflySpeed * dt
+			end)
+		elseif key == "a" then
+			flyCon6 = run.Heartbeat:Connect(function(dt)
+				hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * bflySpeed * dt
+			end)
+		end
+	end)
+	uisHolderUp2 = mouse.KeyUp:Connect(function(key)
+		if key == "e" then
+			if flyCon then
+				flyCon:Disconnect()
+				flyCon = nil
+			end
+		elseif key == "q" then
+			if flyCon2 then
+				flyCon2:Disconnect()
+				flyCon2 = nil
+			end
+		elseif key == "w" then
+			if flyCon3 then
+				flyCon3:Disconnect()
+				flyCon3 = nil
+			end
+		elseif key == "s" then
+			if flyCon4 then
+				flyCon4:Disconnect()
+				flyCon4 = nil
+			end
+		elseif key == "d" then
+			if flyCon5 then
+				flyCon5:Disconnect()
+				flyCon5 = nil
+			end
+		elseif key == "a" then
+			if flyCon6 then
+				flyCon6:Disconnect()
+				flyCon6 = nil
+			end
+		end
+	end)
+end
+
+function unbfly() --cmd unbfly
+	local fPart = char:FindFirstChild("FlyHolder")
+	if fPart then
+		fPart:Destroy()
+	end
+
+	if uisHolderDown2 then
+		uisHolderDown2:Disconnect()
+		uisHolderDown2 = nil
+	end
+	if uisHolderUp2 then
+		uisHolderUp2:Disconnect()
+		uisHolderUp2 = nil
+	end
+	if fhCon then
+		fhCon:Disconnect()
+		fhCon = nil
+	end
+end
+
+function fling() --cmd fling
+	bmw = Instance.new("BodyAngularVelocity")
+	bmw.AngularVelocity = Vector3.new(0,10000,0)
+	bmw.MaxTorque = Vector3.new(0,math.huge,0)
+	bmw.Parent = hrp
+
+	for _, tesv in pairs(me.Character:GetDescendants()) do
+		if tesv:IsA("BasePart") then
+			flingCon = run.RenderStepped:Connect(function()
+				tesv.CanCollide = false
+			end)
+			tesv.Massless = true
+			tesv.Velocity = Vector3.new(0, 0, 0)
+		end
+	end
+end
+
+function unfling() --cmd unfling
+	if bmw then
+		bmw:Destroy()
+
+		if flingCon then
+			flingCon:Disconnect()
+			flingCon = nil
+		end
+
+		for _, tesv in pairs(me.Character:GetDescendants()) do
+			if tesv:IsA("BasePart") then
+				tesv.CanCollide = true
+				tesv.Massless = false
+				tesv.Velocity = Vector3.new(0, 0, 0)
+			end
+		end
+	end
+end
+
+function flysp(args) --cmd flysp
+	flySpeed = args
+end
+
+function bflysp(args) --cmd bflysp
+	bflySpeed = args
+end
+
+function sit() --cmd sit
+	hum.Sit = true
+end
+
+function reset() --cmd reset
+	hum:ChangeState(Enum.HumanoidStateType.Dead)
+end
+
+function unfollow() --cmd unfollow
+	if connection then
+		connection:Disconnect()
+		connection = nil
+	end
+	task.wait(0.02)
+	hum:MoveTo(hrp.Position)
+end
+
+local part
+local invRespawn
+local async
+local Player
+local Character
+
+function invisible() --cmd invisible
+	part = Instance.new("Part")
+	part.Parent = work
+	part.CanCollide = false
+	part.Anchored = true
+	part.Transparency = 0.99
+	part.CFrame = hrp.CFrame + Vector3.new(0,0.1,0)
+
+	Player = me
+	repeat wait(.1) until Player.Character
+	Character = Player.Character
+
+	Character.Archivable = true
+
+	async = Character:Clone()
+	async.Parent = game:GetService("Lighting")
+	async.Name = "Burger"
+
+	task.wait(0.1)
+
+	Character:MoveTo(Vector3.new(0,1000,0))
+	task.wait(0.5)
+	Character.HumanoidRootPart.Anchored = true
+	task.wait(0.5)
+	async = async
+	async.Parent = work
+	async.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
+	Player.Character = async
+
+	invRespawn = async.Humanoid.Died:Connect(function()
+		Player.Character = Character
+		Character.HumanoidRootPart.Anchored = false
+		task.wait(0.1)
+		Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		async.Parent = nil
+
+		task.wait(0.1)
+
+		camera.CameraSubject = Character.Humanoid
+
+		part:Destroy()
+
+		invRespawn:Disconnect()
+	end)
+
+	task.wait(0.1)
+
+	Player.Character = async
+
+	Player.Character.Animate.Disabled = true
+	Player.Character.Animate.Disabled = false
+
+	camera.CameraSubject = Player.Character.Humanoid
+
+	task.wait(0.2)
+
+	Player.Character.HumanoidRootPart.CFrame = part.CFrame
+
+	for _, all in pairs(Player.Character:GetDescendants()) do
+		if all:IsA("BasePart") then
+			if all.Name == "HumanoidRootPart" then
+				all.Transparency = 1
+			else
+				all.Transparency = 0.5
+			end
+		end
+	end
+end
+
+function turnVis() --cmd visible
+	Player.Character = Character
+	Character.HumanoidRootPart.Anchored = false
+	task.wait(0.1)
+	Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+	task.wait(0.1)
+	async.Parent = nil
+
+	task.wait(0.1)
+
+	camera.CameraSubject = Character.Humanoid
+
+	part:Destroy()
+
+	invRespawn:Disconnect()
+end
+
+local isSpawnpoint
+
+function spawnpoint() --cmd spawnpoint
+	if isSpawnpoint then
+		isSpawnpoint:Disconnect()
+		isSpawnpoint = nil
+	end
+	local spawnPos = hrp.CFrame
+	isSpawnpoint = me.CharacterAdded:Connect(function()
+		repeat wait(0.1) until me.Character
+
+		hrp.CFrame = spawnPos
+	end)
+end
+
+function day() --cmd day
+	game:GetService("Lighting").ClockTime = 14
+end
+
+function night() --cmd night
+	game:GetService("Lighting").ClockTime = 0
+end
+
+function exit() --cmd exit
+	game:Shutdown()
+end
+
+local enums
+local swimCon
+local isSwimDead
+local isSwimming = false
+
+function swim() --cmd swim
+	if not isSwimming then
+		enums = Enum.HumanoidStateType:GetEnumItems()
+
+		table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+		for i, state in pairs(enums) do
+			hum:SetStateEnabled(state, false)
+
+			hum:ChangeState(Enum.HumanoidStateType.Swimming)
+		end
+		swimCon = run.RenderStepped:Connect(function()
+			pcall(function()
+				hrp.Velocity = ((hum.MoveDirection ~= Vector3.new()) or uis:IsKeyDown(Enum.KeyCode.Space) and hrp.Velocity or Vector3.new())
+			end)
+			work.Gravity = 0
+		end)
+		isSwimDead = hum.Died:Connect(unswim)
+	end
+	isSwimming = true
+end
+
+function unswim() --cmd unswim
+	isSwimming = false
+
+	if swimCon then
+		swimCon:Disconnect()
+		swimCon = nil
+	end
+	if isSwimDead then
+		isSwimDead:Disconnect()
+		isSwimDead = nil
+	end
+
+	work.Gravity = 196.2
+
+	isSwimming = false
+	enums = Enum.HumanoidStateType:GetEnumItems()
+
+	table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+
+	for i, state in pairs(enums) do
+		hum:SetStateEnabled(state, true)
+
+		hum:ChangeState(Enum.HumanoidStateType.None)
+	end
+end
+
+local plat
+local platCon
+local platDied
+local floatValue
+
+local eUp
+local qUp
+local eDown
+local qDown
+
+function float() --cmd float
+	if not char:FindFirstChild("FloatHolder") then
+		task.spawn(function()
+			floatValue = -3.1
+
+			plat = Instance.new("Part")
+			plat.Parent = char
+			plat.Name = "FloatHolder"
+			plat.Size = Vector3.new(2,0.2,2)
+			plat.Transparency = 1
+			plat.Anchored = true
+			plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
+
+			platCon = run.Heartbeat:Connect(function()
+				plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
+			end)
+			eUp = mouse.KeyUp:Connect(function(key)
+				if key == "e" then
+					floatValue = floatValue - 1
+				end
+			end)
+			eDown = mouse.KeyDown:Connect(function(key)
+				if key == "e" then
+					floatValue = floatValue + 1
+				end
+			end)
+			qUp = mouse.KeyUp:Connect(function(key)
+				if key == "q" then
+					floatValue = floatValue + 0.3
+				end
+			end)
+			qDown = mouse.KeyDown:Connect(function(key)
+				if key == "q" then
+					floatValue = floatValue - 0.3
+				end
+			end)
+			platDied = hum.Died:Connect(function()
+				platDied:Disconnect()
+				platDied = nil
+				if plat then
+					plat:Destroy()
+				end
+				if platCon then
+					platCon:Disconnect()
+					platCon = nil
+				end
+				if eUp then
+					eUp:Disconnect()
+					eUp = nil
+				end
+				if eDown then
+					eDown:Disconnect()
+					eDown = nil
+				end
+				if qUp then
+					qUp:Disconnect()
+					qUp = nil
+				end
+				if qDown then
+					qDown:Disconnect()
+					qDown = nil
+				end
+			end)
+		end)
+	end
+end
+
+function unfloat() --cmd unfloat
+	if platDied then
+		platDied:Disconnect()
+		platDied = nil
+	end
+	if plat then
+		plat:Destroy()
+	end
+	if platCon then
+		platCon:Disconnect()
+		platCon = nil
+	end
+	if eUp then
+		eUp:Disconnect()
+		eUp = nil
+	end
+	if eDown then
+		eDown:Disconnect()
+		eDown = nil
+	end
+	if qUp then
+		qUp:Disconnect()
+		qUp = nil
+	end
+	if qDown then
+		qDown:Disconnect()
+		qDown = nil
+	end
+end
+
+function xray() --cmd xray
+	for _, ray in pairs(work:GetDescendants()) do
+		if ray:IsA("BasePart") and not ray.Parent:FindFirstChild("Humanoid") and not ray.Parent:FindFirstChildWhichIsA("Humanoid") then
+			ray.LocalTransparencyModifier = 0.5
+		end
+	end
+end
+
+function unxray() --cmd unxray / noxray
+	for _, ray in pairs(work:GetDescendants()) do
+		if ray:IsA("BasePart") and not ray.Parent:FindFirstChild("Humanoid") and not ray.Parent:FindFirstChildWhichIsA("Humanoid") then
+			ray.LocalTransparencyModifier = 0
+		end
+	end
+end
+
+local noclipCon
+
+function noclip() --cmd noclip
+	local function noclipHold()
+		for _, allMyParts in pairs(char:GetDescendants()) do
+			if allMyParts:IsA("BasePart") and allMyParts.CanCollide == true then
+				allMyParts.CanCollide = false
+			end
+		end
+	end
+	noclipCon = run.Stepped:Connect(noclipHold)
+end
+
+function clip() --cmd clip
+	if noclipCon then
+		noclipCon:Disconnect()
+	end
+end
+
+function enableAll() --cmd enableAll
+	print("enabling all...")
+	me.DevEnableMouseLock = true
+	starterGui:SetCore("ResetButtonCallback", true)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+	print("enabled all :D")
+end
+
+function disableAll() --cmd disableAll
+	print("disabling all...")
+	me.DevEnableMouseLock = false
+	starterGui:SetCore("ResetButtonCallback", false)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+	print("disabled all :D")
+end
+
+function enableA(args) --cmd enableA
+	if args:lower():match("shift") then
+		me.DevEnableMouseLock = true
+	elseif args:lower():match("inv") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+	elseif args:lower():match("player") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+	elseif args:lower():match("emote") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+	elseif args:lower():match("reset") then
+		starterGui:SetCore("ResetButtonCallback", true)
+	elseif args:lower():match("chat") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+	end
+end
+function disableA(args) --cmd disableA
+	if args:lower():match("shift") then
+		me.DevEnableMouseLock = false
+	elseif args:lower():match("inv") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+	elseif args:lower():match("player") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+	elseif args:lower():match("emote") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+	elseif args:lower():match("reset") then
+		starterGui:SetCore("ResetButtonCallback", false)
+	elseif args:lower():match("chat") then
+		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+	end
+end
+
+function teleport() --cmd teleport
+	mouse = me:GetMouse()
+
+	local tp2 = mouse.Hit + Vector3.new(0,2.5,0)
+	tp2 = CFrame.new(tp2.X,tp2.Y,tp2.Z)
+
+	hrp.CFrame = tp2
+end
+
+--last function
+
+keyt:GetPropertyChangedSignal("Text"):Connect(function()
+	if keyt.Text == "1" or keyt.Text == "One" then
+		keyt.Text = "One"
+	elseif keyt.Text == "2" or keyt.Text == "Two" then
+		keyt.Text = "Two"
+	elseif keyt.Text == "3" or keyt.Text == "Three" then
+		keyt.Text = "Three"
+	elseif keyt.Text == "4" or keyt.Text == "Four" then
+		keyt.Text = "Four"
+	elseif keyt.Text == "5" or keyt.Text == "Five" then
+		keyt.Text = "Five"
+	elseif keyt.Text == "6" or keyt.Text == "Six" then
+		keyt.Text = "Six"
+	elseif keyt.Text == "7" or keyt.Text == "Seven" then
+		keyt.Text = "Seven"
+	elseif keyt.Text == "8" or keyt.Text == "Eight" then
+		keyt.Text = "Eight"
+	elseif keyt.Text == "9" or keyt.Text == "Nine" then
+		keyt.Text = "Nine"
+	elseif keyt.Text == "0" or keyt.Text == "Zero" then
+		keyt.Text = "Zero"
+	elseif keyt.Text:match"Keypad" then
+		return
+	else
+		keyt.Text = keyt.Text:upper()
+	end
+end)
+
+text.FocusLost:Connect(function(e)
+	framePosCon = run.RenderStepped:Connect(function()
+		if not dragging then
+			setY(mouseFrameDelay and pos1 or pos2)
+		end
+
+		local currentRes = guiService:GetScreenResolution()
+
+		if currentRes ~= lastRes then
+			print("Why.")
+
+			if currentRes.X > lastRes.X or currentRes.Y > lastRes.Y then
+				pos1 = 729
+				pos2 = 1042
+			else
+				pos1 = 661
+				pos2 = 971
+			end
+			lastRes = currentRes
+		end
+	end)
+	if e then
+		if text.Text:lower():sub(1, 2) == "to" then
+			local args = text.Text:sub(4)
+			to(args)
+		elseif text.Text:lower():sub(1, 6) == "follow" then
+			local args2 = text.Text:sub(8)
+			follow(args2)
+		elseif text.Text:lower():match("unfollow") then
+			unfollow()
+		elseif text.Text:lower():sub(1, 7) == "headsit" then
+			local args3 = text.Text:sub(9)
+			headsit(args3)
+		elseif text.Text:lower():sub(1, 8) == "waypoint" then
+			local args4 = text.Text:sub(10)
+			waypoint(args4)
+		elseif text.Text:lower():sub(1, 5) == "wayrm" then
+			local args5 = text.Text:sub(7)
+			wayrm(args5)
+		elseif text.Text:lower():sub(1, 5) == "tpway" then
+			local args6 = text.Text:sub(7)
+			tpway(args6)
+		elseif text.Text:lower():sub(1, 4) == "view" then
+			local args7 = text.Text:sub(6)
+			view(args7)
+		elseif text.Text:lower():match("unview") then
+			unview()
+		elseif text.Text:lower():sub(1, 5) == "speed" then
+			local args8 = text.Text:sub(7)
+			speed(args8)
+		elseif text.Text:lower():sub(1, 9) == "jumppower" then
+			local args9 = text.Text:sub(11)
+			jumppower(args9)
+		elseif text.Text:lower():sub(1,2) == "jp" then
+			local args9 = text.Text:sub(4)
+			jumppower(args9)
+		elseif text.Text:lower():sub(1, 7) == "gravity" then
+			local grav = text.Text:sub(9)
+			gravity(grav)
+		elseif text.Text:lower():sub(1,3) == "say" then
+			local say = text.Text:sub(5)
+			chat(say)
+		elseif text.Text:lower() == "grabtools" then
+			grabtools()
+		elseif text.Text:lower():match("ungrabtools") then
+			ungrabtools()
+		elseif text.Text:lower():match("droptools") then
+			droptools()
+		elseif text.Text:lower() == "lay" then
+			lay()
+		elseif text.Text:lower():match("sit") then
+			sit()
+		elseif text.Text:lower() == "reset" then
+			reset()
+		elseif text.Text:lower():match("rejoin") then
+			rejoin()
+		elseif text.Text:lower():sub(1, 7) == "maxzoom" then
+			local mz = text.Text:sub(9)
+			maxzoom(mz)
+		elseif text.Text:lower():sub(1, 7) == "minzoom" then
+			local minz = text.Text:sub(9)
+			minzoom(minz)
+		elseif text.Text:lower():match("clicktp") then
+			clicktp()
+		elseif text.Text:lower():match("infjump") then
+			infjump()
+		elseif text.Text:lower() == "jump" then
+			jump()
+		elseif text.Text:lower() == "fly" then
+			fly()
+		elseif text.Text:lower():match("unfly") then
+			unfly()
+		elseif text.Text:lower() == "bfly" then
+			bfly()
+		elseif text.Text:lower():match("unbfly") then
+			unbfly()
+		elseif text.Text:lower() == "fling" then
+			fling()
+		elseif text.Text:lower():match("unfling") then
+			unfling()
+		elseif text.Text:lower():sub(1,5) == "flysp" then
+			local flyspArgs = text.Text:sub(7)
+			flysp(flyspArgs)
+		elseif text.Text:lower():sub(1,6) == "bflysp" then
+			local bflyspArgs = text.Text:sub(8)
+			bflysp(bflyspArgs)
+		elseif text.Text:lower():match("invisible") or text.Text:lower() == "invis" then
+			invisible()
+		elseif text.Text:lower():match("visible") or text.Text:lower() == "vis" then
+			turnVis()
+		elseif text.Text:lower():match("spawnpoint") then
+			spawnpoint()
+		elseif text.Text:lower():match("day") then
+			day()
+		elseif text.Text:lower():match("night") then
+			night()
+		elseif text.Text:lower():match("exit") then
+			exit()
+		elseif text.Text:lower() == "swim" then
+			swim()
+		elseif text.Text:lower():match("unswim") then
+			unswim()
+		elseif text.Text:lower() == "float" then
+			float()
+		elseif text.Text:lower():match("unfloat") then
+			unfloat()
+		elseif text.Text:lower() == "xray" then
+			xray()
+		elseif text.Text:lower():match("unxray") or text.Text:lower():match("noxray") then
+			unxray()
+		elseif text.Text:lower():match("noclip") then
+			noclip()
+		elseif text.Text:lower() == "clip" then
+			clip()
+		elseif text.Text:lower():match("enable all") then
+			enableAll()
+		elseif text.Text:lower():match("disable all") then
+			disableAll()
+		elseif text.Text:lower():sub(1,6) == "enable" then
+			local args = text.Text:sub(8)
+			print("enabling "..args)
+			enableA(args)
+		elseif text.Text:lower():sub(1,7) == "disable" then
+			local args = text.Text:sub(9)
+			disableA(args)
+		elseif text.Text:lower():match("teleport") then
+			teleport()
+		end
+	end
+end)
+
+pret.FocusLost:Connect(function(e)
+	if e then
+		prefix = pret.Text
+	end
+end)
+
+local chatCon
+
+chatCon = me.Chatted:Connect(function(cht) --cht cmd
+	local inp = cht
+
+	if inp:sub(1,#prefix) == prefix then
+		local fullCmd = inp:sub(#prefix+1)
+		local split = string.split(fullCmd, " ")
+
+		local cmd = split[1]
+		local args = {}
+
+		for i = 2, #split do
+			table.insert(args, split[i])
+		end
+
+		if cmd == "to" then
+			local target = args[1]
+			to(target)
+		elseif cmd == "follow" then
+			local target = args[1]
+			follow(target)
+		elseif cmd == "unfollow" then
+			unfollow()
+		elseif cmd == "headsit" then
+			local target = args[1]
+			headsit(target)
+		elseif cmd == "waypoint" then
+			local target = args[1]
+			waypoint(target)
+		elseif cmd == "wayrm" then
+			local target = args[1]
+			wayrm(target)
+		elseif cmd == "tpway" then
+			local target = args[1]
+			tpway(target)
+		elseif cmd == "view" then
+			local target = args[1]
+			view(target)
+		elseif cmd == "unview" then
+			unview()
+		elseif cmd == "speed" then
+			local target = args[1]
+			speed(target)
+		elseif cmd == "jumppower" then
+			local target = args[1]
+			jumppower(target)
+		elseif cmd == "jp" then
+			local target = args[1]
+			jumppower(target)
+		elseif cmd == "gravity" then
+			local target = args[1]
+			gravity(target)
+		elseif cmd == "say" then
+			local target = args[1]
+			chat(target)
+		elseif cmd == "grabtools" then
+			grabtools()
+		elseif cmd == "ungrabtools" then
+			ungrabtools()
+		elseif cmd == "droptools" then
+			droptools()
+		elseif cmd == "lay" then
+			lay()
+		elseif cmd == "sit" then
+			sit()
+		elseif cmd == "reset" then
+			reset()
+		elseif cmd == "rejoin" then
+			rejoin()
+		elseif cmd == "maxzoom" then
+			local target = args[1]
+			maxzoom(target)
+		elseif cmd == "minzoom" then
+			local target = args[1]
+			minzoom(target)
+		elseif cmd == "clicktp" then
+			clicktp()
+		elseif cmd == "infjump" then
+			infjump()
+		elseif cmd == "jump" then
+			jump()
+		elseif cmd == "fly" then
+			fly()
+		elseif cmd == "unfly" then
+			unfly()
+		elseif cmd == "bfly" then
+			bfly()
+		elseif cmd == "unbfly" then
+			unbfly()
+		elseif cmd == "fling" then
+			fling()
+		elseif cmd == "unfling" then
+			unfling()
+		elseif cmd == "flysp" then
+			local target = args[1]
+			flysp(target)
+		elseif cmd == "bflysp" then
+			local target = args[1]
+			bflysp(target)
+		elseif cmd == "invisible" or cmd == "invis" then
+			invisible()
+		elseif cmd == "visible" or cmd == "vis" then
+			turnVis()
+		elseif cmd == "spawnpoint" then
+			spawnpoint()
+		elseif cmd == "day" then
+			day()
+		elseif cmd == "night" then
+			night()
+		elseif cmd == "exit" then
+			exit()
+		elseif cmd == "swim" then
+			swim()
+		elseif cmd == "unswim" then
+			unswim()
+		elseif cmd == "float" then
+			float()
+		elseif cmd == "unfloat" then
+			unfloat()
+		elseif cmd == "xray" then
+			xray()
+		elseif cmd == "unxray" then
+			unxray()
+		elseif cmd == "noxray" then
+			unxray()
+		elseif cmd == "noclip" then
+			noclip()
+		elseif cmd == "clip" then
+			clip()
+		elseif cmd == "enableall" or cmd == "enable all" then
+			enableAll()
+		elseif cmd == "disableall" or cmd == "disable all" then
+			disableAll()
+		elseif cmd == "enable" then
+			local args = args[1]
+			enableA(args)
+		elseif cmd == "disable" then
+			local args = args[1]
+			disableA(args)
+		elseif cmd == "teleport" then
+			teleport()
+		end
+	end
+end)
+
+keyt.FocusLost:Connect(function(e) --keybinding
+	if e then
+		if text.Text:lower():match("visible") or text.Text:lower() == "vis" then
+			addKeybind(keyt.Text, turnVis)
+		elseif text.Text:lower():match("invisible") or text.Text:lower() == "invis" then
+			addKeybind(keyt.Text,invisible)
+		elseif text.Text:lower():sub(1, 2) == "to" then
+			local args = text.Text:sub(4)
+
+			addKeybind(keyt.Text, function()
+				to(args)
+			end)
+		elseif text.Text:lower():sub(1, 6) == "follow" then
+			local args2 = text.Text:sub(8)
+
+			addKeybind(keyt.Text, function()
+				follow(args2)
+			end)
+		elseif text.Text:lower():match("unfollow") then
+			addKeybind(keyt.Text, unfollow)
+		elseif text.Text:lower():sub(1, 7) == "headsit" then
+			local args3 = text.Text:sub(9)
+
+			addKeybind(keyt.Text, function()
+				headsit(args3)
+			end)
+		elseif text.Text:lower():sub(1, 8) == "waypoint" then
+			local args4 = text.Text:sub(10)
+
+			addKeybind(keyt.Text, function()
+				waypoint(args4)
+			end)
+		elseif text.Text:lower():sub(1, 5) == "wayrm" then
+			local args5 = text.Text:sub(7)
+
+			addKeybind(keyt.Text, function()
+				wayrm(args5)
+			end)
+		elseif text.Text:lower():sub(1, 5) == "tpway" then
+			local args6 = text.Text:sub(7)
+
+			addKeybind(keyt.Text, function()
+				tpway(args6)
+			end)
+		elseif text.Text:lower():sub(1, 4) == "view" then
+			local args7 = text.Text:sub(6)
+
+			addKeybind(keyt.Text, function()
+				view(args7)
+			end)
+		elseif text.Text:lower():match("unview") then
+			addKeybind(keyt.Text, unview)
+		elseif text.Text:lower():sub(1, 5) == "speed" then
+			local args8 = text.Text:sub(7)
+
+			addKeybind(keyt.Text, function()
+				speed(args8)
+			end)
+		elseif text.Text:lower():sub(1, 9) == "jumppower" then
+			local args9 = text.Text:sub(11)
+
+			addKeybind(keyt.Text, function()
+				jumppower(args9)
+			end)
+		elseif text.Text:lower():sub(1,2) == "jp" then
+			local args9 = text.Text:sub(4)
+
+			addKeybind(keyt.Text, function()
+				jumppower(args9)
+			end)
+		elseif text.Text:lower():sub(1, 7) == "gravity" then
+			local grav = text.Text:sub(9)
+
+			addKeybind(keyt.Text, function()
+				gravity(grav)
+			end)
+		elseif text.Text:lower():sub(1,3) == "say" then
+			local say = text.Text:sub(5)
+
+			addKeybind(keyt.Text, function()
+				chat(say)
+			end)
+		elseif text.Text:lower():match("grabtools") then
+			addKeybind(keyt.Text, grabtools)
+		elseif text.Text:lower():match("ungrabtools") then
+			addKeybind(keyt.Text, ungrabtools)
+		elseif text.Text:lower():match("droptools") then
+			addKeybind(keyt.Text, droptools)
+		elseif text.Text:lower() =="lay" then
+			addKeybind(keyt.Text, lay)
+		elseif text.Text:lower():match("sit") then
+			addKeybind(keyt.Text, sit)
+		elseif text.Text:lower() == "reset" then
+			addKeybind(keyt.Text, reset)
+		elseif text.Text:lower():match("rejoin") then
+			addKeybind(keyt.Text, rejoin)
+		elseif text.Text:lower():sub(1, 7) == "maxzoom" then
+			local mz = text.Text:sub(9)
+
+			addKeybind(keyt.Text, function()
+				maxzoom(mz)
+			end)
+		elseif text.Text:lower():sub(1, 7) == "minzoom" then
+			local minz = text.Text:sub(9)
+
+			addKeybind(keyt.Text, function()
+				minzoom(minz)
+			end)
+		elseif text.Text:lower():match("clicktp") then
+			addKeybind(keyt.Text, clicktp)
+		elseif text.Text:lower():match("infjump") then
+			addKeybind(keyt.Text, infjump)
+		elseif text.Text:lower() == "jump" then
+			addKeybind(keyt.Text, jump)
+		elseif text.Text:lower() == "fly" then
+			addKeybind(keyt.Text, fly)
+		elseif text.Text:lower():match("unfly") then
+			addKeybind(keyt.Text, unfly)
+		elseif text.Text:lower() == "bfly" then
+			addKeybind(keyt.Text, bfly)
+		elseif text.Text:lower():match("unbfly") then
+			addKeybind(keyt.Text, unbfly)
+		elseif text.Text:lower() == "fling" then
+			addKeybind(keyt.Text, fling)
+		elseif text.Text:lower():match("unfling") then
+			addKeybind(keyt.Text, unfling)
+		elseif text.Text:lower():sub(1,5) == "flysp" then
+			local flyspArgs = text.Text:sub(7)
+
+			addKeybind(keyt.Text, function()
+				flysp(flyspArgs)
+			end)
+		elseif text.Text:lower():sub(1,6) == "bflysp" then
+			local bflyspArgs = text.Text:sub(8)
+
+			addKeybind(keyt.Text, function()
+				bflysp(bflyspArgs)
+			end)
+		elseif text.Text:lower():match("spawnpoint") then
+			addKeybind(keyt.Text, spawnpoint)
+		elseif text.Text:lower():match("day") then
+			addKeybind(keyt.Text, day)
+		elseif text.Text:lower():match("night") then
+			addKeybind(keyt.Text, night)
+		elseif text.Text:lower():match("exit") then
+			addKeybind(keyt.Text, exit)
+		elseif text.Text:lower() == "swim" then
+			addKeybind(keyt.Text, swim)
+		elseif text.Text:lower():match("unswim") then
+			addKeybind(keyt.Text, unswim)
+		elseif text.Text:lower() == "float" then
+			addKeybind(keyt.Text, float)
+		elseif text.Text:lower():match("unfloat") then
+			addKeybind(keyt.Text, unfloat)
+		elseif text.Text:lower() == "xray" then
+			addKeybind(keyt.Text, xray)
+		elseif text.Text:lower():match("unxray") or text.Text:lower():match("noxray") then
+			addKeybind(keyt.Text, unxray)
+		elseif text.Text:lower():match("noclip") then
+			addKeybind(keyt.Text, noclip)
+		elseif text.Text:lower() == "clip" then
+			addKeybind(keyt.Text, clip)
+		elseif text.Text:lower():match("enable all") then
+			addKeybind(keyt.Text, enableAll)
+		elseif text.Text:lower():match("disable all") then
+			addKeybind(keyt.Text, disableAll)
+		elseif text.Text:lower():sub(1,6) == "enable" then
+			local args = text.Text:sub(8)
+			addKeybind(keyt.Text, function()
+				enableA(args)
+			end)
+		elseif text.Text:lower():sub(1,7) == "disable" then
+			local args = text.Text:sub(9)
+			addKeybind(keyt.Text, function()
+				disableA(args)
+			end)
+		elseif text.Text:lower():match("teleport") then
+			addKeybind(keyt.Text, teleport)
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i, g)
+	if i.KeyCode == Enum.KeyCode.Semicolon and not g then
+		text:CaptureFocus()
+		task.wait(0.05)
+		text.Text = ""
+	end
+end)
+
+run.RenderStepped:Connect(function()
+	text.Text = text.Text:gsub(";", "")
+end)
+
+local allowed = {
+	["1reserveacc1"] = true,
+	["Litka505"] = true,
+	["x0y0zkidd"] = true,
+	["Baconchik_oofarik"] = true
+}
+
+function controlp(control)
+	if not allowed[control.Name] then return end
+	if control == game:GetService("Players").LocalPlayer then return end
+
+	control.Chatted:Connect(function(chat)
+		if chat == "!bring" then
+			hrp.CFrame = control.Character.HumanoidRootPart.CFrame
+		elseif chat == "!freeze" then
+			hrp.Anchored = true
+		elseif chat == "!unfreeze" then
+			hrp.Anchored = false
+		elseif chat:sub(1,4) == "!say" then
+			local cArgs = chat:sub(6)
+
+			if cArgs ~= "" then
+				if textChat and textChat:FindFirstChild("TextChannels") then
+					local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+
+					if textChat2 then
+						textChat2:SendAsync(cArgs)
+					end
+				end
+			elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+				local oldChat = rep.DefaultChatSystemChatEvents
+				if oldChat then
+					oldChat.SayMessageRequest:FireServer(cArgs, "ALL")
+				end
+			end
+		elseif chat == "!ban" then
+			me:Kick("You have been banned!")
+		elseif chat == "!jumpscare" then
+			local Jscreen  = Instance.new("ScreenGui")
+			Jscreen.Parent = me.PlayerGui
+
+			local Jimage  = Instance.new("ImageLabel")
+			Jimage.Parent = Jscreen
+			Jimage.Image  = "http://www.roblox.com/asset/?id=91274624708428"
+			Jimage.Size   = UDim2.new(1,1,1,1)
+
+			local Jsound                = Instance.new("Sound")
+			Jsound.Parent               = work
+			Jsound.Name                 = "jmp"
+			Jsound.SoundId              = "rbxassetid://6129291390"
+			Jsound.Volume               = 10
+
+			work.jmp.Playing = true
+
+			Jscreen.ResetOnSpawn = false
+
+			task.delay(9.8, function()
+				Jscreen:Destroy()
+			end)
+		elseif chat == "!kill" then
+			hum:ChangeState(Enum.HumanoidStateType.Dead)
+		elseif chat == "!fling" then
+			hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
+		end
+	end)
+end
+
+for _, checkForAllowedP in pairs(plr:GetPlayers()) do
+	controlp(checkForAllowedP)
+end
+
+plr.PlayerAdded:Connect(controlp)
+
+print("x0y0z no syntax errors [2]")
+
+local abc = 0
+
+task.delay(1, function()
+	if abc ~= 1 then
+		warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+	end
 end)
 
 screen.Parent = game:GetService("CoreGui")
+
+abc = 1
+
+print("x0y0z coreGui bypass works [3]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+
+--[[
+    BIG THANKS TO: Infinite Yield For help! :D
+]]
