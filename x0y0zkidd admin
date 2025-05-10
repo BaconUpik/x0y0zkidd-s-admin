@@ -73,7 +73,7 @@ function findNearest() --func findNearest
 	for _, exceptMe in pairs(plr:GetPlayers()) do
 		if exceptMe ~= me then
 			local nPD = (hrp.Position - exceptMe.Character.HumanoidRootPart.Position).Magnitude
-			
+
 			if nPD < shortestDistance then
 				shortestDistance = nPD
 				nearestPlayer = exceptMe
@@ -89,7 +89,7 @@ function findFarthest() --func findFarthest
 	for _, exceptMe in pairs(plr:GetPlayers()) do
 		if exceptMe ~= me then
 			local fPD = (hrp.Position - exceptMe.Character.HumanoidRootPart.Position).Magnitude
-			
+
 			if fPD > farthestDistance then
 				farthestDistance = fPD
 				farthestPlayer = exceptMe
@@ -142,6 +142,8 @@ local bodyFly
 local prefix = ";"
 
 local chatCon
+
+local huge = math.huge
 
 local r6Body = {
 	"Head",
@@ -321,7 +323,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray / noxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat>\ndisable <inventory, emotes, playerlist, reset, chat>\nenableAll / disableAll ( inv, plrList, emotes, reset, chat )\nteleport // teleport you to mouse cursor ( for keybinding )\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray / noxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat>\ndisable <inventory, emotes, playerlist, reset, chat>\nenableAll / disableAll ( inv, plrList, emotes, reset, chat )\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -471,7 +473,7 @@ function theme(parent, color) --func theme
 			clear:Destroy()
 		end
 	end
-	
+
 	local colorSeq = Instance.new("UIGradient")
 	colorSeq.Parent = parent
 	colorSeq.Color = color
@@ -481,12 +483,12 @@ btnT.MouseButton1Click:Connect(function()
 	for _, col in ipairs(screen:GetDescendants()) do
 		if col:IsA("Frame") or col:IsA("ScrollingFrame") then
 			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-			
+
 			theme(col, colSeq2)
 		elseif col:IsA("TextButton") or col:IsA("TextBox") then
 			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 			col.TextColor3 = Color3.fromRGB(0,0,0)
-			
+
 			theme(col, colSeq2)
 		elseif col:IsA("TextLabel") then
 			col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -498,12 +500,12 @@ btnT2.MouseButton1Click:Connect(function()
 	for _, col in ipairs(screen:GetDescendants()) do
 		if col:IsA("Frame") then
 			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-			
+
 			theme(col, colSeq3)
 		elseif col:IsA("TextButton") or col:IsA("TextBox") then
 			col.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 			col.TextColor3 = Color3.fromRGB(0,0,0)
-			
+
 			theme(col, colSeq3)
 		elseif col:IsA("TextLabel") then
 			col.TextColor3 = Color3.fromRGB(255,255,255)
@@ -517,12 +519,12 @@ btnT3.MouseButton1Click:Connect(function()
 	for _, col in ipairs(screen:GetDescendants()) do
 		if col:IsA("Frame") then
 			col.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			
+
 			theme(col, colSeq1)
 		elseif col:IsA("TextButton") or col:IsA("TextBox") then
 			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 			col.TextColor3 = Color3.fromRGB(0,0,0)
-			
+
 			theme(col, colSeq1)
 		elseif col:IsA("TextLabel") then
 			col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -600,12 +602,12 @@ textT.FocusLost:Connect(function(ent)
 			for _, col in ipairs(screen:GetDescendants()) do
 				if col:IsA("Frame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-					
+
 					theme(col, colSeq4)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
-					
+
 					theme(col, colSeq4)
 				elseif col:IsA("TextLabel") then
 					col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -617,12 +619,12 @@ textT.FocusLost:Connect(function(ent)
 			for _, col in ipairs(screen:GetDescendants()) do
 				if col:IsA("Frame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-					
+
 					theme(col, colSeq5)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
-					
+
 					theme(col, colSeq5)
 				elseif col:IsA("TextLabel") then
 					col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -634,12 +636,12 @@ textT.FocusLost:Connect(function(ent)
 			for _, col in ipairs(screen:GetDescendants()) do
 				if col:IsA("Frame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-					
+
 					theme(col, colSeq8)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
-					
+
 					theme(col, colSeq8)
 				elseif col:IsA("TextLabel") then
 					col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -651,12 +653,12 @@ textT.FocusLost:Connect(function(ent)
 			for _, col in ipairs(screen:GetDescendants()) do
 				if col:IsA("Frame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-					
+
 					theme(col, colSeq6)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
-					
+
 					theme(col, colSeq6)
 				elseif col:IsA("TextLabel") then
 					col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -668,12 +670,12 @@ textT.FocusLost:Connect(function(ent)
 			for _, col in ipairs(screen:GetDescendants()) do
 				if col:IsA("Frame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-					
+
 					theme(col, colSeq7)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
-					
+
 					theme(col, colSeq7)
 				elseif col:IsA("TextLabel") then
 					col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -685,12 +687,12 @@ textT.FocusLost:Connect(function(ent)
 			for _, col in ipairs(screen:GetDescendants()) do
 				if col:IsA("Frame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-					
+
 					theme(col, colSeq9)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
-					
+
 					theme(col, colSeq9)
 				elseif col:IsA("TextLabel") then
 					col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -702,12 +704,12 @@ textT.FocusLost:Connect(function(ent)
 			for _, col in ipairs(screen:GetDescendants()) do
 				if col:IsA("Frame") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
-					
+
 					theme(col, colSeq10)
 				elseif col:IsA("TextButton") or col:IsA("TextBox") then
 					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
 					col.TextColor3 = Color3.fromRGB(0,0,0)
-					
+
 					theme(col, colSeq10)
 				elseif col:IsA("TextLabel") then
 					col.TextColor3 = Color3.fromRGB(0,0,0)
@@ -1935,6 +1937,248 @@ function teleport() --cmd teleport
 	hrp.CFrame = tp2
 end
 
+local wheelFor
+local wheelBack
+
+local vrLook
+
+local trCon
+local trCon2
+
+local vrDied
+
+local saveZoom = nil
+
+local vrVel
+local vrGyro
+
+local vrIsMax0 = true
+local vrIsMax0Stop = false
+
+local vrIsHats = false
+
+local vrR6ArmsLegs = {
+	"Left Arm",
+	"Right Arm",
+	"Left Leg",
+	"Right Leg"
+}
+
+local vrR15ArmsLegs = {
+	"LeftUpperArm",
+	"LeftLowerArm",
+	"LeftHand",
+	"RightUpperArm",
+	"RightLowerArm",
+	"RightHand",
+	"LeftUpperLeg",
+	"LeftLowerLeg",
+	"LeftFoot",
+	"RightUpperLeg",
+	"RightLowerLeg",
+	"RightFoot"
+}
+
+function vr(args) --cmd vr
+	saveZoom = me.CameraMaxZoomDistance
+	unvr()
+
+	if args ~= "" then
+		if tonumber(args) > 99 then
+			me.CameraMaxZoomDistance = 100
+			me.CameraMinZoomDistance = 100
+
+			vrIsHats = false
+		elseif tonumber(args) < 2 then
+			me.CameraMaxZoomDistance = 1
+			me.CameraMinZoomDistance = 1
+
+			vrIsHats = true
+		else
+			me.CameraMaxZoomDistance = args
+			me.CameraMinZoomDistance = args
+
+			vrIsHats = false
+		end
+	else
+		me.CameraMaxZoomDistance = 50
+		me.CameraMinZoomDistance = 50
+
+		vrIsHats = false
+	end
+
+	vrIsMax0Stop = false
+	vrIsMax0 = true
+
+	hum.PlatformStand = true
+	hum.Sit = true
+
+	vrDied = hum.Died:Connect(function()
+		unvr()
+		if vrDied then
+			vrDied:Disconnect()
+			vrDied = nil
+		end
+	end)
+
+	if hum.RigType == Enum.HumanoidRigType.R6 then
+		char.Torso.Transparency = 0.9
+
+		while vrIsMax0 do
+			for _, transp in pairs(char:GetChildren()) do
+				if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "Torso" then
+					trCon = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+						transp.LocalTransparencyModifier = 0
+					end)
+				elseif transp:IsA("BasePart") and transp.Name == "Head" then
+					trCon2 = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+						transp.LocalTransparencyModifier = 1
+					end)
+				elseif transp:IsA("Accessory") then
+					if vrIsHats then
+						if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+							transp.Handle.Transparency = 1
+						end
+					end
+				end
+			end
+			if vrIsMax0 then
+				break
+			end
+			task.wait(0.02)
+		end
+	else
+		char.LowerTorso.Transparency = 0.9
+		char.UpperTorso.Transparency = 0.9
+
+		while vrIsMax0 do
+			for _, transp in pairs(char:GetChildren()) do
+				if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "UpperTorso" and transp.Name ~= "LowerTorso" then
+					trCon = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+						transp.LocalTransparencyModifier = 0
+					end)
+				elseif transp:IsA("BasePart") and transp.Name == "Head" then
+					trCon2 = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+						transp.LocalTransparencyModifier = 1
+					end)
+				elseif transp:IsA("Accessory") then
+					if vrIsHats then
+						if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+							transp.Handle.Transparency = 1
+						end
+					end
+				end
+			end
+			if vrIsMax0 then
+				break
+			end
+			task.wait(0.02)
+		end
+	end
+
+	vrVel = Instance.new("BodyVelocity")
+	vrVel.MaxForce = Vector3.new(huge,huge,huge)
+	vrVel.Name = "VRv"
+	vrVel.Parent = hrp
+
+	vrGyro = Instance.new("BodyGyro")
+	vrGyro.MaxTorque = Vector3.new(huge,huge,huge)
+	vrGyro.CFrame = hrp.CFrame
+	vrGyro.Name = "VRg"
+	vrGyro.Parent = hrp
+
+	vrLook = run.Heartbeat:Connect(function()
+		hum.Sit = true
+
+		local vrDistance = hrp.Position
+		local newMousePos = mouse.Hit.Position
+
+		local newVRDistance = (newMousePos - vrDistance).Unit
+
+		hrp.CFrame = CFrame.new(vrDistance, vrDistance + newVRDistance)
+	end)
+
+	wheelFor = mouse.WheelForward:Connect(function()
+		hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * 1.555
+	end)
+
+	wheelBack = mouse.WheelBackward:Connect(function()
+		hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * 1.555
+	end)
+end
+
+function unvr() --cmd unvr
+	vrIsMax0Stop = true
+	vrIsMax0 = false
+
+	hum.PlatformStand = false
+	hum.Sit = false
+
+	if vrVel then
+		vrVel:Destroy()
+	end
+	if vrGyro then
+		vrGyro:Destroy()
+	end
+	if saveZoom ~= nil then
+		me.CameraMaxZoomDistance = saveZoom
+		me.CameraMinZoomDistance = 0
+	end
+	if vrLook then
+		vrLook:Disconnect()
+		vrLook = nil
+	end
+	if wheelFor then
+		wheelFor:Disconnect()
+		wheelFor = nil
+	end
+	if wheelBack then
+		wheelBack:Disconnect()
+		wheelBack = nil
+	end
+	if trCon then
+		trCon:Disconnect()
+		trCon = nil
+	end
+	if trCon2 then
+		trCon2:Disconnect()
+		trCon2 = nil
+	end
+	if vrDied then
+		vrDied:Disconnect()
+		vrDied = nil
+	end
+	if hum.RigType == Enum.HumanoidRigType.R6 then
+		char.Torso.Transparency = 0
+
+		for _, transp in pairs(char:GetChildren()) do
+			if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "Torso" then
+				transp.LocalTransparencyModifier = 0
+			elseif transp:IsA("BasePart") and transp.Name == "Head" then
+				transp.LocalTransparencyModifier = 0
+			elseif transp:IsA("Accessory") then
+				if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+					transp.Handle.Transparency = 0
+				end
+			end
+		end
+	else
+		char.LowerTorso.Transparency = 0
+		char.UpperTorso.Transparency = 0
+		for _, transp in pairs(char:GetChildren()) do
+			if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "UpperTorso" and transp.Name ~= "LowerTorso" then
+				transp.LocalTransparencyModifier = 0
+			elseif transp:IsA("BasePart") and transp.Name == "Head" then
+				transp.LocalTransparencyModifier = 0
+			elseif transp:IsA("Accessory") then
+				if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+					transp.Handle.Transparency = 0
+				end
+			end
+		end
+	end
+end
+
 --last function
 
 keyt:GetPropertyChangedSignal("Text"):Connect(function()
@@ -2112,6 +2356,11 @@ text.FocusLost:Connect(function(e)
 			disableA(args)
 		elseif text.Text:lower():match("teleport") then
 			teleport()
+		elseif text.Text:lower():sub(1,2) == "vr" then
+			local args = text.Text:sub(4)
+			vr(args)
+		elseif text.Text:lower():match("unvr") then
+			unvr()
 		end
 	end
 end)
@@ -2264,6 +2513,11 @@ chatCon = me.Chatted:Connect(function(cht) --cht cmd
 			disableA(args)
 		elseif cmd == "teleport" then
 			teleport()
+		elseif cmd == "vr" then
+			local args = args[1]
+			vr(args)
+		elseif cmd == "unvr" then
+			unvr()
 		end
 	end
 end)
@@ -2446,6 +2700,13 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			end)
 		elseif text.Text:lower():match("teleport") then
 			addKeybind(keyt.Text, teleport)
+		elseif text.Text:lower():sub(1,2)  == "vr" then
+			local args = text.Text:sub(4)
+			addKeybind(keyt.Text, function()
+				vr(args)
+			end)
+		elseif text.Text:lower():match("unvr") then
+			addKeybind(keyt.Text, unvr)
 		end
 	end
 end)
