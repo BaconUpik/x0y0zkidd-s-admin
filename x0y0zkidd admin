@@ -30,10 +30,14 @@ local light = game:GetService("Lighting")
 local mouse = me:GetMouse()
 local camera = work.CurrentCamera
 
+local reChar = true
+
 local function update()
-	char = me.Character
-	hum = char:WaitForChild("Humanoid")
-	hrp = char:WaitForChild("HumanoidRootPart")
+	if reChar then
+		char = me.Character
+		hum = char:WaitForChild("Humanoid")
+		hrp = char:WaitForChild("HumanoidRootPart")
+	end
 end
 
 me.CharacterAdded:Connect(update)
@@ -94,6 +98,26 @@ function findFarthest() --func findFarthest
 				farthestDistance = fPD
 				farthestPlayer = exceptMe
 			end
+		end
+	end
+end
+
+local friends = {}
+
+function findFriends() --func findFriends
+	for _, findFriends in ipairs(plr:GetPlayers()) do
+		if findFriends:IsFriendsWith(me.UserId) then
+			table.insert(friends, findFriends)
+		end
+	end
+end
+
+local nonFriends = {}
+
+function findNonFriends() --func findNonFriends
+	for _, findNonFriends in ipairs(plr:GetPlayers()) do
+		if not findNonFriends:IsFriendsWith(me.UserId) then
+			table.insert(nonFriends, findNonFriends)
 		end
 	end
 end
@@ -172,6 +196,18 @@ local r15Body = {
 	"RightLowerLeg",
 	"RightFoot"
 	--"HumanoidRootPart"
+}
+
+local numbers = {
+	"0",
+	"1",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9"
 }
 
 local screen  = Instance.new("ScreenGui")
@@ -518,7 +554,7 @@ end)
 btnT3.MouseButton1Click:Connect(function()
 	for _, col in ipairs(screen:GetDescendants()) do
 		if col:IsA("Frame") then
-			col.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			col.BackgroundColor3 = Color3.fromRGB(255, 0, 234)
 
 			theme(col, colSeq1)
 		elseif col:IsA("TextButton") or col:IsA("TextBox") then
@@ -1549,6 +1585,7 @@ function sit() --cmd sit
 end
 
 function reset() --cmd reset
+	hum.Health = 0
 	hum:ChangeState(Enum.HumanoidStateType.Dead)
 end
 
@@ -2182,6 +2219,255 @@ function unvr() --cmd unvr
 	end
 end
 
+local espAdded
+
+local espBox
+local chosedColor
+
+local isEspAll = false
+
+local espDied
+local espAddedDied
+local espAllDied
+
+function esp(args) --cmd esp
+	unesp(args)
+	
+	notify("x0y0z ESP", "type an player name, ignore player name to apply for all.", 10)
+	
+	isEspAll = false
+	
+	espDiedT = true
+	espAddedDiedT = true
+	espAllDiedT = true
+
+	chosedColor = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
+	
+	if args:lower():match("random") then
+		findRandom()
+		task.wait(0.02)
+		
+		local espRandom = randomPlayer
+		
+		local espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
+		local espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+		espBox = Instance.new("BoxHandleAdornment", espChar)
+		espBox.ZIndex = 10
+		espBox.Name = "Burger_x0y0z"
+		espBox.Size = espHrp.Size
+		espBox.Adornee = espHrp
+		espBox.Color3 = chosedColor
+		espBox.AlwaysOnTop = true
+		
+		espDied = espRandom.CharacterAdded:Connect(function()
+			espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
+			espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+		end)
+	elseif args:lower():match("near") then
+		findNearest()
+		task.wait(0.02)
+		
+		local espNear = nearestPlayer
+		
+		local espChar = nearestPlayer.Character or nearestPlayer.CharacterAdded:wait()
+		local espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+		espBox = Instance.new("BoxHandleAdornment", espChar)
+		espBox.ZIndex = 10
+		espBox.Name = "Burger_x0y0z"
+		espBox.Size = espHrp.Size
+		espBox.Adornee = espHrp
+		espBox.Color3 = chosedColor
+		espBox.AlwaysOnTop = true
+		
+		espDied = espNear.CharacterAdded:Connect(function()
+			espChar = espNear.Character or espNear.CharacterAdded:wait()
+			espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+		end)
+	elseif args:lower():match("fart") then
+		findFarthest()
+		task.wait(0.02)
+		
+		local espFart = farthestPlayer
+		
+		local espChar = farthestPlayer.Character or farthestPlayer.CharacterAdded:wait()
+		local espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+		espBox = Instance.new("BoxHandleAdornment", espChar)
+		espBox.ZIndex = 10
+		espBox.Name = "Burger_x0y0z"
+		espBox.Size = espHrp.Size
+		espBox.Adornee = espHrp
+		espBox.Color3 = chosedColor
+		espBox.AlwaysOnTop = true
+		
+		espDied = espFart.CharacterAdded:Connect(function()
+			espChar = espFart.Character or espFart.CharacterAdded:wait()
+			espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+		end)
+	elseif args == "" then
+		isEspAll = true
+		for _, espAll in ipairs(plr:GetPlayers()) do
+			if espAll ~= me then
+				if isEspAll then
+					local espChar = espAll.Character or espAll.CharacterAdded:wait()
+					local espHrp = espChar:WaitForChild("HumanoidRootPart")
+					
+					espBox = Instance.new("BoxHandleAdornment", espChar)
+					espBox.ZIndex = 10
+					espBox.Name = "Burger_x0y0z"
+					espBox.Size = espHrp.Size
+					espBox.Adornee = espHrp
+					espBox.Color3 = chosedColor
+					espBox.AlwaysOnTop = true
+					
+					espAllDied = espAll.CharacterAdded:Connect(function()
+						local espChar = espAll.Character or espAll.CharacterAdded:wait()
+						local espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+						espBox = Instance.new("BoxHandleAdornment", espChar)
+						espBox.ZIndex = 10
+						espBox.Name = "Burger_x0y0z"
+						espBox.Size = espHrp.Size
+						espBox.Adornee = espHrp
+						espBox.Color3 = chosedColor
+						espBox.AlwaysOnTop = true
+					end)
+				end
+			end
+		end
+	else
+		for _, espAll in ipairs(plr:GetPlayers()) do
+			isEspAll = false
+			if espAll.Name:lower():find(args) or espAll.DisplayName:lower():find(args:lower()) then
+				local espChar = espAll.Character or espAll.CharacterAdded:wait()
+				local espHrp = espChar.HumanoidRootPart
+
+				espBox = Instance.new("BoxHandleAdornment", espChar)
+				espBox.ZIndex = 10
+				espBox.Name = "Burger_x0y0z"
+				espBox.Size = espHrp.Size
+				espBox.Adornee = espHrp
+				espBox.Color3 = chosedColor
+				espBox.AlwaysOnTop = true
+				
+				espDied = espAll.CharacterAdded:Connect(function()
+					local espChar = espAll.Character or espAll.CharacterAdded:wait()
+					local espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+					espBox = Instance.new("BoxHandleAdornment", espChar)
+					espBox.ZIndex = 10
+					espBox.Name = "Burger_x0y0z"
+					espBox.Size = espHrp.Size
+					espBox.Adornee = espHrp
+					espBox.Color3 = chosedColor
+					espBox.AlwaysOnTop = true
+				end)
+			end
+		end
+	end
+	
+	espAdded = plr.PlayerAdded:Connect(function(espAdd)
+		if isEspAll then
+			local espChar = espAdd.Character or espAdd.CharacterAdded:wait()
+			local espHrp = espChar:WaitForChild("HumanoidRootPart")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+		end
+	end)
+end
+
+function unesp(args) --cmd unesp
+	isEspAll = false
+	
+	if espAdded then
+		espAdded:Disconnect()
+		espAdded = nil
+	end
+	if espAddedDied then
+		espAddedDied:Disconnect()
+		espAddedDied = nil
+	end
+	if espDied then
+		espDied:Disconnect()
+		espDied = nil
+	end
+	if espAllDied then
+		espAllDied:Disconnect()
+		espAllDied = nil
+	end
+	
+	if args ~= "" then
+		if args:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+
+			if randomPlayer.Character:FindFirstChild("Burger_x0y0z") then
+				randomPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+			end
+		elseif args:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+
+			if nearestPlayer.Character:FindFirstChild("Burger_x0y0z") then
+				nearestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+			end
+		elseif args:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+
+			if farthestPlayer.Character:FindFirstChild("Burger_x0y0z") then
+				farthestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+			end
+		else
+			for _, espAll in pairs(plr:GetPlayers()) do
+				if espAll.Name:lower():find(args:lower()) or espAll.DisplayName:lower():find(args:lower()) then
+					if espAll.Character:FindFirstChild("Burger_x0y0z") then
+						espAll.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					end
+				end
+			end
+		end
+	else
+		for _, espRemove in pairs(work:GetDescendants()) do
+			if espRemove:IsA("BoxHandleAdornment") and espRemove.Name:match("Burger") then
+				espRemove:Destroy()
+			end
+		end
+	end
+end
+
 --last function
 
 keyt:GetPropertyChangedSignal("Text"):Connect(function()
@@ -2364,6 +2650,14 @@ text.FocusLost:Connect(function(e)
 			vr(args)
 		elseif text.Text:lower():match("unvr") then
 			unvr()
+		elseif text.Text:lower():sub(1,3) == "esp" then
+			local args = text.Text:sub(5)
+			
+			esp(args)
+		elseif text.Text:lower():sub(1,5) == "unesp" then
+			local args = text.Text:sub(7)
+
+			unesp(args)
 		end
 	end
 end)
@@ -2509,18 +2803,24 @@ chatCon = me.Chatted:Connect(function(cht) --cht cmd
 		elseif cmd == "disableall" or cmd == "disable all" then
 			disableAll()
 		elseif cmd == "enable" then
-			local args = args[1]
-			enableA(args)
+			local target = args[1]
+			enableA(target)
 		elseif cmd == "disable" then
-			local args = args[1]
-			disableA(args)
+			local target = args[1]
+			disableA(target)
 		elseif cmd == "teleport" then
 			teleport()
 		elseif cmd == "vr" then
-			local args = args[1]
-			vr(args)
+			local target = args[1]
+			vr(target)
 		elseif cmd == "unvr" then
 			unvr()
+		elseif cmd == "esp" then
+			local target = args[1]
+			esp(target)
+		elseif cmd == "unesp" then
+			local target = args[1]
+			unvr(target)
 		end
 	end
 end)
@@ -2710,6 +3010,18 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			end)
 		elseif text.Text:lower():match("unvr") then
 			addKeybind(keyt.Text, unvr)
+		elseif text.Text:lower():sub(1,3) == "esp" then
+			local args = text.Text:sub(5)
+
+			addKeybind(keyt.Text, function()
+				esp(args)
+			end)
+		elseif text.Text:lower():sub(1,5) == "unesp" then
+			local args = text.Text:sub(7)
+
+			addKeybind(keyt.Text, function()
+				unesp(args)
+			end)
 		end
 	end
 end)
