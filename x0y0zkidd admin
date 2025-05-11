@@ -2640,6 +2640,8 @@ text.FocusLost:Connect(function(e)
 			local args = text.Text:sub(7)
 
 			unesp(args)
+		elseif text.Text:lower():match("unheadsit") then
+			unheadsit()
 		end
 	end
 end)
@@ -2792,6 +2794,8 @@ chatCon = me.Chatted:Connect(function(cht) --cht cmd
 	elseif cmd:sub(1,#prefix+5) == prefix.."unesp" then
 		local target = cmd:sub(#prefix + 7)
 		unesp(target)
+	elseif cmd:sub(1,#prefix+9) == prefix.."unheadsit" then
+		unheadsit()
 	end
 end)
 
@@ -2992,6 +2996,8 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			addKeybind(keyt.Text, function()
 				unesp(args)
 			end)
+		elseif text.Text:lower():match("unheadsit") then
+			addKeybind(keyt.Text, unheadsit)
 		end
 	end
 end)
