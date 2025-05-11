@@ -2640,157 +2640,145 @@ end)
 local chatCon
 
 chatCon = me.Chatted:Connect(function(cht) --cht cmd
-	local inp = cht
+	local cmd = cht
 
-	if inp:sub(1,#prefix) == prefix then
-		local fullCmd = inp:sub(#prefix+1)
-		local split = string.split(fullCmd, " ")
-
-		local cmd = split[1]
-		local args = {}
-
-		for i = 2, #split do
-			table.insert(args, split[i])
-		end
-
-		if cmd == "to" then
-			local target = args[1]
-			to(target)
-		elseif cmd == "follow" then
-			local target = args[1]
-			follow(target)
-		elseif cmd == "unfollow" then
-			unfollow()
-		elseif cmd == "headsit" then
-			local target = args[1]
-			headsit(target)
-		elseif cmd == "waypoint" then
-			local target = args[1]
-			waypoint(target)
-		elseif cmd == "wayrm" then
-			local target = args[1]
-			wayrm(target)
-		elseif cmd == "tpway" then
-			local target = args[1]
-			tpway(target)
-		elseif cmd == "view" then
-			local target = args[1]
-			view(target)
-		elseif cmd == "unview" then
-			unview()
-		elseif cmd == "speed" then
-			local target = args[1]
-			speed(target)
-		elseif cmd == "jumppower" then
-			local target = args[1]
-			jumppower(target)
-		elseif cmd == "jp" then
-			local target = args[1]
-			jumppower(target)
-		elseif cmd == "gravity" then
-			local target = args[1]
-			gravity(target)
-		elseif cmd == "say" then
-			local target = args[1]
-			chat(target)
-		elseif cmd == "grabtools" then
-			grabtools()
-		elseif cmd == "ungrabtools" then
-			ungrabtools()
-		elseif cmd == "droptools" then
-			droptools()
-		elseif cmd == "lay" then
-			lay()
-		elseif cmd == "sit" then
-			sit()
-		elseif cmd == "reset" then
-			reset()
-		elseif cmd == "rejoin" then
-			rejoin()
-		elseif cmd == "maxzoom" then
-			local target = args[1]
-			maxzoom(target)
-		elseif cmd == "minzoom" then
-			local target = args[1]
-			minzoom(target)
-		elseif cmd == "clicktp" then
-			clicktp()
-		elseif cmd == "infjump" then
-			infjump()
-		elseif cmd == "jump" then
-			jump()
-		elseif cmd == "fly" then
-			fly()
-		elseif cmd == "unfly" then
-			unfly()
-		elseif cmd == "bfly" then
-			bfly()
-		elseif cmd == "unbfly" then
-			unbfly()
-		elseif cmd == "fling" then
-			fling()
-		elseif cmd == "unfling" then
-			unfling()
-		elseif cmd == "flysp" then
-			local target = args[1]
-			flysp(target)
-		elseif cmd == "bflysp" then
-			local target = args[1]
-			bflysp(target)
-		elseif cmd == "invisible" or cmd == "invis" then
-			invisible()
-		elseif cmd == "visible" or cmd == "vis" then
-			turnVis()
-		elseif cmd == "spawnpoint" then
-			spawnpoint()
-		elseif cmd == "day" then
-			day()
-		elseif cmd == "night" then
-			night()
-		elseif cmd == "exit" then
-			exit()
-		elseif cmd == "swim" then
-			swim()
-		elseif cmd == "unswim" then
-			unswim()
-		elseif cmd == "float" then
-			float()
-		elseif cmd == "unfloat" then
-			unfloat()
-		elseif cmd == "xray" then
-			xray()
-		elseif cmd == "unxray" then
-			unxray()
-		elseif cmd == "noxray" then
-			unxray()
-		elseif cmd == "noclip" then
-			noclip()
-		elseif cmd == "clip" then
-			clip()
-		elseif cmd == "enableall" or cmd == "enable all" then
-			enableAll()
-		elseif cmd == "disableall" or cmd == "disable all" then
-			disableAll()
-		elseif cmd == "enable" then
-			local target = args[1]
-			enableA(target)
-		elseif cmd == "disable" then
-			local target = args[1]
-			disableA(target)
-		elseif cmd == "teleport" then
-			teleport()
-		elseif cmd == "vr" then
-			local target = args[1]
-			vr(target)
-		elseif cmd == "unvr" then
-			unvr()
-		elseif cmd == "esp" then
-			local target = args[1]
-			esp(target)
-		elseif cmd == "unesp" then
-			local target = args[1]
-			unvr(target)
-		end
+	if cmd:sub(1,#prefix+2) == prefix.."to" then
+		local target = cmd:sub(#prefix + 4)
+		to(target)
+	elseif cmd:sub(1,#prefix+6) == prefix.."follow" then
+		local target = cmd:sub(#prefix + 8)
+		follow(target)
+	elseif cmd:sub(1,#prefix+8) == prefix.."unfollow" then
+		unfollow()
+	elseif cmd:sub(1,#prefix+7) == prefix.."headsit" then
+		local target = cmd:sub(#prefix + 9)
+		headsit(target)
+	elseif cmd:sub(1,#prefix+8) == prefix.."waypoint" then
+		local target = cmd:sub(#prefix + 10)
+		waypoint(target)
+	elseif cmd:sub(1,#prefix+5) == prefix.."wayrm" then
+		local target = cmd:sub(#prefix + 7)
+		wayrm(target)
+	elseif cmd:sub(1,#prefix+5) == prefix.."tpway" then
+		local target = cmd:sub(#prefix + 7)
+		tpway(target)
+	elseif cmd:sub(1,#prefix+4) == prefix.."view" then
+		local target = cmd:sub(#prefix + 6)
+		view(target)
+	elseif cmd == "unview" then
+		unview()
+	elseif cmd:sub(1,#prefix+5) == prefix.."speed" then
+		local target = cmd:sub(#prefix + 7)
+		speed(target)
+	elseif cmd:sub(1,#prefix+9) == prefix.."jumppower" then
+		local target = cmd:sub(#prefix + 11)
+		jumppower(target)
+	elseif cmd:sub(1,#prefix+2) == prefix.."jp" then
+		local target = cmd:sub(#prefix + 4)
+		jumppower(target)
+	elseif cmd:sub(1,#prefix+7) == prefix.."gravity" then
+		local target = cmd:sub(#prefix + 9)
+		gravity(target)
+	elseif cmd:sub(1,#prefix+3) == prefix.."say" then
+		local target = cmd:sub(#prefix + 5)
+		chat(target)
+	elseif cmd == "grabtools" then
+		grabtools()
+	elseif cmd == "ungrabtools" then
+		ungrabtools()
+	elseif cmd == "droptools" then
+		droptools()
+	elseif cmd == "lay" then
+		lay()
+	elseif cmd == "sit" then
+		sit()
+	elseif cmd == "reset" then
+		reset()
+	elseif cmd == "rejoin" then
+		rejoin()
+	elseif cmd:sub(1,#prefix+7) == prefix.."maxzoom" then
+		local target = cmd:sub(#prefix + 9)
+		maxzoom(target)
+	elseif cmd:sub(1,#prefix+7) == prefix.."minzoom" then
+		local target = cmd:sub(#prefix + 9)
+		minzoom(target)
+	elseif cmd == "clicktp" then
+		clicktp()
+	elseif cmd == "infjump" then
+		infjump()
+	elseif cmd == "jump" then
+		jump()
+	elseif cmd == "fly" then
+		fly()
+	elseif cmd == "unfly" then
+		unfly()
+	elseif cmd == "bfly" then
+		bfly()
+	elseif cmd == "unbfly" then
+		unbfly()
+	elseif cmd == "fling" then
+		fling()
+	elseif cmd == "unfling" then
+		unfling()
+	elseif cmd:sub(1,#prefix+5) == prefix.."flysp" then
+		local target = cmd:sub(#prefix + 7)
+		flysp(target)
+	elseif cmd:sub(1,#prefix+6) == prefix.."bflysp" then
+		local target = cmd:sub(#prefix + 8)
+		bflysp(target)
+	elseif cmd == "invisible" or cmd == "invis" then
+		invisible()
+	elseif cmd == "visible" or cmd == "vis" then
+		turnVis()
+	elseif cmd == "spawnpoint" then
+		spawnpoint()
+	elseif cmd == "day" then
+		day()
+	elseif cmd == "night" then
+		night()
+	elseif cmd == "exit" then
+		exit()
+	elseif cmd == "swim" then
+		swim()
+	elseif cmd == "unswim" then
+		unswim()
+	elseif cmd == "float" then
+		float()
+	elseif cmd == "unfloat" then
+		unfloat()
+	elseif cmd == "xray" then
+		xray()
+	elseif cmd == "unxray" then
+		unxray()
+	elseif cmd == "noxray" then
+		unxray()
+	elseif cmd == "noclip" then
+		noclip()
+	elseif cmd == "clip" then
+		clip()
+	elseif cmd == "enableall" or cmd == "enable all" then
+		enableAll()
+	elseif cmd == "disableall" or cmd == "disable all" then
+		disableAll()
+	elseif cmd:sub(1,#prefix+6) == prefix.."enable" then
+		local target = cmd:sub(#prefix + 8)
+		enableA(target)
+	elseif cmd:sub(1,#prefix+7) == prefix.."disable" then
+		local target = cmd:sub(#prefix + 9)
+		disableA(target)
+	elseif cmd == "teleport" then
+		teleport()
+	elseif cmd:sub(1,#prefix+2) == prefix.."vr" then
+		local target = cmd:sub(#prefix + 4)
+		vr(target)
+	elseif cmd == "unvr" then
+		unvr()
+	elseif cmd:sub(1,#prefix+3) == prefix.."esp" then
+		local target = cmd:sub(#prefix + 5)
+		esp(target)
+	elseif cmd:sub(1,#prefix+5) == prefix.."unesp" then
+		local target = cmd:sub(#prefix + 7)
+		unesp(target)
 	end
 end)
 
