@@ -263,10 +263,10 @@ local btn            = Instance.new("TextButton")
 btn.Parent           = frame
 btn.Size             = UDim2.new(0, 20, 0, 19)
 btn.Position         = UDim2.new(0, 245, 0, 4)
-btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 btn.Text             = "X"
 btn.TextSize         = 12
-btn.TextColor3       = Color3.fromRGB(255,0,0)
+btn.TextColor3       = Color3.fromRGB(0, 0, 0)
 
 local btn2            = Instance.new("TextButton")
 btn2.Parent           = frame
@@ -274,7 +274,7 @@ btn2.Size             = UDim2.new(0, 105, 0, 45)
 btn2.Position         = UDim2.new(0, 85, 0, 114)
 btn2.Text             = "Clear"
 btn2.TextSize         = 11
-btn2.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btn2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 
 local text             = Instance.new("TextBox")
 text.Parent            = frame
@@ -292,14 +292,14 @@ btn3.Parent           = frame
 btn3.Size             = UDim2.new(0, 75, 0, 15)
 btn3.Position         = UDim2.new(0, 34, 0, 16)
 btn3.Text             = "Command list"
-btn3.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btn3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 
 local btn4            = Instance.new("TextButton")
 btn4.Parent           = frame
 btn4.Size             = UDim2.new(0, 75, 0, 15)
 btn4.Position         = UDim2.new(0, 162, 0, 16)
 btn4.Text             = "Themes"
-btn4.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btn4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 
 local label           = Instance.new("TextLabel")
 label.Parent          = frame
@@ -375,10 +375,10 @@ local btnX            = Instance.new("TextButton")
 btnX.Parent           = frame2
 btnX.Size             = UDim2.new(0, 20, 0, 19)
 btnX.Position         = UDim2.new(0, 284, 0, 4)
-btnX.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnX.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 btnX.Text             = "X"
 btnX.TextSize         = 12
-btnX.TextColor3       = Color3.fromRGB(255,0,0)
+btnX.TextColor3       = Color3.fromRGB(0, 0, 0)
 
 local frame3            = Instance.new("Frame")
 frame3.Parent           = screen
@@ -397,10 +397,10 @@ local btnX2            = Instance.new("TextButton")
 btnX2.Parent           = frame3
 btnX2.Size             = UDim2.new(0, 20, 0, 19)
 btnX2.Position         = UDim2.new(0, 210, 0, 4)
-btnX2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnX2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 btnX2.Text             = "X"
 btnX2.TextSize         = 12
-btnX2.TextColor3       = Color3.fromRGB(255,0,0)
+btnX2.TextColor3       = Color3.fromRGB(0, 0, 0)
 
 btnX2.MouseButton1Click:Connect(function()
 	frame3.Visible = false
@@ -411,7 +411,7 @@ btnT.Parent           = frame3
 btnT.Size             = UDim2.new(0, 55, 0, 25)
 btnT.Position         = UDim2.new(0, 92, 0, 35)
 btnT.Text             = "Light"
-btnT.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 btnT.TextSize         = 11
 
 local btnT2            = Instance.new("TextButton")
@@ -419,7 +419,7 @@ btnT2.Parent           = frame3
 btnT2.Size             = UDim2.new(0, 55, 0, 25)
 btnT2.Position         = UDim2.new(0, 92, 0, 85)
 btnT2.Text             = "Dark"
-btnT2.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 btnT2.TextSize         = 11
 btnT2.Name             = "btnT2"
 
@@ -428,7 +428,7 @@ btnT3.Parent           = frame3
 btnT3.Size             = UDim2.new(0, 55, 0, 25)
 btnT3.Position         = UDim2.new(0, 92, 0, 135)
 btnT3.Text             = "Basic"
-btnT3.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 btnT3.TextSize         = 11
 btnT3.Name             = "btnT3"
 
@@ -568,14 +568,6 @@ btnT3.MouseButton1Click:Connect(function()
 			col.BackgroundColor3 = Color3.fromRGB(247, 0, 255)
 		end
 	end
-	btn.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	btn.TextColor3 = Color3.fromRGB(255,0,0)
-
-	btnX.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	btnX.TextColor3 = Color3.fromRGB(255,0,0)
-
-	btnX2.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	btnX2.TextColor3 = Color3.fromRGB(255,0,0)
 end)
 
 local labelT           = Instance.new("TextLabel")
@@ -796,7 +788,7 @@ btn3.MouseButton1Click:Connect(function()
 	for _, com in pairs(screen:GetChildren()) do
 		if com.Name == "f2" then
 			com.Visible = true
-			com.Position = UDim2.new(0,frame.Position.X.Offset + -350,0,frame.Position.Y.Offset + -150)
+			com.Position = UDim2.new(0,frame.Position.X.Offset + -350,0,frame.Position.Y.Offset + 360)
 		end
 	end
 end)
@@ -805,7 +797,7 @@ btn4.MouseButton1Click:Connect(function()
 	for _, the in pairs(screen:GetChildren()) do
 		if the.Name == "f3" then
 			the.Visible = true
-			the.Position = UDim2.new(0,frame.Position.X.Offset + 20,0,frame.Position.Y.Offset + -300)
+			the.Position = UDim2.new(0,frame.Position.X.Offset + 20,0,frame.Position.Y.Offset + 300)
 		end
 	end
 end)
@@ -2120,12 +2112,12 @@ function vr(args) --cmd vr
 	end
 
 	vrVel = Instance.new("BodyVelocity")
-	vrVel.MaxForce = Vector3.new(huge,huge,huge)
+	vrVel.MaxForce = Vector3.new(9e9,9e9,9e9)
 	vrVel.Name = "VRv"
 	vrVel.Parent = hrp
 
 	vrGyro = Instance.new("BodyGyro")
-	vrGyro.MaxTorque = Vector3.new(huge,huge,huge)
+	vrGyro.MaxTorque = Vector3.new(9e9,9e9,9e9)
 	vrGyro.CFrame = hrp.CFrame
 	vrGyro.Name = "VRg"
 	vrGyro.Parent = hrp
