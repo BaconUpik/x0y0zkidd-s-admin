@@ -1143,11 +1143,14 @@ function unview() --cmd unview
 	camera.CameraSubject = char
 end
 
+local saveSpeed = {}
+
 function speed(args) --cmd speed
 	if args ~= "" then
+		table.insert(saveSpeed, args)
 		hum.WalkSpeed = args
-		task.wait(0.2)
-		if hum.WalkSpeed ~= args then
+		task.wait(0.07)
+		if hum.WalkSpeed ~= table.find(saveSpeed, hum.WalkSpeed) then
 			if speedCon then
 				speedCon:Disconnect()
 				speedCon = nil
@@ -1164,11 +1167,14 @@ function speed(args) --cmd speed
 	end
 end
 
+local saveJP = {}
+
 function jumppower(args) --cmd jumppower
 	if args ~= "" then
+		table.insert(saveJP, args)
 		hum.JumpPower = args
-		task.wait(0.2)
-		if hum.JumpPower ~= args then
+		task.wait(0.07)
+		if hum.JumpPower ~= table.find(saveJP, hum.JumpPower) then
 			if jumpCon then
 				jumpCon:Disconnect()
 				jumpCon = nil
@@ -1185,11 +1191,14 @@ function jumppower(args) --cmd jumppower
 	end
 end
 
+local saveGrav = {}
+
 function gravity(args) --cmd gravity
 	if args ~= "" then
+		table.insert(saveGrav, args)
 		work.Gravity = args
-		task.wait(0.2)
-		if work.Gravity ~= args then
+		task.wait(0.07)
+		if work.Gravity ~= table.find(saveGrav, work.Gravity) then
 			if gravityCon then
 				gravityCon:Disconnect()
 				gravityCon = nil
