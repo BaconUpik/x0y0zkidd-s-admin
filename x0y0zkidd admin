@@ -221,6 +221,8 @@ frame.Parent           = screen
 frame.Size             = UDim2.new(0, 270, 0, 350)
 frame.BackgroundColor3 = Color3.fromRGB(255, 0, 234)
 frame.Position         = UDim2.new(0,1649,0,971)
+frame.ZIndex = 10
+frame.Active = true
 
 local keyt                  = Instance.new("TextBox")
 keyt.Parent                 = frame
@@ -322,6 +324,8 @@ frame2.Size             = UDim2.new(0, 310, 0, 480)
 frame2.BackgroundColor3 = frame.BackgroundColor3
 frame2.Position         = UDim2.new(0, 1040, 0, 550)
 frame2.Name             = "f2"
+frame2.Active = true
+frame2.ZIndex = 10
 frame2.Visible = false
 
 frame2.Active     = true
@@ -386,6 +390,8 @@ frame3.Size             = UDim2.new(0, 235, 0, 250)
 frame3.BackgroundColor3 = frame.BackgroundColor3
 frame3.Position         = UDim2.new(0, 1340, 0, 250)
 frame3.Name             = "f3"
+frame3.Active = true
+frame2.ZIndex = 10
 frame3.Visible = false
 
 
@@ -850,7 +856,6 @@ frame.MouseEnter:Connect(function()
 	task.delay(1.5, function()
 		if not frameConHolder then
 			mouseFrameDelay = false
-			frame.Position = UDim2.new(0,frame.Position.X.Offset,pos2,0)
 		end
 	end)
 end)
@@ -860,8 +865,6 @@ end)
 text.Focused:Connect(function()
 	task.wait(0.02)
 	frameConHolder = true
-	
-	frame.Position = UDim2.new(0,frame.Position.X.Offset,pos1,0)
 end)
 text.FocusLost:Connect(function()
 	mouseFrameDelay = true
@@ -870,7 +873,6 @@ text.FocusLost:Connect(function()
 	task.delay(1.5, function()
 		if not frameConHolder then
 			mouseFrameDelay = false
-			frame.Position = UDim2.new(0,frame.Position.X.Offset,pos2,0)
 		end
 	end)
 end)
