@@ -978,6 +978,8 @@ end
 local connection
 
 function follow(args) --cmd follow
+	unfollow()
+	
 	if args:lower():match("random") then
 		findRandom()
 		task.wait(0.02)
@@ -1311,19 +1313,28 @@ function clicktp() --cmd clicktp
 				local tp   = mouse.Hit+Vector3.new(0,2.5,0)
 				tp         = CFrame.new(tp.X,tp.Y,tp.Z)
 				hrp.CFrame = tp
-			else
-				return
 			end
 		end
 	end)
 end
 
+local infCon
+
 function infjump() --cmd infjump
-	game:GetService("UserInputService").InputBegan:Connect(function(i,g)
+	uninfjump()
+	
+	infCon = uis.InputBegan:Connect(function(i,g)
 		if i.KeyCode == Enum.KeyCode.Space and not g then
 			hum:ChangeState(Enum.HumanoidStateType.Jumping)
 		end
 	end)
+end
+
+function uninfjump() --cmd uninfjump
+	if infCon then
+		infCon:Disconnect()
+		infCon = nil
+	end
 end
 
 function jump() --cmd jump
@@ -1331,6 +1342,8 @@ function jump() --cmd jump
 end
 
 function fly() --cmd fly
+	unfly()
+	
 	if hrp:FindFirstChild("flyVel") then
 		return
 	end
@@ -1451,6 +1464,7 @@ function unfly() --cmd unfly
 end
 
 function bfly() --cmd bfly
+	unbfly()
 	if char:FindFirstChild("FlyHolder") then return end
 
 	local flyHolder = Instance.new("Part")
@@ -1613,6 +1627,8 @@ local Player
 local Character
 
 function invisible() --cmd invisible
+	turnVis()
+	
 	part = Instance.new("Part")
 	part.Parent = work
 	part.CanCollide = false
@@ -1732,6 +1748,7 @@ local isSwimDead
 local isSwimming = false
 
 function swim() --cmd swim
+	unswim()
 	if not isSwimming then
 		enums = Enum.HumanoidStateType:GetEnumItems()
 
@@ -1789,6 +1806,7 @@ local eDown
 local qDown
 
 function float() --cmd float
+	unfloat()
 	if not char:FindFirstChild("FloatHolder") then
 		task.spawn(function()
 			floatValue = -3.1
@@ -1904,6 +1922,7 @@ end
 local noclipCon
 
 function noclip() --cmd noclip
+	clip()
 	local function noclipHold()
 		for _, allMyParts in pairs(char:GetDescendants()) do
 			if allMyParts:IsA("BasePart") and allMyParts.CanCollide == true then
@@ -2569,7 +2588,7 @@ text.FocusLost:Connect(function(e)
 			minzoom(minz)
 		elseif text.Text:lower():match("clicktp") then
 			clicktp()
-		elseif text.Text:lower():match("infjump") then
+		elseif text.Text:lower() == "infjump" then
 			infjump()
 		elseif text.Text:lower() == "jump" then
 			jump()
@@ -2647,6 +2666,8 @@ text.FocusLost:Connect(function(e)
 			unesp(args)
 		elseif text.Text:lower():match("unheadsit") then
 			unheadsit()
+		elseif text.Text:lower():match("uninfjump") then
+			uninfjump()
 		end
 	end
 end)
@@ -2801,6 +2822,8 @@ chatCon = me.Chatted:Connect(function(cht) --cht cmd
 		unesp(target)
 	elseif cmd:sub(1,#prefix+9) == prefix.."unheadsit" then
 		unheadsit()
+	elseif cmd:sub(1,#prefix+9) == prefix.."uninfjump" then
+		uninfjump()
 	end
 end)
 
@@ -2914,7 +2937,7 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			end)
 		elseif text.Text:lower():match("clicktp") then
 			addKeybind(keyt.Text, clicktp)
-		elseif text.Text:lower():match("infjump") then
+		elseif text.Text:lower() == "infjump" then
 			addKeybind(keyt.Text, infjump)
 		elseif text.Text:lower() == "jump" then
 			addKeybind(keyt.Text, jump)
@@ -3003,6 +3026,8 @@ keyt.FocusLost:Connect(function(e) --keybinding
 			end)
 		elseif text.Text:lower():match("unheadsit") then
 			addKeybind(keyt.Text, unheadsit)
+		elseif text.Text:lower():match("uninfjump") then
+			addKeybind(keyt.Text, uninfjump)
 		end
 	end
 end)
