@@ -361,7 +361,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm <name> //removes waypoint by name\ntpway <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly / unfly // toggle fly\n bfly / unbfly // toggle anti-cheat bypass fly\nflysp <speed> /// bflysp <speed> //toggle fly's speed\n fling / unfling // toggle fling\ninvisible /// invis / visible /// vis //toggle invisibility\n spawnpoint //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray / noxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat>\ndisable <inventory, emotes, playerlist, reset, chat>\nenableAll / disableAll ( inv, plrList, emotes, reset, chat )\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "goto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -866,7 +866,7 @@ end)
 text.FocusLost:Connect(function()
 	mouseFrameDelay = true
 	frameConHolder = false
-	
+
 	task.delay(1.5, function()
 		if not frameConHolder then
 			mouseFrameDelay = false
@@ -949,685 +949,56 @@ function addKeybind(key,command)
 	end)
 end
 
---first function
 
-function to(args) --cmd to
-	if args:lower():match("random") then
-		findRandom()
-		task.wait(0.02)
-		hrp.CFrame = randomPlayer.Character.HumanoidRootPart.CFrame
-	elseif args:lower():match("near") then
-		findNearest()
-		task.wait(0.02)
-		hrp.CFrame = nearestPlayer.Character.HumanoidRootPart.CFrame
-	elseif args:lower():match("fart") then
-		findFarthest()
-		task.wait(0.02)
-		hrp.CFrame = farthestPlayer.Character.HumanoidRootPart.CFrame
-	elseif args ~= "" then
-		for _, oth in pairs(plr:GetPlayers()) do
-			if oth.Name:lower():find(args:lower()) or oth.DisplayName:lower():find(args:lower()) then
-				if oth.Character:FindFirstChild("HumanoidRootPart") then
-					hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
-				end
-			end
-		end
-	end
-end
 
 local connection
 
-function follow(args) --cmd follow
-	unfollow()
-	
-	if args:lower():match("random") then
-		findRandom()
-		task.wait(0.02)
-		hum:MoveTo(randomPlayer.Character.HumanoidRootPart.Position)
-	elseif args:lower():match("near") then
-		findNearest()
-		task.wait(0.02)
-		hum:MoveTo(nearestPlayer.Character.HumanoidRootPart.Position)
-	elseif args:lower():match("fart") then
-		findFarthest()
-		task.wait(0.02)
-		hum:MoveTo(farthestPlayer.Character.HumanoidRootPart.Position)
-	elseif args ~= "" then
-		for _, oth2 in pairs(plr:GetPlayers()) do
-			if oth2.Name:lower():find(args:lower()) or oth2.DisplayName:lower():find(args:lower()) then
-				connection = game:GetService("RunService").RenderStepped:Connect(function()
-					if oth2.Character:FindFirstChild("HumanoidRootPart") then
-						hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
-					end
-				end)
-			end
-		end
-	end
-end
+
 
 local con2
 local headSit = false
 
-function headsit(args) --cmd headsit
-	unheadsit()
-	headSit = true
-	
-	if args:lower():match("random") then
-		findRandom()
-		task.wait(0.02)
-		if randomPlayer.Character:FindFirstChild("HumanoidRootPart") then
-			hum.Sit = true
-
-			con2 = run.Heartbeat:Connect(function()
-				if headSit then
-					hum.Sit = true
-					hrp.CFrame = randomPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
-				end
-			end)
-		end
-	elseif args:lower():match("near") then
-		findNearest()
-		task.wait(0.02)
-		if nearestPlayer.Character:FindFirstChild("HumanoidRootPart") then
-			hum.Sit = true
-
-			con2 = run.Heartbeat:Connect(function()
-				if headSit then
-					hum.Sit = true
-					hrp.CFrame = nearestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
-				end
-			end)
-		end
-	elseif args:lower():match("fart") then
-		findFarthest()
-		task.wait(0.02)
-		if farthestPlayer.Character:FindFirstChild("HumanoidRootPart") then
-			hum.Sit = true
-
-			con2 = run.Heartbeat:Connect(function()
-				if headSit then
-					hum.Sit = true
-					hrp.CFrame = farthestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
-				end
-			end)
-		end
-	elseif args ~= "" then
-		for _, oth3 in pairs(plr:GetPlayers()) do
-			if oth3.Name:lower():find(args:lower()) or oth3.DisplayName:lower():find(args:lower()) then
-				if oth3.Character:FindFirstChild("HumanoidRootPart") then
-					hum.Sit = true
-
-					con2 = run.Heartbeat:Connect(function()
-						if headSit then
-							hum.Sit = true
-							hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
-						end
-					end)
-				end
-			end
-		end
-	end
-end
-
-function unheadsit()
-	hum.Sit = false
-	headSit = false
-
-	if con2 then
-		con2:Disconnect()
-		con2 = nil
-	end
-end
 
 uis.InputBegan:Connect(function(i2, g2)
 	if i2.KeyCode == Enum.KeyCode.Space and not g2 then
 		if headSit then
-			unheadsit()
+			hum.Sit = false
+			headSit = false
+
+			if con2 then
+				con2:Disconnect()
+				con2 = nil
+			end
 		end
 	end
 end)
 
-function waypoint(args) --cmd waypoint
-	if args ~= "" then
-		local p        = Instance.new("Part")
-		p.Parent       = work
-		p.Size         = Vector3.new(0.2,1000,0.2)
-		p.Name         = "Way"..args
-		p.Transparency = 0.8
-		p.Anchored     = true
-		p.CanCollide   = false
-		p.BrickColor   = BrickColor.new("Pink")
-		if me.Character:FindFirstChild("RightFoot") then
-			p.CFrame = me.Character.RightFoot.CFrame
-		else
-			p.CFrame = me.Character[rightleg].CFrame
-		end
-	end
-end
-
-function wayrm(args) --cmd wayrm
-	if args ~= "" then
-		work["Way"..args]:Destroy()
-	end
-end
-
-function tpway(args) --cmd tpway
-	if args ~= "" then
-		hrp.CFrame = work["Way"..args].CFrame
-	end
-end
-
-function view(args) --cmd view
-	if args:lower():match("random") then
-		findRandom()
-		task.wait(0.02)
-		work.Camera.CameraSubject = randomPlayer.Character
-	elseif args:lower():match("near") then
-		findNearest()
-		task.wait(0.02)
-		work.Camera.CameraSubject = nearestPlayer.Character
-	elseif args:lower():match("fart") then
-		findFarthest()
-		task.wait(0.02)
-		work.Camera.CameraSubject = farthestPlayer.Character
-	elseif args ~= "" then
-		for _, oth4 in pairs(plr:GetPlayers()) do
-			if oth4.Name:lower():find(args:lower()) or oth4.DisplayName:lower():find(args:lower()) then
-				work.Camera.CameraSubject = oth4.Character
-			end
-		end
-	end
-end
-
-function unview() --cmd unview
-	camera.CameraSubject = char
-end
-
 local saveSpeed = {}
 
-function speed(args) --cmd speed
-	if args ~= "" then
-		table.insert(saveSpeed, args)
-		hum.WalkSpeed = args
-		task.wait(0.07)
-		if hum.WalkSpeed ~= table.find(saveSpeed, hum.WalkSpeed) then
-			if speedCon then
-				speedCon:Disconnect()
-				speedCon = nil
-
-				speedCon = run.RenderStepped:Connect(function()
-					hum.WalkSpeed = args
-				end)
-			else
-				speedCon = run.RenderStepped:Connect(function()
-					hum.WalkSpeed = args
-				end)
-			end
-		end
-	end
-end
 
 local saveJP = {}
 
-function jumppower(args) --cmd jumppower
-	if args ~= "" then
-		table.insert(saveJP, args)
-		hum.JumpPower = args
-		task.wait(0.07)
-		if hum.JumpPower ~= table.find(saveJP, hum.JumpPower) then
-			if jumpCon then
-				jumpCon:Disconnect()
-				jumpCon = nil
-
-				jumpCon = run.RenderStepped:Connect(function()
-					hum.JumpPower = args
-				end)
-			else
-				jumpCon = run.RenderStepped:Connect(function()
-					hum.JumpPower = args
-				end)
-			end
-		end
-	end
-end
 
 local saveGrav = {}
 
-function gravity(args) --cmd gravity
-	if args ~= "" then
-		table.insert(saveGrav, args)
-		work.Gravity = args
-		task.wait(0.07)
-		if work.Gravity ~= table.find(saveGrav, work.Gravity) then
-			if gravityCon then
-				gravityCon:Disconnect()
-				gravityCon = nil
-
-				gravityCon = run.RenderStepped:Connect(function()
-					work.Gravity = args
-				end)
-			else
-				gravityCon = run.RenderStepped:Connect(function()
-					work.Gravity = args
-				end)
-			end
-		end
-	end
-end
-
-function chat(args) --cmd say / cmd chat
-	if args ~= "" then
-		if textChat and textChat:FindFirstChild("TextChannels") then
-			local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
-			if textChat2 then
-				textChat2:SendAsync(args)
-			end
-		elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
-			local oldChat = rep.DefaultChatSystemChatEvents
-			if oldChat then
-				oldChat.SayMessageRequest:FireServer(args, "ALL")
-			end
-		end
-	end
-end
-
-function grabtools() --cmd grabtools
-	toolcon = game:GetService("RunService").RenderStepped:Connect(function()
-		for _, grab in pairs(work:GetDescendants()) do
-			if grab:IsA("BackpackItem") and grab:FindFirstChild("Handle") then
-				hum:EquipTool(grab)
-			end
-		end
-	end)
-end
-
-function ungrabtools() --cmd ungrabtools
-	if toolcon then
-		toolcon:Disconnect()
-		toolcon = nil
-	end
-end
-
-function droptools() --cmd droptools
-	for _, drop in pairs(me.Backpack:GetChildren()) do
-		if drop:IsA("Tool") then
-			drop.Parent = work
-		end
-	end
-end
-
-function lay() --cmd lay
-	hum.Sit = true
-	task.wait(0.15)
-	hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
-	for _, stopAnim in pairs(hum:GetPlayingAnimationTracks()) do
-		stopAnim:Stop()
-	end
-end
-
-function rejoin() --cmd rejoin
-	local p = plr:GetPlayers()
-
-	if #p <= 1 then
-		p.LocalPlayer:Kick("Rejoin")
-		wait()
-		game:GetService("TeleportService"):Teleport(game.PlaceId, p.LocalPlayer)
-	else
-		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, p.LocalPlayer)
-	end
-end
 
 local maxCon
 local minCon
 
-function maxzoom(args) --cmd maxzoom
-	if args ~= "" then
-		me.CameraMaxZoomDistance = args
-		task.wait(0.5)
-		if me.CameraMaxZoomDistance ~= args then
-			maxCon = run.RenderStepped:Connect(function()
-				me.CameraMaxZoomDistance = args
-			end)
-		end
-	end
-end
+local saveMax = {}
 
-function minzoom(args) --cmd minzoom
-	if args ~= "" then
-		me.CameraMinZoomDistance = args
-		task.wait(0.5)
-		if me.CameraMinZoomDistance ~= args then
-			minCon = run.RenderStepped:Connect(function()
-				me.CameraMinZoomDistance = args
-			end)
-		end
-	end
-end
+
+local saveMin = {}
+
+
 
 local cTpCon
 
-function clicktp() --cmd clicktp
-	if cTpCon then
-		cTpCon:Disconnect()
-		cTpCon = nil
-	end
-	cTpCon = uis.InputBegan:Connect(function(input, gay)
-		if gay then return end
 
-		local ctrl = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl)
-
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			if ctrl then
-				mouse      = me:GetMouse()
-				local tp   = mouse.Hit+Vector3.new(0,2.5,0)
-				tp         = CFrame.new(tp.X,tp.Y,tp.Z)
-				hrp.CFrame = tp
-			end
-		end
-	end)
-end
 
 local infCon
 
-function infjump() --cmd infjump
-	uninfjump()
-	
-	infCon = uis.InputBegan:Connect(function(i,g)
-		if i.KeyCode == Enum.KeyCode.Space and not g then
-			hum:ChangeState(Enum.HumanoidStateType.Jumping)
-		end
-	end)
-end
 
-function uninfjump() --cmd uninfjump
-	if infCon then
-		infCon:Disconnect()
-		infCon = nil
-	end
-end
-
-function jump() --cmd jump
-	hum:ChangeState(Enum.HumanoidStateType.Jumping)
-end
-
-function fly() --cmd fly
-	unfly()
-	
-	if hrp:FindFirstChild("flyVel") then
-		return
-	end
-	if hrp:FindFirstChild("bodyFly") then
-		return
-	end
-
-	hum.PlatformStand = true
-
-	flyVel = Instance.new("BodyVelocity")
-	flyVel.Parent = hrp
-	flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
-	flyVel.Velocity = Vector3.new(0,0,0)
-	flyVel.Name = "flyVel"
-
-	bodyFly = Instance.new("BodyGyro")
-	bodyFly.Parent = hrp
-	bodyFly.MaxTorque = Vector3.new(9e9,9e9,9e9)
-	bodyFly.CFrame = hrp.CFrame
-	bodyFly.Name = "bodyFly"
-
-	flyLook = run.Heartbeat:Connect(function()
-		local updMousePos = mouse.Hit.Position
-		local current = hrp.Position
-
-		local toLook = (updMousePos - current).Unit
-
-		hrp.CFrame = CFrame.new(current, current + toLook)
-	end)
-
-	uisHolderDown = mouse.KeyDown:Connect(function(key)
-		if key == "w" then
-			flyCon3 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * flySpeed * dt
-			end)
-		elseif key == "s" then
-			flyCon4 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * flySpeed * dt
-			end)
-		elseif key == "d" then
-			flyCon5 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * flySpeed * dt
-			end)
-		elseif key == "a" then
-			flyCon6 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * flySpeed * dt
-			end)
-		end
-	end)
-	uisHolderUp = mouse.KeyUp:Connect(function(key)
-		if key == "w" then
-			if flyCon3 then
-				flyCon3:Disconnect()
-				flyCon3 = nil
-			end
-		elseif key == "s" then
-			if flyCon4 then
-				flyCon4:Disconnect()
-				flyCon4 = nil
-			end
-		elseif key == "d" then
-			if flyCon5 then
-				flyCon5:Disconnect()
-				flyCon5 = nil
-			end
-		elseif key == "a" then
-			if flyCon6 then
-				flyCon6:Disconnect()
-				flyCon6 = nil
-			end
-		end
-	end)
-end
-
-function unfly() --cmd unfly
-	hum.PlatformStand = false
-	if hrp:FindFirstChild("flyVel") then
-		hrp:FindFirstChild("flyVel"):Destroy()
-	end
-	if hrp:FindFirstChild("bodyFly") then
-		hrp:FindFirstChild("bodyFly"):Destroy()
-	end
-
-	if uisHolderDown then
-		uisHolderDown:Disconnect()
-		uisHolderDown = nil
-	end
-	if uisHolderUp then
-		uisHolderUp:Disconnect()
-		uisHolderUp = nil
-	end
-	if flyVel then
-		flyVel:Destroy()
-	end
-	if flyLook then
-		flyLook:Disconnect()
-		flyLook = nil
-	end
-	if bodyFly then
-		bodyFly:Destroy()
-	end
-	if flyCon3 then
-		flyCon3:Disconnect()
-		flyCon3 = nil
-	end
-	if flyCon4 then
-		flyCon4:Disconnect()
-		flyCon4 = nil
-	end
-	if flyCon5 then
-		flyCon5:Disconnect()
-		flyCon5 = nil
-	end
-	if flyCon6 then
-		flyCon6:Disconnect()
-		flyCon6 = nil
-	end
-end
-
-function bfly() --cmd bfly
-	unbfly()
-	if char:FindFirstChild("FlyHolder") then return end
-
-	local flyHolder = Instance.new("Part")
-	flyHolder.Parent = me.Character
-	flyHolder.Transparency = 0.999
-	flyHolder.Name = "FlyHolder"
-	fhCon = run.RenderStepped:Connect(function()
-		flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
-	end)
-	uisHolderDown2 = mouse.KeyDown:Connect(function(key)
-		if g then return end
-
-		if key == "e" then
-			flyCon = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * bflySpeed * dt
-			end)
-		elseif key == "q" then
-			flyCon2 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * bflySpeed * dt
-			end)
-		elseif key == "w" then
-			flyCon3 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * bflySpeed * dt
-			end)
-		elseif key == "s" then
-			flyCon4 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * bflySpeed * dt
-			end)
-		elseif key == "d" then
-			flyCon5 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * bflySpeed * dt
-			end)
-		elseif key == "a" then
-			flyCon6 = run.Heartbeat:Connect(function(dt)
-				hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * bflySpeed * dt
-			end)
-		end
-	end)
-	uisHolderUp2 = mouse.KeyUp:Connect(function(key)
-		if key == "e" then
-			if flyCon then
-				flyCon:Disconnect()
-				flyCon = nil
-			end
-		elseif key == "q" then
-			if flyCon2 then
-				flyCon2:Disconnect()
-				flyCon2 = nil
-			end
-		elseif key == "w" then
-			if flyCon3 then
-				flyCon3:Disconnect()
-				flyCon3 = nil
-			end
-		elseif key == "s" then
-			if flyCon4 then
-				flyCon4:Disconnect()
-				flyCon4 = nil
-			end
-		elseif key == "d" then
-			if flyCon5 then
-				flyCon5:Disconnect()
-				flyCon5 = nil
-			end
-		elseif key == "a" then
-			if flyCon6 then
-				flyCon6:Disconnect()
-				flyCon6 = nil
-			end
-		end
-	end)
-end
-
-function unbfly() --cmd unbfly
-	local fPart = char:FindFirstChild("FlyHolder")
-	if fPart then
-		fPart:Destroy()
-	end
-
-	if uisHolderDown2 then
-		uisHolderDown2:Disconnect()
-		uisHolderDown2 = nil
-	end
-	if uisHolderUp2 then
-		uisHolderUp2:Disconnect()
-		uisHolderUp2 = nil
-	end
-	if fhCon then
-		fhCon:Disconnect()
-		fhCon = nil
-	end
-end
-
-function fling() --cmd fling
-	bmw = Instance.new("BodyAngularVelocity")
-	bmw.AngularVelocity = Vector3.new(0,10000,0)
-	bmw.MaxTorque = Vector3.new(0,math.huge,0)
-	bmw.Parent = hrp
-
-	for _, tesv in pairs(me.Character:GetDescendants()) do
-		if tesv:IsA("BasePart") then
-			flingCon = run.RenderStepped:Connect(function()
-				tesv.CanCollide = false
-			end)
-			tesv.Massless = true
-			tesv.Velocity = Vector3.new(0, 0, 0)
-		end
-	end
-end
-
-function unfling() --cmd unfling
-	if bmw then
-		bmw:Destroy()
-
-		if flingCon then
-			flingCon:Disconnect()
-			flingCon = nil
-		end
-
-		for _, tesv in pairs(me.Character:GetDescendants()) do
-			if tesv:IsA("BasePart") then
-				tesv.CanCollide = true
-				tesv.Massless = false
-				tesv.Velocity = Vector3.new(0, 0, 0)
-			end
-		end
-	end
-end
-
-function flysp(args) --cmd flysp
-	flySpeed = args
-end
-
-function bflysp(args) --cmd bflysp
-	bflySpeed = args
-end
-
-function sit() --cmd sit
-	hum.Sit = true
-end
-
-function reset() --cmd reset
-	hum.Health = 0
-	hum:ChangeState(Enum.HumanoidStateType.Dead)
-end
-
-function unfollow() --cmd unfollow
-	if connection then
-		connection:Disconnect()
-		connection = nil
-	end
-	task.wait(0.02)
-	hum:MoveTo(hrp.Position)
-end
 
 local part
 local invRespawn
@@ -1635,174 +1006,18 @@ local async
 local Player
 local Character
 
-function invisible() --cmd invisible
-	turnVis()
-	
-	part = Instance.new("Part")
-	part.Parent = work
-	part.CanCollide = false
-	part.Anchored = true
-	part.Transparency = 0.99
-	part.CFrame = hrp.CFrame + Vector3.new(0,0.1,0)
 
-	Player = me
-	repeat wait(.1) until Player.Character
-	Character = Player.Character
-
-	Character.Archivable = true
-
-	async = Character:Clone()
-	async.Parent = game:GetService("Lighting")
-	async.Name = "Burger"
-
-	task.wait(0.1)
-
-	Character:MoveTo(Vector3.new(0,1000,0))
-	task.wait(0.5)
-	Character.HumanoidRootPart.Anchored = true
-	task.wait(0.5)
-	async = async
-	async.Parent = work
-	async.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
-	Player.Character = async
-
-	invRespawn = async.Humanoid.Died:Connect(function()
-		Player.Character = Character
-		Character.HumanoidRootPart.Anchored = false
-		task.wait(0.1)
-		Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
-		task.wait(0.1)
-		async.Parent = nil
-
-		task.wait(0.1)
-
-		camera.CameraSubject = Character.Humanoid
-
-		part:Destroy()
-
-		invRespawn:Disconnect()
-	end)
-
-	task.wait(0.1)
-
-	Player.Character = async
-
-	Player.Character.Animate.Disabled = true
-	Player.Character.Animate.Disabled = false
-
-	camera.CameraSubject = Player.Character.Humanoid
-
-	task.wait(0.2)
-
-	Player.Character.HumanoidRootPart.CFrame = part.CFrame
-
-	for _, all in pairs(Player.Character:GetDescendants()) do
-		if all:IsA("BasePart") then
-			if all.Name == "HumanoidRootPart" then
-				all.Transparency = 1
-			else
-				all.Transparency = 0.5
-			end
-		end
-	end
-end
-
-function turnVis() --cmd visible
-	Player.Character = Character
-	Character.HumanoidRootPart.Anchored = false
-	task.wait(0.1)
-	Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
-	task.wait(0.1)
-	async.Parent = nil
-
-	task.wait(0.1)
-
-	camera.CameraSubject = Character.Humanoid
-
-	part:Destroy()
-
-	invRespawn:Disconnect()
-end
 
 local isSpawnpoint
 
-function spawnpoint() --cmd spawnpoint
-	if isSpawnpoint then
-		isSpawnpoint:Disconnect()
-		isSpawnpoint = nil
-	end
-	local spawnPos = hrp.CFrame
-	isSpawnpoint = me.CharacterAdded:Connect(function()
-		repeat wait(0.1) until me.Character
 
-		hrp.CFrame = spawnPos
-	end)
-end
-
-function day() --cmd day
-	game:GetService("Lighting").ClockTime = 14
-end
-
-function night() --cmd night
-	game:GetService("Lighting").ClockTime = 0
-end
-
-function exit() --cmd exit
-	game:Shutdown()
-end
 
 local enums
 local swimCon
 local isSwimDead
 local isSwimming = false
 
-function swim() --cmd swim
-	unswim()
-	if not isSwimming then
-		enums = Enum.HumanoidStateType:GetEnumItems()
 
-		table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
-		for i, state in pairs(enums) do
-			hum:SetStateEnabled(state, false)
-
-			hum:ChangeState(Enum.HumanoidStateType.Swimming)
-		end
-		swimCon = run.RenderStepped:Connect(function()
-			pcall(function()
-				hrp.Velocity = ((hum.MoveDirection ~= Vector3.new()) or uis:IsKeyDown(Enum.KeyCode.Space) and hrp.Velocity or Vector3.new())
-			end)
-			work.Gravity = 0
-		end)
-		isSwimDead = hum.Died:Connect(unswim)
-	end
-	isSwimming = true
-end
-
-function unswim() --cmd unswim
-	isSwimming = false
-
-	if swimCon then
-		swimCon:Disconnect()
-		swimCon = nil
-	end
-	if isSwimDead then
-		isSwimDead:Disconnect()
-		isSwimDead = nil
-	end
-
-	work.Gravity = 196.2
-
-	isSwimming = false
-	enums = Enum.HumanoidStateType:GetEnumItems()
-
-	table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
-
-	for i, state in pairs(enums) do
-		hum:SetStateEnabled(state, true)
-
-		hum:ChangeState(Enum.HumanoidStateType.None)
-	end
-end
 
 local plat
 local platCon
@@ -1814,201 +1029,11 @@ local qUp
 local eDown
 local qDown
 
-function float() --cmd float
-	unfloat()
-	if not char:FindFirstChild("FloatHolder") then
-		task.spawn(function()
-			floatValue = -3.1
 
-			plat = Instance.new("Part")
-			plat.Parent = char
-			plat.Name = "FloatHolder"
-			plat.Size = Vector3.new(2,0.2,2)
-			plat.Transparency = 1
-			plat.Anchored = true
-			plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
-
-			platCon = run.Heartbeat:Connect(function()
-				plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
-			end)
-			eUp = mouse.KeyUp:Connect(function(key)
-				if key == "e" then
-					floatValue = floatValue - 1
-				end
-			end)
-			eDown = mouse.KeyDown:Connect(function(key)
-				if key == "e" then
-					floatValue = floatValue + 1
-				end
-			end)
-			qUp = mouse.KeyUp:Connect(function(key)
-				if key == "q" then
-					floatValue = floatValue + 0.3
-				end
-			end)
-			qDown = mouse.KeyDown:Connect(function(key)
-				if key == "q" then
-					floatValue = floatValue - 0.3
-				end
-			end)
-			platDied = hum.Died:Connect(function()
-				platDied:Disconnect()
-				platDied = nil
-				if plat then
-					plat:Destroy()
-				end
-				if platCon then
-					platCon:Disconnect()
-					platCon = nil
-				end
-				if eUp then
-					eUp:Disconnect()
-					eUp = nil
-				end
-				if eDown then
-					eDown:Disconnect()
-					eDown = nil
-				end
-				if qUp then
-					qUp:Disconnect()
-					qUp = nil
-				end
-				if qDown then
-					qDown:Disconnect()
-					qDown = nil
-				end
-			end)
-		end)
-	end
-end
-
-function unfloat() --cmd unfloat
-	if platDied then
-		platDied:Disconnect()
-		platDied = nil
-	end
-	if plat then
-		plat:Destroy()
-	end
-	if platCon then
-		platCon:Disconnect()
-		platCon = nil
-	end
-	if eUp then
-		eUp:Disconnect()
-		eUp = nil
-	end
-	if eDown then
-		eDown:Disconnect()
-		eDown = nil
-	end
-	if qUp then
-		qUp:Disconnect()
-		qUp = nil
-	end
-	if qDown then
-		qDown:Disconnect()
-		qDown = nil
-	end
-end
-
-function xray() --cmd xray
-	for _, ray in pairs(work:GetDescendants()) do
-		if ray:IsA("BasePart") and not ray.Parent:FindFirstChild("Humanoid") and not ray.Parent:FindFirstChildWhichIsA("Humanoid") then
-			ray.LocalTransparencyModifier = 0.5
-		end
-	end
-end
-
-function unxray() --cmd unxray / noxray
-	for _, ray in pairs(work:GetDescendants()) do
-		if ray:IsA("BasePart") and not ray.Parent:FindFirstChild("Humanoid") and not ray.Parent:FindFirstChildWhichIsA("Humanoid") then
-			ray.LocalTransparencyModifier = 0
-		end
-	end
-end
 
 local noclipCon
 
-function noclip() --cmd noclip
-	clip()
-	local function noclipHold()
-		for _, allMyParts in pairs(char:GetDescendants()) do
-			if allMyParts:IsA("BasePart") and allMyParts.CanCollide == true then
-				allMyParts.CanCollide = false
-			end
-		end
-	end
-	noclipCon = run.Stepped:Connect(noclipHold)
-end
 
-function clip() --cmd clip
-	if noclipCon then
-		noclipCon:Disconnect()
-	end
-end
-
-function enableAll() --cmd enableAll
-	print("enabling all...")
-	me.DevEnableMouseLock = true
-	starterGui:SetCore("ResetButtonCallback", true)
-	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
-	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
-	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
-	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-	print("enabled all :D")
-end
-
-function disableAll() --cmd disableAll
-	print("disabling all...")
-	me.DevEnableMouseLock = false
-	starterGui:SetCore("ResetButtonCallback", false)
-	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
-	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
-	starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
-	print("disabled all :D")
-end
-
-function enableA(args) --cmd enableA
-	if args:lower():match("shift") then
-		me.DevEnableMouseLock = true
-	elseif args:lower():match("inv") then
-		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
-	elseif args:lower():match("player") then
-		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
-	elseif args:lower():match("emote") then
-		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
-	elseif args:lower():match("reset") then
-		starterGui:SetCore("ResetButtonCallback", true)
-	elseif args:lower():match("chat") then
-		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-	end
-end
-function disableA(args) --cmd disableA
-	if args:lower():match("shift") then
-		me.DevEnableMouseLock = false
-	elseif args:lower():match("inv") then
-		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
-	elseif args:lower():match("player") then
-		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
-	elseif args:lower():match("emote") then
-		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
-	elseif args:lower():match("reset") then
-		starterGui:SetCore("ResetButtonCallback", false)
-	elseif args:lower():match("chat") then
-		starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
-	end
-end
-
-function teleport() --cmd teleport
-	mouse = me:GetMouse()
-
-	local tp2 = mouse.Hit + Vector3.new(0,2.5,0)
-	tp2 = CFrame.new(tp2.X,tp2.Y,tp2.Z)
-
-	hrp.CFrame = tp2
-end
 
 local wheelFor
 local wheelBack
@@ -2052,213 +1077,15 @@ local vrR15ArmsLegs = {
 	"RightFoot"
 }
 
-function vr(args) --cmd vr
-	if uis.TouchEnabled and not uis.KeyboardEnabled and not uis.GamepadEnabled then
-		notify("x0y0z admin WARNING", "This script doesnt support mobile, some functions will not work.", 10)
-	end
-	saveZoom = me.CameraMaxZoomDistance
-	unvr()
 
-	if args ~= "" then
-		if tonumber(args) > 99 then
-			me.CameraMaxZoomDistance = 100
-			me.CameraMinZoomDistance = 100
-
-			vrIsHats = false
-		elseif tonumber(args) < 2 then
-			me.CameraMaxZoomDistance = 1
-			me.CameraMinZoomDistance = 1
-
-			vrIsHats = true
-		else
-			me.CameraMaxZoomDistance = args
-			me.CameraMinZoomDistance = args
-
-			vrIsHats = false
-		end
-	else
-		me.CameraMaxZoomDistance = 50
-		me.CameraMinZoomDistance = 50
-
-		vrIsHats = false
-	end
-
-	vrIsMax0Stop = false
-	vrIsMax0 = true
-
-	hum.PlatformStand = true
-	hum.Sit = true
-
-	vrDied = hum.Died:Connect(function()
-		unvr()
-		if vrDied then
-			vrDied:Disconnect()
-			vrDied = nil
-		end
-	end)
-
-	if hum.RigType == Enum.HumanoidRigType.R6 then
-		char.Torso.Transparency = 0.9
-
-		while vrIsMax0 do
-			for _, transp in pairs(char:GetChildren()) do
-				if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "Torso" then
-					trCon = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
-						transp.LocalTransparencyModifier = 0
-					end)
-				elseif transp:IsA("BasePart") and transp.Name == "Head" then
-					trCon2 = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
-						transp.LocalTransparencyModifier = 1
-					end)
-				elseif transp:IsA("Accessory") then
-					if vrIsHats then
-						if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
-							transp.Handle.Transparency = 1
-						end
-					end
-				end
-			end
-			if vrIsMax0 then
-				break
-			end
-			task.wait(0.02)
-		end
-	else
-		char.LowerTorso.Transparency = 0.9
-		char.UpperTorso.Transparency = 0.9
-
-		while vrIsMax0 do
-			for _, transp in pairs(char:GetChildren()) do
-				if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "UpperTorso" and transp.Name ~= "LowerTorso" then
-					trCon = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
-						transp.LocalTransparencyModifier = 0
-					end)
-				elseif transp:IsA("BasePart") and transp.Name == "Head" then
-					trCon2 = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
-						transp.LocalTransparencyModifier = 1
-					end)
-				elseif transp:IsA("Accessory") then
-					if vrIsHats then
-						if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
-							transp.Handle.Transparency = 1
-						end
-					end
-				end
-			end
-			if vrIsMax0 then
-				break
-			end
-			task.wait(0.02)
-		end
-	end
-
-	vrVel = Instance.new("BodyVelocity")
-	vrVel.MaxForce = Vector3.new(huge,huge,huge)
-	vrVel.Name = "VRv"
-	vrVel.Parent = hrp
-
-	vrGyro = Instance.new("BodyGyro")
-	vrGyro.MaxTorque = Vector3.new(huge,huge,huge)
-	vrGyro.CFrame = hrp.CFrame
-	vrGyro.Name = "VRg"
-	vrGyro.Parent = hrp
-
-	vrLook = run.Heartbeat:Connect(function()
-		hum.Sit = true
-
-		local vrDistance = hrp.Position
-		local newMousePos = mouse.Hit.Position
-
-		local newVRDistance = (newMousePos - vrDistance).Unit
-
-		hrp.CFrame = CFrame.new(vrDistance, vrDistance + newVRDistance)
-	end)
-
-	wheelFor = mouse.WheelForward:Connect(function()
-		hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * 1.555
-	end)
-
-	wheelBack = mouse.WheelBackward:Connect(function()
-		hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * 1.555
-	end)
-end
-
-function unvr() --cmd unvr
-	vrIsMax0Stop = true
-	vrIsMax0 = false
-
-	hum.PlatformStand = false
-	hum.Sit = false
-
-	if vrVel then
-		vrVel:Destroy()
-	end
-	if vrGyro then
-		vrGyro:Destroy()
-	end
-	if saveZoom ~= nil then
-		me.CameraMaxZoomDistance = saveZoom
-		me.CameraMinZoomDistance = 0
-	end
-	if vrLook then
-		vrLook:Disconnect()
-		vrLook = nil
-	end
-	if wheelFor then
-		wheelFor:Disconnect()
-		wheelFor = nil
-	end
-	if wheelBack then
-		wheelBack:Disconnect()
-		wheelBack = nil
-	end
-	if trCon then
-		trCon:Disconnect()
-		trCon = nil
-	end
-	if trCon2 then
-		trCon2:Disconnect()
-		trCon2 = nil
-	end
-	if vrDied then
-		vrDied:Disconnect()
-		vrDied = nil
-	end
-	if hum.RigType == Enum.HumanoidRigType.R6 then
-		char.Torso.Transparency = 0
-
-		for _, transp in pairs(char:GetChildren()) do
-			if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "Torso" then
-				transp.LocalTransparencyModifier = 0
-			elseif transp:IsA("BasePart") and transp.Name == "Head" then
-				transp.LocalTransparencyModifier = 0
-			elseif transp:IsA("Accessory") then
-				if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
-					transp.Handle.Transparency = 0
-				end
-			end
-		end
-	else
-		char.LowerTorso.Transparency = 0
-		char.UpperTorso.Transparency = 0
-		for _, transp in pairs(char:GetChildren()) do
-			if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "UpperTorso" and transp.Name ~= "LowerTorso" then
-				transp.LocalTransparencyModifier = 0
-			elseif transp:IsA("BasePart") and transp.Name == "Head" then
-				transp.LocalTransparencyModifier = 0
-			elseif transp:IsA("Accessory") then
-				if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
-					transp.Handle.Transparency = 0
-				end
-			end
-		end
-	end
-end
 
 local espAdded
 
 local espBox
 local chosedColor
+
+local espNameHolder
+local espName
 
 local isEspAll = false
 
@@ -2266,139 +1093,1170 @@ local espDied
 local espAddedDied
 local espAllDied
 
-function esp(args) --cmd esp
-	unesp(args)
-	
-	notify("x0y0z ESP", "type an player name, ignore player name to apply for all.", 10)
-	
-	isEspAll = false
+local espCons = {}
 
-	chosedColor = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
-	
-	if args:lower():match("random") then
-		findRandom()
-		task.wait(0.02)
-		
-		local espRandom = randomPlayer
-		
-		local espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
-		local espHrp = espChar:WaitForChild("HumanoidRootPart")
+function cmds(cmd, func) --func cmds
+	local args = cmd:split(" ")
 
-		espBox = Instance.new("BoxHandleAdornment", espChar)
-		espBox.ZIndex = 10
-		espBox.Name = "Burger_x0y0z"
-		espBox.Size = espHrp.Size
-		espBox.Adornee = espHrp
-		espBox.Color3 = chosedColor
-		espBox.AlwaysOnTop = true
-		
-		espDied = espRandom.CharacterAdded:Connect(function()
-			espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
-			espHrp = espChar:WaitForChild("HumanoidRootPart")
-
-			espBox = Instance.new("BoxHandleAdornment", espChar)
-			espBox.ZIndex = 10
-			espBox.Name = "Burger_x0y0z"
-			espBox.Size = espHrp.Size
-			espBox.Adornee = espHrp
-			espBox.Color3 = chosedColor
-			espBox.AlwaysOnTop = true
-		end)
-	elseif args:lower():match("near") then
-		findNearest()
-		task.wait(0.02)
-		
-		local espNear = nearestPlayer
-		
-		local espChar = nearestPlayer.Character or nearestPlayer.CharacterAdded:wait()
-		local espHrp = espChar:WaitForChild("HumanoidRootPart")
-
-		espBox = Instance.new("BoxHandleAdornment", espChar)
-		espBox.ZIndex = 10
-		espBox.Name = "Burger_x0y0z"
-		espBox.Size = espHrp.Size
-		espBox.Adornee = espHrp
-		espBox.Color3 = chosedColor
-		espBox.AlwaysOnTop = true
-		
-		espDied = espNear.CharacterAdded:Connect(function()
-			espChar = espNear.Character or espNear.CharacterAdded:wait()
-			espHrp = espChar:WaitForChild("HumanoidRootPart")
-
-			espBox = Instance.new("BoxHandleAdornment", espChar)
-			espBox.ZIndex = 10
-			espBox.Name = "Burger_x0y0z"
-			espBox.Size = espHrp.Size
-			espBox.Adornee = espHrp
-			espBox.Color3 = chosedColor
-			espBox.AlwaysOnTop = true
-		end)
-	elseif args:lower():match("fart") then
-		findFarthest()
-		task.wait(0.02)
-		
-		local espFart = farthestPlayer
-		
-		local espChar = farthestPlayer.Character or farthestPlayer.CharacterAdded:wait()
-		local espHrp = espChar:WaitForChild("HumanoidRootPart")
-
-		espBox = Instance.new("BoxHandleAdornment", espChar)
-		espBox.ZIndex = 10
-		espBox.Name = "Burger_x0y0z"
-		espBox.Size = espHrp.Size
-		espBox.Adornee = espHrp
-		espBox.Color3 = chosedColor
-		espBox.AlwaysOnTop = true
-		
-		espDied = espFart.CharacterAdded:Connect(function()
-			espChar = espFart.Character or espFart.CharacterAdded:wait()
-			espHrp = espChar:WaitForChild("HumanoidRootPart")
-
-			espBox = Instance.new("BoxHandleAdornment", espChar)
-			espBox.ZIndex = 10
-			espBox.Name = "Burger_x0y0z"
-			espBox.Size = espHrp.Size
-			espBox.Adornee = espHrp
-			espBox.Color3 = chosedColor
-			espBox.AlwaysOnTop = true
-		end)
-	elseif args == "" then
-		isEspAll = true
-		for _, espAll in ipairs(plr:GetPlayers()) do
-			if espAll ~= me then
-				if isEspAll then
-					local espChar = espAll.Character or espAll.CharacterAdded:wait()
-					local espHrp = espChar:WaitForChild("HumanoidRootPart")
-					
-					espBox = Instance.new("BoxHandleAdornment", espChar)
-					espBox.ZIndex = 10
-					espBox.Name = "Burger_x0y0z"
-					espBox.Size = espHrp.Size
-					espBox.Adornee = espHrp
-					espBox.Color3 = chosedColor
-					espBox.AlwaysOnTop = true
-					
-					espAllDied = espAll.CharacterAdded:Connect(function()
-						local espChar = espAll.Character or espAll.CharacterAdded:wait()
-						local espHrp = espChar:WaitForChild("HumanoidRootPart")
-
-						espBox = Instance.new("BoxHandleAdornment", espChar)
-						espBox.ZIndex = 10
-						espBox.Name = "Burger_x0y0z"
-						espBox.Size = espHrp.Size
-						espBox.Adornee = espHrp
-						espBox.Color3 = chosedColor
-						espBox.AlwaysOnTop = true
+	if cmd:lower():sub(1, #prefix + 2) == prefix.."to" or cmd:lower():sub(1, #prefix + 4) == prefix.."goto" or cmd:lower():sub(1,2) == "to" or cmd:lower():sub(1,4) == "goto" or func == "to" then --goto
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+			hrp.CFrame = randomPlayer.Character.HumanoidRootPart.CFrame
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+			hrp.CFrame = nearestPlayer.Character.HumanoidRootPart.CFrame
+		elseif args[2]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+			hrp.CFrame = farthestPlayer.Character.HumanoidRootPart.CFrame
+		elseif args[2] ~= "" then
+			for _, oth in pairs(plr:GetPlayers()) do
+				if oth.Name:lower():find(args[2]:lower()) or oth.DisplayName:lower():find(args[2]:lower()) then
+					if oth.Character:FindFirstChild("HumanoidRootPart") then
+						hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
+					end
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."follow" or cmd:lower():sub(1,6) == "follow" or func == "follow" then --follow
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+			hum:MoveTo(randomPlayer.Character.HumanoidRootPart.Position)
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+			hum:MoveTo(nearestPlayer.Character.HumanoidRootPart.Position)
+		elseif args[3]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+			hum:MoveTo(farthestPlayer.Character.HumanoidRootPart.Position)
+		elseif args[2] ~= "" then
+			for _, oth2 in pairs(plr:GetPlayers()) do
+				if oth2.Name:lower():find(args[2]:lower()) or oth2.DisplayName:lower():find(args[2]:lower()) then
+					connection = game:GetService("RunService").RenderStepped:Connect(function()
+						if oth2.Character:FindFirstChild("HumanoidRootPart") then
+							hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
+						end
 					end)
 				end
 			end
 		end
-	else
-		for _, espAll in ipairs(plr:GetPlayers()) do
-			isEspAll = false
-			if espAll.Name:lower():find(args) or espAll.DisplayName:lower():find(args:lower()) then
-				local espChar = espAll.Character or espAll.CharacterAdded:wait()
-				local espHrp = espChar.HumanoidRootPart
+	elseif cmd:lower():sub(1,#prefix + 8) == prefix.."unfollow" or cmd:lower():sub(1,8) == "unfollow" or func == "unfollow" then --unfollow
+		if connection then
+			connection:Disconnect()
+			connection = nil
+		end
+		task.wait(0.02)
+		hum:MoveTo(hrp.Position)
+	elseif cmd:lower() == prefix.."headsit" or cmd:lower() == "headsit" or func == "headsit" then --headsit
+		headSit = true
+
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+			if randomPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				hum.Sit = true
+
+				con2 = run.Heartbeat:Connect(function()
+					if headSit then
+						hum.Sit = true
+						hrp.CFrame = randomPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+					end
+				end)
+			end
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+			if nearestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				hum.Sit = true
+
+				con2 = run.Heartbeat:Connect(function()
+					if headSit then
+						hum.Sit = true
+						hrp.CFrame = nearestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+					end
+				end)
+			end
+		elseif args[2]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+			if farthestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				hum.Sit = true
+
+				con2 = run.Heartbeat:Connect(function()
+					if headSit then
+						hum.Sit = true
+						hrp.CFrame = farthestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+					end
+				end)
+			end
+		elseif args[2] ~= "" then
+			for _, oth3 in pairs(plr:GetPlayers()) do
+				if oth3.Name:lower():find(args[2]:lower()) or oth3.DisplayName:lower():find(args[2]:lower()) then
+					if oth3.Character:FindFirstChild("HumanoidRootPart") then
+						hum.Sit = true
+
+						con2 = run.Heartbeat:Connect(function()
+							if headSit then
+								hum.Sit = true
+								hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
+							end
+						end)
+					end
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."unheadsit" or cmd:lower():sub(1,9) == "unheadsit" or func == "unheadsit" then --unheadsit
+		hum.Sit = false
+		headSit = false
+
+		if con2 then
+			con2:Disconnect()
+			con2 = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 8) == prefix.."waypoint" or cmd:lower():sub(1,8) == "waypoint" or func == "waypoint" then --waypoint
+		if args[2] ~= "" then
+			local p        = Instance.new("Part")
+			p.Parent       = work
+			p.Size         = Vector3.new(0.2,1000,0.2)
+			p.Name         = "Way"..args[2]
+			p.Transparency = 0.8
+			p.Anchored     = true
+			p.CanCollide   = false
+			p.BrickColor   = BrickColor.new("Pink")
+			if me.Character:FindFirstChild("RightFoot") then
+				p.CFrame = me.Character.RightFoot.CFrame
+			else
+				p.CFrame = me.Character[rightleg].CFrame
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."wayrm" or cmd:lower():sub(1,#prefix + 5) == prefix.."rmway" or cmd:lower():sub(1,5) == "wayrm" or cmd:lower():sub(1,5) == "rmway" or func == "wayrm" or func == "rmway" then --wayrm
+		if args[2] ~= "" then
+			work["Way"..args[2]]:Destroy()
+		end
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."tpway" or cmd:lower():sub(1,#prefix + 5) == prefix.."waytp" or cmd:lower():sub(1,5) == "tpway" or cmd:lower():sub(1,5) == "waytp" or func == "tpway" or func == "waytp" then --tpway
+		if args[2] ~= "" then
+			hrp.CFrame = work["Way"..args[2]].CFrame
+		end
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."view" or cmd:lower():sub(1,4) == "view" or func == "view" then --view
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+			work.Camera.CameraSubject = randomPlayer.Character
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+			work.Camera.CameraSubject = nearestPlayer.Character
+		elseif args[2]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+			work.Camera.CameraSubject = farthestPlayer.Character
+		elseif args[2] ~= "" then
+			for _, oth4 in pairs(plr:GetPlayers()) do
+				if oth4.Name:lower():find(args[2]:lower()) or oth4.DisplayName:lower():find(args[2]:lower()) then
+					work.Camera.CameraSubject = oth4.Character
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unview" or cmd:lower():sub(1,6) == "unview" or func == "unview" then --unview
+		camera.CameraSubject = char
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."speed" or cmd:lower():sub(1,5) == "speed" or func == "speed" then --speed
+		if args[2] ~= "" then
+			table.insert(saveSpeed, tonumber(args[2]))
+			hum.WalkSpeed = args[2]
+			task.wait(0.07)
+			if not table.find(saveSpeed, hum.WalkSpeed) then
+				if speedCon then
+					speedCon:Disconnect()
+					speedCon = nil
+
+					speedCon = run.RenderStepped:Connect(function()
+						hum.WalkSpeed = args[2]
+					end)
+				else
+					speedCon = run.RenderStepped:Connect(function()
+						hum.WalkSpeed = args[2]
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."jumppower" or cmd:lower():sub(1,#prefix + 2) == prefix.."jp" or cmd:lower():sub(1,9) == "jumppower" or cmd:lower():sub(1,2) == "jp" or func == "jumppower" or func == "jp" then --jumppower
+		if args[2] ~= "" then
+			table.insert(saveJP, tonumber(args[2]))
+			hum.JumpPower = args[2]
+			task.wait(0.07)
+			if not table.find(saveJP, hum.JumpPower) then
+				if jumpCon then
+					jumpCon:Disconnect()
+					jumpCon = nil
+
+					jumpCon = run.RenderStepped:Connect(function()
+						hum.JumpPower = args[2]
+					end)
+				else
+					jumpCon = run.RenderStepped:Connect(function()
+						hum.JumpPower = args[2]
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."gravity" or cmd:lower():sub(1,#prefix + 4) == prefix.."grav" or cmd:lower():sub(1,7) == "gravity" or cmd:lower():sub(1,4) == "grav" or func == "gravity" or func == "grav" then --gravity
+		if args[2] ~= "" then
+			table.insert(saveGrav, tonumber(args[2]))
+			work.Gravity = args[2]
+			task.wait(0.07)
+			if not table.find(saveGrav, work.Gravity) then
+				if gravityCon then
+					gravityCon:Disconnect()
+					gravityCon = nil
+
+					gravityCon = run.RenderStepped:Connect(function()
+						work.Gravity = args[2]
+					end)
+				else
+					gravityCon = run.RenderStepped:Connect(function()
+						work.Gravity = args[2]
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."say" or cmd:lower():sub(1,3) == "say" or func == "say" then --say
+		if args[2] ~= "" then
+			if textChat and textChat:FindFirstChild("TextChannels") then
+				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+				if textChat2 then
+					textChat2:SendAsync(args[2])
+				end
+			elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+				local oldChat = rep.DefaultChatSystemChatEvents
+				if oldChat then
+					oldChat.SayMessageRequest:FireServer(args[2], "ALL")
+				end
+			end
+		end
+	elseif cmd:lower() == prefix.."grabtools" or cmd:lower() == "grabtools" or func == "grabtools" then --grabtools
+		toolcon = game:GetService("RunService").RenderStepped:Connect(function()
+			for _, grab in pairs(work:GetDescendants()) do
+				if grab:IsA("BackpackItem") and grab:FindFirstChild("Handle") then
+					hum:EquipTool(grab)
+				end
+			end
+		end)
+	elseif cmd:lower() == prefix.."ungrabtools" or cmd:lower() == "ungrabtools" or func == "ungrabtools" then --ungrabtools
+		if toolcon then
+			toolcon:Disconnect()
+			toolcon = nil
+		end
+	elseif cmd:lower() == prefix.."droptools" or cmd:lower() == "droptools" or func == "droptools" then --droptools
+		for _, drop in pairs(me.Backpack:GetChildren()) do
+			if drop:IsA("Tool") then
+				drop.Parent = work
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."lay" or cmd:lower():sub(1,3) == "lay" or func == "lay" then --lay
+		hum.Sit = true
+		task.wait(0.15)
+		hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
+		for _, stopAnim in pairs(hum:GetPlayingAnimationTracks()) do
+			stopAnim:Stop()
+		end
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."sit" or cmd:lower():sub(1,3) == "sit" or func == "sit" then --sit
+		hum.Sit = true
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."reset" or cmd:lower():sub(1,5) == "reset" or func == "reset" then --reset
+		hum.Health = 0
+		hum:ChangeState(Enum.HumanoidStateType.Dead)
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."rejoin" or cmd:lower():sub(1,6) == "rejoin" then --rejoin
+		local p = plr:GetPlayers()
+
+		if #p <= 1 then
+			p.LocalPlayer:Kick("Rejoin")
+			wait()
+			game:GetService("TeleportService"):Teleport(game.PlaceId, p.LocalPlayer)
+		else
+			game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, p.LocalPlayer)
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."maxzoom" or cmd:lower():sub(1,7) == "maxzoom" or func == "maxzoom" then --maxzoom
+		if args[2] ~= "" then
+			table.insert(saveMax, tonumber(args[2]))
+			me.CameraMaxZoomDistance = args[2]
+			task.wait(0.5)
+			if not table.find(saveMax, me.CameraMaxZoomDistance) then
+				maxCon = run.RenderStepped:Connect(function()
+					me.CameraMaxZoomDistance = args[2]
+				end)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."minzoom" or cmd:lower():sub(1,7) == "minzoom" or func == "minzoom" then --minzoom
+		if args[2] ~= "" then
+			table.insert(saveMin, tonumber(args[2]))
+			me.CameraMinZoomDistance = args[2]
+			task.wait(0.5)
+			if not table.find(saveMin, me.CameraMinZoomDistance) then
+				minCon = run.RenderStepped:Connect(function()
+					me.CameraMinZoomDistance = args[2]
+				end)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix,7) == prefix.."clicktp" or cmd:lower():sub(1,7) == "clicktp" or func == "clicktp" then --clicktp
+		if cTpCon then
+			cTpCon:Disconnect()
+			cTpCon = nil
+		end
+		cTpCon = uis.InputBegan:Connect(function(input, gay)
+			if gay then return end
+
+			local ctrl = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl)
+
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if ctrl then
+					mouse      = me:GetMouse()
+					local tp   = mouse.Hit+Vector3.new(0,2.5,0)
+					tp         = CFrame.new(tp.X,tp.Y,tp.Z)
+					hrp.CFrame = tp
+				else
+					return
+				end
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."infjump" or cmd:lower():sub(1,7) == "infjump" or func == "infjump" then --infjump
+		if infCon then
+			infCon:Disconnect()
+			infCon = nil
+		end
+
+		infCon = uis.InputBegan:Connect(function(i,g)
+			if i.KeyCode == Enum.KeyCode.Space and not g then
+				hum:ChangeState(Enum.HumanoidStateType.Jumping)
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."uninfjump" or cmd:lower():sub(1,9) == "uninfjump" or func == "uninfjump" then --uninfjump
+		if infCon then
+			infCon:Disconnect()
+			infCon = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."jump" or cmd:lower():sub(1,4) == "jump" or func == "jump" then --jump
+		hum:ChangeState(Enum.HumanoidStateType.Jumping)
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."fly" or cmd:lower():sub(1,3) == "fly" or func == "fly" then --fly
+		if hrp:FindFirstChild("flyVel") then
+			return
+		end
+		if hrp:FindFirstChild("bodyFly") then
+			return
+		end
+
+		if tonumber(args[2]) ~= "" then
+			flySpeed = tonumber(args[2]) or 80
+		end
+
+		hum.PlatformStand = true
+
+		flyVel = Instance.new("BodyVelocity")
+		flyVel.Parent = hrp
+		flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
+		flyVel.Velocity = Vector3.new(0,0,0)
+		flyVel.Name = "flyVel"
+
+		bodyFly = Instance.new("BodyGyro")
+		bodyFly.Parent = hrp
+		bodyFly.MaxTorque = Vector3.new(9e9,9e9,9e9)
+		bodyFly.CFrame = hrp.CFrame
+		bodyFly.Name = "bodyFly"
+
+		flyLook = run.Heartbeat:Connect(function()
+			local updMousePos = mouse.Hit.Position
+			local current = hrp.Position
+
+			local toLook = (updMousePos - current).Unit
+
+			hrp.CFrame = CFrame.new(current, current + toLook)
+		end)
+
+		uisHolderDown = mouse.KeyDown:Connect(function(key)
+			if key == "w" then
+				flyCon3 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * flySpeed * dt
+				end)
+			elseif key == "s" then
+				flyCon4 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * flySpeed * dt
+				end)
+			elseif key == "d" then
+				flyCon5 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * flySpeed * dt
+				end)
+			elseif key == "a" then
+				flyCon6 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * flySpeed * dt
+				end)
+			end
+		end)
+		uisHolderUp = mouse.KeyUp:Connect(function(key)
+			if key == "w" then
+				if flyCon3 then
+					flyCon3:Disconnect()
+					flyCon3 = nil
+				end
+			elseif key == "s" then
+				if flyCon4 then
+					flyCon4:Disconnect()
+					flyCon4 = nil
+				end
+			elseif key == "d" then
+				if flyCon5 then
+					flyCon5:Disconnect()
+					flyCon5 = nil
+				end
+			elseif key == "a" then
+				if flyCon6 then
+					flyCon6:Disconnect()
+					flyCon6 = nil
+				end
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."unfly" or cmd:lower():sub(1,5) == "unfly" or func == "unfly" then --unfly
+		hum.PlatformStand = false
+		if hrp:FindFirstChild("flyVel") then
+			hrp:FindFirstChild("flyVel"):Destroy()
+		end
+		if hrp:FindFirstChild("bodyFly") then
+			hrp:FindFirstChild("bodyFly"):Destroy()
+		end
+
+		if uisHolderDown then
+			uisHolderDown:Disconnect()
+			uisHolderDown = nil
+		end
+		if uisHolderUp then
+			uisHolderUp:Disconnect()
+			uisHolderUp = nil
+		end
+		if flyVel then
+			flyVel:Destroy()
+		end
+		if flyLook then
+			flyLook:Disconnect()
+			flyLook = nil
+		end
+		if bodyFly then
+			bodyFly:Destroy()
+		end
+		if flyCon3 then
+			flyCon3:Disconnect()
+			flyCon3 = nil
+		end
+		if flyCon4 then
+			flyCon4:Disconnect()
+			flyCon4 = nil
+		end
+		if flyCon5 then
+			flyCon5:Disconnect()
+			flyCon5 = nil
+		end
+		if flyCon6 then
+			flyCon6:Disconnect()
+			flyCon6 = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."bfly" or cmd:lower():sub(1,4) == "bfly" or func == "bfly" then --bfly
+		if char:FindFirstChild("FlyHolder") then return end
+
+		if args[2] ~= "" then
+			bflySpeed = tonumber(args[2]) or 100
+		end
+
+		local flyHolder = Instance.new("Part")
+		flyHolder.Parent = me.Character
+		flyHolder.Transparency = 0.999
+		flyHolder.Name = "FlyHolder"
+		fhCon = run.RenderStepped:Connect(function()
+			flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
+		end)
+		uisHolderDown2 = mouse.KeyDown:Connect(function(key)
+			if g then return end
+
+			if key == "e" then
+				flyCon = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * bflySpeed * dt
+				end)
+			elseif key == "q" then
+				flyCon2 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * bflySpeed * dt
+				end)
+			elseif key == "w" then
+				flyCon3 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * bflySpeed * dt
+				end)
+			elseif key == "s" then
+				flyCon4 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * bflySpeed * dt
+				end)
+			elseif key == "d" then
+				flyCon5 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * bflySpeed * dt
+				end)
+			elseif key == "a" then
+				flyCon6 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * bflySpeed * dt
+				end)
+			end
+		end)
+		uisHolderUp2 = mouse.KeyUp:Connect(function(key)
+			if key == "e" then
+				if flyCon then
+					flyCon:Disconnect()
+					flyCon = nil
+				end
+			elseif key == "q" then
+				if flyCon2 then
+					flyCon2:Disconnect()
+					flyCon2 = nil
+				end
+			elseif key == "w" then
+				if flyCon3 then
+					flyCon3:Disconnect()
+					flyCon3 = nil
+				end
+			elseif key == "s" then
+				if flyCon4 then
+					flyCon4:Disconnect()
+					flyCon4 = nil
+				end
+			elseif key == "d" then
+				if flyCon5 then
+					flyCon5:Disconnect()
+					flyCon5 = nil
+				end
+			elseif key == "a" then
+				if flyCon6 then
+					flyCon6:Disconnect()
+					flyCon6 = nil
+				end
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unbfly" or cmd:lower():sub(1,6) == "unbfly" or func == "unbfly" then --unbfly
+		local fPart = char:FindFirstChild("FlyHolder")
+		if fPart then
+			fPart:Destroy()
+		end
+
+		if uisHolderDown2 then
+			uisHolderDown2:Disconnect()
+			uisHolderDown2 = nil
+		end
+		if uisHolderUp2 then
+			uisHolderUp2:Disconnect()
+			uisHolderUp2 = nil
+		end
+		if fhCon then
+			fhCon:Disconnect()
+			fhCon = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."fling" or cmd:lower():sub(1,5) == "fling" or func == "fling" then --fling
+		bmw = Instance.new("BodyAngularVelocity")
+		bmw.AngularVelocity = Vector3.new(0,10000,0)
+		bmw.MaxTorque = Vector3.new(0,math.huge,0)
+		bmw.Parent = hrp
+
+		for _, tesv in pairs(me.Character:GetDescendants()) do
+			if tesv:IsA("BasePart") then
+				flingCon = run.RenderStepped:Connect(function()
+					tesv.CanCollide = false
+				end)
+				tesv.Massless = true
+				tesv.Velocity = Vector3.new(0, 0, 0)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."unfling" or cmd:lower():sub(1,7) == "unfling" or func == "unfling" then --unfling
+		if bmw then
+			bmw:Destroy()
+
+			if flingCon then
+				flingCon:Disconnect()
+				flingCon = nil
+			end
+
+			for _, tesv in pairs(me.Character:GetDescendants()) do
+				if tesv:IsA("BasePart") then
+					tesv.CanCollide = true
+					tesv.Massless = false
+					tesv.Velocity = Vector3.new(0, 0, 0)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."invisible" or cmd:lower():sub(1,#prefix + 5) == prefix.."invis" or cmd:lower():sub(1,9) == "invisible" or cmd:lower():sub(1,5) == "invis" or func == "invisible" or func == "invis" then --invisible
+		if part then return end
+
+		part = Instance.new("Part")
+		part.Parent = work
+		part.CanCollide = false
+		part.Anchored = true
+		part.Transparency = 0.99
+		part.CFrame = hrp.CFrame + Vector3.new(0,0.1,0)
+
+		Player = me
+		repeat wait(.1) until Player.Character
+		Character = Player.Character
+
+		Character.Archivable = true
+
+		async = Character:Clone()
+		async.Parent = game:GetService("Lighting")
+		async.Name = "Burger"
+
+		task.wait(0.1)
+
+		Character:MoveTo(Vector3.new(0,1000,0))
+		task.wait(0.5)
+		Character.HumanoidRootPart.Anchored = true
+		task.wait(0.5)
+		async = async
+		async.Parent = work
+		async.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
+		Player.Character = async
+
+		invRespawn = async.Humanoid.Died:Connect(function()
+			Player.Character = Character
+			Character.HumanoidRootPart.Anchored = false
+			task.wait(0.1)
+			Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+			task.wait(0.1)
+			async.Parent = nil
+
+			task.wait(0.1)
+
+			camera.CameraSubject = Character.Humanoid
+
+			part:Destroy()
+
+			invRespawn:Disconnect()
+		end)
+
+		task.wait(0.1)
+
+		Player.Character = async
+
+		Player.Character.Animate.Disabled = true
+		Player.Character.Animate.Disabled = false
+
+		camera.CameraSubject = Player.Character.Humanoid
+
+		task.wait(0.2)
+
+		Player.Character.HumanoidRootPart.CFrame = part.CFrame
+
+		for _, all in pairs(Player.Character:GetDescendants()) do
+			if all:IsA("BasePart") then
+				if all.Name == "HumanoidRootPart" then
+					all.Transparency = 1
+				else
+					all.Transparency = 0.5
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."visible" or cmd:lower():sub(1,#prefix + 3) == prefix.."vis" or cmd:lower():sub(1,7) == "visible" or cmd:lower():sub(1,3) == "vis" or func == "visible" or func == "vis" then --visible
+		Player.Character = Character
+		Character.HumanoidRootPart.Anchored = false
+		task.wait(0.1)
+		Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		async.Parent = nil
+
+		task.wait(0.1)
+
+		camera.CameraSubject = Character.Humanoid
+
+		part:Destroy()
+
+		invRespawn:Disconnect()
+	elseif cmd:lower():sub(1,#prefix + 10) == prefix.."spawnpoint" or cmd:lower():sub(1,#prefix + 2) == prefix.."sp" or cmd:lower():sub(1,10) == "spawnpoint" or cmd:lower():sub(1,2) == "sp" or func == "spawnpoint" or func == "sp" then --spawnpoint
+		if isSpawnpoint then
+			isSpawnpoint:Disconnect()
+			isSpawnpoint = nil
+		end
+		local spawnPos = hrp.CFrame
+		isSpawnpoint = me.CharacterAdded:Connect(function()
+			repeat wait(0.1) until me.Character
+
+			hrp.CFrame = spawnPos
+		end)
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."day" or cmd:lower():sub(1,3) == "day" or func == "day" then --day
+		game:GetService("Lighting").ClockTime = 14
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."night" or cmd:lower():sub(1,5) == "night" or func == "night" then --night
+		game:GetService("Lighting").ClockTime = 0
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."exit" or cmd:lower():sub(1,4) == "exit" or func == "exit" then --exit
+		game:Shutdown()
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."swim" or cmd:lower():sub(1,4) == "swim" or func == "swim" then --swim
+		if not isSwimming then
+			enums = Enum.HumanoidStateType:GetEnumItems()
+
+			table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+			for i, state in pairs(enums) do
+				hum:SetStateEnabled(state, false)
+
+				hum:ChangeState(Enum.HumanoidStateType.Swimming)
+			end
+			swimCon = run.RenderStepped:Connect(function()
+				pcall(function()
+					hrp.Velocity = ((hum.MoveDirection ~= Vector3.new()) or uis:IsKeyDown(Enum.KeyCode.Space) and hrp.Velocity or Vector3.new())
+				end)
+				work.Gravity = 0
+			end)
+			isSwimDead = hum.Died:Connect(function()
+				execute(function()
+					cmds(text.Text, "unswim")
+				end)
+			end)
+		end
+		isSwimming = true
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unswim" or cmd:lower():sub(1,6) == "unswim" or func == "unswim" then --unswim
+		isSwimming = false
+
+		if swimCon then
+			swimCon:Disconnect()
+			swimCon = nil
+		end
+		if isSwimDead then
+			isSwimDead:Disconnect()
+			isSwimDead = nil
+		end
+
+		work.Gravity = 196.2
+
+		isSwimming = false
+		enums = Enum.HumanoidStateType:GetEnumItems()
+
+		table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+
+		for i, state in pairs(enums) do
+			hum:SetStateEnabled(state, true)
+
+			hum:ChangeState(Enum.HumanoidStateType.None)
+		end
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."float" or cmd:lower():sub(1,5) == "float" or func == "float" then --float
+		if not char:FindFirstChild("FloatHolder") then
+			task.spawn(function()
+				floatValue = -3.1
+
+				plat = Instance.new("Part")
+				plat.Parent = char
+				plat.Name = "FloatHolder"
+				plat.Size = Vector3.new(2,0.2,2)
+				plat.Transparency = 1
+				plat.Anchored = true
+				plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
+
+				platCon = run.Heartbeat:Connect(function()
+					plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
+				end)
+				eUp = mouse.KeyUp:Connect(function(key)
+					if key == "e" then
+						floatValue = floatValue - 1
+					end
+				end)
+				eDown = mouse.KeyDown:Connect(function(key)
+					if key == "e" then
+						floatValue = floatValue + 1
+					end
+				end)
+				qUp = mouse.KeyUp:Connect(function(key)
+					if key == "q" then
+						floatValue = floatValue + 0.3
+					end
+				end)
+				qDown = mouse.KeyDown:Connect(function(key)
+					if key == "q" then
+						floatValue = floatValue - 0.3
+					end
+				end)
+				platDied = hum.Died:Connect(function()
+					platDied:Disconnect()
+					platDied = nil
+					if plat then
+						plat:Destroy()
+					end
+					if platCon then
+						platCon:Disconnect()
+						platCon = nil
+					end
+					if eUp then
+						eUp:Disconnect()
+						eUp = nil
+					end
+					if eDown then
+						eDown:Disconnect()
+						eDown = nil
+					end
+					if qUp then
+						qUp:Disconnect()
+						qUp = nil
+					end
+					if qDown then
+						qDown:Disconnect()
+						qDown = nil
+					end
+				end)
+			end)
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."unfloat" or cmd:lower():sub(1,7) == "unfloat" or func == "unfloat" then --unfloat
+		if platDied then
+			platDied:Disconnect()
+			platDied = nil
+		end
+		if plat then
+			plat:Destroy()
+		end
+		if platCon then
+			platCon:Disconnect()
+			platCon = nil
+		end
+		if eUp then
+			eUp:Disconnect()
+			eUp = nil
+		end
+		if eDown then
+			eDown:Disconnect()
+			eDown = nil
+		end
+		if qUp then
+			qUp:Disconnect()
+			qUp = nil
+		end
+		if qDown then
+			qDown:Disconnect()
+			qDown = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."xray" or cmd:lower():sub(1,4) == "xray" or func == "xray" then --xray
+		for _, ray in pairs(work:GetDescendants()) do
+			if ray:IsA("BasePart") and not ray.Parent:FindFirstChild("Humanoid") and not ray.Parent:FindFirstChildWhichIsA("Humanoid") then
+				ray.LocalTransparencyModifier = 0.5
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unxray" or cmd:lower():sub(1,6) == "unxray" or func == "unxray" then --unxray
+		for _, ray in pairs(work:GetDescendants()) do
+			if ray:IsA("BasePart") and not ray.Parent:FindFirstChild("Humanoid") and not ray.Parent:FindFirstChildWhichIsA("Humanoid") then
+				ray.LocalTransparencyModifier = 0
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."noclip" or cmd:lower():sub(1,6) == "noclip" or func == "noclip" then --noclip
+		if noclipCon then
+			noclipCon:Disconnect()
+		end
+
+		local function noclipHold()
+			for _, allMyParts in pairs(char:GetDescendants()) do
+				if allMyParts:IsA("BasePart") and allMyParts.CanCollide == true then
+					allMyParts.CanCollide = false
+				end
+			end
+		end
+		noclipCon = run.Stepped:Connect(noclipHold)
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."clip" or cmd:lower():sub(1,4) == "clip" or func == "clip" then --clip
+		if noclipCon then
+			noclipCon:Disconnect()
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."enable" or cmd:lower():sub(1,6) == "enable" or func == "enable" then --enable
+		if args[2]:lower() == "all" then
+			print("enabling all...")
+			me.DevEnableMouseLock = true
+			starterGui:SetCore("ResetButtonCallback", true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+			print("enabled all :D")
+		else
+			if args[2]:lower():match("shift") then
+				me.DevEnableMouseLock = true
+			elseif args[2]:lower():match("inv") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+			elseif args[2]:lower():match("player") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+			elseif args[2]:lower():match("emote") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+			elseif args[2]:lower():match("reset") then
+				starterGui:SetCore("ResetButtonCallback", true)
+			elseif args[2]:lower():match("chat") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."disable" or cmd:lower():sub(1,7) == "disable" or func == "disable" then --disable
+		if args[2]:lower() == "all" then
+			print("disabling all...")
+			me.DevEnableMouseLock = false
+			starterGui:SetCore("ResetButtonCallback", true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+			print("disabled all :D")
+		else
+			if args[2]:lower():match("shift") then
+				me.DevEnableMouseLock = false
+			elseif args[2]:lower():match("inv") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+			elseif args[2]:lower():match("player") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+			elseif args[2]:lower():match("emote") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+			elseif args[2]:lower():match("reset") then
+				starterGui:SetCore("ResetButtonCallback", false)
+			elseif args[2]:lower():match("chat") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 8) == prefix.."teleport" or cmd:lower():sub(1,8) == "teleport"  or func == "teleport" then --teleport
+		mouse = me:GetMouse()
+
+		local tp2 = mouse.Hit + Vector3.new(0,2.5,0)
+		tp2 = CFrame.new(tp2.X,tp2.Y,tp2.Z)
+
+		hrp.CFrame = tp2
+	elseif cmd:lower():sub(1,#prefix + 2) == prefix.."vr" or cmd:lower():sub(1,2) == "vr" or func == "vr" then --vr
+		if uis.TouchEnabled and not uis.KeyboardEnabled and not uis.GamepadEnabled then
+			notify("x0y0z admin WARNING", "This script doesnt support mobile, some functions will not work.", 10)
+		end
+		saveZoom = me.CameraMaxZoomDistance
+
+		if vrVel or vrGyro then return end
+
+		if args[2] ~= "" then
+			if tonumber(args[2]) > 99 then
+				me.CameraMaxZoomDistance = 100
+				me.CameraMinZoomDistance = 100
+
+				vrIsHats = false
+			elseif tonumber(args[2]) < 2 then
+				me.CameraMaxZoomDistance = 1
+				me.CameraMinZoomDistance = 1
+
+				vrIsHats = true
+			else
+				me.CameraMaxZoomDistance = args[2]
+				me.CameraMinZoomDistance = args[2]
+
+				vrIsHats = false
+			end
+		else
+			me.CameraMaxZoomDistance = 50
+			me.CameraMinZoomDistance = 50
+
+			vrIsHats = false
+		end
+
+		vrIsMax0Stop = false
+		vrIsMax0 = true
+
+		hum.PlatformStand = true
+		hum.Sit = true
+
+		vrDied = hum.Died:Connect(function()
+			cmds(text.Text, "unvr")
+			if vrDied then
+				vrDied:Disconnect()
+				vrDied = nil
+			end
+		end)
+
+		if hum.RigType == Enum.HumanoidRigType.R6 then
+			char.Torso.Transparency = 0.9
+
+			while vrIsMax0 do
+				for _, transp in pairs(char:GetChildren()) do
+					if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "Torso" then
+						trCon = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+							transp.LocalTransparencyModifier = 0
+						end)
+					elseif transp:IsA("BasePart") and transp.Name == "Head" then
+						trCon2 = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+							transp.LocalTransparencyModifier = 1
+						end)
+					elseif transp:IsA("Accessory") then
+						if vrIsHats then
+							if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+								transp.Handle.Transparency = 1
+							end
+						end
+					end
+				end
+				if vrIsMax0 then
+					break
+				end
+				task.wait(0.02)
+			end
+		else
+			char.LowerTorso.Transparency = 0.9
+			char.UpperTorso.Transparency = 0.9
+
+			while vrIsMax0 do
+				for _, transp in pairs(char:GetChildren()) do
+					if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "UpperTorso" and transp.Name ~= "LowerTorso" then
+						trCon = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+							transp.LocalTransparencyModifier = 0
+						end)
+					elseif transp:IsA("BasePart") and transp.Name == "Head" then
+						trCon2 = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+							transp.LocalTransparencyModifier = 1
+						end)
+					elseif transp:IsA("Accessory") then
+						if vrIsHats then
+							if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+								transp.Handle.Transparency = 1
+							end
+						end
+					end
+				end
+				if vrIsMax0 then
+					break
+				end
+				task.wait(0.02)
+			end
+		end
+
+		vrVel = Instance.new("BodyVelocity")
+		vrVel.MaxForce = Vector3.new(huge,huge,huge)
+		vrVel.Name = "VRv"
+		vrVel.Parent = hrp
+
+		vrGyro = Instance.new("BodyGyro")
+		vrGyro.MaxTorque = Vector3.new(huge,huge,huge)
+		vrGyro.CFrame = hrp.CFrame
+		vrGyro.Name = "VRg"
+		vrGyro.Parent = hrp
+
+		vrLook = run.Heartbeat:Connect(function()
+			hum.Sit = true
+
+			local vrDistance = hrp.Position
+			local newMousePos = mouse.Hit.Position
+
+			local newVRDistance = (newMousePos - vrDistance).Unit
+
+			hrp.CFrame = CFrame.new(vrDistance, vrDistance + newVRDistance)
+		end)
+
+		wheelFor = mouse.WheelForward:Connect(function()
+			hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * 1.555
+		end)
+
+		wheelBack = mouse.WheelBackward:Connect(function()
+			hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * 1.555
+		end)
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."unvr" or cmd:lower():sub(1,4) == "unvr" or func == "unvr" then --unvr
+		vrIsMax0Stop = true
+		vrIsMax0 = false
+
+		hum.PlatformStand = false
+		hum.Sit = false
+
+		if vrVel then
+			vrVel:Destroy()
+		end
+		if vrGyro then
+			vrGyro:Destroy()
+		end
+		if saveZoom ~= nil then
+			me.CameraMaxZoomDistance = saveZoom
+			me.CameraMinZoomDistance = 0
+		end
+		if vrLook then
+			vrLook:Disconnect()
+			vrLook = nil
+		end
+		if wheelFor then
+			wheelFor:Disconnect()
+			wheelFor = nil
+		end
+		if wheelBack then
+			wheelBack:Disconnect()
+			wheelBack = nil
+		end
+		if trCon then
+			trCon:Disconnect()
+			trCon = nil
+		end
+		if trCon2 then
+			trCon2:Disconnect()
+			trCon2 = nil
+		end
+		if vrDied then
+			vrDied:Disconnect()
+			vrDied = nil
+		end
+		if hum.RigType == Enum.HumanoidRigType.R6 then
+			char.Torso.Transparency = 0
+
+			for _, transp in pairs(char:GetChildren()) do
+				if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "Torso" then
+					transp.LocalTransparencyModifier = 0
+				elseif transp:IsA("BasePart") and transp.Name == "Head" then
+					transp.LocalTransparencyModifier = 0
+				elseif transp:IsA("Accessory") then
+					if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+						transp.Handle.Transparency = 0
+					end
+				end
+			end
+		else
+			char.LowerTorso.Transparency = 0
+			char.UpperTorso.Transparency = 0
+			for _, transp in pairs(char:GetChildren()) do
+				if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "UpperTorso" and transp.Name ~= "LowerTorso" then
+					transp.LocalTransparencyModifier = 0
+				elseif transp:IsA("BasePart") and transp.Name == "Head" then
+					transp.LocalTransparencyModifier = 0
+				elseif transp:IsA("Accessory") then
+					if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+						transp.Handle.Transparency = 0
+					end
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."esp" or cmd:lower():sub(1,3) == "esp" or func == "esp" then --esp
+		notify("x0y0z ESP", "type an player name, ignore player name to apply for all.", 10)
+
+		isEspAll = false
+
+		chosedColor = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
+
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+
+			local espRandom = randomPlayer
+
+			local espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
+			local espHrp = espChar:WaitForChild("HumanoidRootPart")
+			local espHead = espChar:WaitForChild("Head")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+
+			espNameHolder = Instance.new("BillboardGui", espHead)
+			espNameHolder.Size = UDim2.new(5,0,1,0)
+			espNameHolder.StudsOffset = Vector3.new(0,2,0)
+			espNameHolder.Name = "Burger2_x0y0z"
+			espNameHolder.AlwaysOnTop = true
+			espNameHolder.MaxDistance = huge
+
+			espName = Instance.new("TextLabel", espNameHolder)
+			espName.Size = UDim2.new(1,0,1,0)
+			espName.BackgroundTransparency = 1
+			espName.TextColor3 = chosedColor
+			espName.Text = espRandom.DisplayName
+			espName.Font = Enum.Font.SourceSans
+			espName.TextScaled = true
+
+			espCons[espRandom] = espRandom.CharacterAdded:Connect(function()
+				espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
+				espHrp = espChar:WaitForChild("HumanoidRootPart")
+				espHead = espChar:WaitForChild("Head")
 
 				espBox = Instance.new("BoxHandleAdornment", espChar)
 				espBox.ZIndex = 10
@@ -2407,27 +2265,31 @@ function esp(args) --cmd esp
 				espBox.Adornee = espHrp
 				espBox.Color3 = chosedColor
 				espBox.AlwaysOnTop = true
-				
-				espDied = espAll.CharacterAdded:Connect(function()
-					local espChar = espAll.Character or espAll.CharacterAdded:wait()
-					local espHrp = espChar:WaitForChild("HumanoidRootPart")
 
-					espBox = Instance.new("BoxHandleAdornment", espChar)
-					espBox.ZIndex = 10
-					espBox.Name = "Burger_x0y0z"
-					espBox.Size = espHrp.Size
-					espBox.Adornee = espHrp
-					espBox.Color3 = chosedColor
-					espBox.AlwaysOnTop = true
-				end)
-			end
-		end
-	end
-	
-	espAdded = plr.PlayerAdded:Connect(function(espAdd)
-		if isEspAll then
-			local espChar = espAdd.Character or espAdd.CharacterAdded:wait()
+				espNameHolder = Instance.new("BillboardGui", espHead)
+				espNameHolder.Size = UDim2.new(5,0,1,0)
+				espNameHolder.StudsOffset = Vector3.new(0,2,0)
+				espNameHolder.Name = "Burger2_x0y0z"
+				espNameHolder.AlwaysOnTop = true
+				espNameHolder.MaxDistance = huge
+
+				espName = Instance.new("TextLabel", espNameHolder)
+				espName.Size = UDim2.new(1,0,1,0)
+				espName.BackgroundTransparency = 1
+				espName.TextColor3 = chosedColor
+				espName.Text = espRandom.DisplayName
+				espName.Font = Enum.Font.SourceSans
+				espName.TextScaled = true
+			end)
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+
+			local espNear = nearestPlayer
+
+			local espChar = nearestPlayer.Character or nearestPlayer.CharacterAdded:wait()
 			local espHrp = espChar:WaitForChild("HumanoidRootPart")
+			local espHead = espChar:WaitForChild("Head")
 
 			espBox = Instance.new("BoxHandleAdornment", espChar)
 			espBox.ZIndex = 10
@@ -2436,71 +2298,347 @@ function esp(args) --cmd esp
 			espBox.Adornee = espHrp
 			espBox.Color3 = chosedColor
 			espBox.AlwaysOnTop = true
-		end
-	end)
-end
 
-function unesp(args) --cmd unesp
-	isEspAll = false
-	
-	if espAdded then
-		espAdded:Disconnect()
-		espAdded = nil
-	end
-	if espAddedDied then
-		espAddedDied:Disconnect()
-		espAddedDied = nil
-	end
-	if espDied then
-		espDied:Disconnect()
-		espDied = nil
-	end
-	if espAllDied then
-		espAllDied:Disconnect()
-		espAllDied = nil
-	end
-	
-	if args ~= "" then
-		if args:lower():match("random") then
-			findRandom()
-			task.wait(0.02)
+			espNameHolder = Instance.new("BillboardGui", espHead)
+			espNameHolder.Size = UDim2.new(5,0,1,0)
+			espNameHolder.StudsOffset = Vector3.new(0,2,0)
+			espNameHolder.Name = "Burger2_x0y0z"
+			espNameHolder.AlwaysOnTop = true
+			espNameHolder.MaxDistance = huge
 
-			if randomPlayer.Character:FindFirstChild("Burger_x0y0z") then
-				randomPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
-			end
-		elseif args:lower():match("near") then
-			findNearest()
-			task.wait(0.02)
+			espName = Instance.new("TextLabel", espNameHolder)
+			espName.Size = UDim2.new(1,0,1,0)
+			espName.BackgroundTransparency = 1
+			espName.TextColor3 = chosedColor
+			espName.Text = espNear.DisplayName
+			espName.Font = Enum.Font.SourceSans
+			espName.TextScaled = true
 
-			if nearestPlayer.Character:FindFirstChild("Burger_x0y0z") then
-				nearestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
-			end
-		elseif args:lower():match("fart") then
+			espCons[espNear] = espNear.CharacterAdded:Connect(function()
+				espChar = espNear.Character or espNear.CharacterAdded:wait()
+				espHrp = espChar:WaitForChild("HumanoidRootPart")
+				espHead = espChar:WaitForChild("Head")
+
+				espBox = Instance.new("BoxHandleAdornment", espChar)
+				espBox.ZIndex = 10
+				espBox.Name = "Burger_x0y0z"
+				espBox.Size = espHrp.Size
+				espBox.Adornee = espHrp
+				espBox.Color3 = chosedColor
+				espBox.AlwaysOnTop = true
+
+				espNameHolder = Instance.new("BillboardGui", espHead)
+				espNameHolder.Size = UDim2.new(5,0,1,0)
+				espNameHolder.StudsOffset = Vector3.new(0,2,0)
+				espNameHolder.Name = "Burger2_x0y0z"
+				espNameHolder.AlwaysOnTop = true
+				espNameHolder.MaxDistance = huge
+
+				espName = Instance.new("TextLabel", espNameHolder)
+				espName.Size = UDim2.new(1,0,1,0)
+				espName.BackgroundTransparency = 1
+				espName.TextColor3 = chosedColor
+				espName.Text = espNear.DisplayName
+				espName.Font = Enum.Font.SourceSans
+				espName.TextScaled = true
+			end)
+		elseif args[2]:lower():match("fart") then
 			findFarthest()
 			task.wait(0.02)
 
-			if farthestPlayer.Character:FindFirstChild("Burger_x0y0z") then
-				farthestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+			local espFart = farthestPlayer
+
+			local espChar = farthestPlayer.Character or farthestPlayer.CharacterAdded:wait()
+			local espHrp = espChar:WaitForChild("HumanoidRootPart")
+			local espHead = espChar:WaitForChild("Head")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+
+			espNameHolder = Instance.new("BillboardGui", espHead)
+			espNameHolder.Size = UDim2.new(5,0,1,0)
+			espNameHolder.StudsOffset = Vector3.new(0,2,0)
+			espNameHolder.Name = "Burger2_x0y0z"
+			espNameHolder.AlwaysOnTop = true
+			espNameHolder.MaxDistance = huge
+
+			espName = Instance.new("TextLabel", espNameHolder)
+			espName.Size = UDim2.new(1,0,1,0)
+			espName.BackgroundTransparency = 1
+			espName.TextColor3 = chosedColor
+			espName.Text = espFart.DisplayName
+			espName.Font = Enum.Font.SourceSans
+			espName.TextScaled = true
+
+			espCons[espFart] = espFart.CharacterAdded:Connect(function()
+				espChar = espFart.Character or espFart.CharacterAdded:wait()
+				espHrp = espChar:WaitForChild("HumanoidRootPart")
+				espHead = espChar:WaitForChild("Head")
+
+				espBox = Instance.new("BoxHandleAdornment", espChar)
+				espBox.ZIndex = 10
+				espBox.Name = "Burger_x0y0z"
+				espBox.Size = espHrp.Size
+				espBox.Adornee = espHrp
+				espBox.Color3 = chosedColor
+				espBox.AlwaysOnTop = true
+
+				espNameHolder = Instance.new("BillboardGui", espHead)
+				espNameHolder.Size = UDim2.new(5,0,1,0)
+				espNameHolder.StudsOffset = Vector3.new(0,2,0)
+				espNameHolder.Name = "Burger2_x0y0z"
+				espNameHolder.AlwaysOnTop = true
+				espNameHolder.MaxDistance = huge
+
+				espName = Instance.new("TextLabel", espNameHolder)
+				espName.Size = UDim2.new(1,0,1,0)
+				espName.BackgroundTransparency = 1
+				espName.TextColor3 = chosedColor
+				espName.Text = espFart.DisplayName
+				espName.Font = Enum.Font.SourceSans
+				espName.TextScaled = true
+			end)
+		elseif args[2] == "" then
+			isEspAll = true
+			for _, espAll in ipairs(plr:GetPlayers()) do
+				if espAll ~= me then
+					if isEspAll then
+						local espChar = espAll.Character or espAll.CharacterAdded:wait()
+						local espHrp = espChar:WaitForChild("HumanoidRootPart")
+						local espHead = espChar:WaitForChild("Head")
+
+						espBox = Instance.new("BoxHandleAdornment", espChar)
+						espBox.ZIndex = 10
+						espBox.Name = "Burger_x0y0z"
+						espBox.Size = espHrp.Size
+						espBox.Adornee = espHrp
+						espBox.Color3 = chosedColor
+						espBox.AlwaysOnTop = true
+
+						espNameHolder = Instance.new("BillboardGui", espHead)
+						espNameHolder.Size = UDim2.new(5,0,1,0)
+						espNameHolder.StudsOffset = Vector3.new(0,2,0)
+						espNameHolder.Name = "Burger2_x0y0z"
+						espNameHolder.AlwaysOnTop = true
+						espNameHolder.MaxDistance = huge
+
+						espName = Instance.new("TextLabel", espNameHolder)
+						espName.Size = UDim2.new(1,0,1,0)
+						espName.BackgroundTransparency = 1
+						espName.TextColor3 = chosedColor
+						espName.Text = espAll.DisplayName
+						espName.Font = Enum.Font.SourceSans
+						espName.TextScaled = true
+
+						espAllDied = espAll.CharacterAdded:Connect(function()
+							local espChar = espAll.Character or espAll.CharacterAdded:wait()
+							local espHrp = espChar:WaitForChild("HumanoidRootPart")
+							espHead = espChar:WaitForChild("Head")
+
+							espBox = Instance.new("BoxHandleAdornment", espChar)
+							espBox.ZIndex = 10
+							espBox.Name = "Burger_x0y0z"
+							espBox.Size = espHrp.Size
+							espBox.Adornee = espHrp
+							espBox.Color3 = chosedColor
+							espBox.AlwaysOnTop = true
+
+							espNameHolder = Instance.new("BillboardGui", espHead)
+							espNameHolder.Size = UDim2.new(5,0,1,0)
+							espNameHolder.StudsOffset = Vector3.new(0,2,0)
+							espNameHolder.Name = "Burger2_x0y0z"
+							espNameHolder.AlwaysOnTop = true
+							espNameHolder.MaxDistance = huge
+
+							espName = Instance.new("TextLabel", espNameHolder)
+							espName.Size = UDim2.new(1,0,1,0)
+							espName.BackgroundTransparency = 1
+							espName.TextColor3 = chosedColor
+							espName.Text = espAll.DisplayName
+							espName.Font = Enum.Font.SourceSans
+							espName.TextScaled = true
+						end)
+					end
+				end
 			end
 		else
-			for _, espAll in pairs(plr:GetPlayers()) do
-				if espAll.Name:lower():find(args:lower()) or espAll.DisplayName:lower():find(args:lower()) then
-					if espAll.Character:FindFirstChild("Burger_x0y0z") then
-						espAll.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+			for _, espOne in ipairs(plr:GetPlayers()) do
+				isEspAll = false
+				if espOne.Name:lower():find(args[2]) or espOne.DisplayName:lower():find(args[2]:lower()) then
+					local espChar = espOne.Character or espOne.CharacterAdded:wait()
+					local espHrp = espChar.HumanoidRootPart
+					local espHead = espChar:WaitForChild("Head")
+
+					espBox = Instance.new("BoxHandleAdornment", espChar)
+					espBox.ZIndex = 10
+					espBox.Name = "Burger_x0y0z"
+					espBox.Size = espHrp.Size
+					espBox.Adornee = espHrp
+					espBox.Color3 = chosedColor
+					espBox.AlwaysOnTop = true
+
+					espNameHolder = Instance.new("BillboardGui", espHead)
+					espNameHolder.Size = UDim2.new(5,0,1,0)
+					espNameHolder.StudsOffset = Vector3.new(0,2,0)
+					espNameHolder.Name = "Burger2_x0y0z"
+					espNameHolder.AlwaysOnTop = true
+					espNameHolder.MaxDistance = huge
+
+					espName = Instance.new("TextLabel", espNameHolder)
+					espName.Size = UDim2.new(1,0,1,0)
+					espName.BackgroundTransparency = 1
+					espName.TextColor3 = chosedColor
+					espName.Text = espOne.DisplayName
+					espName.Font = Enum.Font.SourceSans
+					espName.TextScaled = true
+
+					espCons[espOne] = espOne.CharacterAdded:Connect(function()
+						local espChar = espOne.Character or espOne.CharacterAdded:wait()
+						local espHrp = espChar:WaitForChild("HumanoidRootPart")
+						local espHead = espChar:WaitForChild("Head")
+
+						espBox = Instance.new("BoxHandleAdornment", espChar)
+						espBox.ZIndex = 10
+						espBox.Name = "Burger_x0y0z"
+						espBox.Size = espHrp.Size
+						espBox.Adornee = espHrp
+						espBox.Color3 = chosedColor
+						espBox.AlwaysOnTop = true
+
+						espNameHolder = Instance.new("BillboardGui", espHead)
+						espNameHolder.Size = UDim2.new(5,0,1,0)
+						espNameHolder.StudsOffset = Vector3.new(0,2,0)
+						espNameHolder.Name = "Burger2_x0y0z"
+						espNameHolder.AlwaysOnTop = true
+						espNameHolder.MaxDistance = huge
+
+						espName = Instance.new("TextLabel", espNameHolder)
+						espName.Size = UDim2.new(1,0,1,0)
+						espName.BackgroundTransparency = 1
+						espName.TextColor3 = chosedColor
+						espName.Text = espOne.DisplayName
+						espName.Font = Enum.Font.SourceSans
+						espName.TextScaled = true
+					end)
+				end
+			end
+		end
+
+		espAdded = plr.PlayerAdded:Connect(function(espAdd)
+			if isEspAll then
+				local espChar = espAdd.Character or espAdd.CharacterAdded:wait()
+				local espHrp = espChar:WaitForChild("HumanoidRootPart")
+				local espHead = espChar:WaitForChild("Head")
+
+				espBox = Instance.new("BoxHandleAdornment", espChar)
+				espBox.ZIndex = 10
+				espBox.Name = "Burger_x0y0z"
+				espBox.Size = espHrp.Size
+				espBox.Adornee = espHrp
+				espBox.Color3 = chosedColor
+				espBox.AlwaysOnTop = true
+
+				espNameHolder = Instance.new("BillboardGui", espHead)
+				espNameHolder.Size = UDim2.new(5,0,1,0)
+				espNameHolder.StudsOffset = Vector3.new(0,2,0)
+				espNameHolder.Name = "Burger2_x0y0z"
+				espNameHolder.AlwaysOnTop = true
+				espNameHolder.MaxDistance = huge
+
+				espName = Instance.new("TextLabel", espNameHolder)
+				espName.Size = UDim2.new(1,0,1,0)
+				espName.BackgroundTransparency = 1
+				espName.TextColor3 = chosedColor
+				espName.Text = espAdd.DisplayName
+				espName.Font = Enum.Font.SourceSans
+				espName.TextScaled = true
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."unesp" or cmd:lower():sub(1,5) == "unesp" or func == "unesp" then --unesp
+		isEspAll = false
+
+		if args[2] ~= "" then
+			if args[2]:lower():match("random") then
+				findRandom()
+				task.wait(0.02)
+
+				if randomPlayer.Character:FindFirstChild("Burger_x0y0z") then
+					randomPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					randomPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+
+					if espCons[randomPlayer] then
+						espCons[randomPlayer]:Disconnect()
+						espCons[randomPlayer] = nil
+					end
+				end
+			elseif args[2]:lower():match("near") then
+				findNearest()
+				task.wait(0.02)
+
+				if nearestPlayer.Character:FindFirstChild("Burger_x0y0z") then
+					nearestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					nearestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+
+					if espCons[nearestPlayer] then
+						espCons[nearestPlayer]:Disconnect()
+						espCons[nearestPlayer] = nil
+					end
+				end
+			elseif args[2]:lower():match("fart") then
+				findFarthest()
+				task.wait(0.02)
+
+				if farthestPlayer.Character:FindFirstChild("Burger_x0y0z") then
+					farthestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					farthestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+
+					if espCons[farthestPlayer] then
+						espCons[farthestPlayer]:Disconnect()
+						espCons[farthestPlayer] = nil
+					end
+				end
+			else
+				for _, espOne in pairs(plr:GetPlayers()) do
+					if espOne.Name:lower():find(args[2]:lower()) or espOne.DisplayName:lower():find(args[2]:lower()) then
+						if espOne.Character:FindFirstChild("Burger_x0y0z") then
+							espOne.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+							espOne.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+
+							if espCons[espOne] then
+								espCons[espOne]:Disconnect()
+								espCons[espOne] = nil
+							end
+						end
+					end
+				end
+			end
+		else
+			for _, espRemove in pairs(work:GetDescendants()) do
+				if espRemove:IsA("BoxHandleAdornment") and espRemove.Name:match("Burger") or espRemove:IsA("BillboardGui") and espRemove.Name:match("Burger") then
+					espRemove:Destroy()
+
+					if espAdded then
+						espAdded:Disconnect()
+						espAdded = nil
+					end
+					if espAllDied then
+						espAllDied:Disconnect()
+						espAllDied = nil
 					end
 				end
 			end
 		end
-	else
-		for _, espRemove in pairs(work:GetDescendants()) do
-			if espRemove:IsA("BoxHandleAdornment") and espRemove.Name:match("Burger") then
-				espRemove:Destroy()
-			end
-		end
 	end
 end
 
---last function
+function execute(cmd) --func execute
+	cmd()
+end
 
 keyt:GetPropertyChangedSignal("Text"):Connect(function()
 	if keyt.Text == "1" or keyt.Text == "One" then
@@ -2531,153 +2669,10 @@ keyt:GetPropertyChangedSignal("Text"):Connect(function()
 end)
 
 text.FocusLost:Connect(function(e)
-	framePosCon = run.RenderStepped:Connect(function()
-		
-	end)
 	if e then
-		if text.Text:lower():sub(1, 2) == "to" then
-			local args = text.Text:sub(4)
-			to(args)
-		elseif text.Text:lower():sub(1, 6) == "follow" then
-			local args2 = text.Text:sub(8)
-			follow(args2)
-		elseif text.Text:lower():match("unfollow") then
-			unfollow()
-		elseif text.Text:lower():sub(1, 7) == "headsit" then
-			local args3 = text.Text:sub(9)
-			headsit(args3)
-		elseif text.Text:lower():sub(1, 8) == "waypoint" then
-			local args4 = text.Text:sub(10)
-			waypoint(args4)
-		elseif text.Text:lower():sub(1, 5) == "wayrm" then
-			local args5 = text.Text:sub(7)
-			wayrm(args5)
-		elseif text.Text:lower():sub(1, 5) == "tpway" then
-			local args6 = text.Text:sub(7)
-			tpway(args6)
-		elseif text.Text:lower():sub(1, 4) == "view" then
-			local args7 = text.Text:sub(6)
-			view(args7)
-		elseif text.Text:lower():match("unview") then
-			unview()
-		elseif text.Text:lower():sub(1, 5) == "speed" then
-			local args8 = text.Text:sub(7)
-			speed(args8)
-		elseif text.Text:lower():sub(1, 9) == "jumppower" then
-			local args9 = text.Text:sub(11)
-			jumppower(args9)
-		elseif text.Text:lower():sub(1,2) == "jp" then
-			local args9 = text.Text:sub(4)
-			jumppower(args9)
-		elseif text.Text:lower():sub(1, 7) == "gravity" then
-			local grav = text.Text:sub(9)
-			gravity(grav)
-		elseif text.Text:lower():sub(1,3) == "say" then
-			local say = text.Text:sub(5)
-			chat(say)
-		elseif text.Text:lower() == "grabtools" then
-			grabtools()
-		elseif text.Text:lower():match("ungrabtools") then
-			ungrabtools()
-		elseif text.Text:lower():match("droptools") then
-			droptools()
-		elseif text.Text:lower() == "lay" then
-			lay()
-		elseif text.Text:lower():match("sit") then
-			sit()
-		elseif text.Text:lower() == "reset" then
-			reset()
-		elseif text.Text:lower():match("rejoin") then
-			rejoin()
-		elseif text.Text:lower():sub(1, 7) == "maxzoom" then
-			local mz = text.Text:sub(9)
-			maxzoom(mz)
-		elseif text.Text:lower():sub(1, 7) == "minzoom" then
-			local minz = text.Text:sub(9)
-			minzoom(minz)
-		elseif text.Text:lower():match("clicktp") then
-			clicktp()
-		elseif text.Text:lower() == "infjump" then
-			infjump()
-		elseif text.Text:lower() == "jump" then
-			jump()
-		elseif text.Text:lower() == "fly" then
-			fly()
-		elseif text.Text:lower():match("unfly") then
-			unfly()
-		elseif text.Text:lower() == "bfly" then
-			bfly()
-		elseif text.Text:lower():match("unbfly") then
-			unbfly()
-		elseif text.Text:lower() == "fling" then
-			fling()
-		elseif text.Text:lower():match("unfling") then
-			unfling()
-		elseif text.Text:lower():sub(1,5) == "flysp" then
-			local flyspArgs = text.Text:sub(7)
-			flysp(flyspArgs)
-		elseif text.Text:lower():sub(1,6) == "bflysp" then
-			local bflyspArgs = text.Text:sub(8)
-			bflysp(bflyspArgs)
-		elseif text.Text:lower():match("invisible") or text.Text:lower() == "invis" then
-			invisible()
-		elseif text.Text:lower():match("visible") or text.Text:lower() == "vis" then
-			turnVis()
-		elseif text.Text:lower():match("spawnpoint") then
-			spawnpoint()
-		elseif text.Text:lower():match("day") then
-			day()
-		elseif text.Text:lower():match("night") then
-			night()
-		elseif text.Text:lower():match("exit") then
-			exit()
-		elseif text.Text:lower() == "swim" then
-			swim()
-		elseif text.Text:lower():match("unswim") then
-			unswim()
-		elseif text.Text:lower() == "float" then
-			float()
-		elseif text.Text:lower():match("unfloat") then
-			unfloat()
-		elseif text.Text:lower() == "xray" then
-			xray()
-		elseif text.Text:lower():match("unxray") or text.Text:lower():match("noxray") then
-			unxray()
-		elseif text.Text:lower():match("noclip") then
-			noclip()
-		elseif text.Text:lower() == "clip" then
-			clip()
-		elseif text.Text:lower():match("enable all") then
-			enableAll()
-		elseif text.Text:lower():match("disable all") then
-			disableAll()
-		elseif text.Text:lower():sub(1,6) == "enable" then
-			local args = text.Text:sub(8)
-			print("enabling "..args)
-			enableA(args)
-		elseif text.Text:lower():sub(1,7) == "disable" then
-			local args = text.Text:sub(9)
-			disableA(args)
-		elseif text.Text:lower():match("teleport") then
-			teleport()
-		elseif text.Text:lower():sub(1,2) == "vr" then
-			local args = text.Text:sub(4)
-			vr(args)
-		elseif text.Text:lower():match("unvr") then
-			unvr()
-		elseif text.Text:lower():sub(1,3) == "esp" then
-			local args = text.Text:sub(5)
-			
-			esp(args)
-		elseif text.Text:lower():sub(1,5) == "unesp" then
-			local args = text.Text:sub(7)
-
-			unesp(args)
-		elseif text.Text:lower():match("unheadsit") then
-			unheadsit()
-		elseif text.Text:lower():match("uninfjump") then
-			uninfjump()
-		end
+		execute(function()
+			cmds(text.Text)
+		end)
 	end
 end)
 
@@ -2689,355 +2684,20 @@ end)
 
 local chatCon
 
-chatCon = me.Chatted:Connect(function(cht) --cht cmd
-	local cmd = cht
-
-	if cmd:sub(1,#prefix+2) == prefix.."to" then
-		local target = cmd:sub(#prefix + 4)
-		to(target)
-	elseif cmd:sub(1,#prefix+6) == prefix.."follow" then
-		local target = cmd:sub(#prefix + 8)
-		follow(target)
-	elseif cmd:sub(1,#prefix+8) == prefix.."unfollow" then
-		unfollow()
-	elseif cmd:sub(1,#prefix+7) == prefix.."headsit" then
-		local target = cmd:sub(#prefix + 9)
-		headsit(target)
-	elseif cmd:sub(1,#prefix+8) == prefix.."waypoint" then
-		local target = cmd:sub(#prefix + 10)
-		waypoint(target)
-	elseif cmd:sub(1,#prefix+5) == prefix.."wayrm" then
-		local target = cmd:sub(#prefix + 7)
-		wayrm(target)
-	elseif cmd:sub(1,#prefix+5) == prefix.."tpway" then
-		local target = cmd:sub(#prefix + 7)
-		tpway(target)
-	elseif cmd:sub(1,#prefix+4) == prefix.."view" then
-		local target = cmd:sub(#prefix + 6)
-		view(target)
-	elseif cmd == "unview" then
-		unview()
-	elseif cmd:sub(1,#prefix+5) == prefix.."speed" then
-		local target = cmd:sub(#prefix + 7)
-		speed(target)
-	elseif cmd:sub(1,#prefix+9) == prefix.."jumppower" then
-		local target = cmd:sub(#prefix + 11)
-		jumppower(target)
-	elseif cmd:sub(1,#prefix+2) == prefix.."jp" then
-		local target = cmd:sub(#prefix + 4)
-		jumppower(target)
-	elseif cmd:sub(1,#prefix+7) == prefix.."gravity" then
-		local target = cmd:sub(#prefix + 9)
-		gravity(target)
-	elseif cmd:sub(1,#prefix+3) == prefix.."say" then
-		local target = cmd:sub(#prefix + 5)
-		chat(target)
-	elseif cmd == "grabtools" then
-		grabtools()
-	elseif cmd == "ungrabtools" then
-		ungrabtools()
-	elseif cmd == "droptools" then
-		droptools()
-	elseif cmd == "lay" then
-		lay()
-	elseif cmd == "sit" then
-		sit()
-	elseif cmd == "reset" then
-		reset()
-	elseif cmd == "rejoin" then
-		rejoin()
-	elseif cmd:sub(1,#prefix+7) == prefix.."maxzoom" then
-		local target = cmd:sub(#prefix + 9)
-		maxzoom(target)
-	elseif cmd:sub(1,#prefix+7) == prefix.."minzoom" then
-		local target = cmd:sub(#prefix + 9)
-		minzoom(target)
-	elseif cmd == "clicktp" then
-		clicktp()
-	elseif cmd == "infjump" then
-		infjump()
-	elseif cmd == "jump" then
-		jump()
-	elseif cmd == "fly" then
-		fly()
-	elseif cmd == "unfly" then
-		unfly()
-	elseif cmd == "bfly" then
-		bfly()
-	elseif cmd == "unbfly" then
-		unbfly()
-	elseif cmd == "fling" then
-		fling()
-	elseif cmd == "unfling" then
-		unfling()
-	elseif cmd:sub(1,#prefix+5) == prefix.."flysp" then
-		local target = cmd:sub(#prefix + 7)
-		flysp(target)
-	elseif cmd:sub(1,#prefix+6) == prefix.."bflysp" then
-		local target = cmd:sub(#prefix + 8)
-		bflysp(target)
-	elseif cmd == "invisible" or cmd == "invis" then
-		invisible()
-	elseif cmd == "visible" or cmd == "vis" then
-		turnVis()
-	elseif cmd == "spawnpoint" then
-		spawnpoint()
-	elseif cmd == "day" then
-		day()
-	elseif cmd == "night" then
-		night()
-	elseif cmd == "exit" then
-		exit()
-	elseif cmd == "swim" then
-		swim()
-	elseif cmd == "unswim" then
-		unswim()
-	elseif cmd == "float" then
-		float()
-	elseif cmd == "unfloat" then
-		unfloat()
-	elseif cmd == "xray" then
-		xray()
-	elseif cmd == "unxray" then
-		unxray()
-	elseif cmd == "noxray" then
-		unxray()
-	elseif cmd == "noclip" then
-		noclip()
-	elseif cmd == "clip" then
-		clip()
-	elseif cmd == "enableall" or cmd == "enable all" then
-		enableAll()
-	elseif cmd == "disableall" or cmd == "disable all" then
-		disableAll()
-	elseif cmd:sub(1,#prefix+6) == prefix.."enable" then
-		local target = cmd:sub(#prefix + 8)
-		enableA(target)
-	elseif cmd:sub(1,#prefix+7) == prefix.."disable" then
-		local target = cmd:sub(#prefix + 9)
-		disableA(target)
-	elseif cmd == "teleport" then
-		teleport()
-	elseif cmd:sub(1,#prefix+2) == prefix.."vr" then
-		local target = cmd:sub(#prefix + 4)
-		vr(target)
-	elseif cmd == "unvr" then
-		unvr()
-	elseif cmd:sub(1,#prefix+3) == prefix.."esp" then
-		local target = cmd:sub(#prefix + 5)
-		esp(target)
-	elseif cmd:sub(1,#prefix+5) == prefix.."unesp" then
-		local target = cmd:sub(#prefix + 7)
-		unesp(target)
-	elseif cmd:sub(1,#prefix+9) == prefix.."unheadsit" then
-		unheadsit()
-	elseif cmd:sub(1,#prefix+9) == prefix.."uninfjump" then
-		uninfjump()
-	end
+chatCon = me.Chatted:Connect(function(cmd) --cht cmd
+	execute(function()
+		cmds(cmd)
+	end)
 end)
 
 keyt.FocusLost:Connect(function(e) --keybinding
 	if e then
-		if text.Text:lower():match("visible") or text.Text:lower() == "vis" then
-			addKeybind(keyt.Text, turnVis)
-		elseif text.Text:lower():match("invisible") or text.Text:lower() == "invis" then
-			addKeybind(keyt.Text,invisible)
-		elseif text.Text:lower():sub(1, 2) == "to" then
-			local args = text.Text:sub(4)
-
-			addKeybind(keyt.Text, function()
-				to(args)
+		local savedText = text.Text
+		addKeybind(keyt.Text, function()
+			execute(function()
+				cmds(savedText)
 			end)
-		elseif text.Text:lower():sub(1, 6) == "follow" then
-			local args2 = text.Text:sub(8)
-
-			addKeybind(keyt.Text, function()
-				follow(args2)
-			end)
-		elseif text.Text:lower():match("unfollow") then
-			addKeybind(keyt.Text, unfollow)
-		elseif text.Text:lower():sub(1, 7) == "headsit" then
-			local args3 = text.Text:sub(9)
-
-			addKeybind(keyt.Text, function()
-				headsit(args3)
-			end)
-		elseif text.Text:lower():sub(1, 8) == "waypoint" then
-			local args4 = text.Text:sub(10)
-
-			addKeybind(keyt.Text, function()
-				waypoint(args4)
-			end)
-		elseif text.Text:lower():sub(1, 5) == "wayrm" then
-			local args5 = text.Text:sub(7)
-
-			addKeybind(keyt.Text, function()
-				wayrm(args5)
-			end)
-		elseif text.Text:lower():sub(1, 5) == "tpway" then
-			local args6 = text.Text:sub(7)
-
-			addKeybind(keyt.Text, function()
-				tpway(args6)
-			end)
-		elseif text.Text:lower():sub(1, 4) == "view" then
-			local args7 = text.Text:sub(6)
-
-			addKeybind(keyt.Text, function()
-				view(args7)
-			end)
-		elseif text.Text:lower():match("unview") then
-			addKeybind(keyt.Text, unview)
-		elseif text.Text:lower():sub(1, 5) == "speed" then
-			local args8 = text.Text:sub(7)
-
-			addKeybind(keyt.Text, function()
-				speed(args8)
-			end)
-		elseif text.Text:lower():sub(1, 9) == "jumppower" then
-			local args9 = text.Text:sub(11)
-
-			addKeybind(keyt.Text, function()
-				jumppower(args9)
-			end)
-		elseif text.Text:lower():sub(1,2) == "jp" then
-			local args9 = text.Text:sub(4)
-
-			addKeybind(keyt.Text, function()
-				jumppower(args9)
-			end)
-		elseif text.Text:lower():sub(1, 7) == "gravity" then
-			local grav = text.Text:sub(9)
-
-			addKeybind(keyt.Text, function()
-				gravity(grav)
-			end)
-		elseif text.Text:lower():sub(1,3) == "say" then
-			local say = text.Text:sub(5)
-
-			addKeybind(keyt.Text, function()
-				chat(say)
-			end)
-		elseif text.Text:lower():match("grabtools") then
-			addKeybind(keyt.Text, grabtools)
-		elseif text.Text:lower():match("ungrabtools") then
-			addKeybind(keyt.Text, ungrabtools)
-		elseif text.Text:lower():match("droptools") then
-			addKeybind(keyt.Text, droptools)
-		elseif text.Text:lower() =="lay" then
-			addKeybind(keyt.Text, lay)
-		elseif text.Text:lower():match("sit") then
-			addKeybind(keyt.Text, sit)
-		elseif text.Text:lower() == "reset" then
-			addKeybind(keyt.Text, reset)
-		elseif text.Text:lower():match("rejoin") then
-			addKeybind(keyt.Text, rejoin)
-		elseif text.Text:lower():sub(1, 7) == "maxzoom" then
-			local mz = text.Text:sub(9)
-
-			addKeybind(keyt.Text, function()
-				maxzoom(mz)
-			end)
-		elseif text.Text:lower():sub(1, 7) == "minzoom" then
-			local minz = text.Text:sub(9)
-
-			addKeybind(keyt.Text, function()
-				minzoom(minz)
-			end)
-		elseif text.Text:lower():match("clicktp") then
-			addKeybind(keyt.Text, clicktp)
-		elseif text.Text:lower() == "infjump" then
-			addKeybind(keyt.Text, infjump)
-		elseif text.Text:lower() == "jump" then
-			addKeybind(keyt.Text, jump)
-		elseif text.Text:lower() == "fly" then
-			addKeybind(keyt.Text, fly)
-		elseif text.Text:lower():match("unfly") then
-			addKeybind(keyt.Text, unfly)
-		elseif text.Text:lower() == "bfly" then
-			addKeybind(keyt.Text, bfly)
-		elseif text.Text:lower():match("unbfly") then
-			addKeybind(keyt.Text, unbfly)
-		elseif text.Text:lower() == "fling" then
-			addKeybind(keyt.Text, fling)
-		elseif text.Text:lower():match("unfling") then
-			addKeybind(keyt.Text, unfling)
-		elseif text.Text:lower():sub(1,5) == "flysp" then
-			local flyspArgs = text.Text:sub(7)
-
-			addKeybind(keyt.Text, function()
-				flysp(flyspArgs)
-			end)
-		elseif text.Text:lower():sub(1,6) == "bflysp" then
-			local bflyspArgs = text.Text:sub(8)
-
-			addKeybind(keyt.Text, function()
-				bflysp(bflyspArgs)
-			end)
-		elseif text.Text:lower():match("spawnpoint") then
-			addKeybind(keyt.Text, spawnpoint)
-		elseif text.Text:lower():match("day") then
-			addKeybind(keyt.Text, day)
-		elseif text.Text:lower():match("night") then
-			addKeybind(keyt.Text, night)
-		elseif text.Text:lower():match("exit") then
-			addKeybind(keyt.Text, exit)
-		elseif text.Text:lower() == "swim" then
-			addKeybind(keyt.Text, swim)
-		elseif text.Text:lower():match("unswim") then
-			addKeybind(keyt.Text, unswim)
-		elseif text.Text:lower() == "float" then
-			addKeybind(keyt.Text, float)
-		elseif text.Text:lower():match("unfloat") then
-			addKeybind(keyt.Text, unfloat)
-		elseif text.Text:lower() == "xray" then
-			addKeybind(keyt.Text, xray)
-		elseif text.Text:lower():match("unxray") or text.Text:lower():match("noxray") then
-			addKeybind(keyt.Text, unxray)
-		elseif text.Text:lower():match("noclip") then
-			addKeybind(keyt.Text, noclip)
-		elseif text.Text:lower() == "clip" then
-			addKeybind(keyt.Text, clip)
-		elseif text.Text:lower():match("enable all") then
-			addKeybind(keyt.Text, enableAll)
-		elseif text.Text:lower():match("disable all") then
-			addKeybind(keyt.Text, disableAll)
-		elseif text.Text:lower():sub(1,6) == "enable" then
-			local args = text.Text:sub(8)
-			addKeybind(keyt.Text, function()
-				enableA(args)
-			end)
-		elseif text.Text:lower():sub(1,7) == "disable" then
-			local args = text.Text:sub(9)
-			addKeybind(keyt.Text, function()
-				disableA(args)
-			end)
-		elseif text.Text:lower():match("teleport") then
-			addKeybind(keyt.Text, teleport)
-		elseif text.Text:lower():sub(1,2)  == "vr" then
-			local args = text.Text:sub(4)
-			addKeybind(keyt.Text, function()
-				vr(args)
-			end)
-		elseif text.Text:lower():match("unvr") then
-			addKeybind(keyt.Text, unvr)
-		elseif text.Text:lower():sub(1,3) == "esp" then
-			local args = text.Text:sub(5)
-
-			addKeybind(keyt.Text, function()
-				esp(args)
-			end)
-		elseif text.Text:lower():sub(1,5) == "unesp" then
-			local args = text.Text:sub(7)
-
-			addKeybind(keyt.Text, function()
-				unesp(args)
-			end)
-		elseif text.Text:lower():match("unheadsit") then
-			addKeybind(keyt.Text, unheadsit)
-		elseif text.Text:lower():match("uninfjump") then
-			addKeybind(keyt.Text, uninfjump)
-		end
+		end)
 	end
 end)
 
@@ -3047,10 +2707,6 @@ uis.InputBegan:Connect(function(i, g)
 		task.wait(0.05)
 		text.Text = ""
 	end
-end)
-
-run.RenderStepped:Connect(function()
-	text.Text = text.Text:gsub(";", "")
 end)
 
 local allowed = {
