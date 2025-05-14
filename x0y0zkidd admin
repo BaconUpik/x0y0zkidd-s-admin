@@ -3095,23 +3095,18 @@ plr.PlayerAdded:Connect(controlp)
 
 print("x0y0z no syntax errors [2]")
 
-local abc = 0
-
-task.delay(1, function()
-	if abc ~= 1 then
-		warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
-	end
-end)
-
 if uis.TouchEnabled and not uis.KeyboardEnabled and not uis.GamepadEnabled then
 	notify("x0y0z admin WARNING", "This script doesnt support mobile, some functions will not work.", 10)
 end
 
-screen.Parent = game:GetService("CoreGui")
-
-abc = 1
-
-print("x0y0z coreGui bypass works [3]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+local suc, err = pcall(function()
+	screen.Parent = game:GetService("CoreGui")
+end)
+if suc then
+	print("x0y0z coreGui bypass works [3]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+elseif not suc then
+	warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+end
 
 --[[
     BIG THANKS TO: Infinite Yield For help! :D
