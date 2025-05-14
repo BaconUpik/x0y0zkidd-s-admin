@@ -796,7 +796,7 @@ btn3.MouseButton1Click:Connect(function()
 	for _, com in pairs(screen:GetChildren()) do
 		if com.Name == "f2" then
 			com.Visible = true
-			com.Position = UDim2.new(0,frame.Position.X.Offset + -350,0,frame.Position.Y.Offset + -150)
+			com.Position = UDim2.new(0,frame.Position.X.Offset + -360,0,frame.Position.Y.Offset + 410)
 		end
 	end
 end)
@@ -805,7 +805,7 @@ btn4.MouseButton1Click:Connect(function()
 	for _, the in pairs(screen:GetChildren()) do
 		if the.Name == "f3" then
 			the.Visible = true
-			the.Position = UDim2.new(0,frame.Position.X.Offset + 20,0,frame.Position.Y.Offset + -300)
+			the.Position = UDim2.new(0,frame.Position.X.Offset + 20,0,frame.Position.Y.Offset + 400)
 		end
 	end
 end)
