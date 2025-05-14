@@ -221,7 +221,6 @@ frame.Parent           = screen
 frame.Size             = UDim2.new(0, 270, 0, 350)
 frame.BackgroundColor3 = Color3.fromRGB(255, 0, 234)
 frame.Position         = UDim2.new(0,1649,0,971)
-frame.ZIndex = 10
 frame.Active = true
 
 local keyt                  = Instance.new("TextBox")
@@ -325,7 +324,6 @@ frame2.BackgroundColor3 = frame.BackgroundColor3
 frame2.Position         = UDim2.new(0, 1040, 0, 550)
 frame2.Name             = "f2"
 frame2.Active = true
-frame2.ZIndex = 10
 frame2.Visible = false
 
 frame2.Active     = true
@@ -391,7 +389,6 @@ frame3.BackgroundColor3 = frame.BackgroundColor3
 frame3.Position         = UDim2.new(0, 1340, 0, 250)
 frame3.Name             = "f3"
 frame3.Active = true
-frame2.ZIndex = 10
 frame3.Visible = false
 
 
