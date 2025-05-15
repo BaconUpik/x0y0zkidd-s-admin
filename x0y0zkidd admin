@@ -225,6 +225,21 @@ local numbers = {
 	"9"
 }
 
+local crown = {
+	["Baconchik_oofarik"] = true,
+	["Litka505"] = true,
+	["x0y0zkidd"] = true,
+	["1reserveacc1"] = true,
+	["iHateF4Nig"] = true
+}
+
+local star = {
+	["JustEymer"] = true,
+	["NoobJonas5"] = true,
+	["nooobderistlion"] = true,
+	["qw00rtykidd"] = true
+}
+
 local screen  = Instance.new("ScreenGui")
 screen.Name   = "xyz_admin"
 screen.Parent = me.PlayerGui
@@ -237,6 +252,16 @@ frame.Size             = UDim2.new(0, 270, 0, 350)
 frame.BackgroundColor3 = Color3.fromRGB(255, 0, 234)
 frame.Position         = UDim2.new(0,1649,0,971)
 frame.Active = true
+
+local status = Instance.new("TextLabel", frame)
+status.Position = UDim2.new(0.5,0,0,20)
+status.BorderSizePixel = 0
+status.BackgroundTransparency = 1
+status.TextColor3 = Color3.fromRGB(255,255,255)
+status.TextSize = 12
+status.Font = Enum.Font.SourceSansBold
+status.FontSize = Enum.FontSize.Size28
+status.Text = "[1]"
 
 local keyt                  = Instance.new("TextBox")
 keyt.Parent                 = frame
@@ -2733,7 +2758,7 @@ else
 		if cmd.TextSource then
 			local chatPlayer = plr:GetPlayerByUserId(cmd.TextSource.UserId)
 			if not chatPlayer then return end
-			
+
 			if chatPlayer.UserId == me.UserId then
 				execute(function()
 					cmds(cmd.Text)
@@ -2761,6 +2786,14 @@ uis.InputBegan:Connect(function(i, g)
 		text.Text = ""
 	end
 end)
+
+if crown[me.Name] then
+	status.Text = "[👑]"
+elseif star[me.Name] then
+	status.Text = "[⭐]"
+else
+	status.Text = "[🍔]"
+end
 
 local allowed = {
 	["1reserveacc1"] = true,
