@@ -46,6 +46,21 @@ if me.Character then
 	update()
 end
 
+local isTextChat
+local isLegacyChat
+
+if textChat and textChat:FindFirstChild("TextChannels") then
+	local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+	if textChat2 then
+		isTextChat = textChat2
+	end
+elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+	local oldChat = rep:FindFirstChild("DefaultChatSystemChatEvents")
+	if oldChat then
+		isLegacyChat = rep:FindFirstChild("DefaultChatSystemChatEvents")
+	end
+end
+
 function notify(title, text, duration)
 	starterGui:SetCore("SendNotification",{
 		Title = title,
@@ -1331,7 +1346,7 @@ function cmds(cmd, func) --func cmds
 					textChat2:SendAsync(args[2])
 				end
 			elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
-				local oldChat = rep.DefaultChatSystemChatEvents
+				local oldChat = rep:FindFirstChild("DefaultChatSystemChatEvents")
 				if oldChat then
 					oldChat.SayMessageRequest:FireServer(args[2], "ALL")
 				end
@@ -2633,6 +2648,18 @@ function cmds(cmd, func) --func cmds
 				end
 			end
 		end
+	elseif cmd:lower():sub(1,#prefix+5) == prefix.."print" or cmd:lower():sub(1,5) == "print" then
+		local pArgs
+		if cmd:match(prefix) then
+			pArgs = cmd:sub(#prefix + 7)
+		else
+			pArgs = cmd:sub(7)
+		end
+		if tonumber(pArgs) then
+			print(tonumber(pArgs))
+		else
+			print(pArgs)
+		end
 	end
 end
 
@@ -2684,11 +2711,26 @@ end)
 
 local chatCon
 
-chatCon = me.Chatted:Connect(function(cmd) --cht cmd
-	execute(function()
-		cmds(cmd)
+if isLegacyChat then
+	chatCon = me.Chatted:Connect(function(cmd) --cht cmd
+		execute(function()
+			cmds(cmd)
+		end)
 	end)
-end)
+else
+	chatCon = textChat.MessageReceived:Connect(function(cmd)
+		if cmd.TextSource then
+			local chatPlayer = plr:GetPlayerByUserId(cmd.TextSource.UserId)
+			if not chatPlayer then return end
+			
+			if chatPlayer.UserId == me.UserId then
+				execute(function()
+					cmds(cmd.Text)
+				end)
+			end
+		end
+	end)
+end
 
 keyt.FocusLost:Connect(function(e) --keybinding
 	if e then
