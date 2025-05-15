@@ -376,7 +376,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "goto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "print <anything> // print's in console\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -953,8 +953,10 @@ uis.InputBegan:Connect(function(i,g)
 	end
 end)
 
+local keys = {}
+
 function addKeybind(key,command)
-	uis.InputBegan:Connect(function(i,g)
+	keys[key] = uis.InputBegan:Connect(function(i,g)
 		if g then return end
 
 
@@ -2648,7 +2650,7 @@ function cmds(cmd, func) --func cmds
 				end
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix+5) == prefix.."print" or cmd:lower():sub(1,5) == "print" then
+	elseif cmd:lower():sub(1,#prefix+5) == prefix.."print" or cmd:lower():sub(1,5) == "print" or func == "print" then
 		local pArgs
 		if cmd:match(prefix) then
 			pArgs = cmd:sub(#prefix + 7)
@@ -2660,8 +2662,17 @@ function cmds(cmd, func) --func cmds
 		else
 			print(pArgs)
 		end
+	elseif cmd:lower():sub(1,#prefix+9) == prefix.."unkeybind" or cmd:lower():sub(1,#prefix+5) == prefix.."unkey" or cmd:lower():sub(1,9) == "unkeybind" or cmd:lower():sub(1,5) == "unkey" or func == "unkeybind" or func == "unkey" then
+		if args[2]:lower() ~= "" then
+			if keys[args[2]] then
+				keys[args[2]]:Disconnect()
+				keys[args[2]] = nil
+			end
+		end
 	end
 end
+
+--last cmd
 
 function execute(cmd) --func execute
 	cmd()
