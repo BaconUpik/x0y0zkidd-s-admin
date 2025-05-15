@@ -1144,7 +1144,7 @@ function cmds(cmd, func) --func cmds
 			findNearest()
 			task.wait(0.02)
 			hum:MoveTo(nearestPlayer.Character.HumanoidRootPart.Position)
-		elseif args[3]:lower():match("fart") then
+		elseif args[2]:lower():match("fart") then
 			findFarthest()
 			task.wait(0.02)
 			hum:MoveTo(farthestPlayer.Character.HumanoidRootPart.Position)
@@ -1166,7 +1166,7 @@ function cmds(cmd, func) --func cmds
 		end
 		task.wait(0.02)
 		hum:MoveTo(hrp.Position)
-	elseif cmd:lower() == prefix.."headsit" or cmd:lower() == "headsit" or func == "headsit" then --headsit
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."headsit" or cmd:lower():sub(1,7) == "headsit" or func == "headsit" then --headsit
 		headSit = true
 
 		if args[2]:lower():match("random") then
