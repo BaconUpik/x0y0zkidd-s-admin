@@ -20,7 +20,6 @@ local hrp = char:WaitForChild("HumanoidRootPart")
 local work = game:GetService("Workspace")
 local run = game:GetService("RunService")
 local uis = game:GetService("UserInputService")
-local virtual = game:GetService("VirtualInputManager")
 local rep = game:GetService("ReplicatedStorage")
 local textChat = game:GetService("TextChatService")
 local guiService = game:GetService("GuiService")
@@ -216,6 +215,7 @@ local r15Body = {
 local numbers = {
 	"0",
 	"1",
+        "2",
 	"3",
 	"4",
 	"5",
