@@ -2969,7 +2969,7 @@ plr.PlayerAdded:Connect(controlp)
 print("x0y0z no syntax errors [2]")
 
 if uis.TouchEnabled and not uis.KeyboardEnabled and not uis.GamepadEnabled then
-	notify("x0y0z admin WARNING", "This script doesnt support mobile, some functions will not work.", 10)
+	notify("x0y0z admin WARNING", "This script doesn't support mobile, some functions will not work.", 10)
 end
 
 local suc, err = pcall(function()
