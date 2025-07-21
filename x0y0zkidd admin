@@ -14,7 +14,7 @@ print("-----------------\n" .. os.date("%H:%M:%S") .. " -- x0y0z execution work 
 local plr = game:GetService("Players")
 local me  = plr.LocalPlayer
 local char = me.Character or me.CharacterAdded:Wait()
-local hum = char:WaitForChild("Humanoid")
+local hum = char:FindFirstChildOfClass("Humanoid")
 local hrp = char:WaitForChild("HumanoidRootPart")
 
 local work = game:GetService("Workspace")
@@ -34,7 +34,7 @@ local reChar = true
 local function update()
 	if reChar then
 		char = me.Character
-		hum = char:WaitForChild("Humanoid")
+		hum = char:FindFirstChildOfClass("Humanoid")
 		hrp = char:WaitForChild("HumanoidRootPart")
 	end
 end
@@ -136,6 +136,87 @@ function findNonFriends() --func findNonFriends
 	end
 end
 
+local remember = false
+
+function guiNotify(text,whc1,whc2,func,bool)
+	local askToggle = false
+	
+	local notScreen = Instance.new("ScreenGui", me.PlayerGui)
+	notScreen.IgnoreGuiInset = true
+	notScreen.ResetOnSpawn = false
+	
+	local notFrame = Instance.new("Frame", notScreen)
+	notFrame.BorderSizePixel = 1
+	notFrame.Size = UDim2.new(0, 250, 0, 125)
+	notFrame.Position = UDim2.new(0.8,0,0.4,0)
+	notFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	notFrame.BorderColor3 = Color3.fromRGB(255,255,255)
+	
+	notFrame.Active = true
+	notFrame.Draggable = true
+	
+	local notBtn = Instance.new("TextButton", notFrame)
+	notBtn.Text = whc1
+	notBtn.Size = UDim2.new(0.25,0,0.25,0)
+	notBtn.Position = UDim2.new(0.05,0,0.65,0)
+	notBtn.BackgroundColor3 = Color3.fromRGB(255,255,255)
+	notBtn.TextSize = 12
+	
+	local notBtn2 = Instance.new("TextButton", notFrame)
+	notBtn2.Text = whc2
+	notBtn2.Size = UDim2.new(0.25,0,0.25,0)
+	notBtn2.Position = UDim2.new(0.7,0,0.65,0)
+	notBtn2.BackgroundColor3 = Color3.fromRGB(255,255,255)
+	notBtn2.TextSize = 12
+	
+	local notCheckBox = Instance.new("TextButton", notFrame)
+	notCheckBox.Text = "Remember my choice"
+	notCheckBox.Font = Enum.Font.SourceSansBold
+	notCheckBox.Size = UDim2.new(0.25,0,0.25,0)
+	notCheckBox.Position = UDim2.new(0.37,0,0.65,0)
+	notCheckBox.BackgroundColor3 = Color3.fromRGB(255,179,180)
+	notCheckBox.TextScaled = true
+	
+	local notText = Instance.new("TextLabel", notFrame)
+	notText.Text = text
+	notText.Size = UDim2.new(0.8,0,0.5,0)
+	notText.Position = UDim2.new(0.1,0,0.07,0)
+	notText.TextColor3 = Color3.fromRGB(255,255,255)
+	notText.BackgroundTransparency = 1
+	notText.TextScaled = true
+	
+	notCheckBox.MouseButton1Click:Connect(function()
+		if not askToggle then
+			askToggle = true
+			notCheckBox.BackgroundColor3 = Color3.fromRGB(197,255,190)
+			remember = true
+		else
+			askToggle = false
+			notCheckBox.BackgroundColor3 = Color3.fromRGB(255,179,180)
+			remember = false
+		end
+		print(remember)
+	end)
+	notBtn.MouseButton1Click:Connect(function()
+		bool = true
+		if remember then
+			func = false
+		else
+			func = true
+		end
+		notScreen:Destroy()
+	end)
+	notBtn2.MouseButton1Click:Connect(function()
+		bool = false
+		if remember then
+			func = false
+		else
+			func = true
+		end
+		notScreen:Destroy()
+	end)
+end
+
 local Uhold = false
 local Dhold = false
 local Fhold = false
@@ -156,12 +237,24 @@ local rightleg = "Right Leg"
 local speedCon
 local jumpCon
 local gravityCon
+
+local isFlying = false
+
 local flyCon
 local flyCon2
 local flyCon3
 local flyCon4
 local flyCon5
 local flyCon6
+
+local flySp = 80
+
+local flyMove = {
+	w = false,
+	a = false,
+	s = false,
+	d = false
+}
 
 local fhCon
 local flyLook
@@ -215,7 +308,7 @@ local r15Body = {
 local numbers = {
 	"0",
 	"1",
-        "2",
+	"2",
 	"3",
 	"4",
 	"5",
@@ -1137,6 +1230,8 @@ local espAllDied
 
 local espCons = {}
 
+local loopTpCon
+
 function cmds(cmd, func) --func cmds
 	local args = cmd:split(" ")
 
@@ -1408,6 +1503,7 @@ function cmds(cmd, func) --func cmds
 	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."sit" or cmd:lower():sub(1,3) == "sit" or func == "sit" then --sit
 		hum.Sit = true
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."reset" or cmd:lower():sub(1,5) == "reset" or func == "reset" then --reset
+		hum:TakeDamage(hum.MaxHealth + 100)
 		hum.Health = 0
 		hum:ChangeState(Enum.HumanoidStateType.Dead)
 	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."rejoin" or cmd:lower():sub(1,6) == "rejoin" then --rejoin
@@ -1482,19 +1578,22 @@ function cmds(cmd, func) --func cmds
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."jump" or cmd:lower():sub(1,4) == "jump" or func == "jump" then --jump
 		hum:ChangeState(Enum.HumanoidStateType.Jumping)
 	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."fly" or cmd:lower():sub(1,3) == "fly" or func == "fly" then --fly
-		if hrp:FindFirstChild("flyVel") then
-			return
-		end
-		if hrp:FindFirstChild("bodyFly") then
-			return
-		end
+		if isFlying then return end
+		
+		isFlying = true
 
 		if tonumber(args[2]) ~= "" then
-			flySpeed = tonumber(args[2]) or 80
+			flySpeed = tonumber(args[2]) or flySp
+			flySp = tonumber(args[2]) or 80
+		end
+		
+		for _, stopAnims in ipairs(hum.Animator:GetPlayingAnimationTracks()) do
+			stopAnims:Stop()
 		end
 
 		hum.PlatformStand = true
-
+		char.Animate.Disabled = true
+		
 		flyVel = Instance.new("BodyVelocity")
 		flyVel.Parent = hrp
 		flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
@@ -1508,58 +1607,52 @@ function cmds(cmd, func) --func cmds
 		bodyFly.Name = "bodyFly"
 
 		flyLook = run.Heartbeat:Connect(function()
-			local updMousePos = mouse.Hit.Position
-			local current = hrp.Position
-
-			local toLook = (updMousePos - current).Unit
-
-			hrp.CFrame = CFrame.new(current, current + toLook)
+			hrp.CFrame = CFrame.new(hrp.Position, hrp.Position + camera.CFrame.LookVector)
 		end)
 
 		uisHolderDown = mouse.KeyDown:Connect(function(key)
 			if key == "w" then
-				flyCon3 = run.Heartbeat:Connect(function(dt)
-					hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * flySpeed * dt
-				end)
+				flyMove.w = true
 			elseif key == "s" then
-				flyCon4 = run.Heartbeat:Connect(function(dt)
-					hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * flySpeed * dt
-				end)
+				flyMove.s = true
 			elseif key == "d" then
-				flyCon5 = run.Heartbeat:Connect(function(dt)
-					hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * flySpeed * dt
-				end)
+				flyMove.d = true
 			elseif key == "a" then
-				flyCon6 = run.Heartbeat:Connect(function(dt)
-					hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * flySpeed * dt
-				end)
+				flyMove.a = true
 			end
 		end)
 		uisHolderUp = mouse.KeyUp:Connect(function(key)
 			if key == "w" then
-				if flyCon3 then
-					flyCon3:Disconnect()
-					flyCon3 = nil
-				end
+				flyMove.w = false
 			elseif key == "s" then
-				if flyCon4 then
-					flyCon4:Disconnect()
-					flyCon4 = nil
-				end
+				flyMove.s = false
 			elseif key == "d" then
-				if flyCon5 then
-					flyCon5:Disconnect()
-					flyCon5 = nil
-				end
+				flyMove.d = false
 			elseif key == "a" then
-				if flyCon6 then
-					flyCon6:Disconnect()
-					flyCon6 = nil
-				end
+				flyMove.a = false
+			end
+		end)
+		
+		flyCon = run.Heartbeat:Connect(function()
+			local flyDir = Vector3.zero
+			
+			if flyMove.w then flyDir += hrp.CFrame.LookVector end
+			if flyMove.a then flyDir -= hrp.CFrame.RightVector end
+			if flyMove.s then flyDir -= hrp.CFrame.LookVector end
+			if flyMove.d then flyDir += hrp.CFrame.RightVector end
+			
+			if flyDir.Magnitude > 0 then
+				flyVel.Velocity = flyDir.Unit * flySpeed
+			else
+				flyVel.Velocity = Vector3.zero
 			end
 		end)
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."unfly" or cmd:lower():sub(1,5) == "unfly" or func == "unfly" then --unfly
+		isFlying = false
+		
 		hum.PlatformStand = false
+		char.Animate.Disabled = false
+		
 		if hrp:FindFirstChild("flyVel") then
 			hrp:FindFirstChild("flyVel"):Destroy()
 		end
@@ -1585,21 +1678,9 @@ function cmds(cmd, func) --func cmds
 		if bodyFly then
 			bodyFly:Destroy()
 		end
-		if flyCon3 then
-			flyCon3:Disconnect()
-			flyCon3 = nil
-		end
-		if flyCon4 then
-			flyCon4:Disconnect()
-			flyCon4 = nil
-		end
-		if flyCon5 then
-			flyCon5:Disconnect()
-			flyCon5 = nil
-		end
-		if flyCon6 then
-			flyCon6:Disconnect()
-			flyCon6 = nil
+		if flyCon then
+			flyCon:Disconnect()
+			flyCon = nil
 		end
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."bfly" or cmd:lower():sub(1,4) == "bfly" or func == "bfly" then --bfly
 		if char:FindFirstChild("FlyHolder") then return end
@@ -2692,6 +2773,23 @@ function cmds(cmd, func) --func cmds
 			if keys[args[2]] then
 				keys[args[2]]:Disconnect()
 				keys[args[2]] = nil
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,6) == "looptp" then --cmd looptpcon
+		if args[2]:lower() ~= "" then
+			for _, loopTpPlr in pairs(plr:GetPlayers()) do
+				if loopTpPlr.Name:lower():find(args[2]:lower()) or loopTpPlr.DisplayName:lower():find(args[2]:lower()) then
+					loopTpCon = run.Heartbeat:Connect(function()
+						hrp.CFrame = loopTpPlr.Character.HumanoidRootPart.CFrame
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower():sub() == "unlooptp" then --cmd looptpcon
+		if args[2]:lower() ~= "" then
+			if loopTpCon then
+				loopTpCon:Disconnect()
+				loopTpCon = nil
 			end
 		end
 	end
