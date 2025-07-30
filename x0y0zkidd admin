@@ -253,7 +253,9 @@ local flyMove = {
 	w = false,
 	a = false,
 	s = false,
-	d = false
+	d = false,
+        e = false,
+        q = false
 }
 
 local fhCon
@@ -1619,6 +1621,10 @@ function cmds(cmd, func) --func cmds
 				flyMove.d = true
 			elseif key == "a" then
 				flyMove.a = true
+                        elseif key == "e" then
+                                flyMove.e = true
+                        elseif key == "q" then
+                                flyMove.q = true
 			end
 		end)
 		uisHolderUp = mouse.KeyUp:Connect(function(key)
@@ -1630,6 +1636,10 @@ function cmds(cmd, func) --func cmds
 				flyMove.d = false
 			elseif key == "a" then
 				flyMove.a = false
+                        elseif key == "e" then
+                                flyMove.e = false
+                        elseif key == "q" then
+                                flyMove.q = false
 			end
 		end)
 		
@@ -1640,6 +1650,8 @@ function cmds(cmd, func) --func cmds
 			if flyMove.a then flyDir -= hrp.CFrame.RightVector end
 			if flyMove.s then flyDir -= hrp.CFrame.LookVector end
 			if flyMove.d then flyDir += hrp.CFrame.RightVector end
+                        if flyMove.e then flyDir += hrp.CFrame.UpVector end
+                        if flyMove.q then flyDir -= hrp.CFrame.UpVector end
 			
 			if flyDir.Magnitude > 0 then
 				flyVel.Velocity = flyDir.Unit * flySpeed
