@@ -36,6 +36,7 @@ local function update()
 		char = me.Character
 		hum = char:FindFirstChildOfClass("Humanoid")
 		hrp = char:WaitForChild("HumanoidRootPart")
+		hum.UseJumpPower = true
 	end
 end
 
@@ -44,6 +45,8 @@ me.CharacterAdded:Connect(update)
 if me.Character then
 	update()
 end
+
+hum.UseJumpPower = true
 
 local isTextChat
 local isLegacyChat
@@ -136,39 +139,71 @@ function findNonFriends() --func findNonFriends
 	end
 end
 
+local saveWS = nil
+local saveJP = nil
+
+hum.Died:Connect(function()
+	saveWS = nil
+	saveJP = nil
+end)
+
+function disableC()
+	hum.UseJumpPower = true
+	
+	saveWS = hum.WalkSpeed
+	saveJP = hum.JumpPower
+	
+	hum.WalkSpeed = 0
+	hum.JumpPower = 0
+end
+function enableC()
+	hum.UseJumpPower = true
+
+	if saveWS then
+		hum.WalkSpeed = saveWS
+	else
+		hum.WalkSpeed = 16
+	end
+	if saveJP then
+		hum.JumpPower = saveJP
+	else
+		hum.JumpPower = 50
+	end
+end
+
 local remember = false
 
 function guiNotify(text,whc1,whc2,func,bool)
 	local askToggle = false
-	
+
 	local notScreen = Instance.new("ScreenGui", me.PlayerGui)
 	notScreen.IgnoreGuiInset = true
 	notScreen.ResetOnSpawn = false
-	
+
 	local notFrame = Instance.new("Frame", notScreen)
 	notFrame.BorderSizePixel = 1
 	notFrame.Size = UDim2.new(0, 250, 0, 125)
 	notFrame.Position = UDim2.new(0.8,0,0.4,0)
 	notFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
 	notFrame.BorderColor3 = Color3.fromRGB(255,255,255)
-	
+
 	notFrame.Active = true
 	notFrame.Draggable = true
-	
+
 	local notBtn = Instance.new("TextButton", notFrame)
 	notBtn.Text = whc1
 	notBtn.Size = UDim2.new(0.25,0,0.25,0)
 	notBtn.Position = UDim2.new(0.05,0,0.65,0)
 	notBtn.BackgroundColor3 = Color3.fromRGB(255,255,255)
 	notBtn.TextSize = 12
-	
+
 	local notBtn2 = Instance.new("TextButton", notFrame)
 	notBtn2.Text = whc2
 	notBtn2.Size = UDim2.new(0.25,0,0.25,0)
 	notBtn2.Position = UDim2.new(0.7,0,0.65,0)
 	notBtn2.BackgroundColor3 = Color3.fromRGB(255,255,255)
 	notBtn2.TextSize = 12
-	
+
 	local notCheckBox = Instance.new("TextButton", notFrame)
 	notCheckBox.Text = "Remember my choice"
 	notCheckBox.Font = Enum.Font.SourceSansBold
@@ -176,7 +211,7 @@ function guiNotify(text,whc1,whc2,func,bool)
 	notCheckBox.Position = UDim2.new(0.37,0,0.65,0)
 	notCheckBox.BackgroundColor3 = Color3.fromRGB(255,179,180)
 	notCheckBox.TextScaled = true
-	
+
 	local notText = Instance.new("TextLabel", notFrame)
 	notText.Text = text
 	notText.Size = UDim2.new(0.8,0,0.5,0)
@@ -184,7 +219,7 @@ function guiNotify(text,whc1,whc2,func,bool)
 	notText.TextColor3 = Color3.fromRGB(255,255,255)
 	notText.BackgroundTransparency = 1
 	notText.TextScaled = true
-	
+
 	notCheckBox.MouseButton1Click:Connect(function()
 		if not askToggle then
 			askToggle = true
@@ -254,8 +289,8 @@ local flyMove = {
 	a = false,
 	s = false,
 	d = false,
-        e = false,
-        q = false
+	e = false,
+	q = false
 }
 
 local fhCon
@@ -271,6 +306,25 @@ local flingCon
 
 local flyVel
 local bodyFly
+
+local fcCon
+
+local fcKeys
+local fcKeys2
+
+local fcYaw = 0
+local fcPitch = 0
+local fcSens = 0.2
+local fcCamCon
+
+local fcMove = {
+	w = false,
+	a = false,
+	s = false,
+	d = false,
+	e = false,
+	q = false
+}
 
 local prefix = ";"
 
@@ -1581,21 +1635,21 @@ function cmds(cmd, func) --func cmds
 		hum:ChangeState(Enum.HumanoidStateType.Jumping)
 	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."fly" or cmd:lower():sub(1,3) == "fly" or func == "fly" then --fly
 		if isFlying then return end
-		
+
 		isFlying = true
 
 		if tonumber(args[2]) ~= "" then
 			flySpeed = tonumber(args[2]) or flySp
 			flySp = tonumber(args[2]) or 80
 		end
-		
+
 		for _, stopAnims in ipairs(hum.Animator:GetPlayingAnimationTracks()) do
 			stopAnims:Stop()
 		end
 
 		hum.PlatformStand = true
 		char.Animate.Disabled = true
-		
+
 		flyVel = Instance.new("BodyVelocity")
 		flyVel.Parent = hrp
 		flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
@@ -1621,10 +1675,10 @@ function cmds(cmd, func) --func cmds
 				flyMove.d = true
 			elseif key == "a" then
 				flyMove.a = true
-                        elseif key == "e" then
-                                flyMove.e = true
-                        elseif key == "q" then
-                                flyMove.q = true
+			elseif key == "e" then
+				flyMove.e = true
+			elseif key == "q" then
+				flyMove.q = true
 			end
 		end)
 		uisHolderUp = mouse.KeyUp:Connect(function(key)
@@ -1636,23 +1690,23 @@ function cmds(cmd, func) --func cmds
 				flyMove.d = false
 			elseif key == "a" then
 				flyMove.a = false
-                        elseif key == "e" then
-                                flyMove.e = false
-                        elseif key == "q" then
-                                flyMove.q = false
+			elseif key == "e" then
+				flyMove.e = false
+			elseif key == "q" then
+				flyMove.q = false
 			end
 		end)
-		
+
 		flyCon = run.Heartbeat:Connect(function()
 			local flyDir = Vector3.zero
-			
+
 			if flyMove.w then flyDir += hrp.CFrame.LookVector end
 			if flyMove.a then flyDir -= hrp.CFrame.RightVector end
 			if flyMove.s then flyDir -= hrp.CFrame.LookVector end
 			if flyMove.d then flyDir += hrp.CFrame.RightVector end
-                        if flyMove.e then flyDir += hrp.CFrame.UpVector end
-                        if flyMove.q then flyDir -= hrp.CFrame.UpVector end
-			
+			if flyMove.e then flyDir += hrp.CFrame.UpVector end
+			if flyMove.q then flyDir -= hrp.CFrame.UpVector end
+
 			if flyDir.Magnitude > 0 then
 				flyVel.Velocity = flyDir.Unit * flySpeed
 			else
@@ -1661,10 +1715,10 @@ function cmds(cmd, func) --func cmds
 		end)
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."unfly" or cmd:lower():sub(1,5) == "unfly" or func == "unfly" then --unfly
 		isFlying = false
-		
+
 		hum.PlatformStand = false
 		char.Animate.Disabled = false
-		
+
 		if hrp:FindFirstChild("flyVel") then
 			hrp:FindFirstChild("flyVel"):Destroy()
 		end
@@ -2787,7 +2841,7 @@ function cmds(cmd, func) --func cmds
 				keys[args[2]] = nil
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,6) == "looptp" then --cmd looptpcon
+	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,6) == "looptp" or func == "looptp" then --cmd looptpcon
 		if args[2]:lower() ~= "" then
 			for _, loopTpPlr in pairs(plr:GetPlayers()) do
 				if loopTpPlr.Name:lower():find(args[2]:lower()) or loopTpPlr.DisplayName:lower():find(args[2]:lower()) then
@@ -2797,12 +2851,104 @@ function cmds(cmd, func) --func cmds
 				end
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower():sub() == "unlooptp" then --cmd looptpcon
+	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower() == "unlooptp" or func == "unlooptp" then --cmd looptpcon
 		if args[2]:lower() ~= "" then
 			if loopTpCon then
 				loopTpCon:Disconnect()
 				loopTpCon = nil
 			end
+		end
+	elseif cmd:lower():sub(1,#prefix+#"freecam") == prefix.."freecam" or cmd:lower():sub(1,#prefix+#"fc") == prefix.."fc" or cmd:lower() == "freecam" or cmd:lower() == "fc" or func == "freecam" then --cmd freecam
+		disableC()
+		
+		camera.CameraType = Enum.CameraType.Scriptable
+		camera.CFrame = CFrame.Angles(math.rad(-15),0,0)
+		
+		uis.MouseBehavior = Enum.MouseBehavior.LockCenter
+		uis.MouseIconEnabled = false
+
+		fcCamCon = uis.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement then
+				fcYaw -= input.Delta.X * fcSens
+				fcPitch -= input.Delta.Y * fcSens
+				fcPitch = math.clamp(fcPitch, -80, 80)
+			end
+		end)
+		
+		fcKeys = mouse.KeyDown:Connect(function(key)
+			if key == "w" then
+				fcMove.w = true
+			elseif key == "a" then
+				fcMove.a = true
+			elseif key == "s" then
+				fcMove.s = true
+			elseif key == "d" then
+				fcMove.d = true
+			elseif key == "q" then
+				fcMove.q = true
+			elseif key == "e" then
+				fcMove.e = true
+			end
+		end)
+		fcKeys2 = mouse.KeyUp:Connect(function(key)
+			if key == "w" then
+				fcMove.w = false
+			elseif key == "a" then
+				fcMove.a = false
+			elseif key == "s" then
+				fcMove.s = false
+			elseif key == "d" then
+				fcMove.d = false
+			elseif key == "q" then
+				fcMove.q = false
+			elseif key == "e" then
+				fcMove.e = false
+			end
+		end)
+		
+		fcCon = run.Heartbeat:Connect(function()
+			camera.CFrame = CFrame.new(camera.CFrame.Position) * CFrame.Angles(0, math.rad(fcYaw), 0) * CFrame.Angles(math.rad(fcPitch), 0, 0)
+			if fcMove.w then
+				camera.CFrame = camera.CFrame + camera.CFrame.LookVector * 2
+			end
+			if fcMove.a then
+				camera.CFrame = camera.CFrame - camera.CFrame.RightVector * 2
+			end
+			if fcMove.s then
+				camera.CFrame = camera.CFrame - camera.CFrame.LookVector * 2
+			end
+			if fcMove.d then
+				camera.CFrame = camera.CFrame + camera.CFrame.RightVector * 2
+			end
+			if fcMove.q then
+				camera.CFrame = camera.CFrame - camera.CFrame.UpVector * 2
+			end
+			if fcMove.e then
+				camera.CFrame = camera.CFrame + camera.CFrame.UpVector * 2
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix+#"unfreecam") == prefix.."unfreecam" or cmd:lower():sub(1,#prefix+#"unfc") == prefix.."unfc" or cmd:lower() == "unfreecam" or cmd:lower() == "unfc" or func == "unfreecam" then --cmd freecam
+		enableC()
+
+		camera.CameraType = Enum.CameraType.Custom
+		uis.MouseBehavior = Enum.MouseBehavior.Default
+		uis.MouseIconEnabled = true
+		
+		if fcCon then
+			fcCon:Disconnect()
+			fcCon = nil
+		end
+		if fcKeys then
+			fcKeys:Disconnect()
+			fcKeys = nil
+		end
+		if fcKeys2 then
+			fcKeys2:Disconnect()
+			fcKeys2 = nil
+		end
+		if fcCamCon then
+			fcCamCon:Disconnect()
+			fcCamCon = nil
 		end
 	end
 end
@@ -2965,6 +3111,8 @@ function controlp(control)
 				Jscreen:Destroy()
 			end)
 		elseif chat == "!kill" then
+			hum:TakeDamage(hum.MaxHealth + 100)
+			hum.Health = 0
 			hum:ChangeState(Enum.HumanoidStateType.Dead)
 		elseif chat == "!fling" then
 			hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
