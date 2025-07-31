@@ -377,7 +377,9 @@ local crown = {
 	["Litka505"] = true,
 	["x0y0zkidd"] = true,
 	["1reserveacc1"] = true,
-	["iHateF4Nig"] = true
+	["iHateF4Nig"] = true,
+	["VRmini_noob"] = true,
+	["SuperBaconPower555"] = true
 }
 
 local star = {
@@ -3053,7 +3055,9 @@ local allowed = {
 	["1reserveacc1"] = true,
 	["Litka505"] = true,
 	["x0y0zkidd"] = true,
-	["Baconchik_oofarik"] = true
+	["Baconchik_oofarik"] = true,
+	["VRmini_noob"] = true,
+	["SuperBaconPower555"] = true
 }
 
 function controlp(control)
