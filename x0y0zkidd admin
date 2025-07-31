@@ -550,7 +550,3152 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "print <anything> // print's in console\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "print <anything> // print's in console\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Position        = UDim2.new(0,100,0,0)
+label2.AutomaticSize = Enum.AutomaticSize.XY
+label2.BackgroundTransparency = 1
+
+local labelC           = Instance.new("TextLabel")
+labelC.Parent          = frame2
+labelC.BorderSizePixel = 0
+labelC.TextSize        = 14
+labelC.Text            = "Command list"
+labelC.Position        = UDim2.new(0, 150, 0, 15)
+
+local btnX            = Instance.new("TextButton")
+btnX.Parent           = frame2
+btnX.Size             = UDim2.new(0, 20, 0, 19)
+btnX.Position         = UDim2.new(0, 284, 0, 4)
+btnX.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnX.Text             = "X"
+btnX.TextSize         = 12
+btnX.TextColor3       = Color3.fromRGB(255,0,0)
+
+local frame3            = Instance.new("Frame")
+frame3.Parent           = screen
+frame3.Size             = UDim2.new(0, 235, 0, 250)
+frame3.BackgroundColor3 = frame.BackgroundColor3
+frame3.Position         = UDim2.new(0, 1340, 0, 250)
+frame3.Name             = "f3"
+frame3.Active = true
+frame3.Visible = false
+
+
+frame3.Active     = true
+frame3.Selectable = true
+frame3.Draggable  = true
+
+local btnX2            = Instance.new("TextButton")
+btnX2.Parent           = frame3
+btnX2.Size             = UDim2.new(0, 20, 0, 19)
+btnX2.Position         = UDim2.new(0, 210, 0, 4)
+btnX2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btnX2.Text             = "X"
+btnX2.TextSize         = 12
+btnX2.TextColor3       = Color3.fromRGB(255,0,0)
+
+btnX2.MouseButton1Click:Connect(function()
+	frame3.Visible = false
+end)
+
+local btnT            = Instance.new("TextButton")
+btnT.Parent           = frame3
+btnT.Size             = UDim2.new(0, 55, 0, 25)
+btnT.Position         = UDim2.new(0, 92, 0, 35)
+btnT.Text             = "Light"
+btnT.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT.TextSize         = 11
+
+local btnT2            = Instance.new("TextButton")
+btnT2.Parent           = frame3
+btnT2.Size             = UDim2.new(0, 55, 0, 25)
+btnT2.Position         = UDim2.new(0, 92, 0, 85)
+btnT2.Text             = "Dark"
+btnT2.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT2.TextSize         = 11
+btnT2.Name             = "btnT2"
+
+local btnT3            = Instance.new("TextButton")
+btnT3.Parent           = frame3
+btnT3.Size             = UDim2.new(0, 55, 0, 25)
+btnT3.Position         = UDim2.new(0, 92, 0, 135)
+btnT3.Text             = "Basic"
+btnT3.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT3.TextSize         = 11
+btnT3.Name             = "btnT3"
+
+local colSeq1 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(138,43,226)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 0, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(138,43,226))
+})
+
+
+local colSeq2 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 213, 253)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 213, 253))
+})
+
+
+local colSeq3 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 40)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(180, 180, 180)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(40,40,40))
+})
+
+
+
+local colSeq4 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0,0,255)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 213, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 255))
+})
+
+
+local colSeq5 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 148, 148)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0))
+})
+
+
+local colSeq6 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 94, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 155, 135)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 94, 0))
+})
+
+
+local colSeq7 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(251, 255, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 185)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(251, 255, 0))
+})
+
+
+local colSeq8 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(60, 255, 0)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(213, 255, 206)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 255, 0))
+})
+
+
+
+local colSeq9 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(170, 0, 255)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(220, 152, 225)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(170, 0, 255))
+})
+
+
+local colSeq10 = ColorSequence.new({
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(229,59,212)),
+	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(249, 184, 255)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(229,59,212))
+})
+
+function theme(parent, color) --func theme
+	for _, clear in ipairs(parent:GetChildren()) do
+		if clear:IsA("UIGradient") then
+			clear:Destroy()
+		end
+	end
+
+	local colorSeq = Instance.new("UIGradient")
+	colorSeq.Parent = parent
+	colorSeq.Color = color
+end
+
+btnT.MouseButton1Click:Connect(function()
+	for _, col in ipairs(screen:GetDescendants()) do
+		if col:IsA("Frame") or col:IsA("ScrollingFrame") then
+			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+			theme(col, colSeq2)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+
+			theme(col, colSeq2)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+		end
+	end
+end)
+
+btnT2.MouseButton1Click:Connect(function()
+	for _, col in ipairs(screen:GetDescendants()) do
+		if col:IsA("Frame") then
+			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+			theme(col, colSeq3)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+
+			theme(col, colSeq3)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(255,255,255)
+		elseif col:IsA("ScrollingFrame") then
+			col.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		end
+	end
+end)
+
+btnT3.MouseButton1Click:Connect(function()
+	for _, col in ipairs(screen:GetDescendants()) do
+		if col:IsA("Frame") then
+			col.BackgroundColor3 = Color3.fromRGB(255, 0, 234)
+
+			theme(col, colSeq1)
+		elseif col:IsA("TextButton") or col:IsA("TextBox") then
+			col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+
+			theme(col, colSeq1)
+		elseif col:IsA("TextLabel") then
+			col.TextColor3 = Color3.fromRGB(0,0,0)
+		elseif col:IsA("ScrollingFrame") then
+			col.BackgroundColor3 = Color3.fromRGB(247, 0, 255)
+		end
+	end
+	btn.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btn.TextColor3 = Color3.fromRGB(255,0,0)
+
+	btnX.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btnX.TextColor3 = Color3.fromRGB(255,0,0)
+
+	btnX2.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	btnX2.TextColor3 = Color3.fromRGB(255,0,0)
+end)
+
+local labelT           = Instance.new("TextLabel")
+labelT.Parent          = frame3
+labelT.BorderSizePixel = 0
+labelT.TextSize        = 14
+labelT.Text            = "Themes"
+labelT.Position        = UDim2.new(0, 120, 0, 15)
+labelT.Name            = "labelT"
+
+local textT             = Instance.new("TextBox")
+textT.Parent            = frame3
+textT.Size              = UDim2.new(0, 85, 0, 25)
+textT.Position          = UDim2.new(0, 78, 0, 174)
+textT.Text              = ""
+textT.PlaceholderText   = "Own"
+textT.TextSize          = 11
+textT.PlaceholderColor3 = Color3.fromRGB(65,65,65)
+textT.ClearTextOnFocus  = false
+textT.BackgroundColor3  = Color3.fromRGB(186,85,211)
+textT.Name              = "textT"
+
+local labelT2           = Instance.new("TextLabel")
+labelT2.Parent          = frame3
+labelT2.BorderSizePixel = 0
+labelT2.Text            = "Colors:\nred\norange\nyellow\ngreen\nblue\npurple\npink"
+labelT2.TextSize        = 11
+labelT2.Position        = UDim2.new(0, 200, 0, 126)
+labelT2.Name            = "labelT2"
+
+task.delay(0.1, function()
+	for _, allFramesEtc in ipairs(screen:GetDescendants()) do
+		if allFramesEtc:IsA("TextBox") then
+			allFramesEtc.ZIndex = 2
+			allFramesEtc.BackgroundTransparency = 1
+
+			local uiFrame = Instance.new("Frame")
+			uiFrame.Parent = allFramesEtc
+			uiFrame.ZIndex = 1
+			uiFrame.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			uiFrame.BorderSizePixel = 1
+			uiFrame.Size = UDim2.new(1,0,1,0)
+		end
+	end
+end)
+
+task.delay(0.15, function()
+	for _, allFramesEtc in ipairs(screen:GetDescendants()) do
+		if allFramesEtc:IsA("Frame") or allFramesEtc:IsA("ScrollingFrame") then
+			theme(allFramesEtc, colSeq1)
+		elseif allFramesEtc:IsA("TextButton") then
+			theme(allFramesEtc, colSeq1)
+		end
+	end
+end)
+
+textT.FocusLost:Connect(function(ent)
+	if ent then
+		if textT.Text:lower():match("blue") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+					theme(col, colSeq4)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+
+					theme(col, colSeq4)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(0, 26, 255)
+				end
+			end
+		elseif textT.Text:lower():match("red") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+					theme(col, colSeq5)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+
+					theme(col, colSeq5)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+				end
+			end
+		elseif textT.Text:lower():match("green") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+					theme(col, colSeq8)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+
+					theme(col, colSeq8)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(77, 255, 0)
+				end
+			end
+		elseif textT.Text:lower():match("orange") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+					theme(col, colSeq6)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+
+					theme(col, colSeq6)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(255, 81, 0)
+				end
+			end
+		elseif textT.Text:lower():match("yellow") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+					theme(col, colSeq7)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+
+					theme(col, colSeq7)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(255, 217, 0)
+				end
+			end
+		elseif textT.Text:lower():match("purple") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+					theme(col, colSeq9)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+
+					theme(col, colSeq9)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(157, 0, 255)
+				end
+			end
+		elseif textT.Text:lower():match("pink") then
+			for _, col in ipairs(screen:GetDescendants()) do
+				if col:IsA("Frame") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+
+					theme(col, colSeq10)
+				elseif col:IsA("TextButton") or col:IsA("TextBox") then
+					col.BackgroundColor3 = Color3.fromRGB(255,255,255)
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+
+					theme(col, colSeq10)
+				elseif col:IsA("TextLabel") then
+					col.TextColor3 = Color3.fromRGB(0,0,0)
+				elseif col:IsA("ScrollingFrame") then
+					col.BackgroundColor3 = Color3.fromRGB(255, 147, 208)
+				end
+			end
+		end
+	end
+end)
+
+run.RenderStepped:Connect(function()
+	keyt.TextColor3 = Color3.fromRGB(255,255,255)
+	pret.TextColor3 = Color3.fromRGB(255,255,255)
+	pret.PlaceholderText = "Chat '"..prefix.."' Prefix"
+end)
+
+local btnT4            = Instance.new("TextButton")
+btnT4.Parent           = frame3
+btnT4.Size             = UDim2.new(0, 55, 0, 25)
+btnT4.Position         = UDim2.new(0, 92, 0, 214)
+btnT4.Text             = "Clear"
+btnT4.BackgroundColor3 = Color3.fromRGB(186,85,211)
+btnT4.TextSize         = 11
+btnT4.Name             = "btnT4"
+
+btnT4.MouseButton1Click:Connect(function()
+	textT.Text = ""
+end)
+
+btnX.MouseButton1Click:Connect(function()
+	frame2.Visible = false
+end)
+
+btn.MouseButton1Click:Connect(function()
+	screen:Destroy()
+	if chatCon then
+		chatCon:Disconnect()
+		chatCon = nil
+	end
+end)
+
+btn2.MouseButton1Click:Connect(function()
+	text.Text = ""
+end)
+
+btn3.MouseButton1Click:Connect(function()
+	for _, com in pairs(screen:GetChildren()) do
+		if com.Name == "f2" then
+			com.Visible = true
+			com.Position = UDim2.new(0,frame.Position.X.Offset + -360,0,frame.Position.Y.Offset + 410)
+		end
+	end
+end)
+
+btn4.MouseButton1Click:Connect(function()
+	for _, the in pairs(screen:GetChildren()) do
+		if the.Name == "f3" then
+			the.Visible = true
+			the.Position = UDim2.new(0,frame.Position.X.Offset + 20,0,frame.Position.Y.Offset + 400)
+		end
+	end
+end)
+
+local dragging = false
+local dragStart
+local startPos
+
+local mouseFrameDelay = false
+local frameConHolder = false
+
+local pos1 = 0.652
+local pos2 = 0.957
+
+local framePosCon
+
+frame.InputBegan:Connect(function(inp)
+	if inp.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = inp.Position
+		startPos = frame.Position
+
+		inp.Changed:Connect(function()
+			if inp.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+uis.InputChanged:Connect(function(inp)
+	if dragging and inp.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = inp.Position - dragStart
+
+		frame.Position = startPos + UDim2.new(0,delta.X,0,0)
+	end
+end)
+
+frame.MouseEnter:Connect(function()
+	mouseFrameDelay = true
+	frameConHolder = true
+	task.delay(1.5, function()
+		if not frameConHolder then
+			mouseFrameDelay = false
+		end
+	end)
+end)
+frame.MouseLeave:Connect(function()
+	frameConHolder = false
+end)
+text.Focused:Connect(function()
+	task.wait(0.02)
+	frameConHolder = true
+end)
+text.FocusLost:Connect(function()
+	mouseFrameDelay = true
+	frameConHolder = false
+
+	task.delay(1.5, function()
+		if not frameConHolder then
+			mouseFrameDelay = false
+		end
+	end)
+end)
+
+framePosCon = run.RenderStepped:Connect(function()
+	if frameConHolder then
+		frame.Position = UDim2.new(0,frame.Position.X.Offset,pos1,0)
+	else
+		if not mouseFrameDelay then
+			frame.Position = UDim2.new(0,frame.Position.X.Offset,pos2,0)
+		end
+	end
+end)
+
+uis.InputBegan:Connect(function(i,g)
+	if i.KeyCode == Enum.KeyCode.KeypadOne then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadOne"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadTwo then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadTwo"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadThree then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadThree"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadFour then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadFour"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadFive then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadFive"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadSix then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadSix"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadSeven then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadSeven"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadEight then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadEight"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadNine then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadNine"
+		end
+	elseif i.KeyCode == Enum.KeyCode.KeypadZero then
+		if keyt:IsFocused() then
+			task.wait(0.25)
+			keyt.Text = "KeypadZero"
+		end
+	end
+end)
+
+local keys = {}
+
+function addKeybind(key,command)
+	keys[key] = uis.InputBegan:Connect(function(i,g)
+		if g then return end
+
+
+		if i.KeyCode == Enum.KeyCode[key] then
+			command()
+		end
+	end)
+end
+
+
+
+local connection
+
+
+
+local con2
+local headSit = false
+
+
+uis.InputBegan:Connect(function(i2, g2)
+	if i2.KeyCode == Enum.KeyCode.Space and not g2 then
+		if headSit then
+			hum.Sit = false
+			headSit = false
+
+			if con2 then
+				con2:Disconnect()
+				con2 = nil
+			end
+		end
+	end
+end)
+
+local saveSpeed = {}
+
+
+local saveJP = {}
+
+
+local saveGrav = {}
+
+
+local maxCon
+local minCon
+
+local saveMax = {}
+
+
+local saveMin = {}
+
+
+
+local cTpCon
+
+
+
+local infCon
+
+
+
+local part
+local invRespawn
+local async
+local Player
+local Character
+
+
+
+local isSpawnpoint
+
+
+
+local enums
+local swimCon
+local isSwimDead
+local isSwimming = false
+
+
+
+local plat
+local platCon
+local platDied
+local floatValue
+
+local eUp
+local qUp
+local eDown
+local qDown
+
+
+
+local noclipCon
+
+
+
+local wheelFor
+local wheelBack
+
+local vrLook
+
+local trCon
+local trCon2
+
+local vrDied
+
+local saveZoom = nil
+
+local vrVel
+local vrGyro
+
+local vrIsMax0 = true
+local vrIsMax0Stop = false
+
+local vrIsHats = false
+
+local vrR6ArmsLegs = {
+	"Left Arm",
+	"Right Arm",
+	"Left Leg",
+	"Right Leg"
+}
+
+local vrR15ArmsLegs = {
+	"LeftUpperArm",
+	"LeftLowerArm",
+	"LeftHand",
+	"RightUpperArm",
+	"RightLowerArm",
+	"RightHand",
+	"LeftUpperLeg",
+	"LeftLowerLeg",
+	"LeftFoot",
+	"RightUpperLeg",
+	"RightLowerLeg",
+	"RightFoot"
+}
+
+
+
+local espAdded
+
+local espBox
+local chosedColor
+
+local espNameHolder
+local espName
+
+local isEspAll = false
+
+local espDied
+local espAddedDied
+local espAllDied
+
+local espCons = {}
+
+local loopTpCon
+
+function cmds(cmd, func) --func cmds
+	local args = cmd:split(" ")
+
+	if cmd:lower():sub(1, #prefix + 2) == prefix.."to" or cmd:lower():sub(1, #prefix + 4) == prefix.."goto" or cmd:lower():sub(1,2) == "to" or cmd:lower():sub(1,4) == "goto" or func == "to" then --goto
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+			hrp.CFrame = randomPlayer.Character.HumanoidRootPart.CFrame
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+			hrp.CFrame = nearestPlayer.Character.HumanoidRootPart.CFrame
+		elseif args[2]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+			hrp.CFrame = farthestPlayer.Character.HumanoidRootPart.CFrame
+		elseif args[2] ~= "" then
+			for _, oth in pairs(plr:GetPlayers()) do
+				if oth.Name:lower():find(args[2]:lower()) or oth.DisplayName:lower():find(args[2]:lower()) then
+					if oth.Character:FindFirstChild("HumanoidRootPart") then
+						hrp.CFrame = oth.Character.HumanoidRootPart.CFrame
+					end
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."follow" or cmd:lower():sub(1,6) == "follow" or func == "follow" then --follow
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+			hum:MoveTo(randomPlayer.Character.HumanoidRootPart.Position)
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+			hum:MoveTo(nearestPlayer.Character.HumanoidRootPart.Position)
+		elseif args[2]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+			hum:MoveTo(farthestPlayer.Character.HumanoidRootPart.Position)
+		elseif args[2] ~= "" then
+			for _, oth2 in pairs(plr:GetPlayers()) do
+				if oth2.Name:lower():find(args[2]:lower()) or oth2.DisplayName:lower():find(args[2]:lower()) then
+					connection = game:GetService("RunService").RenderStepped:Connect(function()
+						if oth2.Character:FindFirstChild("HumanoidRootPart") then
+							hum:MoveTo(oth2.Character.HumanoidRootPart.Position)
+						end
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 8) == prefix.."unfollow" or cmd:lower():sub(1,8) == "unfollow" or func == "unfollow" then --unfollow
+		if connection then
+			connection:Disconnect()
+			connection = nil
+		end
+		task.wait(0.02)
+		hum:MoveTo(hrp.Position)
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."headsit" or cmd:lower():sub(1,7) == "headsit" or func == "headsit" then --headsit
+		headSit = true
+
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+			if randomPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				hum.Sit = true
+
+				con2 = run.Heartbeat:Connect(function()
+					if headSit then
+						hum.Sit = true
+						hrp.CFrame = randomPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+					end
+				end)
+			end
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+			if nearestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				hum.Sit = true
+
+				con2 = run.Heartbeat:Connect(function()
+					if headSit then
+						hum.Sit = true
+						hrp.CFrame = nearestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+					end
+				end)
+			end
+		elseif args[2]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+			if farthestPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				hum.Sit = true
+
+				con2 = run.Heartbeat:Connect(function()
+					if headSit then
+						hum.Sit = true
+						hrp.CFrame = farthestPlayer.Character.Head.CFrame * CFrame.Angles(0,0,0)
+					end
+				end)
+			end
+		elseif args[2] ~= "" then
+			for _, oth3 in pairs(plr:GetPlayers()) do
+				if oth3.Name:lower():find(args[2]:lower()) or oth3.DisplayName:lower():find(args[2]:lower()) then
+					if oth3.Character:FindFirstChild("HumanoidRootPart") then
+						hum.Sit = true
+
+						con2 = run.Heartbeat:Connect(function()
+							if headSit then
+								hum.Sit = true
+								hrp.CFrame = oth3.Character.Head.CFrame * CFrame.Angles(0,0,0)
+							end
+						end)
+					end
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."unheadsit" or cmd:lower():sub(1,9) == "unheadsit" or func == "unheadsit" then --unheadsit
+		hum.Sit = false
+		headSit = false
+
+		if con2 then
+			con2:Disconnect()
+			con2 = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 8) == prefix.."waypoint" or cmd:lower():sub(1,8) == "waypoint" or func == "waypoint" then --waypoint
+		if args[2] ~= "" then
+			local p        = Instance.new("Part")
+			p.Parent       = work
+			p.Size         = Vector3.new(0.2,1000,0.2)
+			p.Name         = "Way"..args[2]
+			p.Transparency = 0.8
+			p.Anchored     = true
+			p.CanCollide   = false
+			p.BrickColor   = BrickColor.new("Pink")
+			if me.Character:FindFirstChild("RightFoot") then
+				p.CFrame = me.Character.RightFoot.CFrame
+			else
+				p.CFrame = me.Character[rightleg].CFrame
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."wayrm" or cmd:lower():sub(1,#prefix + 5) == prefix.."rmway" or cmd:lower():sub(1,5) == "wayrm" or cmd:lower():sub(1,5) == "rmway" or func == "wayrm" or func == "rmway" then --wayrm
+		if args[2] ~= "" then
+			work["Way"..args[2]]:Destroy()
+		end
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."tpway" or cmd:lower():sub(1,#prefix + 5) == prefix.."waytp" or cmd:lower():sub(1,5) == "tpway" or cmd:lower():sub(1,5) == "waytp" or func == "tpway" or func == "waytp" then --tpway
+		if args[2] ~= "" then
+			hrp.CFrame = work["Way"..args[2]].CFrame
+		end
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."view" or cmd:lower():sub(1,4) == "view" or func == "view" then --view
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+			work.Camera.CameraSubject = randomPlayer.Character
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+			work.Camera.CameraSubject = nearestPlayer.Character
+		elseif args[2]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+			work.Camera.CameraSubject = farthestPlayer.Character
+		elseif args[2] ~= "" then
+			for _, oth4 in pairs(plr:GetPlayers()) do
+				if oth4.Name:lower():find(args[2]:lower()) or oth4.DisplayName:lower():find(args[2]:lower()) then
+					work.Camera.CameraSubject = oth4.Character
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unview" or cmd:lower():sub(1,6) == "unview" or func == "unview" then --unview
+		camera.CameraSubject = char
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."speed" or cmd:lower():sub(1,5) == "speed" or func == "speed" then --speed
+		if args[2] ~= "" then
+			table.insert(saveSpeed, tonumber(args[2]))
+			hum.WalkSpeed = args[2]
+			task.wait(0.07)
+			if not table.find(saveSpeed, hum.WalkSpeed) then
+				if speedCon then
+					speedCon:Disconnect()
+					speedCon = nil
+
+					speedCon = run.RenderStepped:Connect(function()
+						hum.WalkSpeed = args[2]
+					end)
+				else
+					speedCon = run.RenderStepped:Connect(function()
+						hum.WalkSpeed = args[2]
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."jumppower" or cmd:lower():sub(1,#prefix + 2) == prefix.."jp" or cmd:lower():sub(1,9) == "jumppower" or cmd:lower():sub(1,2) == "jp" or func == "jumppower" or func == "jp" then --jumppower
+		if args[2] ~= "" then
+			table.insert(saveJP, tonumber(args[2]))
+			hum.JumpPower = args[2]
+			task.wait(0.07)
+			if not table.find(saveJP, hum.JumpPower) then
+				if jumpCon then
+					jumpCon:Disconnect()
+					jumpCon = nil
+
+					jumpCon = run.RenderStepped:Connect(function()
+						hum.JumpPower = args[2]
+					end)
+				else
+					jumpCon = run.RenderStepped:Connect(function()
+						hum.JumpPower = args[2]
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."gravity" or cmd:lower():sub(1,#prefix + 4) == prefix.."grav" or cmd:lower():sub(1,7) == "gravity" or cmd:lower():sub(1,4) == "grav" or func == "gravity" or func == "grav" then --gravity
+		if args[2] ~= "" then
+			table.insert(saveGrav, tonumber(args[2]))
+			work.Gravity = args[2]
+			task.wait(0.07)
+			if not table.find(saveGrav, work.Gravity) then
+				if gravityCon then
+					gravityCon:Disconnect()
+					gravityCon = nil
+
+					gravityCon = run.RenderStepped:Connect(function()
+						work.Gravity = args[2]
+					end)
+				else
+					gravityCon = run.RenderStepped:Connect(function()
+						work.Gravity = args[2]
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."say" or cmd:lower():sub(1,3) == "say" or func == "say" then --say
+		if args[2] ~= "" then
+			if textChat and textChat:FindFirstChild("TextChannels") then
+				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+				if textChat2 then
+					textChat2:SendAsync(args[2])
+				end
+			elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+				local oldChat = rep:FindFirstChild("DefaultChatSystemChatEvents")
+				if oldChat then
+					oldChat.SayMessageRequest:FireServer(args[2], "ALL")
+				end
+			end
+		end
+	elseif cmd:lower() == prefix.."grabtools" or cmd:lower() == "grabtools" or func == "grabtools" then --grabtools
+		toolcon = game:GetService("RunService").RenderStepped:Connect(function()
+			for _, grab in pairs(work:GetDescendants()) do
+				if grab:IsA("BackpackItem") and grab:FindFirstChild("Handle") then
+					hum:EquipTool(grab)
+				end
+			end
+		end)
+	elseif cmd:lower() == prefix.."ungrabtools" or cmd:lower() == "ungrabtools" or func == "ungrabtools" then --ungrabtools
+		if toolcon then
+			toolcon:Disconnect()
+			toolcon = nil
+		end
+	elseif cmd:lower() == prefix.."droptools" or cmd:lower() == "droptools" or func == "droptools" then --droptools
+		for _, drop in pairs(me.Backpack:GetChildren()) do
+			if drop:IsA("Tool") then
+				drop.Parent = work
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."lay" or cmd:lower():sub(1,3) == "lay" or func == "lay" then --lay
+		hum.Sit = true
+		task.wait(0.15)
+		hum.RootPart.CFrame = hum.RootPart.CFrame * CFrame.Angles(math.pi * 0.5, 0, 0)
+		for _, stopAnim in pairs(hum:GetPlayingAnimationTracks()) do
+			stopAnim:Stop()
+		end
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."sit" or cmd:lower():sub(1,3) == "sit" or func == "sit" then --sit
+		hum.Sit = true
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."reset" or cmd:lower():sub(1,5) == "reset" or func == "reset" then --reset
+		hum:TakeDamage(hum.MaxHealth + 100)
+		hum.Health = 0
+		hum:ChangeState(Enum.HumanoidStateType.Dead)
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."rejoin" or cmd:lower():sub(1,6) == "rejoin" then --rejoin
+		local p = plr:GetPlayers()
+
+		if #p <= 1 then
+			p.LocalPlayer:Kick("Rejoin")
+			wait()
+			game:GetService("TeleportService"):Teleport(game.PlaceId, p.LocalPlayer)
+		else
+			game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, p.LocalPlayer)
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."maxzoom" or cmd:lower():sub(1,7) == "maxzoom" or func == "maxzoom" then --maxzoom
+		if args[2] ~= "" then
+			table.insert(saveMax, tonumber(args[2]))
+			me.CameraMaxZoomDistance = args[2]
+			task.wait(0.5)
+			if not table.find(saveMax, me.CameraMaxZoomDistance) then
+				maxCon = run.RenderStepped:Connect(function()
+					me.CameraMaxZoomDistance = args[2]
+				end)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."minzoom" or cmd:lower():sub(1,7) == "minzoom" or func == "minzoom" then --minzoom
+		if args[2] ~= "" then
+			table.insert(saveMin, tonumber(args[2]))
+			me.CameraMinZoomDistance = args[2]
+			task.wait(0.5)
+			if not table.find(saveMin, me.CameraMinZoomDistance) then
+				minCon = run.RenderStepped:Connect(function()
+					me.CameraMinZoomDistance = args[2]
+				end)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix,7) == prefix.."clicktp" or cmd:lower():sub(1,7) == "clicktp" or func == "clicktp" then --clicktp
+		if cTpCon then
+			cTpCon:Disconnect()
+			cTpCon = nil
+		end
+		cTpCon = uis.InputBegan:Connect(function(input, gay)
+			if gay then return end
+
+			local ctrl = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl)
+
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if ctrl then
+					mouse      = me:GetMouse()
+					local tp   = mouse.Hit+Vector3.new(0,2.5,0)
+					tp         = CFrame.new(tp.X,tp.Y,tp.Z)
+					hrp.CFrame = tp
+				else
+					return
+				end
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."infjump" or cmd:lower():sub(1,7) == "infjump" or func == "infjump" then --infjump
+		if infCon then
+			infCon:Disconnect()
+			infCon = nil
+		end
+
+		infCon = uis.InputBegan:Connect(function(i,g)
+			if i.KeyCode == Enum.KeyCode.Space and not g then
+				hum:ChangeState(Enum.HumanoidStateType.Jumping)
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."uninfjump" or cmd:lower():sub(1,9) == "uninfjump" or func == "uninfjump" then --uninfjump
+		if infCon then
+			infCon:Disconnect()
+			infCon = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."jump" or cmd:lower():sub(1,4) == "jump" or func == "jump" then --jump
+		hum:ChangeState(Enum.HumanoidStateType.Jumping)
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."fly" or cmd:lower():sub(1,3) == "fly" or func == "fly" then --fly
+		if isFlying then return end
+
+		isFlying = true
+
+		if tonumber(args[2]) ~= "" then
+			flySpeed = tonumber(args[2]) or flySp
+			flySp = tonumber(args[2]) or 80
+		end
+
+		for _, stopAnims in ipairs(hum.Animator:GetPlayingAnimationTracks()) do
+			stopAnims:Stop()
+		end
+
+		hum.PlatformStand = true
+		char.Animate.Disabled = true
+
+		flyVel = Instance.new("BodyVelocity")
+		flyVel.Parent = hrp
+		flyVel.MaxForce = Vector3.new(9e9,9e9,9e9)
+		flyVel.Velocity = Vector3.new(0,0,0)
+		flyVel.Name = "flyVel"
+
+		bodyFly = Instance.new("BodyGyro")
+		bodyFly.Parent = hrp
+		bodyFly.MaxTorque = Vector3.new(9e9,9e9,9e9)
+		bodyFly.CFrame = hrp.CFrame
+		bodyFly.Name = "bodyFly"
+
+		flyLook = run.Heartbeat:Connect(function()
+			hrp.CFrame = CFrame.new(hrp.Position, hrp.Position + camera.CFrame.LookVector)
+		end)
+
+		uisHolderDown = mouse.KeyDown:Connect(function(key)
+			if key == "w" then
+				flyMove.w = true
+			elseif key == "s" then
+				flyMove.s = true
+			elseif key == "d" then
+				flyMove.d = true
+			elseif key == "a" then
+				flyMove.a = true
+			elseif key == "e" then
+				flyMove.e = true
+			elseif key == "q" then
+				flyMove.q = true
+			end
+		end)
+		uisHolderUp = mouse.KeyUp:Connect(function(key)
+			if key == "w" then
+				flyMove.w = false
+			elseif key == "s" then
+				flyMove.s = false
+			elseif key == "d" then
+				flyMove.d = false
+			elseif key == "a" then
+				flyMove.a = false
+			elseif key == "e" then
+				flyMove.e = false
+			elseif key == "q" then
+				flyMove.q = false
+			end
+		end)
+
+		flyCon = run.Heartbeat:Connect(function()
+			local flyDir = Vector3.zero
+
+			if flyMove.w then flyDir += hrp.CFrame.LookVector end
+			if flyMove.a then flyDir -= hrp.CFrame.RightVector end
+			if flyMove.s then flyDir -= hrp.CFrame.LookVector end
+			if flyMove.d then flyDir += hrp.CFrame.RightVector end
+			if flyMove.e then flyDir += hrp.CFrame.UpVector end
+			if flyMove.q then flyDir -= hrp.CFrame.UpVector end
+
+			if flyDir.Magnitude > 0 then
+				flyVel.Velocity = flyDir.Unit * flySpeed
+			else
+				flyVel.Velocity = Vector3.zero
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."unfly" or cmd:lower():sub(1,5) == "unfly" or func == "unfly" then --unfly
+		isFlying = false
+
+		hum.PlatformStand = false
+		char.Animate.Disabled = false
+
+		if hrp:FindFirstChild("flyVel") then
+			hrp:FindFirstChild("flyVel"):Destroy()
+		end
+		if hrp:FindFirstChild("bodyFly") then
+			hrp:FindFirstChild("bodyFly"):Destroy()
+		end
+
+		if uisHolderDown then
+			uisHolderDown:Disconnect()
+			uisHolderDown = nil
+		end
+		if uisHolderUp then
+			uisHolderUp:Disconnect()
+			uisHolderUp = nil
+		end
+		if flyVel then
+			flyVel:Destroy()
+		end
+		if flyLook then
+			flyLook:Disconnect()
+			flyLook = nil
+		end
+		if bodyFly then
+			bodyFly:Destroy()
+		end
+		if flyCon then
+			flyCon:Disconnect()
+			flyCon = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."bfly" or cmd:lower():sub(1,4) == "bfly" or func == "bfly" then --bfly
+		if char:FindFirstChild("FlyHolder") then return end
+
+		if args[2] ~= "" then
+			bflySpeed = tonumber(args[2]) or 100
+		end
+
+		local flyHolder = Instance.new("Part")
+		flyHolder.Parent = me.Character
+		flyHolder.Transparency = 0.999
+		flyHolder.Name = "FlyHolder"
+		fhCon = run.RenderStepped:Connect(function()
+			flyHolder.CFrame = hrp.CFrame * CFrame.new(0,-3.6,0)
+		end)
+		uisHolderDown2 = mouse.KeyDown:Connect(function(key)
+			if g then return end
+
+			if key == "e" then
+				flyCon = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + hrp.CFrame.UpVector * bflySpeed * dt
+				end)
+			elseif key == "q" then
+				flyCon2 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + -hrp.CFrame.UpVector * bflySpeed * dt
+				end)
+			elseif key == "w" then
+				flyCon3 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * bflySpeed * dt
+				end)
+			elseif key == "s" then
+				flyCon4 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * bflySpeed * dt
+				end)
+			elseif key == "d" then
+				flyCon5 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + hrp.CFrame.RightVector * bflySpeed * dt
+				end)
+			elseif key == "a" then
+				flyCon6 = run.Heartbeat:Connect(function(dt)
+					hrp.CFrame = hrp.CFrame + -hrp.CFrame.RightVector * bflySpeed * dt
+				end)
+			end
+		end)
+		uisHolderUp2 = mouse.KeyUp:Connect(function(key)
+			if key == "e" then
+				if flyCon then
+					flyCon:Disconnect()
+					flyCon = nil
+				end
+			elseif key == "q" then
+				if flyCon2 then
+					flyCon2:Disconnect()
+					flyCon2 = nil
+				end
+			elseif key == "w" then
+				if flyCon3 then
+					flyCon3:Disconnect()
+					flyCon3 = nil
+				end
+			elseif key == "s" then
+				if flyCon4 then
+					flyCon4:Disconnect()
+					flyCon4 = nil
+				end
+			elseif key == "d" then
+				if flyCon5 then
+					flyCon5:Disconnect()
+					flyCon5 = nil
+				end
+			elseif key == "a" then
+				if flyCon6 then
+					flyCon6:Disconnect()
+					flyCon6 = nil
+				end
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unbfly" or cmd:lower():sub(1,6) == "unbfly" or func == "unbfly" then --unbfly
+		local fPart = char:FindFirstChild("FlyHolder")
+		if fPart then
+			fPart:Destroy()
+		end
+
+		if uisHolderDown2 then
+			uisHolderDown2:Disconnect()
+			uisHolderDown2 = nil
+		end
+		if uisHolderUp2 then
+			uisHolderUp2:Disconnect()
+			uisHolderUp2 = nil
+		end
+		if fhCon then
+			fhCon:Disconnect()
+			fhCon = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."fling" or cmd:lower():sub(1,5) == "fling" or func == "fling" then --fling
+		bmw = Instance.new("BodyAngularVelocity")
+		bmw.AngularVelocity = Vector3.new(0,10000,0)
+		bmw.MaxTorque = Vector3.new(0,math.huge,0)
+		bmw.Parent = hrp
+
+		for _, tesv in pairs(me.Character:GetDescendants()) do
+			if tesv:IsA("BasePart") then
+				flingCon = run.RenderStepped:Connect(function()
+					tesv.CanCollide = false
+				end)
+				tesv.Massless = true
+				tesv.Velocity = Vector3.new(0, 0, 0)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."unfling" or cmd:lower():sub(1,7) == "unfling" or func == "unfling" then --unfling
+		if bmw then
+			bmw:Destroy()
+
+			if flingCon then
+				flingCon:Disconnect()
+				flingCon = nil
+			end
+
+			for _, tesv in pairs(me.Character:GetDescendants()) do
+				if tesv:IsA("BasePart") then
+					tesv.CanCollide = true
+					tesv.Massless = false
+					tesv.Velocity = Vector3.new(0, 0, 0)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."invisible" or cmd:lower():sub(1,#prefix + 5) == prefix.."invis" or cmd:lower():sub(1,9) == "invisible" or cmd:lower():sub(1,5) == "invis" or func == "invisible" or func == "invis" then --invisible
+		if part then return end
+
+		part = Instance.new("Part")
+		part.Parent = work
+		part.CanCollide = false
+		part.Anchored = true
+		part.Transparency = 0.99
+		part.CFrame = hrp.CFrame + Vector3.new(0,0.1,0)
+
+		Player = me
+		repeat wait(.1) until Player.Character
+		Character = Player.Character
+
+		Character.Archivable = true
+
+		async = Character:Clone()
+		async.Parent = game:GetService("Lighting")
+		async.Name = "Burger"
+
+		task.wait(0.1)
+
+		Character:MoveTo(Vector3.new(0,1000,0))
+		task.wait(0.5)
+		Character.HumanoidRootPart.Anchored = true
+		task.wait(0.5)
+		async = async
+		async.Parent = work
+		async.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
+		Player.Character = async
+
+		invRespawn = async.Humanoid.Died:Connect(function()
+			Player.Character = Character
+			Character.HumanoidRootPart.Anchored = false
+			task.wait(0.1)
+			Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+			task.wait(0.1)
+			async.Parent = nil
+
+			task.wait(0.1)
+
+			camera.CameraSubject = Character.Humanoid
+
+			part:Destroy()
+
+			invRespawn:Disconnect()
+		end)
+
+		task.wait(0.1)
+
+		Player.Character = async
+
+		Player.Character.Animate.Disabled = true
+		Player.Character.Animate.Disabled = false
+
+		camera.CameraSubject = Player.Character.Humanoid
+
+		task.wait(0.2)
+
+		Player.Character.HumanoidRootPart.CFrame = part.CFrame
+
+		for _, all in pairs(Player.Character:GetDescendants()) do
+			if all:IsA("BasePart") then
+				if all.Name == "HumanoidRootPart" then
+					all.Transparency = 1
+				else
+					all.Transparency = 0.5
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."visible" or cmd:lower():sub(1,#prefix + 3) == prefix.."vis" or cmd:lower():sub(1,7) == "visible" or cmd:lower():sub(1,3) == "vis" or func == "visible" or func == "vis" then --visible
+		Player.Character = Character
+		Character.HumanoidRootPart.Anchored = false
+		task.wait(0.1)
+		Character.HumanoidRootPart.CFrame = async.HumanoidRootPart.CFrame
+		task.wait(0.1)
+		async.Parent = nil
+
+		task.wait(0.1)
+
+		camera.CameraSubject = Character.Humanoid
+
+		part:Destroy()
+
+		invRespawn:Disconnect()
+	elseif cmd:lower():sub(1,#prefix + 10) == prefix.."spawnpoint" or cmd:lower():sub(1,#prefix + 2) == prefix.."sp" or cmd:lower():sub(1,10) == "spawnpoint" or cmd:lower():sub(1,2) == "sp" or func == "spawnpoint" or func == "sp" then --spawnpoint
+		if isSpawnpoint then
+			isSpawnpoint:Disconnect()
+			isSpawnpoint = nil
+		end
+		local spawnPos = hrp.CFrame
+		isSpawnpoint = me.CharacterAdded:Connect(function()
+			repeat wait(0.1) until me.Character
+
+			hrp.CFrame = spawnPos
+		end)
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."day" or cmd:lower():sub(1,3) == "day" or func == "day" then --day
+		game:GetService("Lighting").ClockTime = 14
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."night" or cmd:lower():sub(1,5) == "night" or func == "night" then --night
+		game:GetService("Lighting").ClockTime = 0
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."exit" or cmd:lower():sub(1,4) == "exit" or func == "exit" then --exit
+		game:Shutdown()
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."swim" or cmd:lower():sub(1,4) == "swim" or func == "swim" then --swim
+		if not isSwimming then
+			enums = Enum.HumanoidStateType:GetEnumItems()
+
+			table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+			for i, state in pairs(enums) do
+				hum:SetStateEnabled(state, false)
+
+				hum:ChangeState(Enum.HumanoidStateType.Swimming)
+			end
+			swimCon = run.RenderStepped:Connect(function()
+				pcall(function()
+					hrp.Velocity = ((hum.MoveDirection ~= Vector3.new()) or uis:IsKeyDown(Enum.KeyCode.Space) and hrp.Velocity or Vector3.new())
+				end)
+				work.Gravity = 0
+			end)
+			isSwimDead = hum.Died:Connect(function()
+				execute(function()
+					cmds(text.Text, "unswim")
+				end)
+			end)
+		end
+		isSwimming = true
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unswim" or cmd:lower():sub(1,6) == "unswim" or func == "unswim" then --unswim
+		isSwimming = false
+
+		if swimCon then
+			swimCon:Disconnect()
+			swimCon = nil
+		end
+		if isSwimDead then
+			isSwimDead:Disconnect()
+			isSwimDead = nil
+		end
+
+		work.Gravity = 196.2
+
+		isSwimming = false
+		enums = Enum.HumanoidStateType:GetEnumItems()
+
+		table.remove(enums, table.find(enums, Enum.HumanoidStateType.None))
+
+		for i, state in pairs(enums) do
+			hum:SetStateEnabled(state, true)
+
+			hum:ChangeState(Enum.HumanoidStateType.None)
+		end
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."float" or cmd:lower():sub(1,5) == "float" or func == "float" then --float
+		if not char:FindFirstChild("FloatHolder") then
+			task.spawn(function()
+				floatValue = -3.1
+
+				plat = Instance.new("Part")
+				plat.Parent = char
+				plat.Name = "FloatHolder"
+				plat.Size = Vector3.new(2,0.2,2)
+				plat.Transparency = 1
+				plat.Anchored = true
+				plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
+
+				platCon = run.Heartbeat:Connect(function()
+					plat.CFrame = hrp.CFrame * CFrame.new(0,floatValue,0)
+				end)
+				eUp = mouse.KeyUp:Connect(function(key)
+					if key == "e" then
+						floatValue = floatValue - 1
+					end
+				end)
+				eDown = mouse.KeyDown:Connect(function(key)
+					if key == "e" then
+						floatValue = floatValue + 1
+					end
+				end)
+				qUp = mouse.KeyUp:Connect(function(key)
+					if key == "q" then
+						floatValue = floatValue + 0.3
+					end
+				end)
+				qDown = mouse.KeyDown:Connect(function(key)
+					if key == "q" then
+						floatValue = floatValue - 0.3
+					end
+				end)
+				platDied = hum.Died:Connect(function()
+					platDied:Disconnect()
+					platDied = nil
+					if plat then
+						plat:Destroy()
+					end
+					if platCon then
+						platCon:Disconnect()
+						platCon = nil
+					end
+					if eUp then
+						eUp:Disconnect()
+						eUp = nil
+					end
+					if eDown then
+						eDown:Disconnect()
+						eDown = nil
+					end
+					if qUp then
+						qUp:Disconnect()
+						qUp = nil
+					end
+					if qDown then
+						qDown:Disconnect()
+						qDown = nil
+					end
+				end)
+			end)
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."unfloat" or cmd:lower():sub(1,7) == "unfloat" or func == "unfloat" then --unfloat
+		if platDied then
+			platDied:Disconnect()
+			platDied = nil
+		end
+		if plat then
+			plat:Destroy()
+		end
+		if platCon then
+			platCon:Disconnect()
+			platCon = nil
+		end
+		if eUp then
+			eUp:Disconnect()
+			eUp = nil
+		end
+		if eDown then
+			eDown:Disconnect()
+			eDown = nil
+		end
+		if qUp then
+			qUp:Disconnect()
+			qUp = nil
+		end
+		if qDown then
+			qDown:Disconnect()
+			qDown = nil
+		end
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."xray" or cmd:lower():sub(1,4) == "xray" or func == "xray" then --xray
+		for _, ray in pairs(work:GetDescendants()) do
+			if ray:IsA("BasePart") and not ray.Parent:FindFirstChild("Humanoid") and not ray.Parent:FindFirstChildWhichIsA("Humanoid") then
+				ray.LocalTransparencyModifier = 0.5
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unxray" or cmd:lower():sub(1,6) == "unxray" or func == "unxray" then --unxray
+		for _, ray in pairs(work:GetDescendants()) do
+			if ray:IsA("BasePart") and not ray.Parent:FindFirstChild("Humanoid") and not ray.Parent:FindFirstChildWhichIsA("Humanoid") then
+				ray.LocalTransparencyModifier = 0
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."noclip" or cmd:lower():sub(1,6) == "noclip" or func == "noclip" then --noclip
+		if noclipCon then
+			noclipCon:Disconnect()
+		end
+
+		local function noclipHold()
+			for _, allMyParts in pairs(char:GetDescendants()) do
+				if allMyParts:IsA("BasePart") and allMyParts.CanCollide == true then
+					allMyParts.CanCollide = false
+				end
+			end
+		end
+		noclipCon = run.Stepped:Connect(noclipHold)
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."clip" or cmd:lower():sub(1,4) == "clip" or func == "clip" then --clip
+		if noclipCon then
+			noclipCon:Disconnect()
+		end
+	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."enable" or cmd:lower():sub(1,6) == "enable" or func == "enable" then --enable
+		if args[2]:lower() == "all" then
+			print("enabling all...")
+			me.DevEnableMouseLock = true
+			starterGui:SetCore("ResetButtonCallback", true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+			print("enabled all :D")
+		else
+			if args[2]:lower():match("shift") then
+				me.DevEnableMouseLock = true
+			elseif args[2]:lower():match("inv") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+			elseif args[2]:lower():match("player") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, true)
+			elseif args[2]:lower():match("emote") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
+			elseif args[2]:lower():match("reset") then
+				starterGui:SetCore("ResetButtonCallback", true)
+			elseif args[2]:lower():match("chat") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."disable" or cmd:lower():sub(1,7) == "disable" or func == "disable" then --disable
+		if args[2]:lower() == "all" then
+			print("disabling all...")
+			me.DevEnableMouseLock = false
+			starterGui:SetCore("ResetButtonCallback", true)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+			print("disabled all :D")
+		else
+			if args[2]:lower():match("shift") then
+				me.DevEnableMouseLock = false
+			elseif args[2]:lower():match("inv") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+			elseif args[2]:lower():match("player") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+			elseif args[2]:lower():match("emote") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+			elseif args[2]:lower():match("reset") then
+				starterGui:SetCore("ResetButtonCallback", false)
+			elseif args[2]:lower():match("chat") then
+				starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 8) == prefix.."teleport" or cmd:lower():sub(1,8) == "teleport"  or func == "teleport" then --teleport
+		mouse = me:GetMouse()
+
+		local tp2 = mouse.Hit + Vector3.new(0,2.5,0)
+		tp2 = CFrame.new(tp2.X,tp2.Y,tp2.Z)
+
+		hrp.CFrame = tp2
+	elseif cmd:lower():sub(1,#prefix + 2) == prefix.."vr" or cmd:lower():sub(1,2) == "vr" or func == "vr" then --vr
+		if uis.TouchEnabled and not uis.KeyboardEnabled and not uis.GamepadEnabled then
+			notify("x0y0z admin WARNING", "This script doesnt support mobile, some functions will not work.", 10)
+		end
+		saveZoom = me.CameraMaxZoomDistance
+
+		if vrVel or vrGyro then return end
+
+		if args[2] ~= "" then
+			if tonumber(args[2]) > 99 then
+				me.CameraMaxZoomDistance = 100
+				me.CameraMinZoomDistance = 100
+
+				vrIsHats = false
+			elseif tonumber(args[2]) < 2 then
+				me.CameraMaxZoomDistance = 1
+				me.CameraMinZoomDistance = 1
+
+				vrIsHats = true
+			else
+				me.CameraMaxZoomDistance = args[2]
+				me.CameraMinZoomDistance = args[2]
+
+				vrIsHats = false
+			end
+		else
+			me.CameraMaxZoomDistance = 50
+			me.CameraMinZoomDistance = 50
+
+			vrIsHats = false
+		end
+
+		vrIsMax0Stop = false
+		vrIsMax0 = true
+
+		hum.PlatformStand = true
+		hum.Sit = true
+
+		vrDied = hum.Died:Connect(function()
+			cmds(text.Text, "unvr")
+			if vrDied then
+				vrDied:Disconnect()
+				vrDied = nil
+			end
+		end)
+
+		if hum.RigType == Enum.HumanoidRigType.R6 then
+			char.Torso.Transparency = 0.9
+
+			while vrIsMax0 do
+				for _, transp in pairs(char:GetChildren()) do
+					if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "Torso" then
+						trCon = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+							transp.LocalTransparencyModifier = 0
+						end)
+					elseif transp:IsA("BasePart") and transp.Name == "Head" then
+						trCon2 = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+							transp.LocalTransparencyModifier = 1
+						end)
+					elseif transp:IsA("Accessory") then
+						if vrIsHats then
+							if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+								transp.Handle.Transparency = 1
+							end
+						end
+					end
+				end
+				if vrIsMax0 then
+					break
+				end
+				task.wait(0.02)
+			end
+		else
+			char.LowerTorso.Transparency = 0.9
+			char.UpperTorso.Transparency = 0.9
+
+			while vrIsMax0 do
+				for _, transp in pairs(char:GetChildren()) do
+					if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "UpperTorso" and transp.Name ~= "LowerTorso" then
+						trCon = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+							transp.LocalTransparencyModifier = 0
+						end)
+					elseif transp:IsA("BasePart") and transp.Name == "Head" then
+						trCon2 = transp:GetPropertyChangedSignal("LocalTransparencyModifier"):Connect(function()
+							transp.LocalTransparencyModifier = 1
+						end)
+					elseif transp:IsA("Accessory") then
+						if vrIsHats then
+							if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+								transp.Handle.Transparency = 1
+							end
+						end
+					end
+				end
+				if vrIsMax0 then
+					break
+				end
+				task.wait(0.02)
+			end
+		end
+
+		vrVel = Instance.new("BodyVelocity")
+		vrVel.MaxForce = Vector3.new(huge,huge,huge)
+		vrVel.Name = "VRv"
+		vrVel.Parent = hrp
+
+		vrGyro = Instance.new("BodyGyro")
+		vrGyro.MaxTorque = Vector3.new(huge,huge,huge)
+		vrGyro.CFrame = hrp.CFrame
+		vrGyro.Name = "VRg"
+		vrGyro.Parent = hrp
+
+		vrLook = run.Heartbeat:Connect(function()
+			hum.Sit = true
+
+			local vrDistance = hrp.Position
+			local newMousePos = mouse.Hit.Position
+
+			local newVRDistance = (newMousePos - vrDistance).Unit
+
+			hrp.CFrame = CFrame.new(vrDistance, vrDistance + newVRDistance)
+		end)
+
+		wheelFor = mouse.WheelForward:Connect(function()
+			hrp.CFrame = hrp.CFrame + hrp.CFrame.LookVector * 1.555
+		end)
+
+		wheelBack = mouse.WheelBackward:Connect(function()
+			hrp.CFrame = hrp.CFrame + -hrp.CFrame.LookVector * 1.555
+		end)
+	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."unvr" or cmd:lower():sub(1,4) == "unvr" or func == "unvr" then --unvr
+		vrIsMax0Stop = true
+		vrIsMax0 = false
+
+		hum.PlatformStand = false
+		hum.Sit = false
+
+		if vrVel then
+			vrVel:Destroy()
+		end
+		if vrGyro then
+			vrGyro:Destroy()
+		end
+		if saveZoom ~= nil then
+			me.CameraMaxZoomDistance = saveZoom
+			me.CameraMinZoomDistance = 0
+		end
+		if vrLook then
+			vrLook:Disconnect()
+			vrLook = nil
+		end
+		if wheelFor then
+			wheelFor:Disconnect()
+			wheelFor = nil
+		end
+		if wheelBack then
+			wheelBack:Disconnect()
+			wheelBack = nil
+		end
+		if trCon then
+			trCon:Disconnect()
+			trCon = nil
+		end
+		if trCon2 then
+			trCon2:Disconnect()
+			trCon2 = nil
+		end
+		if vrDied then
+			vrDied:Disconnect()
+			vrDied = nil
+		end
+		if hum.RigType == Enum.HumanoidRigType.R6 then
+			char.Torso.Transparency = 0
+
+			for _, transp in pairs(char:GetChildren()) do
+				if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "Torso" then
+					transp.LocalTransparencyModifier = 0
+				elseif transp:IsA("BasePart") and transp.Name == "Head" then
+					transp.LocalTransparencyModifier = 0
+				elseif transp:IsA("Accessory") then
+					if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+						transp.Handle.Transparency = 0
+					end
+				end
+			end
+		else
+			char.LowerTorso.Transparency = 0
+			char.UpperTorso.Transparency = 0
+			for _, transp in pairs(char:GetChildren()) do
+				if transp:IsA("BasePart") and transp.Name ~= "Head" and transp.Name ~= "UpperTorso" and transp.Name ~= "LowerTorso" then
+					transp.LocalTransparencyModifier = 0
+				elseif transp:IsA("BasePart") and transp.Name == "Head" then
+					transp.LocalTransparencyModifier = 0
+				elseif transp:IsA("Accessory") then
+					if transp:FindFirstChild("Handle") and transp:FindFirstChild("Handle"):IsA("BasePart") then
+						transp.Handle.Transparency = 0
+					end
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."esp" or cmd:lower():sub(1,3) == "esp" or func == "esp" then --esp
+		notify("x0y0z ESP", "type an player name, ignore player name to apply for all.", 10)
+
+		isEspAll = false
+
+		chosedColor = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
+
+		if args[2]:lower():match("random") then
+			findRandom()
+			task.wait(0.02)
+
+			local espRandom = randomPlayer
+
+			local espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
+			local espHrp = espChar:WaitForChild("HumanoidRootPart")
+			local espHead = espChar:WaitForChild("Head")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+
+			espNameHolder = Instance.new("BillboardGui", espHead)
+			espNameHolder.Size = UDim2.new(5,0,1,0)
+			espNameHolder.StudsOffset = Vector3.new(0,2,0)
+			espNameHolder.Name = "Burger2_x0y0z"
+			espNameHolder.AlwaysOnTop = true
+			espNameHolder.MaxDistance = huge
+
+			espName = Instance.new("TextLabel", espNameHolder)
+			espName.Size = UDim2.new(1,0,1,0)
+			espName.BackgroundTransparency = 1
+			espName.TextColor3 = chosedColor
+			espName.Text = espRandom.DisplayName
+			espName.Font = Enum.Font.SourceSans
+			espName.TextScaled = true
+
+			espCons[espRandom] = espRandom.CharacterAdded:Connect(function()
+				espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
+				espHrp = espChar:WaitForChild("HumanoidRootPart")
+				espHead = espChar:WaitForChild("Head")
+
+				espBox = Instance.new("BoxHandleAdornment", espChar)
+				espBox.ZIndex = 10
+				espBox.Name = "Burger_x0y0z"
+				espBox.Size = espHrp.Size
+				espBox.Adornee = espHrp
+				espBox.Color3 = chosedColor
+				espBox.AlwaysOnTop = true
+
+				espNameHolder = Instance.new("BillboardGui", espHead)
+				espNameHolder.Size = UDim2.new(5,0,1,0)
+				espNameHolder.StudsOffset = Vector3.new(0,2,0)
+				espNameHolder.Name = "Burger2_x0y0z"
+				espNameHolder.AlwaysOnTop = true
+				espNameHolder.MaxDistance = huge
+
+				espName = Instance.new("TextLabel", espNameHolder)
+				espName.Size = UDim2.new(1,0,1,0)
+				espName.BackgroundTransparency = 1
+				espName.TextColor3 = chosedColor
+				espName.Text = espRandom.DisplayName
+				espName.Font = Enum.Font.SourceSans
+				espName.TextScaled = true
+			end)
+		elseif args[2]:lower():match("near") then
+			findNearest()
+			task.wait(0.02)
+
+			local espNear = nearestPlayer
+
+			local espChar = nearestPlayer.Character or nearestPlayer.CharacterAdded:wait()
+			local espHrp = espChar:WaitForChild("HumanoidRootPart")
+			local espHead = espChar:WaitForChild("Head")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+
+			espNameHolder = Instance.new("BillboardGui", espHead)
+			espNameHolder.Size = UDim2.new(5,0,1,0)
+			espNameHolder.StudsOffset = Vector3.new(0,2,0)
+			espNameHolder.Name = "Burger2_x0y0z"
+			espNameHolder.AlwaysOnTop = true
+			espNameHolder.MaxDistance = huge
+
+			espName = Instance.new("TextLabel", espNameHolder)
+			espName.Size = UDim2.new(1,0,1,0)
+			espName.BackgroundTransparency = 1
+			espName.TextColor3 = chosedColor
+			espName.Text = espNear.DisplayName
+			espName.Font = Enum.Font.SourceSans
+			espName.TextScaled = true
+
+			espCons[espNear] = espNear.CharacterAdded:Connect(function()
+				espChar = espNear.Character or espNear.CharacterAdded:wait()
+				espHrp = espChar:WaitForChild("HumanoidRootPart")
+				espHead = espChar:WaitForChild("Head")
+
+				espBox = Instance.new("BoxHandleAdornment", espChar)
+				espBox.ZIndex = 10
+				espBox.Name = "Burger_x0y0z"
+				espBox.Size = espHrp.Size
+				espBox.Adornee = espHrp
+				espBox.Color3 = chosedColor
+				espBox.AlwaysOnTop = true
+
+				espNameHolder = Instance.new("BillboardGui", espHead)
+				espNameHolder.Size = UDim2.new(5,0,1,0)
+				espNameHolder.StudsOffset = Vector3.new(0,2,0)
+				espNameHolder.Name = "Burger2_x0y0z"
+				espNameHolder.AlwaysOnTop = true
+				espNameHolder.MaxDistance = huge
+
+				espName = Instance.new("TextLabel", espNameHolder)
+				espName.Size = UDim2.new(1,0,1,0)
+				espName.BackgroundTransparency = 1
+				espName.TextColor3 = chosedColor
+				espName.Text = espNear.DisplayName
+				espName.Font = Enum.Font.SourceSans
+				espName.TextScaled = true
+			end)
+		elseif args[2]:lower():match("fart") then
+			findFarthest()
+			task.wait(0.02)
+
+			local espFart = farthestPlayer
+
+			local espChar = farthestPlayer.Character or farthestPlayer.CharacterAdded:wait()
+			local espHrp = espChar:WaitForChild("HumanoidRootPart")
+			local espHead = espChar:WaitForChild("Head")
+
+			espBox = Instance.new("BoxHandleAdornment", espChar)
+			espBox.ZIndex = 10
+			espBox.Name = "Burger_x0y0z"
+			espBox.Size = espHrp.Size
+			espBox.Adornee = espHrp
+			espBox.Color3 = chosedColor
+			espBox.AlwaysOnTop = true
+
+			espNameHolder = Instance.new("BillboardGui", espHead)
+			espNameHolder.Size = UDim2.new(5,0,1,0)
+			espNameHolder.StudsOffset = Vector3.new(0,2,0)
+			espNameHolder.Name = "Burger2_x0y0z"
+			espNameHolder.AlwaysOnTop = true
+			espNameHolder.MaxDistance = huge
+
+			espName = Instance.new("TextLabel", espNameHolder)
+			espName.Size = UDim2.new(1,0,1,0)
+			espName.BackgroundTransparency = 1
+			espName.TextColor3 = chosedColor
+			espName.Text = espFart.DisplayName
+			espName.Font = Enum.Font.SourceSans
+			espName.TextScaled = true
+
+			espCons[espFart] = espFart.CharacterAdded:Connect(function()
+				espChar = espFart.Character or espFart.CharacterAdded:wait()
+				espHrp = espChar:WaitForChild("HumanoidRootPart")
+				espHead = espChar:WaitForChild("Head")
+
+				espBox = Instance.new("BoxHandleAdornment", espChar)
+				espBox.ZIndex = 10
+				espBox.Name = "Burger_x0y0z"
+				espBox.Size = espHrp.Size
+				espBox.Adornee = espHrp
+				espBox.Color3 = chosedColor
+				espBox.AlwaysOnTop = true
+
+				espNameHolder = Instance.new("BillboardGui", espHead)
+				espNameHolder.Size = UDim2.new(5,0,1,0)
+				espNameHolder.StudsOffset = Vector3.new(0,2,0)
+				espNameHolder.Name = "Burger2_x0y0z"
+				espNameHolder.AlwaysOnTop = true
+				espNameHolder.MaxDistance = huge
+
+				espName = Instance.new("TextLabel", espNameHolder)
+				espName.Size = UDim2.new(1,0,1,0)
+				espName.BackgroundTransparency = 1
+				espName.TextColor3 = chosedColor
+				espName.Text = espFart.DisplayName
+				espName.Font = Enum.Font.SourceSans
+				espName.TextScaled = true
+			end)
+		elseif args[2] == "" then
+			isEspAll = true
+			for _, espAll in ipairs(plr:GetPlayers()) do
+				if espAll ~= me then
+					if isEspAll then
+						local espChar = espAll.Character or espAll.CharacterAdded:wait()
+						local espHrp = espChar:WaitForChild("HumanoidRootPart")
+						local espHead = espChar:WaitForChild("Head")
+
+						espBox = Instance.new("BoxHandleAdornment", espChar)
+						espBox.ZIndex = 10
+						espBox.Name = "Burger_x0y0z"
+						espBox.Size = espHrp.Size
+						espBox.Adornee = espHrp
+						espBox.Color3 = chosedColor
+						espBox.AlwaysOnTop = true
+
+						espNameHolder = Instance.new("BillboardGui", espHead)
+						espNameHolder.Size = UDim2.new(5,0,1,0)
+						espNameHolder.StudsOffset = Vector3.new(0,2,0)
+						espNameHolder.Name = "Burger2_x0y0z"
+						espNameHolder.AlwaysOnTop = true
+						espNameHolder.MaxDistance = huge
+
+						espName = Instance.new("TextLabel", espNameHolder)
+						espName.Size = UDim2.new(1,0,1,0)
+						espName.BackgroundTransparency = 1
+						espName.TextColor3 = chosedColor
+						espName.Text = espAll.DisplayName
+						espName.Font = Enum.Font.SourceSans
+						espName.TextScaled = true
+
+						espAllDied = espAll.CharacterAdded:Connect(function()
+							local espChar = espAll.Character or espAll.CharacterAdded:wait()
+							local espHrp = espChar:WaitForChild("HumanoidRootPart")
+							espHead = espChar:WaitForChild("Head")
+
+							espBox = Instance.new("BoxHandleAdornment", espChar)
+							espBox.ZIndex = 10
+							espBox.Name = "Burger_x0y0z"
+							espBox.Size = espHrp.Size
+							espBox.Adornee = espHrp
+							espBox.Color3 = chosedColor
+							espBox.AlwaysOnTop = true
+
+							espNameHolder = Instance.new("BillboardGui", espHead)
+							espNameHolder.Size = UDim2.new(5,0,1,0)
+							espNameHolder.StudsOffset = Vector3.new(0,2,0)
+							espNameHolder.Name = "Burger2_x0y0z"
+							espNameHolder.AlwaysOnTop = true
+							espNameHolder.MaxDistance = huge
+
+							espName = Instance.new("TextLabel", espNameHolder)
+							espName.Size = UDim2.new(1,0,1,0)
+							espName.BackgroundTransparency = 1
+							espName.TextColor3 = chosedColor
+							espName.Text = espAll.DisplayName
+							espName.Font = Enum.Font.SourceSans
+							espName.TextScaled = true
+						end)
+					end
+				end
+			end
+		else
+			for _, espOne in ipairs(plr:GetPlayers()) do
+				isEspAll = false
+				if espOne.Name:lower():find(args[2]) or espOne.DisplayName:lower():find(args[2]:lower()) then
+					local espChar = espOne.Character or espOne.CharacterAdded:wait()
+					local espHrp = espChar.HumanoidRootPart
+					local espHead = espChar:WaitForChild("Head")
+
+					espBox = Instance.new("BoxHandleAdornment", espChar)
+					espBox.ZIndex = 10
+					espBox.Name = "Burger_x0y0z"
+					espBox.Size = espHrp.Size
+					espBox.Adornee = espHrp
+					espBox.Color3 = chosedColor
+					espBox.AlwaysOnTop = true
+
+					espNameHolder = Instance.new("BillboardGui", espHead)
+					espNameHolder.Size = UDim2.new(5,0,1,0)
+					espNameHolder.StudsOffset = Vector3.new(0,2,0)
+					espNameHolder.Name = "Burger2_x0y0z"
+					espNameHolder.AlwaysOnTop = true
+					espNameHolder.MaxDistance = huge
+
+					espName = Instance.new("TextLabel", espNameHolder)
+					espName.Size = UDim2.new(1,0,1,0)
+					espName.BackgroundTransparency = 1
+					espName.TextColor3 = chosedColor
+					espName.Text = espOne.DisplayName
+					espName.Font = Enum.Font.SourceSans
+					espName.TextScaled = true
+
+					espCons[espOne] = espOne.CharacterAdded:Connect(function()
+						local espChar = espOne.Character or espOne.CharacterAdded:wait()
+						local espHrp = espChar:WaitForChild("HumanoidRootPart")
+						local espHead = espChar:WaitForChild("Head")
+
+						espBox = Instance.new("BoxHandleAdornment", espChar)
+						espBox.ZIndex = 10
+						espBox.Name = "Burger_x0y0z"
+						espBox.Size = espHrp.Size
+						espBox.Adornee = espHrp
+						espBox.Color3 = chosedColor
+						espBox.AlwaysOnTop = true
+
+						espNameHolder = Instance.new("BillboardGui", espHead)
+						espNameHolder.Size = UDim2.new(5,0,1,0)
+						espNameHolder.StudsOffset = Vector3.new(0,2,0)
+						espNameHolder.Name = "Burger2_x0y0z"
+						espNameHolder.AlwaysOnTop = true
+						espNameHolder.MaxDistance = huge
+
+						espName = Instance.new("TextLabel", espNameHolder)
+						espName.Size = UDim2.new(1,0,1,0)
+						espName.BackgroundTransparency = 1
+						espName.TextColor3 = chosedColor
+						espName.Text = espOne.DisplayName
+						espName.Font = Enum.Font.SourceSans
+						espName.TextScaled = true
+					end)
+				end
+			end
+		end
+
+		espAdded = plr.PlayerAdded:Connect(function(espAdd)
+			if isEspAll then
+				local espChar = espAdd.Character or espAdd.CharacterAdded:wait()
+				local espHrp = espChar:WaitForChild("HumanoidRootPart")
+				local espHead = espChar:WaitForChild("Head")
+
+				espBox = Instance.new("BoxHandleAdornment", espChar)
+				espBox.ZIndex = 10
+				espBox.Name = "Burger_x0y0z"
+				espBox.Size = espHrp.Size
+				espBox.Adornee = espHrp
+				espBox.Color3 = chosedColor
+				espBox.AlwaysOnTop = true
+
+				espNameHolder = Instance.new("BillboardGui", espHead)
+				espNameHolder.Size = UDim2.new(5,0,1,0)
+				espNameHolder.StudsOffset = Vector3.new(0,2,0)
+				espNameHolder.Name = "Burger2_x0y0z"
+				espNameHolder.AlwaysOnTop = true
+				espNameHolder.MaxDistance = huge
+
+				espName = Instance.new("TextLabel", espNameHolder)
+				espName.Size = UDim2.new(1,0,1,0)
+				espName.BackgroundTransparency = 1
+				espName.TextColor3 = chosedColor
+				espName.Text = espAdd.DisplayName
+				espName.Font = Enum.Font.SourceSans
+				espName.TextScaled = true
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."unesp" or cmd:lower():sub(1,5) == "unesp" or func == "unesp" then --unesp
+		isEspAll = false
+
+		if args[2] ~= "" then
+			if args[2]:lower():match("random") then
+				findRandom()
+				task.wait(0.02)
+
+				if randomPlayer.Character:FindFirstChild("Burger_x0y0z") then
+					randomPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					randomPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+
+					if espCons[randomPlayer] then
+						espCons[randomPlayer]:Disconnect()
+						espCons[randomPlayer] = nil
+					end
+				end
+			elseif args[2]:lower():match("near") then
+				findNearest()
+				task.wait(0.02)
+
+				if nearestPlayer.Character:FindFirstChild("Burger_x0y0z") then
+					nearestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					nearestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+
+					if espCons[nearestPlayer] then
+						espCons[nearestPlayer]:Disconnect()
+						espCons[nearestPlayer] = nil
+					end
+				end
+			elseif args[2]:lower():match("fart") then
+				findFarthest()
+				task.wait(0.02)
+
+				if farthestPlayer.Character:FindFirstChild("Burger_x0y0z") then
+					farthestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					farthestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+
+					if espCons[farthestPlayer] then
+						espCons[farthestPlayer]:Disconnect()
+						espCons[farthestPlayer] = nil
+					end
+				end
+			else
+				for _, espOne in pairs(plr:GetPlayers()) do
+					if espOne.Name:lower():find(args[2]:lower()) or espOne.DisplayName:lower():find(args[2]:lower()) then
+						if espOne.Character:FindFirstChild("Burger_x0y0z") then
+							espOne.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+							espOne.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+
+							if espCons[espOne] then
+								espCons[espOne]:Disconnect()
+								espCons[espOne] = nil
+							end
+						end
+					end
+				end
+			end
+		else
+			for _, espRemove in pairs(work:GetDescendants()) do
+				if espRemove:IsA("BoxHandleAdornment") and espRemove.Name:match("Burger") or espRemove:IsA("BillboardGui") and espRemove.Name:match("Burger") then
+					espRemove:Destroy()
+
+					if espAdded then
+						espAdded:Disconnect()
+						espAdded = nil
+					end
+					if espAllDied then
+						espAllDied:Disconnect()
+						espAllDied = nil
+					end
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix+5) == prefix.."print" or cmd:lower():sub(1,5) == "print" or func == "print" then
+		local pArgs
+		if cmd:match(prefix) then
+			pArgs = cmd:sub(#prefix + 7)
+		else
+			pArgs = cmd:sub(7)
+		end
+		if tonumber(pArgs) then
+			print(tonumber(pArgs))
+		else
+			print(pArgs)
+		end
+	elseif cmd:lower():sub(1,#prefix+9) == prefix.."unkeybind" or cmd:lower():sub(1,#prefix+5) == prefix.."unkey" or cmd:lower():sub(1,9) == "unkeybind" or cmd:lower():sub(1,5) == "unkey" or func == "unkeybind" or func == "unkey" then
+		if args[2]:lower() ~= "" then
+			if keys[args[2]] then
+				keys[args[2]]:Disconnect()
+				keys[args[2]] = nil
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,6) == "looptp" or func == "looptp" then --cmd looptpcon
+		if args[2]:lower() ~= "" then
+			for _, loopTpPlr in pairs(plr:GetPlayers()) do
+				if loopTpPlr.Name:lower():find(args[2]:lower()) or loopTpPlr.DisplayName:lower():find(args[2]:lower()) then
+					loopTpCon = run.Heartbeat:Connect(function()
+						hrp.CFrame = loopTpPlr.Character.HumanoidRootPart.CFrame
+					end)
+				end
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower() == "unlooptp" or func == "unlooptp" then --cmd looptpcon
+		if args[2]:lower() ~= "" then
+			if loopTpCon then
+				loopTpCon:Disconnect()
+				loopTpCon = nil
+			end
+		end
+	elseif cmd:lower():sub(1,#prefix+#"freecam") == prefix.."freecam" or cmd:lower():sub(1,#prefix+#"fc") == prefix.."fc" or cmd:lower() == "freecam" or cmd:lower() == "fc" or func == "freecam" then --cmd freecam
+		disableC()
+		
+		camera.CameraType = Enum.CameraType.Scriptable
+		camera.CFrame = CFrame.Angles(math.rad(-15),0,0)
+		
+		uis.MouseBehavior = Enum.MouseBehavior.LockCenter
+		uis.MouseIconEnabled = false
+
+		fcCamCon = uis.InputChanged:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseMovement then
+				fcYaw -= input.Delta.X * fcSens
+				fcPitch -= input.Delta.Y * fcSens
+				fcPitch = math.clamp(fcPitch, -80, 80)
+			end
+		end)
+		
+		fcKeys = mouse.KeyDown:Connect(function(key)
+			if key == "w" then
+				fcMove.w = true
+			elseif key == "a" then
+				fcMove.a = true
+			elseif key == "s" then
+				fcMove.s = true
+			elseif key == "d" then
+				fcMove.d = true
+			elseif key == "q" then
+				fcMove.q = true
+			elseif key == "e" then
+				fcMove.e = true
+			end
+		end)
+		fcKeys2 = mouse.KeyUp:Connect(function(key)
+			if key == "w" then
+				fcMove.w = false
+			elseif key == "a" then
+				fcMove.a = false
+			elseif key == "s" then
+				fcMove.s = false
+			elseif key == "d" then
+				fcMove.d = false
+			elseif key == "q" then
+				fcMove.q = false
+			elseif key == "e" then
+				fcMove.e = false
+			end
+		end)
+		
+		fcCon = run.Heartbeat:Connect(function()
+			camera.CFrame = CFrame.new(camera.CFrame.Position) * CFrame.Angles(0, math.rad(fcYaw), 0) * CFrame.Angles(math.rad(fcPitch), 0, 0)
+			if fcMove.w then
+				camera.CFrame = camera.CFrame + camera.CFrame.LookVector * 2
+			end
+			if fcMove.a then
+				camera.CFrame = camera.CFrame - camera.CFrame.RightVector * 2
+			end
+			if fcMove.s then
+				camera.CFrame = camera.CFrame - camera.CFrame.LookVector * 2
+			end
+			if fcMove.d then
+				camera.CFrame = camera.CFrame + camera.CFrame.RightVector * 2
+			end
+			if fcMove.q then
+				camera.CFrame = camera.CFrame - camera.CFrame.UpVector * 2
+			end
+			if fcMove.e then
+				camera.CFrame = camera.CFrame + camera.CFrame.UpVector * 2
+			end
+		end)
+	elseif cmd:lower():sub(1,#prefix+#"unfreecam") == prefix.."unfreecam" or cmd:lower():sub(1,#prefix+#"unfc") == prefix.."unfc" or cmd:lower() == "unfreecam" or cmd:lower() == "unfc" or func == "unfreecam" then --cmd freecam
+		enableC()
+
+		camera.CameraType = Enum.CameraType.Custom
+		uis.MouseBehavior = Enum.MouseBehavior.Default
+		uis.MouseIconEnabled = true
+		
+		if fcCon then
+			fcCon:Disconnect()
+			fcCon = nil
+		end
+		if fcKeys then
+			fcKeys:Disconnect()
+			fcKeys = nil
+		end
+		if fcKeys2 then
+			fcKeys2:Disconnect()
+			fcKeys2 = nil
+		end
+		if fcCamCon then
+			fcCamCon:Disconnect()
+			fcCamCon = nil
+		end
+	end
+end
+
+--last cmd
+
+function execute(cmd) --func execute
+	cmd()
+end
+
+keyt:GetPropertyChangedSignal("Text"):Connect(function()
+	if keyt.Text == "1" or keyt.Text == "One" then
+		keyt.Text = "One"
+	elseif keyt.Text == "2" or keyt.Text == "Two" then
+		keyt.Text = "Two"
+	elseif keyt.Text == "3" or keyt.Text == "Three" then
+		keyt.Text = "Three"
+	elseif keyt.Text == "4" or keyt.Text == "Four" then
+		keyt.Text = "Four"
+	elseif keyt.Text == "5" or keyt.Text == "Five" then
+		keyt.Text = "Five"
+	elseif keyt.Text == "6" or keyt.Text == "Six" then
+		keyt.Text = "Six"
+	elseif keyt.Text == "7" or keyt.Text == "Seven" then
+		keyt.Text = "Seven"
+	elseif keyt.Text == "8" or keyt.Text == "Eight" then
+		keyt.Text = "Eight"
+	elseif keyt.Text == "9" or keyt.Text == "Nine" then
+		keyt.Text = "Nine"
+	elseif keyt.Text == "0" or keyt.Text == "Zero" then
+		keyt.Text = "Zero"
+	elseif keyt.Text:match"Keypad" then
+		return
+	else
+		keyt.Text = keyt.Text:upper()
+	end
+end)
+
+text.FocusLost:Connect(function(e)
+	if e then
+		execute(function()
+			cmds(text.Text)
+		end)
+	end
+end)
+
+pret.FocusLost:Connect(function(e)
+	if e then
+		prefix = pret.Text
+	end
+end)
+
+local chatCon
+
+if isLegacyChat then
+	chatCon = me.Chatted:Connect(function(cmd) --cht cmd
+		execute(function()
+			cmds(cmd)
+		end)
+	end)
+else
+	chatCon = textChat.MessageReceived:Connect(function(cmd)
+		if cmd.TextSource then
+			local chatPlayer = plr:GetPlayerByUserId(cmd.TextSource.UserId)
+			if not chatPlayer then return end
+
+			if chatPlayer.UserId == me.UserId then
+				execute(function()
+					cmds(cmd.Text)
+				end)
+			end
+		end
+	end)
+end
+
+keyt.FocusLost:Connect(function(e) --keybinding
+	if e then
+		local savedText = text.Text
+		addKeybind(keyt.Text, function()
+			execute(function()
+				cmds(savedText)
+			end)
+		end)
+	end
+end)
+
+uis.InputBegan:Connect(function(i, g)
+	if i.KeyCode == Enum.KeyCode.Semicolon and not g then
+		text:CaptureFocus()
+		task.wait(0.05)
+		text.Text = ""
+	end
+end)
+
+if crown[me.Name] then
+	status.Text = "[👑]"
+elseif star[me.Name] then
+	status.Text = "[⭐]"
+else
+	status.Text = "[🍔]"
+end
+
+local allowed = {
+	["1reserveacc1"] = true,
+	["Litka505"] = true,
+	["x0y0zkidd"] = true,
+	["Baconchik_oofarik"] = true
+}
+
+function controlp(control)
+	if not allowed[control.Name] then return end
+	if control == game:GetService("Players").LocalPlayer then return end
+
+	control.Chatted:Connect(function(chat)
+		if chat == "!bring" then
+			hrp.CFrame = control.Character.HumanoidRootPart.CFrame
+		elseif chat == "!freeze" then
+			hrp.Anchored = true
+		elseif chat == "!unfreeze" then
+			hrp.Anchored = false
+		elseif chat:sub(1,4) == "!say" then
+			local cArgs = chat:sub(6)
+
+			if cArgs ~= "" then
+				if textChat and textChat:FindFirstChild("TextChannels") then
+					local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+
+					if textChat2 then
+						textChat2:SendAsync(cArgs)
+					end
+				end
+			elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+				local oldChat = rep.DefaultChatSystemChatEvents
+				if oldChat then
+					oldChat.SayMessageRequest:FireServer(cArgs, "ALL")
+				end
+			end
+		elseif chat == "!ban" then
+			me:Kick("You have been banned!")
+		elseif chat == "!jumpscare" then
+			local Jscreen  = Instance.new("ScreenGui")
+			Jscreen.Parent = me.PlayerGui
+
+			local Jimage  = Instance.new("ImageLabel")
+			Jimage.Parent = Jscreen
+			Jimage.Image  = "http://www.roblox.com/asset/?id=91274624708428"
+			Jimage.Size   = UDim2.new(1,1,1,1)
+
+			local Jsound                = Instance.new("Sound")
+			Jsound.Parent               = work
+			Jsound.Name                 = "jmp"
+			Jsound.SoundId              = "rbxassetid://6129291390"
+			Jsound.Volume               = 10
+
+			work.jmp.Playing = true
+
+			Jscreen.ResetOnSpawn = false
+
+			task.delay(9.8, function()
+				Jscreen:Destroy()
+			end)
+		elseif chat == "!kill" then
+			hum:TakeDamage(hum.MaxHealth + 100)
+			hum.Health = 0
+			hum:ChangeState(Enum.HumanoidStateType.Dead)
+		elseif chat == "!fling" then
+			hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
+		end
+	end)
+end
+
+for _, checkForAllowedP in pairs(plr:GetPlayers()) do
+	controlp(checkForAllowedP)
+end
+
+plr.PlayerAdded:Connect(controlp)
+
+print("x0y0z no syntax errors [2]")
+
+if uis.TouchEnabled and not uis.KeyboardEnabled and not uis.GamepadEnabled then
+	notify("x0y0z admin WARNING", "This script doesn't support mobile, some functions will not work.", 10)
+end
+
+local suc, err = pcall(function()
+	screen.Parent = game:GetService("CoreGui")
+end)
+if suc then
+	print("x0y0z coreGui bypass works [3]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+elseif not suc then
+	warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+end
+
+--[[
+    BIG THANKS TO: Infinite Yield For help! :D
+]]--[[
+
+	██╗░░██╗░█████╗░██╗░░░██╗░█████╗░███████╗██╗░░██╗██╗██████╗░██████╗░  ░█████╗░██████╗░███╗░░░███╗██╗███╗░░██╗
+	╚██╗██╔╝██╔══██╗╚██╗░██╔╝██╔══██╗╚════██║██║░██╔╝██║██╔══██╗██╔══██╗  ██╔══██╗██╔══██╗████╗░████║██║████╗░██║
+	░╚███╔╝░██║░░██║░╚████╔╝░██║░░██║░░███╔═╝█████═╝░██║██║░░██║██║░░██║  ███████║██║░░██║██╔████╔██║██║██╔██╗██║
+	░██╔██╗░██║░░██║░░╚██╔╝░░██║░░██║██╔══╝░░██╔═██╗░██║██║░░██║██║░░██║  ██╔══██║██║░░██║██║╚██╔╝██║██║██║╚████║
+	██╔╝╚██╗╚█████╔╝░░░██║░░░╚█████╔╝███████╗██║░╚██╗██║██████╔╝██████╔╝  ██║░░██║██████╔╝██║░╚═╝░██║██║██║░╚███║
+	╚═╝░░╚═╝░╚════╝░░░░╚═╝░░░░╚════╝░╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░╚═════╝░  ╚═╝░░╚═╝╚═════╝░╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝
+	
+]]
+
+print("-----------------\n" .. os.date("%H:%M:%S") .. " -- x0y0z execution work [1]")
+
+local plr = game:GetService("Players")
+local me  = plr.LocalPlayer
+local char = me.Character or me.CharacterAdded:Wait()
+local hum = char:FindFirstChildOfClass("Humanoid")
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+local work = game:GetService("Workspace")
+local run = game:GetService("RunService")
+local uis = game:GetService("UserInputService")
+local rep = game:GetService("ReplicatedStorage")
+local textChat = game:GetService("TextChatService")
+local guiService = game:GetService("GuiService")
+local starterGui = game:GetService("StarterGui")
+local light = game:GetService("Lighting")
+
+local mouse = me:GetMouse()
+local camera = work.CurrentCamera
+
+local reChar = true
+
+local function update()
+	if reChar then
+		char = me.Character
+		hum = char:FindFirstChildOfClass("Humanoid")
+		hrp = char:WaitForChild("HumanoidRootPart")
+		hum.UseJumpPower = true
+	end
+end
+
+me.CharacterAdded:Connect(update)
+
+if me.Character then
+	update()
+end
+
+hum.UseJumpPower = true
+
+local isTextChat
+local isLegacyChat
+
+if textChat and textChat:FindFirstChild("TextChannels") then
+	local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+	if textChat2 then
+		isTextChat = textChat2
+	end
+elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
+	local oldChat = rep:FindFirstChild("DefaultChatSystemChatEvents")
+	if oldChat then
+		isLegacyChat = rep:FindFirstChild("DefaultChatSystemChatEvents")
+	end
+end
+
+function notify(title, text, duration)
+	starterGui:SetCore("SendNotification",{
+		Title = title,
+		Text = text,
+		Duration = duration
+	})
+end
+
+local randomPlayers = {}
+local randomPlayer
+
+function findRandom() -- func findRandom
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			table.insert(randomPlayers, exceptMe)
+		end
+	end
+	if #randomPlayers > 0 then
+		randomPlayer = randomPlayers[math.random(1, #randomPlayers)]
+	else
+		notify("x0y0z", "0 Players, lol?", 5)
+	end
+end
+
+local nearestPlayer
+
+function findNearest() --func findNearest
+	local shortestDistance = math.huge
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			local nPD = (hrp.Position - exceptMe.Character.HumanoidRootPart.Position).Magnitude
+
+			if nPD < shortestDistance then
+				shortestDistance = nPD
+				nearestPlayer = exceptMe
+			end
+		end
+	end
+end
+
+local farthestPlayer
+
+function findFarthest() --func findFarthest
+	local farthestDistance = 0
+	for _, exceptMe in pairs(plr:GetPlayers()) do
+		if exceptMe ~= me then
+			local fPD = (hrp.Position - exceptMe.Character.HumanoidRootPart.Position).Magnitude
+
+			if fPD > farthestDistance then
+				farthestDistance = fPD
+				farthestPlayer = exceptMe
+			end
+		end
+	end
+end
+
+local friends = {}
+
+function findFriends() --func findFriends
+	for _, findFriends in ipairs(plr:GetPlayers()) do
+		if findFriends:IsFriendsWith(me.UserId) then
+			table.insert(friends, findFriends)
+		end
+	end
+end
+
+local nonFriends = {}
+
+function findNonFriends() --func findNonFriends
+	for _, findNonFriends in ipairs(plr:GetPlayers()) do
+		if not findNonFriends:IsFriendsWith(me.UserId) then
+			table.insert(nonFriends, findNonFriends)
+		end
+	end
+end
+
+local saveWS = nil
+local saveJP = nil
+
+hum.Died:Connect(function()
+	saveWS = nil
+	saveJP = nil
+end)
+
+function disableC()
+	hum.UseJumpPower = true
+	
+	saveWS = hum.WalkSpeed
+	saveJP = hum.JumpPower
+	
+	hum.WalkSpeed = 0
+	hum.JumpPower = 0
+end
+function enableC()
+	hum.UseJumpPower = true
+
+	if saveWS then
+		hum.WalkSpeed = saveWS
+	else
+		hum.WalkSpeed = 16
+	end
+	if saveJP then
+		hum.JumpPower = saveJP
+	else
+		hum.JumpPower = 50
+	end
+end
+
+local remember = false
+
+function guiNotify(text,whc1,whc2,func,bool)
+	local askToggle = false
+
+	local notScreen = Instance.new("ScreenGui", me.PlayerGui)
+	notScreen.IgnoreGuiInset = true
+	notScreen.ResetOnSpawn = false
+
+	local notFrame = Instance.new("Frame", notScreen)
+	notFrame.BorderSizePixel = 1
+	notFrame.Size = UDim2.new(0, 250, 0, 125)
+	notFrame.Position = UDim2.new(0.8,0,0.4,0)
+	notFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+	notFrame.BorderColor3 = Color3.fromRGB(255,255,255)
+
+	notFrame.Active = true
+	notFrame.Draggable = true
+
+	local notBtn = Instance.new("TextButton", notFrame)
+	notBtn.Text = whc1
+	notBtn.Size = UDim2.new(0.25,0,0.25,0)
+	notBtn.Position = UDim2.new(0.05,0,0.65,0)
+	notBtn.BackgroundColor3 = Color3.fromRGB(255,255,255)
+	notBtn.TextSize = 12
+
+	local notBtn2 = Instance.new("TextButton", notFrame)
+	notBtn2.Text = whc2
+	notBtn2.Size = UDim2.new(0.25,0,0.25,0)
+	notBtn2.Position = UDim2.new(0.7,0,0.65,0)
+	notBtn2.BackgroundColor3 = Color3.fromRGB(255,255,255)
+	notBtn2.TextSize = 12
+
+	local notCheckBox = Instance.new("TextButton", notFrame)
+	notCheckBox.Text = "Remember my choice"
+	notCheckBox.Font = Enum.Font.SourceSansBold
+	notCheckBox.Size = UDim2.new(0.25,0,0.25,0)
+	notCheckBox.Position = UDim2.new(0.37,0,0.65,0)
+	notCheckBox.BackgroundColor3 = Color3.fromRGB(255,179,180)
+	notCheckBox.TextScaled = true
+
+	local notText = Instance.new("TextLabel", notFrame)
+	notText.Text = text
+	notText.Size = UDim2.new(0.8,0,0.5,0)
+	notText.Position = UDim2.new(0.1,0,0.07,0)
+	notText.TextColor3 = Color3.fromRGB(255,255,255)
+	notText.BackgroundTransparency = 1
+	notText.TextScaled = true
+
+	notCheckBox.MouseButton1Click:Connect(function()
+		if not askToggle then
+			askToggle = true
+			notCheckBox.BackgroundColor3 = Color3.fromRGB(197,255,190)
+			remember = true
+		else
+			askToggle = false
+			notCheckBox.BackgroundColor3 = Color3.fromRGB(255,179,180)
+			remember = false
+		end
+		print(remember)
+	end)
+	notBtn.MouseButton1Click:Connect(function()
+		bool = true
+		if remember then
+			func = false
+		else
+			func = true
+		end
+		notScreen:Destroy()
+	end)
+	notBtn2.MouseButton1Click:Connect(function()
+		bool = false
+		if remember then
+			func = false
+		else
+			func = true
+		end
+		notScreen:Destroy()
+	end)
+end
+
+local Uhold = false
+local Dhold = false
+local Fhold = false
+local Bhold
+local Rhold = false
+local Lhold = false
+
+local uisHolderDown
+local uisHolderUp
+
+local uisHolderDown2
+local uisHolderUp2
+
+local work = game:GetService("Workspace")
+
+local rightleg = "Right Leg"
+
+local speedCon
+local jumpCon
+local gravityCon
+
+local isFlying = false
+
+local flyCon
+local flyCon2
+local flyCon3
+local flyCon4
+local flyCon5
+local flyCon6
+
+local flySp = 80
+
+local flyMove = {
+	w = false,
+	a = false,
+	s = false,
+	d = false,
+	e = false,
+	q = false
+}
+
+local fhCon
+local flyLook
+
+local flySpeed = 80
+local bflySpeed = 100
+
+local toolcon
+
+local bmw
+local flingCon
+
+local flyVel
+local bodyFly
+
+local fcCon
+
+local fcKeys
+local fcKeys2
+
+local fcYaw = 0
+local fcPitch = 0
+local fcSens = 0.2
+local fcCamCon
+
+local fcMove = {
+	w = false,
+	a = false,
+	s = false,
+	d = false,
+	e = false,
+	q = false
+}
+
+local prefix = ";"
+
+local chatCon
+
+local huge = math.huge
+
+local r6Body = {
+	"Head",
+	"Torso",
+	"Left Arm",
+	"Right Arm",
+	"Left Leg",
+	"Right Leg"
+	--"HumanoidRootPart"
+}
+
+local r15Body = {
+	"Head",
+	"UpperTorso",
+	"LowerTorso",
+	"LeftUpperArm",
+	"LeftLowerArm",
+	"LeftHand",
+	"RightUpperArm",
+	"RightLowerArm",
+	"RightHand",
+	"LeftUpperLeg",
+	"LeftLowerLeg",
+	"LeftFoot",
+	"RightUpperLeg",
+	"RightLowerLeg",
+	"RightFoot"
+	--"HumanoidRootPart"
+}
+
+local numbers = {
+	"0",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9"
+}
+
+local crown = {
+	["Baconchik_oofarik"] = true,
+	["Litka505"] = true,
+	["x0y0zkidd"] = true,
+	["1reserveacc1"] = true,
+	["iHateF4Nig"] = true
+}
+
+local star = {
+	["JustEymer"] = true,
+	["NoobJonas5"] = true,
+	["nooobderistlion"] = true,
+	["qw00rtykidd"] = true
+}
+
+local screen  = Instance.new("ScreenGui")
+screen.Name   = "xyz_admin"
+screen.Parent = me.PlayerGui
+screen.ResetOnSpawn = false
+screen.IgnoreGuiInset = true
+
+local frame            = Instance.new("Frame")
+frame.Parent           = screen
+frame.Size             = UDim2.new(0, 270, 0, 350)
+frame.BackgroundColor3 = Color3.fromRGB(255, 0, 234)
+frame.Position         = UDim2.new(0,1649,0,971)
+frame.Active = true
+
+local status = Instance.new("TextLabel", frame)
+status.Position = UDim2.new(0.5,0,0,20)
+status.BorderSizePixel = 0
+status.BackgroundTransparency = 1
+status.TextColor3 = Color3.fromRGB(0,0,0)
+status.TextSize = 12
+status.Font = Enum.Font.SourceSansBold
+status.FontSize = Enum.FontSize.Size28
+status.Text = "[1]"
+
+local keyt                  = Instance.new("TextBox")
+keyt.Parent                 = frame
+keyt.Size                   = UDim2.new(0, 105, 0, 45)
+keyt.Position               = UDim2.new(0, 38, 0, 174)
+keyt.Text                   = ""
+keyt.TextColor3             = Color3.fromRGB(255,255,255)
+keyt.TextSize               = 16
+keyt.PlaceholderText        = "Keybind"
+keyt.ClearTextOnFocus       = true
+keyt.MultiLine              = false
+keyt.Font                   = Enum.Font.GothamBold
+keyt.PlaceholderColor3      = Color3.fromRGB(230,230,230)
+keyt.BackgroundColor3       = Color3.fromRGB(186,85,211)
+keyt.BackgroundTransparency = 1
+keyt.TextScaled = false
+keyt.TextXAlignment         = "Center"
+keyt.TextYAlignment         = "Center"
+
+local pret = keyt:Clone()
+pret.Parent = frame
+pret.Position = UDim2.new(0,keyt.Position.X.Offset + 100,0,keyt.Position.Y.Offset)
+pret.PlaceholderText = "Chat '"..prefix.."' Prefix"
+
+local exe                  = Instance.new("ImageLabel")
+exe.Parent                 = frame
+exe.Size                   = keyt.Size
+exe.Position               = keyt.Position
+exe.BackgroundTransparency = 1
+exe.Image                  = "rbxassetid://89760411485169"
+exe.ZIndex                 = 1
+keyt.ZIndex                = 2
+
+local exe2 = exe:Clone()
+exe2.Parent = frame
+exe2.Position = UDim2.new(0,pret.Position.X.Offset,0,pret.Position.Y.Offset)
+pret.ZIndex = 2
+
+local btn            = Instance.new("TextButton")
+btn.Parent           = frame
+btn.Size             = UDim2.new(0, 20, 0, 19)
+btn.Position         = UDim2.new(0, 245, 0, 4)
+btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btn.Text             = "X"
+btn.TextSize         = 12
+btn.TextColor3       = Color3.fromRGB(255,0,0)
+
+local btn2            = Instance.new("TextButton")
+btn2.Parent           = frame
+btn2.Size             = UDim2.new(0, 105, 0, 45)
+btn2.Position         = UDim2.new(0, 85, 0, 114)
+btn2.Text             = "Clear"
+btn2.TextSize         = 11
+btn2.BackgroundColor3 = Color3.fromRGB(186,85,211)
+
+local text             = Instance.new("TextBox")
+text.Parent            = frame
+text.Size              = UDim2.new(0, 105, 0, 45)
+text.Position          = UDim2.new(0, 85, 0, 54)
+text.Text              = ""
+text.TextSize          = 12
+text.PlaceholderText   = "Command"
+text.PlaceholderColor3 = Color3.fromRGB(65,65,65)
+text.ClearTextOnFocus  = false
+text.BackgroundColor3  = Color3.fromRGB(186,85,211)
+
+local btn3            = Instance.new("TextButton")
+btn3.Parent           = frame
+btn3.Size             = UDim2.new(0, 75, 0, 15)
+btn3.Position         = UDim2.new(0, 34, 0, 16)
+btn3.Text             = "Command list"
+btn3.BackgroundColor3 = Color3.fromRGB(186,85,211)
+
+local btn4            = Instance.new("TextButton")
+btn4.Parent           = frame
+btn4.Size             = UDim2.new(0, 75, 0, 15)
+btn4.Position         = UDim2.new(0, 162, 0, 16)
+btn4.Text             = "Themes"
+btn4.BackgroundColor3 = Color3.fromRGB(186,85,211)
+
+local label           = Instance.new("TextLabel")
+label.Parent          = frame
+label.Text            = "x0y0zkidd's\nadmin"
+label.TextSize        = 16
+label.BorderSizePixel = 0
+label.Position        = UDim2.new(0, 137, 0, 310)
+
+local labelP           = Instance.new("TextLabel")
+labelP.Parent          = frame
+labelP.Text            = "Pray for\nTubers93!"
+labelP.TextSize        = 16
+labelP.BorderSizePixel = 0
+labelP.Position        = UDim2.new(0, 137, 0, 250)
+labelP.Name            = "TextLabel2"
+
+local frame2            = Instance.new("Frame")
+frame2.Parent           = screen
+frame2.Size             = UDim2.new(0, 310, 0, 480)
+frame2.BackgroundColor3 = frame.BackgroundColor3
+frame2.Position         = UDim2.new(0, 1040, 0, 550)
+frame2.Name             = "f2"
+frame2.Active = true
+frame2.Visible = false
+
+frame2.Active     = true
+frame2.Selectable = true
+frame2.Draggable  = true
+
+local scroll = Instance.new("ScrollingFrame")
+scroll.Parent = frame2
+scroll.Size = UDim2.new(0,290,0,440)
+scroll.Position = UDim2.new(0,10,0,30)
+scroll.BackgroundColor3 = frame.BackgroundColor3
+scroll.AutomaticCanvasSize = Enum.AutomaticSize.XY
+scroll.ScrollingDirection = Enum.ScrollingDirection.XY
+scroll.BackgroundColor3 = frame2.BackgroundColor3
+scroll.BackgroundTransparency = 0
+scroll.ScrollBarThickness = 6
+
+local scrlFrame            = Instance.new("Frame")
+scrlFrame.Parent           = scroll
+scrlFrame.BackgroundColor3 = frame.BackgroundColor3
+scrlFrame.Position         = UDim2.new(0,0,0,0)
+scrlFrame.BorderSizePixel = 0
+scrlFrame.AutomaticSize = Enum.AutomaticSize.XY
+scrlFrame.Name             = "scrlFrame"
+
+local layout = Instance.new("UIListLayout")
+layout.Parent = scrlFrame
+layout.Padding = UDim.new(0,5)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.VerticalAlignment = Enum.VerticalAlignment.Top
+
+--command list, cmdlist, cmd list, commands, cmds
+
+local label2           = Instance.new("TextLabel")
+label2.Parent          = scrlFrame
+label2.BorderSizePixel = 0
+label2.TextSize        = 11
+label2.Text            = "print <anything> // print's in console\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
