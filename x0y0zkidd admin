@@ -34,7 +34,7 @@ local reChar = true
 local function update()
 	if reChar then
 		char = me.Character
-		hum = char:FindFirstChildOfClass("Humanoid")
+		hum = char:WaitForChild("Humanoid")
 		hrp = char:WaitForChild("HumanoidRootPart")
 		hum.UseJumpPower = true
 	end
