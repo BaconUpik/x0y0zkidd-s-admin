@@ -1438,24 +1438,24 @@ function cmds(cmd, func) --func cmds
 		if args[2]:lower():match("random") then
 			findRandom()
 			task.wait(0.02)
-			work.Camera.CameraSubject = randomPlayer.Character
+			work.Camera.CameraSubject = randomPlayer.Character:FindFirstChild("Humanoid")
 		elseif args[2]:lower():match("near") then
 			findNearest()
 			task.wait(0.02)
-			work.Camera.CameraSubject = nearestPlayer.Character
+			work.Camera.CameraSubject = nearestPlayer.Character:FindFirstChild("Humanoid")
 		elseif args[2]:lower():match("fart") then
 			findFarthest()
 			task.wait(0.02)
-			work.Camera.CameraSubject = farthestPlayer.Character
+			work.Camera.CameraSubject = farthestPlayer.Character:FindFirstChild("Humanoid")
 		elseif args[2] ~= "" then
 			for _, oth4 in pairs(plr:GetPlayers()) do
 				if oth4.Name:lower():find(args[2]:lower()) or oth4.DisplayName:lower():find(args[2]:lower()) then
-					work.Camera.CameraSubject = oth4.Character
+					work.Camera.CameraSubject = oth4.Character:FindFirstChild("Humanoid")
 				end
 			end
 		end
 	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unview" or cmd:lower():sub(1,6) == "unview" or func == "unview" then --unview
-		camera.CameraSubject = char
+		camera.CameraSubject = hum
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."speed" or cmd:lower():sub(1,5) == "speed" or func == "speed" then --speed
 		if args[2] ~= "" then
 			table.insert(saveSpeed, tonumber(args[2]))
