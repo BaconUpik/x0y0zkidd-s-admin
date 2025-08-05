@@ -2844,7 +2844,7 @@ function cmds(cmd, func) --func cmds
 				keys[args[2]] = nil
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,6) == "looptp" or func == "looptp" then --cmd looptpcon
+	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,6) == "looptp" or func == "looptp" then --cmd looptp
 		if args[2]:lower() ~= "" then
 			for _, loopTpPlr in pairs(plr:GetPlayers()) do
 				if loopTpPlr.Name:lower():find(args[2]:lower()) or loopTpPlr.DisplayName:lower():find(args[2]:lower()) then
@@ -2854,7 +2854,7 @@ function cmds(cmd, func) --func cmds
 				end
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower() == "unlooptp" or func == "unlooptp" then --cmd looptpcon
+	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower():sub(1,#"unlooptp") == "unlooptp" or func == "unlooptp" then --cmd unlooptp
 		if args[2]:lower() ~= "" then
 			if loopTpCon then
 				loopTpCon:Disconnect()
