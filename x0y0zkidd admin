@@ -1287,6 +1287,7 @@ local espAllDied
 local espCons = {}
 
 local loopTpCon
+local loopLeft
 
 local isFling = false
 local thread
@@ -2851,15 +2852,26 @@ function cmds(cmd, func) --func cmds
 					loopTpCon = run.Heartbeat:Connect(function()
 						hrp.CFrame = loopTpPlr.Character.HumanoidRootPart.CFrame
 					end)
+					loopLeft = plr.PlayerRemoving:Connect(function(loopLeave)
+						if loopTpCon then
+							loopTpCon:Disconnect()
+							loopTpCon = nil
+							
+							loopLeft:Disconnect()
+							loopLeft = nil
+						end
+					end)
 				end
 			end
 		end
 	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower():sub(1,#"unlooptp") == "unlooptp" or func == "unlooptp" then --cmd unlooptp
-		if args[2]:lower() ~= "" then
-			if loopTpCon then
-				loopTpCon:Disconnect()
-				loopTpCon = nil
-			end
+		if loopTpCon then
+			loopTpCon:Disconnect()
+			loopTpCon = nil
+		end
+		if loopLeft then			
+			loopLeft:Disconnect()
+			loopLeft = nil
 		end
 	elseif cmd:lower():sub(1,#prefix+#"freecam") == prefix.."freecam" or cmd:lower():sub(1,#prefix+#"fc") == prefix.."fc" or cmd:lower() == "freecam" or cmd:lower() == "fc" or func == "freecam" then --cmd freecam
 		disableC()
