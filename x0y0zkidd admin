@@ -628,17 +628,17 @@ local ChatHistory
 
 function chatGui() --Thanks to Gui to Lua convertor! :D
 	local chatAdded
-	
+
 	local draggingChat = false
 	local dragStartChat
 	local startPosChat
-	
+
 	local colorPlayer = {}
-	
+
 	local function randomColor()
 		return Color3.fromRGB(math.random(100,255), math.random(100,255), math.random(100,255))
 	end
-	
+
 	ChatHistory = Instance.new("ScreenGui")
 	local historyFrame = Instance.new("Frame")
 	local historyScroll = Instance.new("ScrollingFrame")
@@ -651,7 +651,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	local Send = Instance.new("TextBox")
 	local SendTitle = Instance.new("TextLabel")
 	local WhiteSpace = Instance.new("TextLabel")
-	
+
 	local function save(savePlayer,load)
 		local Player = Instance.new("TextButton")
 		Player.Name = savePlayer.Name
@@ -666,13 +666,13 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 		Player.TextSize = 22.000
 		Player.TextXAlignment = Enum.TextXAlignment.Left
 		Player.AutomaticSize = Enum.AutomaticSize.X
-		
+
 		if table.find(colorPlayer,savePlayer.Name) then
 			Player.BackgroundColor3 = colorPlayer[savePlayer.Name]
 		else
-			
+
 		end
-		
+
 		Player.MouseButton1Click:Connect(function()
 			print(load)
 			if setclipboard then
@@ -694,7 +694,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	historyFrame.BorderSizePixel = 0
 	historyFrame.Position = UDim2.new(0.0764462799, 0, 0.16504854, 0)
 	historyFrame.Size = UDim2.new(0, 480, 0, 300)
-	
+
 	historyFrame.InputBegan:Connect(function(inp)
 		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
 			draggingChat = true
@@ -813,7 +813,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	WhiteSpace.TextSize = 25.000
 	WhiteSpace.TextWrapped = true
 	WhiteSpace.TextXAlignment = Enum.TextXAlignment.Left
-	
+
 	for _, start in ipairs(plr:GetPlayers()) do
 		textChat.MessageReceived:Connect(function(cht)
 			if cht.TextSource then
@@ -833,14 +833,14 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 			if cht.TextSource then
 				local chatPlayer = plr:GetPlayerByUserId(cht.TextSource.UserId)
 				if not chatPlayer then return end
-				
+
 				if chatPlayer.UserId == added.UserId then
 					save(added,cht.Text)
 				end
 			end
 		end)
-		table.insert(colorPlayer,start.Name)
-		colorPlayer[start.Name] = randomColor()
+		table.insert(colorPlayer,added.Name)
+		colorPlayer[added.Name] = randomColor()
 	end)
 	Send.FocusLost:Connect(function(enter)
 		if enter then
@@ -1729,10 +1729,10 @@ function cmds(cmd, func) --func cmds
 					viewLeft = plr.PlayerRemoving:Connect(function(viewPlayerLeft)
 						if viewPlayerLeft == player then
 							viewPlayerWorldTour = nil
-							
+
 							camera.CameraType = Enum.CameraType.Custom
 							camera.CameraSubject = hum
-							
+
 							viewLeft:Disconnect()
 							viewLeft = nil
 						end
@@ -1953,7 +1953,7 @@ function cmds(cmd, func) --func cmds
 					return
 				end
 			end
-	end)
+		end)
 	elseif cmd:lower():sub(1,#prefix,#"unclicktp") == prefix.."unclicktp" or cmd:lower():sub(1,#"unclicktp") == "unclicktp" or func == "unclicktp" then --clicktp
 		if cTpCon then
 			cTpCon:Disconnect()
