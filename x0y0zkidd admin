@@ -550,7 +550,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "print <anything> // print's in console\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "print <anything> // print's in console\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\nunclicktp // remove clicktp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -1164,22 +1164,22 @@ uis.InputBegan:Connect(function(i2, g2)
 	end
 end)
 
-local saveSpeed = {}
+local saveSpeed
 
 
-local saveJP = {}
+local saveJPc
 
 
-local saveGrav = {}
+local saveGrav
 
 
 local maxCon
 local minCon
 
-local saveMax = {}
+local saveMax
 
 
-local saveMin = {}
+local saveMin
 
 
 
@@ -1546,10 +1546,10 @@ function cmds(cmd, func) --func cmds
 		camera.CameraSubject = hum
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."speed" or cmd:lower():sub(1,5) == "speed" or func == "speed" then --speed
 		if args[2] ~= "" then
-			table.insert(saveSpeed, tonumber(args[2]))
+			saveSpeed = tonumber(args[2])
 			hum.WalkSpeed = args[2]
-			task.wait(0.07)
-			if not table.find(saveSpeed, hum.WalkSpeed) then
+			task.wait(0.5)
+			if hum.WalkSpeed ~= saveSpeed then
 				if speedCon then
 					speedCon:Disconnect()
 					speedCon = nil
@@ -1566,10 +1566,10 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."jumppower" or cmd:lower():sub(1,#prefix + 2) == prefix.."jp" or cmd:lower():sub(1,9) == "jumppower" or cmd:lower():sub(1,2) == "jp" or func == "jumppower" or func == "jp" then --jumppower
 		if args[2] ~= "" then
-			table.insert(saveJP, tonumber(args[2]))
+			saveJPc = tonumber(args[2])
 			hum.JumpPower = args[2]
-			task.wait(0.07)
-			if not table.find(saveJP, hum.JumpPower) then
+			task.wait(0.5)
+			if hum.JumpPower ~= saveJPc then
 				if jumpCon then
 					jumpCon:Disconnect()
 					jumpCon = nil
@@ -1586,10 +1586,10 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."gravity" or cmd:lower():sub(1,#prefix + 4) == prefix.."grav" or cmd:lower():sub(1,7) == "gravity" or cmd:lower():sub(1,4) == "grav" or func == "gravity" or func == "grav" then --gravity
 		if args[2] ~= "" then
-			table.insert(saveGrav, tonumber(args[2]))
+			saveGrav = tonumber(args[2])
 			work.Gravity = args[2]
-			task.wait(0.07)
-			if not table.find(saveGrav, work.Gravity) then
+			task.wait(0.5)
+			if work.Gravity ~= saveGrav then
 				if gravityCon then
 					gravityCon:Disconnect()
 					gravityCon = nil
@@ -1678,10 +1678,10 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."maxzoom" or cmd:lower():sub(1,7) == "maxzoom" or func == "maxzoom" then --maxzoom
 		if args[2] ~= "" then
-			table.insert(saveMax, tonumber(args[2]))
+			saveMax = tonumber(args[2])
 			me.CameraMaxZoomDistance = args[2]
 			task.wait(0.5)
-			if not table.find(saveMax, me.CameraMaxZoomDistance) then
+			if me.CameraMaxZoomDistance ~= saveMax then
 				maxCon = run.RenderStepped:Connect(function()
 					me.CameraMaxZoomDistance = args[2]
 				end)
@@ -1689,10 +1689,10 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."minzoom" or cmd:lower():sub(1,7) == "minzoom" or func == "minzoom" then --minzoom
 		if args[2] ~= "" then
-			table.insert(saveMin, tonumber(args[2]))
+			saveMin = tonumber(args[2])
 			me.CameraMinZoomDistance = args[2]
 			task.wait(0.5)
-			if not table.find(saveMin, me.CameraMinZoomDistance) then
+			if me.CameraMinZoomDistance ~= saveMin then
 				minCon = run.RenderStepped:Connect(function()
 					me.CameraMinZoomDistance = args[2]
 				end)
@@ -1718,7 +1718,12 @@ function cmds(cmd, func) --func cmds
 					return
 				end
 			end
-		end)
+	end)
+	elseif cmd:lower():sub(1,#prefix,#"unclicktp") == prefix.."unclicktp" or cmd:lower():sub(1,#"unclicktp") == "unclicktp" or func == "unclicktp" then --clicktp
+		if cTpCon then
+			cTpCon:Disconnect()
+			cTpCon = nil
+		end
 	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."infjump" or cmd:lower():sub(1,7) == "infjump" or func == "infjump" then --infjump
 		if infCon then
 			infCon:Disconnect()
