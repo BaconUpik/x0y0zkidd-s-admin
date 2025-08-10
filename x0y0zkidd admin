@@ -1292,6 +1292,9 @@ local loopLeft
 local isFling = false
 local thread
 
+local viewCon
+local viewDied
+
 function cmds(cmd, func) --func cmds
 	local args = cmd:split(" ")
 
@@ -1439,31 +1442,109 @@ function cmds(cmd, func) --func cmds
 			hrp.CFrame = work["Way"..args[2]].CFrame
 		end
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."view" or cmd:lower():sub(1,4) == "view" or func == "view" then --view
-		camera = work.CurrentCamera
+        if viewCon then
+            viewCon:Disconnect()
+            viewCon = nil
+        end
+        if viewDied then
+            viewDied:Disconnect()
+            viewDied = nil
+        end
+
 		camera.CameraType = Enum.CameraType.Custom
 		if args[2]:lower():match("random") then
 			findRandom()
 			task.wait(0.02)
-			camera.CameraSubject = randomPlayer.Character
+            if randomPlayer.Character:FindFirstChild("Humanoid") then
+                viewCon = run.RenderStepped:Connect(function()
+                    camera.CameraSubject = randomPlayer.Character:FindFirstChild("Humanoid")
+                end)
+                viewDied = randomPlayer.CharacterAdded:Connect(function(viewChar)
+                    if viewCon then
+                        viewCon:Disconnect()
+                        viewCon = nil
+                    end
+                    if viewChar:FindFirstChild("Humanoid") then
+                        viewCon = run.RenderStepped:Connect(function()
+                            camera.CameraSubject = viewChar:FindFirstChild("Humanoid")
+                        end)
+                    end
+                end)
+            end
 		elseif args[2]:lower():match("near") then
 			findNearest()
 			task.wait(0.02)
-			camera.CameraSubject = nearestPlayer.Character
+			if nearestPlayer.Character:FindFirstChild("Humanoid") then
+                viewCon = run.RenderStepped:Connect(function()
+                    camera.CameraSubject = nearestPlayer.Character:FindFirstChild("Humanoid")
+                end)
+                viewDied = nearestPlayer.CharacterAdded:Connect(function(viewChar)
+                    if viewCon then
+                        viewCon:Disconnect()
+                        viewCon = nil
+                    end
+                    if viewChar:FindFirstChild("Humanoid") then
+                        viewCon = run.RenderStepped:Connect(function()
+                            camera.CameraSubject = viewChar:FindFirstChild("Humanoid")
+                        end)
+                    end
+                end)
+            end
 		elseif args[2]:lower():match("fart") then
 			findFarthest()
 			task.wait(0.02)
-			camera.CameraSubject = farthestPlayer.Character
+			if farthestPlayer.Character:FindFirstChild("Humanoid") then
+                viewCon = run.RenderStepped:Connect(function()
+                    camera.CameraSubject = farthestPlayer.Character:FindFirstChild("Humanoid")
+                end)
+                viewDied = farthestPlayer.CharacterAdded:Connect(function(viewChar)
+                    if viewCon then
+                        viewCon:Disconnect()
+                        viewCon = nil
+                    end
+                    if viewChar:FindFirstChild("Humanoid") then
+                        viewCon = run.RenderStepped:Connect(function()
+                            camera.CameraSubject = viewChar:FindFirstChild("Humanoid")
+                        end)
+                    end
+                end)
+            end
 		elseif args[2] ~= "" then
 			for _, oth4 in pairs(plr:GetPlayers()) do
 				if oth4.Name:lower():find(args[2]:lower()) or oth4.DisplayName:lower():find(args[2]:lower()) then
-					camera.CameraSubject = oth4.Character
+					if oth4.Character then
+                        if oth4.Character:FindFirstChild("Humanoid") then
+                            viewCon = run.RenderStepped:Connect(function()
+                                camera.CameraSubject = oth4.Character:FindFirstChild("Humanoid")
+                            end)
+                            viewDied = oth4.CharacterAdded:Connect(function(viewChar)
+                                if viewCon then
+                                    viewCon:Disconnect()
+                                    viewCon = nil
+                                end
+                                if viewChar:FindFirstChild("Humanoid") then
+                                    viewCon = run.RenderStepped:Connect(function()
+                                        camera.CameraSubject = viewChar:FindFirstChild("Humanoid")
+                                    end)
+                                end
+                            end)
+                        end
+                    end
 				end
 			end
 		end
 	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unview" or cmd:lower():sub(1,6) == "unview" or func == "unview" then --unview
-		camera = work.CurrentCamera
-		camera.CameraType = Enum.CameraType.Custom
-		camera.CameraSubject = char
+		if viewCon then
+            viewCon:Disconnect()
+            viewCon = nil
+        end
+        if viewDied then
+            viewDied:Disconnect()
+            viewDied = nil
+        end
+        
+        camera.CameraType = Enum.CameraType.Custom
+		camera.CameraSubject = hum
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."speed" or cmd:lower():sub(1,5) == "speed" or func == "speed" then --speed
 		if args[2] ~= "" then
 			table.insert(saveSpeed, tonumber(args[2]))
