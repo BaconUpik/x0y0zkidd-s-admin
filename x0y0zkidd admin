@@ -635,6 +635,8 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	local startPosChat
 
 	local colorPlayer = {}
+	
+	local chatCons = {}
 
 	local function randomColor()
 		return Color3.fromRGB(math.random(100,255), math.random(100,255), math.random(100,255))
@@ -816,7 +818,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	WhiteSpace.TextXAlignment = Enum.TextXAlignment.Left
 
 	for _, start in ipairs(plr:GetPlayers()) do
-		textChat.MessageReceived:Connect(function(cht)
+		chatCons[start.Name] = textChat.MessageReceived:Connect(function(cht)
 			if cht.TextSource then
 				local chatPlayer = plr:GetPlayerByUserId(cht.TextSource.UserId)
 				if not chatPlayer then return end
@@ -832,7 +834,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	chatAdded = plr.PlayerAdded:Connect(function(added)
 		local this = added
 
-		textChat.MessageReceived:Connect(function(cht)
+		chatCons[added.Name] = textChat.MessageReceived:Connect(function(cht)
 			if cht.TextSource then
 				local chatPlayer = plr:GetPlayerByUserId(cht.TextSource.UserId)
 				if not chatPlayer then return end
@@ -861,6 +863,10 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	chatLeft = plr.PlayerRemoving:Connect(function(removed)
 		if colorPlayer[removed.Name] then
 			colorPlayer[removed.Name] = nil
+		end
+		if chatCons[removed.Name] then
+			chatCons[removed.Name]:Disconnect()
+			chatCons[removed.Name] = nil
 		end
 	end)
 end
