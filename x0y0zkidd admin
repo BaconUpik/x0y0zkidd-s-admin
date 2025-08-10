@@ -1294,6 +1294,9 @@ local thread
 
 local viewCon
 local viewDied
+local viewChanged
+local viewLeft
+local viewPlayerWorldTour = nil
 
 function cmds(cmd, func) --func cmds
 	local args = cmd:split(" ")
@@ -1442,108 +1445,104 @@ function cmds(cmd, func) --func cmds
 			hrp.CFrame = work["Way"..args[2]].CFrame
 		end
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."view" or cmd:lower():sub(1,4) == "view" or func == "view" then --view
-        if viewCon then
-            viewCon:Disconnect()
-            viewCon = nil
-        end
-        if viewDied then
-            viewDied:Disconnect()
-            viewDied = nil
-        end
+		viewPlayerWorldTour = nil
+
+		if viewCon then
+			viewCon:Disconnect()
+			viewCon = nil
+		end
+		if viewDied then
+			viewDied:Disconnect()
+			viewDied = nil
+		end
+		if viewChanged then
+			viewChanged:Disconnect()
+			viewChanged = nil
+		end
+		if viewLeft then
+			viewLeft:Disconnect()
+			viewLeft = nil
+		end
 
 		camera.CameraType = Enum.CameraType.Custom
+
 		if args[2]:lower():match("random") then
 			findRandom()
 			task.wait(0.02)
-            if randomPlayer.Character:FindFirstChild("Humanoid") then
-                viewCon = run.RenderStepped:Connect(function()
-                    camera.CameraSubject = randomPlayer.Character:FindFirstChild("Humanoid")
-                end)
-                viewDied = randomPlayer.CharacterAdded:Connect(function(viewChar)
-                    if viewCon then
-                        viewCon:Disconnect()
-                        viewCon = nil
-                    end
-                    if viewChar:FindFirstChild("Humanoid") then
-                        viewCon = run.RenderStepped:Connect(function()
-                            camera.CameraSubject = viewChar:FindFirstChild("Humanoid")
-                        end)
-                    end
-                end)
-            end
+			viewPlayerWorldTour = randomPlayer
 		elseif args[2]:lower():match("near") then
 			findNearest()
 			task.wait(0.02)
-			if nearestPlayer.Character:FindFirstChild("Humanoid") then
-                viewCon = run.RenderStepped:Connect(function()
-                    camera.CameraSubject = nearestPlayer.Character:FindFirstChild("Humanoid")
-                end)
-                viewDied = nearestPlayer.CharacterAdded:Connect(function(viewChar)
-                    if viewCon then
-                        viewCon:Disconnect()
-                        viewCon = nil
-                    end
-                    if viewChar:FindFirstChild("Humanoid") then
-                        viewCon = run.RenderStepped:Connect(function()
-                            camera.CameraSubject = viewChar:FindFirstChild("Humanoid")
-                        end)
-                    end
-                end)
-            end
+			viewPlayerWorldTour = nearestPlayer
 		elseif args[2]:lower():match("fart") then
 			findFarthest()
 			task.wait(0.02)
-			if farthestPlayer.Character:FindFirstChild("Humanoid") then
-                viewCon = run.RenderStepped:Connect(function()
-                    camera.CameraSubject = farthestPlayer.Character:FindFirstChild("Humanoid")
-                end)
-                viewDied = farthestPlayer.CharacterAdded:Connect(function(viewChar)
-                    if viewCon then
-                        viewCon:Disconnect()
-                        viewCon = nil
-                    end
-                    if viewChar:FindFirstChild("Humanoid") then
-                        viewCon = run.RenderStepped:Connect(function()
-                            camera.CameraSubject = viewChar:FindFirstChild("Humanoid")
-                        end)
-                    end
-                end)
-            end
+			viewPlayerWorldTour = farthestPlayer
 		elseif args[2] ~= "" then
 			for _, oth4 in pairs(plr:GetPlayers()) do
 				if oth4.Name:lower():find(args[2]:lower()) or oth4.DisplayName:lower():find(args[2]:lower()) then
-					if oth4.Character then
-                        if oth4.Character:FindFirstChild("Humanoid") then
-                            viewCon = run.RenderStepped:Connect(function()
-                                camera.CameraSubject = oth4.Character:FindFirstChild("Humanoid")
-                            end)
-                            viewDied = oth4.CharacterAdded:Connect(function(viewChar)
-                                if viewCon then
-                                    viewCon:Disconnect()
-                                    viewCon = nil
-                                end
-                                if viewChar:FindFirstChild("Humanoid") then
-                                    viewCon = run.RenderStepped:Connect(function()
-                                        camera.CameraSubject = viewChar:FindFirstChild("Humanoid")
-                                    end)
-                                end
-                            end)
-                        end
-                    end
+					viewPlayerWorldTour = oth4
 				end
 			end
 		end
+		local function setView(player)
+			if player.Character then
+				if player.Character:FindFirstChild("Humanoid") then
+					viewCon = run.RenderStepped:Connect(function()
+						camera.CameraSubject = player.Character:FindFirstChildOfClass("Humanoid")
+					end)
+					viewLeft = plr.PlayerRemoving:Connect(function(viewPlayerLeft)
+						if viewPlayerLeft == player then
+							viewPlayerWorldTour = nil
+							
+							camera.CameraType = Enum.CameraType.Custom
+							camera.CameraSubject = hum
+							
+							viewLeft:Disconnect()
+							viewLeft = nil
+						end)
+					end)
+					viewDied = player.CharacterAdded:Connect(function(viewChar)
+						if viewCon then
+							viewCon:Disconnect()
+							viewCon = nil
+						end
+						if viewChar:FindFirstChild("Humanoid") then
+							viewCon = run.RenderStepped:Connect(function()
+								camera.CameraSubject = viewChar:FindFirstChildOfClass("Humanoid")
+							end)
+						end
+					end)
+				end
+			end
+		end
+		local function setViewChanged()
+			camera.CameraSubject = viewPlayerWorldTour.Character:FindFirstChildOfClass("Humanoid")
+		end
+		repeat task.wait(0.02) setView(viewPlayerWorldTour) until viewPlayerWorldTour
+
+		viewChanged = camera:GetPropertyChangedSignal("CameraSubject"):Connect(setViewChanged)
 	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unview" or cmd:lower():sub(1,6) == "unview" or func == "unview" then --unview
 		if viewCon then
-            viewCon:Disconnect()
-            viewCon = nil
-        end
-        if viewDied then
-            viewDied:Disconnect()
-            viewDied = nil
-        end
-        
-        camera.CameraType = Enum.CameraType.Custom
+			viewCon:Disconnect()
+			viewCon = nil
+		end
+		if viewDied then
+			viewDied:Disconnect()
+			viewDied = nil
+		end
+		if viewChanged then
+			viewChanged:Disconnect()
+			viewChanged = nil
+		end
+		if viewLeft then
+			viewLeft:Disconnect()
+			viewLeft = nil
+		end
+
+		viewPlayerWorldTour = nil
+
+		camera.CameraType = Enum.CameraType.Custom
 		camera.CameraSubject = hum
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."speed" or cmd:lower():sub(1,5) == "speed" or func == "speed" then --speed
 		if args[2] ~= "" then
@@ -1607,7 +1606,7 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."say" or func == "say" then --say
 		local excArgs = cmd:sub(#prefix+4)
-        if excArgs ~= "" then
+		if excArgs ~= "" then
 			if textChat and textChat:FindFirstChild("TextChannels") then
 				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
 				if textChat2 then
@@ -1620,9 +1619,9 @@ function cmds(cmd, func) --func cmds
 				end
 			end
 		end
-    elseif cmd:lower():sub(1,3) == "say" then --say part 2
+	elseif cmd:lower():sub(1,3) == "say" then --say part 2
 		local excArgs = cmd:sub(4)
-        if excArgs ~= "" then
+		if excArgs ~= "" then
 			if textChat and textChat:FindFirstChild("TextChannels") then
 				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
 				if textChat2 then
@@ -2957,7 +2956,7 @@ function cmds(cmd, func) --func cmds
 						if loopTpCon then
 							loopTpCon:Disconnect()
 							loopTpCon = nil
-							
+
 							loopLeft:Disconnect()
 							loopLeft = nil
 						end
@@ -2971,9 +2970,9 @@ function cmds(cmd, func) --func cmds
 			loopTpCon = nil
 		end
 		if loopLeft then
-            loopTpCon:Disconnect()
+			loopTpCon:Disconnect()
 			loopTpCon = nil
-            	
+
 			loopLeft:Disconnect()
 			loopLeft = nil
 		end
@@ -3069,33 +3068,33 @@ function cmds(cmd, func) --func cmds
 			fcCamCon:Disconnect()
 			fcCamCon = nil
 		end
-    elseif cmd:lower():sub(1,#prefix+#"hidenfling") == prefix.."hidenfling" or cmd:lower():sub(1,#prefix+#"hfling") == prefix.."hfling" or cmd:lower() == "hidenfling" or cmd:lower() == "hfling" or func == "hidenfling" then --cmd hidenfling
-        local vel = nil
-        local movel = 0.1
+	elseif cmd:lower():sub(1,#prefix+#"hidenfling") == prefix.."hidenfling" or cmd:lower():sub(1,#prefix+#"hfling") == prefix.."hfling" or cmd:lower() == "hidenfling" or cmd:lower() == "hfling" or func == "hidenfling" then --cmd hidenfling
+		local vel = nil
+		local movel = 0.1
 
-        function fling()
-            while isFling do
-                run.Heartbeat:Wait()
+		function fling()
+			while isFling do
+				run.Heartbeat:Wait()
 
-                if hrp then
-                    vel = hrp.Velocity
-                    hrp.Velocity = vel * 10000 + Vector3.new(0,10000,0)
-                    run.RenderStepped:Wait()
-                    hrp.Velocity = vel
-                    run.Stepped:Wait()
-                    hrp.Velocity = vel + Vector3.new(0,movel,0)
-                    movel = -movel
-                end
-            end
-        end
+				if hrp then
+					vel = hrp.Velocity
+					hrp.Velocity = vel * 10000 + Vector3.new(0,10000,0)
+					run.RenderStepped:Wait()
+					hrp.Velocity = vel
+					run.Stepped:Wait()
+					hrp.Velocity = vel + Vector3.new(0,movel,0)
+					movel = -movel
+				end
+			end
+		end
 
-        isFling = true
-            
-        thread = coroutine.create(fling)
-        coroutine.resume(thread)
-    elseif cmd:lower():sub(1,#prefix+#"unhidenfling") == prefix.."unhidenfling" or cmd:lower():sub(1,#prefix+#"unhfling") == prefix.."unhfling" or cmd:lower() == "unhidenfling" or cmd:lower() == "unhfling" or func == "unhidenfling" then --cmd unhidenfling
-        isFling = false
-    end
+		isFling = true
+
+		thread = coroutine.create(fling)
+		coroutine.resume(thread)
+	elseif cmd:lower():sub(1,#prefix+#"unhidenfling") == prefix.."unhidenfling" or cmd:lower():sub(1,#prefix+#"unhfling") == prefix.."unhfling" or cmd:lower() == "unhidenfling" or cmd:lower() == "unhfling" or func == "unhidenfling" then --cmd unhidenfling
+		isFling = false
+	end
 end
 
 --last cmd
@@ -3287,3 +3286,7 @@ if suc then
 elseif not suc then
 	warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
 end
+
+--[[
+    BIG THANKS TO Infinite Yield FOR HELP :D
+]]
