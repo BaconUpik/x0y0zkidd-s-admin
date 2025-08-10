@@ -1524,7 +1524,7 @@ function cmds(cmd, func) --func cmds
 				end
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."say" or cmd:lower():sub(1,3) == "say" or func == "say" then --say
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."say" or func == "say" then --say
 		local excArgs = cmd:sub(#prefix+4)
         if excArgs ~= "" then
 			if textChat and textChat:FindFirstChild("TextChannels") then
