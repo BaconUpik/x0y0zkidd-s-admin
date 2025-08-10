@@ -624,6 +624,241 @@ btnT3.BackgroundColor3 = Color3.fromRGB(186,85,211)
 btnT3.TextSize         = 11
 btnT3.Name             = "btnT3"
 
+local ChatHistory
+
+function chatGui() --Thanks to Gui to Lua convertor! :D
+	local chatAdded
+	
+	local draggingChat = false
+	local dragStartChat
+	local startPosChat
+	
+	local colorPlayer = {}
+	
+	local function randomColor()
+		return Color3.fromRGB(math.random(100,255), math.random(100,255), math.random(100,255))
+	end
+	
+	ChatHistory = Instance.new("ScreenGui")
+	local historyFrame = Instance.new("Frame")
+	local historyScroll = Instance.new("ScrollingFrame")
+	local historyLayout = Instance.new("UIListLayout")
+	local Holder = Instance.new("TextLabel")
+	local Start = Instance.new("TextLabel")
+	local Player_1 = Instance.new("TextLabel")
+	local Hide = Instance.new("TextButton")
+	local Name = Instance.new("TextLabel")
+	local Send = Instance.new("TextBox")
+	local SendTitle = Instance.new("TextLabel")
+	local WhiteSpace = Instance.new("TextLabel")
+	
+	local function save(savePlayer,load)
+		local Player = Instance.new("TextButton")
+		Player.Name = savePlayer.Name
+		Player.Parent = historyScroll
+		Player.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Player.BorderSizePixel = 0
+		Player.Position = UDim2.new(0, 0, 0.166666672, 0)
+		Player.Size = UDim2.new(0, 125, 0, 28)
+		Player.Font = Enum.Font.SourceSansBold
+		Player.Text = "    "..savePlayer.DisplayName..": "..load
+		Player.TextColor3 = Color3.fromRGB(0, 0, 0)
+		Player.TextSize = 22.000
+		Player.TextXAlignment = Enum.TextXAlignment.Left
+		Player.AutomaticSize = Enum.AutomaticSize.X
+		
+		if table.find(colorPlayer,savePlayer.Name) then
+			Player.BackgroundColor3 = colorPlayer[savePlayer.Name]
+		else
+			
+		end
+		
+		Player.MouseButton1Click:Connect(function()
+			print(load)
+			if setclipboard then
+				setclipboard(load)
+			end
+		end)
+	end
+
+	ChatHistory.Name = "ChatHistory"
+	ChatHistory.Parent = me.PlayerGui
+	ChatHistory.ResetOnSpawn = false
+	ChatHistory.IgnoreGuiInset = true
+	ChatHistory.Enabled = false
+
+	historyFrame.Name = "historyFrame"
+	historyFrame.Parent = ChatHistory
+	historyFrame.BackgroundColor3 = Color3.fromRGB(165, 165, 165)
+	historyFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	historyFrame.BorderSizePixel = 0
+	historyFrame.Position = UDim2.new(0.0764462799, 0, 0.16504854, 0)
+	historyFrame.Size = UDim2.new(0, 480, 0, 300)
+	
+	historyFrame.InputBegan:Connect(function(inp)
+		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
+			draggingChat = true
+			dragStartChat = inp.Position
+			startPosChat = historyFrame.Position
+
+			inp.Changed:Connect(function()
+				if inp.UserInputState == Enum.UserInputState.End then
+					draggingChat = false
+				end
+			end)
+		end
+	end)
+
+	uis.InputChanged:Connect(function(inp)
+		if draggingChat and inp.UserInputType == Enum.UserInputType.MouseMovement then
+			local deltaChat = inp.Position - dragStartChat
+
+			historyFrame.Position = startPosChat + UDim2.new(0,deltaChat.X,0,deltaChat.Y)
+		end
+	end)
+
+	historyScroll.Name = "historyScroll"
+	historyScroll.Parent = historyFrame
+	historyScroll.Active = true
+	historyScroll.BackgroundColor3 = Color3.fromRGB(213, 213, 213)
+	historyScroll.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	historyScroll.AutomaticCanvasSize = Enum.AutomaticSize.XY
+	historyScroll.BorderSizePixel = 0
+	historyScroll.Position = UDim2.new(0, 0, 0.100000001, 0)
+	historyScroll.Size = UDim2.new(0, 480, 0, 240)
+	historyScroll.CanvasSize = UDim2.new(0,0,0,0)
+	historyScroll.ScrollBarThickness = 10
+
+	historyLayout.Name = "historyLayout"
+	historyLayout.Parent = historyScroll
+	historyLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	historyLayout.Padding = UDim.new(0, 5)
+
+	Start.Name = "Start"
+	Start.Parent = historyScroll
+	Start.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Start.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Start.BorderSizePixel = 0
+	Start.Position = UDim2.new(0, 0, 0.0500000007, 0)
+	Start.Size = UDim2.new(1,0,0,23)
+	Start.Font = Enum.Font.SourceSansBold
+	Start.Text = "    Start of Chat History since you joined."
+	Start.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Start.TextSize = 18.000
+	Start.TextXAlignment = Enum.TextXAlignment.Left
+
+	Hide.Name = "Hide"
+	Hide.Parent = historyFrame
+	Hide.BackgroundColor3 = Color3.fromRGB(207, 207, 207)
+	Hide.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Hide.BorderSizePixel = 0
+	Hide.Position = UDim2.new(0.939999998, 1, 0, 2)
+	Hide.Size = UDim2.new(0, 25, 0, 25)
+	Hide.Font = Enum.Font.SourceSans
+	Hide.Text = "-"
+	Hide.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Hide.TextSize = 24.000
+
+	Name.Name = "Name"
+	Name.Parent = historyFrame
+	Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Name.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Name.BorderSizePixel = 0
+	Name.Position = UDim2.new(0, 2, 0, 2)
+	Name.Size = UDim2.new(0, 447, 0, 25)
+	Name.Font = Enum.Font.SourceSans
+	Name.Text = "    Chat History :D Press on Chat Text to copy it!"
+	Name.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Name.TextSize = 25.000
+	Name.TextXAlignment = Enum.TextXAlignment.Left
+
+	Send.Name = "Send"
+	Send.Parent = historyFrame
+	Send.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
+	Send.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Send.Position = UDim2.new(0.285416663, 0, 0.899999976, 0)
+	Send.Size = UDim2.new(0, 343, 0, 30)
+	Send.Font = Enum.Font.SourceSans
+	Send.PlaceholderColor3 = Color3.fromRGB(61, 61, 61)
+	Send.Text = ""
+	Send.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Send.TextSize = 16.000
+	Send.TextXAlignment = Enum.TextXAlignment.Left
+
+	SendTitle.Name = "SendTitle"
+	SendTitle.Parent = historyFrame
+	SendTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	SendTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	SendTitle.Position = UDim2.new(0, 0, 0, 270)
+	SendTitle.Size = UDim2.new(0, 125, 0, 30)
+	SendTitle.Font = Enum.Font.SourceSans
+	SendTitle.Text = "Send Chat Message:"
+	SendTitle.TextColor3 = Color3.fromRGB(0, 0, 0)
+	SendTitle.TextScaled = true
+	SendTitle.TextSize = 25.000
+	SendTitle.TextWrapped = true
+	SendTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+	WhiteSpace.Name = "WhiteSpace"
+	WhiteSpace.Parent = historyFrame
+	WhiteSpace.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	WhiteSpace.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	WhiteSpace.BorderSizePixel = 0
+	WhiteSpace.Position = UDim2.new(0, 125, 0, 270)
+	WhiteSpace.Size = UDim2.new(0, 12, 0, 30)
+	WhiteSpace.Font = Enum.Font.SourceSans
+	WhiteSpace.Text = ""
+	WhiteSpace.TextColor3 = Color3.fromRGB(0, 0, 0)
+	WhiteSpace.TextScaled = true
+	WhiteSpace.TextSize = 25.000
+	WhiteSpace.TextWrapped = true
+	WhiteSpace.TextXAlignment = Enum.TextXAlignment.Left
+	
+	for _, start in ipairs(plr:GetPlayers()) do
+		textChat.MessageReceived:Connect(function(cht)
+			if cht.TextSource then
+				local chatPlayer = plr:GetPlayerByUserId(cht.TextSource.UserId)
+				if not chatPlayer then return end
+
+				if chatPlayer.UserId == start.UserId then
+					save(start,cht.Text)
+				end
+			end
+		end)
+		table.insert(colorPlayer,start.Name)
+		colorPlayer[start.Name] = randomColor()
+	end
+	chatAdded = plr.PlayerAdded:Connect(function(added)
+		textChat.MessageReceived:Connect(function(cht)
+			if cht.TextSource then
+				local chatPlayer = plr:GetPlayerByUserId(cht.TextSource.UserId)
+				if not chatPlayer then return end
+				
+				if chatPlayer.UserId == added.UserId then
+					save(added,cht.Text)
+				end
+			end
+		end)
+		table.insert(colorPlayer,start.Name)
+		colorPlayer[start.Name] = randomColor()
+	end)
+	Send.FocusLost:Connect(function(enter)
+		if enter then
+			if Send.Text ~= "" then
+				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
+				if textChat2 then
+					textChat2:SendAsync(Send.Text)
+				end
+			end
+		end
+	end)
+	Hide.MouseButton1Click:Connect(function()
+		ChatHistory.Enabled = false
+	end)
+end
+
+chatGui()
+
 local colSeq1 = ColorSequence.new({
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(138,43,226)),
 	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 0, 255)),
@@ -3099,6 +3334,10 @@ function cmds(cmd, func) --func cmds
 		coroutine.resume(thread)
 	elseif cmd:lower():sub(1,#prefix+#"unhidenfling") == prefix.."unhidenfling" or cmd:lower():sub(1,#prefix+#"unhfling") == prefix.."unhfling" or cmd:lower() == "unhidenfling" or cmd:lower() == "unhfling" or func == "unhidenfling" then --cmd unhidenfling
 		isFling = false
+	elseif cmd:lower():sub(1,#prefix+#"chathistory") == prefix.."chathistory" or cmd:lower():sub(1,#prefix+#"chat") == prefix.."chat" or cmd:lower() == "chathistory" or cmd:lower() == "chat" or func == "chathistory" then --cmd chathistory --chathistory
+		if ChatHistory then
+			ChatHistory.Enabled = true
+		end
 	end
 end
 
