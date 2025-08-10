@@ -829,6 +829,8 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 		colorPlayer[start.Name] = randomColor()
 	end
 	chatAdded = plr.PlayerAdded:Connect(function(added)
+		local this = added
+		
 		textChat.MessageReceived:Connect(function(cht)
 			if cht.TextSource then
 				local chatPlayer = plr:GetPlayerByUserId(cht.TextSource.UserId)
@@ -839,7 +841,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 				end
 			end
 		end)
-		table.insert(colorPlayer,added.Name)
+		table.insert(colorPlayer,this.Name)
 		colorPlayer[added.Name] = randomColor()
 	end)
 	Send.FocusLost:Connect(function(enter)
