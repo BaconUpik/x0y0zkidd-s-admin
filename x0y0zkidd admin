@@ -1500,7 +1500,7 @@ function cmds(cmd, func) --func cmds
 							
 							viewLeft:Disconnect()
 							viewLeft = nil
-						end)
+						end
 					end)
 					viewDied = player.CharacterAdded:Connect(function(viewChar)
 						if viewCon then
