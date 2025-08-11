@@ -637,6 +637,8 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	local colorPlayer = {}
 	
 	local chatCons = {}
+	
+	local isAuto = true
 
 	local function randomColor()
 		return Color3.fromRGB(math.random(100,255), math.random(100,255), math.random(100,255))
@@ -654,6 +656,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	local Send = Instance.new("TextBox")
 	local SendTitle = Instance.new("TextLabel")
 	local WhiteSpace = Instance.new("TextLabel")
+	local Auto = Instance.new("TextButton")
 
 	local function save(savePlayer,load)
 		local Player = Instance.new("TextButton")
@@ -768,9 +771,9 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	Name.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Name.BorderSizePixel = 0
 	Name.Position = UDim2.new(0, 2, 0, 2)
-	Name.Size = UDim2.new(0, 447, 0, 25)
+	Name.Size = UDim2.new(0, 416, 0, 25)
 	Name.Font = Enum.Font.SourceSans
-	Name.Text = "    Chat History :D Press on Chat Text to copy it!"
+	Name.Text = "  Chat History Press on Chat Text to copy it! AutoScroll:"
 	Name.TextColor3 = Color3.fromRGB(0, 0, 0)
 	Name.TextSize = 25.000
 	Name.TextXAlignment = Enum.TextXAlignment.Left
@@ -816,6 +819,18 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	WhiteSpace.TextSize = 25.000
 	WhiteSpace.TextWrapped = true
 	WhiteSpace.TextXAlignment = Enum.TextXAlignment.Left
+	
+	Auto.Name = "Auto"
+	Auto.Parent = historyFrame
+	Auto.BackgroundColor3 = Color3.fromRGB(149, 202, 145)
+	Auto.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Auto.BorderSizePixel = 0
+	Auto.Position = UDim2.new(0.866999984, 6, 0, 2)
+	Auto.Size = UDim2.new(0, 25, 0, 25)
+	Auto.Font = Enum.Font.SourceSans
+	Auto.Text = "Y"
+	Auto.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Auto.TextSize = 24.000
 
 	for _, start in ipairs(plr:GetPlayers()) do
 		chatCons[start.Name] = textChat.MessageReceived:Connect(function(cht)
@@ -825,7 +840,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 
 				if chatPlayer.UserId == start.UserId then
 					save(start,cht.Text)
-					if historyScroll.CanvasPosition.Y >= historyScroll.AbsoluteCanvasSize.Y - historyScroll.AbsoluteSize.Y - 5 then
+					if isAuto then
 						historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
 					end
 				end
@@ -844,7 +859,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 
 				if chatPlayer.UserId == added.UserId then
 					save(added,cht.Text)
-					if historyScroll.CanvasPosition.Y >= historyScroll.AbsoluteCanvasSize.Y - historyScroll.AbsoluteSize.Y - 5 then
+					if isAuto then
 						historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
 					end
 				end
@@ -859,7 +874,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
 				if textChat2 then
 					textChat2:SendAsync(Send.Text)
-					if historyScroll.CanvasPosition.Y >= historyScroll.AbsoluteCanvasSize.Y - historyScroll.AbsoluteSize.Y - 5 then
+					if isAuto then
 						historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
 					end
 				end
@@ -876,6 +891,17 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 		if chatCons[removed.Name] then
 			chatCons[removed.Name]:Disconnect()
 			chatCons[removed.Name] = nil
+		end
+	end)
+	Auto.MouseButton1Click:Connect(function()
+		if isAuto then
+			isAuto = false
+			Auto.Text = "N"
+			Auto.BackgroundColor3 = Color3.fromRGB(202, 117, 117)
+		else
+			isAuto = true
+			Auto.Text = "Y"
+			Auto.BackgroundColor3 = Color3.fromRGB(149, 202, 145)
 		end
 	end)
 end
