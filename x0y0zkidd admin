@@ -3571,6 +3571,14 @@ if suc then
 elseif not suc then
 	warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
 end
+local core, error = pcall(function()
+	ChatHistory.Parent = game:GetService("CoreGui")
+end)
+if core then
+	print("Successfully parented Chat Gui to CoreGui.")
+else
+	warn("Cannot set Chat Gui parent to CoreGui.")
+end
 
 --[[
     BIG THANKS TO Infinite Yield FOR HELP :D
