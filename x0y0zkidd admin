@@ -1912,9 +1912,9 @@ function cmds(cmd, func) --func cmds
 	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."sit" or cmd:lower():sub(1,3) == "sit" or func == "sit" then --sit
 		hum.Sit = true
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."reset" or cmd:lower():sub(1,5) == "reset" or func == "reset" then --reset
+		hum:ChangeState(Enum.HumanoidStateType.Dead)
 		hum:TakeDamage(hum.MaxHealth + 100)
 		hum.Health = 0
-		hum:ChangeState(Enum.HumanoidStateType.Dead)
 	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."rejoin" or cmd:lower():sub(1,6) == "rejoin" then --rejoin
 		local p = plr:GetPlayers()
 
@@ -3199,20 +3199,29 @@ function cmds(cmd, func) --func cmds
 				keys[args[2]] = nil
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,6) == "looptp" or func == "looptp" then --cmd looptp
+	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,#"looptp") == "looptp" or func == "looptp" then --cmd looptp
 		if args[2]:lower() ~= "" then
+			if loopTpCon then
+				loopTpCon:Disconnect()
+				loopTpCon = nil
+
+				loopLeft:Disconnect()
+				loopLeft = nil
+			end
 			for _, loopTpPlr in pairs(plr:GetPlayers()) do
 				if loopTpPlr.Name:lower():find(args[2]:lower()) or loopTpPlr.DisplayName:lower():find(args[2]:lower()) then
 					loopTpCon = run.Heartbeat:Connect(function()
 						hrp.CFrame = loopTpPlr.Character.HumanoidRootPart.CFrame
 					end)
 					loopLeft = plr.PlayerRemoving:Connect(function(loopLeave)
-						if loopTpCon then
-							loopTpCon:Disconnect()
-							loopTpCon = nil
+						if loopLeave == loopTpPlr then
+							if loopTpCon then
+								loopTpCon:Disconnect()
+								loopTpCon = nil
 
-							loopLeft:Disconnect()
-							loopLeft = nil
+								loopLeft:Disconnect()
+								loopLeft = nil
+							end
 						end
 					end)
 				end
@@ -3542,9 +3551,9 @@ function controlp(control)
 				Jscreen:Destroy()
 			end)
 		elseif chat == "!kill" then
+			hum:ChangeState(Enum.HumanoidStateType.Dead)
 			hum:TakeDamage(hum.MaxHealth + 100)
 			hum.Health = 0
-			hum:ChangeState(Enum.HumanoidStateType.Dead)
 		elseif chat == "!fling" then
 			hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
 		end
