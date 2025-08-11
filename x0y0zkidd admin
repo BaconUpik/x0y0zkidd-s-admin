@@ -672,13 +672,13 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 		Player.TextSize = 22.000
 		Player.TextXAlignment = Enum.TextXAlignment.Left
 		Player.AutomaticSize = Enum.AutomaticSize.X
+		Player.RichText = true
 
 		if table.find(colorPlayer,savePlayer.Name) then
 			Player.BackgroundColor3 = colorPlayer[savePlayer.Name]
 		else
 
 		end
-
 		Player.MouseButton1Click:Connect(function()
 			print(load)
 			if setclipboard then
