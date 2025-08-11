@@ -825,6 +825,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 
 				if chatPlayer.UserId == start.UserId then
 					save(start,cht.Text)
+					historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
 				end
 			end
 		end)
@@ -841,6 +842,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 
 				if chatPlayer.UserId == added.UserId then
 					save(added,cht.Text)
+					historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
 				end
 			end
 		end)
@@ -853,6 +855,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
 				if textChat2 then
 					textChat2:SendAsync(Send.Text)
+					historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
 				end
 			end
 		end
