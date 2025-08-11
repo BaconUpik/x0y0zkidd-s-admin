@@ -777,6 +777,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	Name.TextColor3 = Color3.fromRGB(0, 0, 0)
 	Name.TextSize = 25.000
 	Name.TextXAlignment = Enum.TextXAlignment.Left
+	Name.TextScaled = true
 
 	Send.Name = "Send"
 	Send.Parent = historyFrame
