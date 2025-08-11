@@ -3233,11 +3233,12 @@ function cmds(cmd, func) --func cmds
 			loopTpCon = nil
 		end
 		if loopLeft then
-			loopTpCon:Disconnect()
-			loopTpCon = nil
-
 			loopLeft:Disconnect()
 			loopLeft = nil
+			if loopTpCon then
+				loopTpCon:Disconnect()
+				loopTpCon = nil
+			end
 		end
 	elseif cmd:lower():sub(1,#prefix+#"freecam") == prefix.."freecam" or cmd:lower():sub(1,#prefix+#"fc") == prefix.."fc" or cmd:lower() == "freecam" or cmd:lower() == "fc" or func == "freecam" then --cmd freecam
 		disableC()
