@@ -386,7 +386,8 @@ local star = {
 	["JustEymer"] = true,
 	["NoobJonas5"] = true,
 	["nooobderistlion"] = true,
-	["qw00rtykidd"] = true
+	["qw00rtykidd"] = true,
+    ["martyemail"] = true
 }
 
 local screen  = Instance.new("ScreenGui")
@@ -3444,6 +3445,14 @@ function cmds(cmd, func) --func cmds
 		for _, track in pairs(hum.Animator:GetPlayingAnimationTracks()) do
 			track:Stop()
 		end
+    elseif cmd:lower():sub(1,#":dev:") then
+        if not crown[me.Name] then return end
+
+        if args[3] then
+            if args[2]:lower() == "disconnect" then
+                print("Will be soon, maybe...")
+            end
+        end
 	end
 end
 
