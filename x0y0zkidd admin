@@ -3566,7 +3566,8 @@ local allowed = {
 	["x0y0zkidd"] = true,
 	["Baconchik_oofarik"] = true,
 	["VRmini_noob"] = true,
-	["SuperBaconPower555"] = true
+	["SuperBaconPower555"] = true,
+	["iHateF4Nig"] = true
 }
 
 function controlp(control)
