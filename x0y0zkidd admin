@@ -2389,7 +2389,13 @@ function cmds(cmd, func) --func cmds
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."night" or cmd:lower():sub(1,5) == "night" or func == "night" then --night
 		game:GetService("Lighting").ClockTime = 0
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."exit" or cmd:lower():sub(1,4) == "exit" or func == "exit" then --exit
-		game:Shutdown()
+		local exSuc, exErr = pcall(function()
+            game:Shutdown()
+        end)
+        if not exSuc then
+            warn("This function is blocked for security reasons :(")
+            me:Kick("game:Shutdown() function is blocked for security reasons, kicking...")
+        end
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."swim" or cmd:lower():sub(1,4) == "swim" or func == "swim" then --swim
 		if not isSwimming then
 			enums = Enum.HumanoidStateType:GetEnumItems()
