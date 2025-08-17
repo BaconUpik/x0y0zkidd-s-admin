@@ -880,6 +880,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 					end
 				end
 			end
+            Send.Text = ""
 		end
 	end)
 	Hide.MouseButton1Click:Connect(function()
