@@ -646,6 +646,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
     local enterChat
     
     local frameEnt = false
+    local frameEnt2 = false
 
 	local function randomColor()
 		return Color3.fromRGB(math.random(100,255), math.random(100,255), math.random(100,255))
@@ -878,6 +879,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 		colorPlayer[added.Name] = randomColor()
 	end)
 	Send.FocusLost:Connect(function(enter)
+        frameEnt2 = false
 		if enter then
 			if Send.Text ~= "" then
 				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
@@ -891,6 +893,9 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
             Send.Text = ""
 		end
 	end)
+    Send.Focused:Connect(function()
+        frameEnt2 = true
+    end)
 	Hide.MouseButton1Click:Connect(function()
 		ChatHistory.Enabled = false
 	end)
@@ -953,9 +958,9 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
         Auto.TextTransparency = value3
     end
     run.RenderStepped:Connect(function()
-        if frameEnt then
+        if frameEnt or frameEnt2 then
             setVisibility(0,0.7,0.05)
-        else
+        elseif not frameEnt or not frameEnt2 then
             if ChatHistory.Enabled == true then
                 setVisibility(1,1,0.35)
             else
@@ -1351,6 +1356,7 @@ local startPos
 
 local mouseFrameDelay = false
 local frameConHolder = false
+local frameConHolder2 = false
 
 local pos1 = 0.652
 local pos2 = 0.957
@@ -1382,22 +1388,22 @@ end)
 frame.MouseEnter:Connect(function()
 	mouseFrameDelay = true
 	frameConHolder = true
-	task.delay(1.5, function()
+end)
+frame.MouseLeave:Connect(function()
+	frameConHolder = false
+    task.delay(1.5, function()
 		if not frameConHolder then
 			mouseFrameDelay = false
 		end
 	end)
 end)
-frame.MouseLeave:Connect(function()
-	frameConHolder = false
-end)
 text.Focused:Connect(function()
 	task.wait(0.02)
-	frameConHolder = true
+	frameConHolder2 = true
 end)
 text.FocusLost:Connect(function()
 	mouseFrameDelay = true
-	frameConHolder = false
+	frameConHolder2 = false
 
 	task.delay(1.5, function()
 		if not frameConHolder then
@@ -1407,9 +1413,9 @@ text.FocusLost:Connect(function()
 end)
 
 framePosCon = run.RenderStepped:Connect(function()
-	if frameConHolder then
+	if frameConHolder or frameConHolder2 then
 		frame.Position = UDim2.new(0,frame.Position.X.Offset,pos1,0)
-	else
+	elseif not frameConHolder or not frameConHolder2 then
 		if not mouseFrameDelay then
 			frame.Position = UDim2.new(0,frame.Position.X.Offset,pos2,0)
 		end
