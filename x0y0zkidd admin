@@ -644,6 +644,8 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	local isAuto = true
 
     local enterChat
+    
+    local frameEnt = false
 
 	local function randomColor()
 		return Color3.fromRGB(math.random(100,255), math.random(100,255), math.random(100,255))
@@ -696,7 +698,8 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	ChatHistory.Parent = me.PlayerGui
 	ChatHistory.ResetOnSpawn = false
 	ChatHistory.IgnoreGuiInset = true
-	ChatHistory.Enabled = false
+	ChatHistory.Enabled = true
+    ChatHistory.Enabled = false
 
 	historyFrame.Name = "historyFrame"
 	historyFrame.Parent = ChatHistory
@@ -922,6 +925,41 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
                     Send.Text:gsub("/", "")
                     starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
                 end
+            end
+        end
+    end)
+    historyFrame.MouseEnter:Connect(function()
+        frameEnt = true
+        
+    end)
+    historyFrame.MouseLeave:Connect(function()
+        frameEnt = false
+    end)
+    local function setVisibility(value,value2,value3)
+        historyFrame.BackgroundTransparency = value2
+        historyScroll.BackgroundTransparency = value2
+        Holder.BackgroundTransparency = value
+        Holder.TextTransparency = value
+        Hide.BackgroundTransparency = value3
+        Hide.TextTransparency = value3
+        Name.BackgroundTransparency = value3
+        Name.TextTransparency = value3
+        Send.BackgroundTransparency = value
+        Send.TextTransparency = value
+        SendTitle.BackgroundTransparency = value
+        SendTitle.TextTransparency = value
+        WhiteSpace.BackgroundTransparency = value
+        Auto.BackgroundTransparency = value3
+        Auto.TextTransparency = value3
+    end
+    run.RenderStepped:Connect(function()
+        if frameEnt then
+            setVisibility(0,0.7,0.05)
+        else
+            if ChatHistory.Enabled == true then
+                setVisibility(1,1,0.35)
+            else
+                setVisibility(0,0,0)
             end
         end
     end)
