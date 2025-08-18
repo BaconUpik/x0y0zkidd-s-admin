@@ -1357,6 +1357,8 @@ local startPos
 local mouseFrameDelay = false
 local frameConHolder = false
 local frameConHolder2 = false
+local frameConHolder3 = false
+local frameConHolder4 = false
 
 local pos1 = 0.652
 local pos2 = 0.957
@@ -1413,9 +1415,9 @@ text.FocusLost:Connect(function()
 end)
 
 framePosCon = run.RenderStepped:Connect(function()
-	if frameConHolder or frameConHolder2 then
+	if frameConHolder or frameConHolder2 or frameConHolder3 or frameConHolder4 then
 		frame.Position = UDim2.new(0,frame.Position.X.Offset,pos1,0)
-	elseif not frameConHolder or not frameConHolder2 then
+	elseif not frameConHolder or not frameConHolder2 or not frameConHolder3 or not frameConHolder4 then
 		if not mouseFrameDelay then
 			frame.Position = UDim2.new(0,frame.Position.X.Offset,pos2,0)
 		end
@@ -3548,7 +3550,12 @@ text.FocusLost:Connect(function(e)
 	end
 end)
 
+pret.Focused:Connect(function()
+    frameConHolder4 = true
+end)
+
 pret.FocusLost:Connect(function(e)
+    frameConHolder4 = false
 	if e then
 		prefix = pret.Text
 	end
@@ -3577,7 +3584,12 @@ else
 	end)
 end
 
+keyt.Focused:Connect(function()
+    frameConHolder3 = true
+end)
+
 keyt.FocusLost:Connect(function(e) --keybinding
+    frameConHolder3 = false
 	if e then
 		local savedText = text.Text
 		addKeybind(keyt.Text, function()
