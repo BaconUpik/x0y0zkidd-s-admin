@@ -644,6 +644,8 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	local isAuto = true
 
     local enterChat
+
+    local isEnabled = false
     
     local frameEnt = false
     local frameEnt2 = false
@@ -880,6 +882,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 	end)
 	Send.FocusLost:Connect(function(enter)
         frameEnt2 = false
+        isEnabled = false
 		if enter then
 			if Send.Text ~= "" then
 				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
@@ -894,6 +897,7 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
 		end
 	end)
     Send.Focused:Connect(function()
+        isEnabled = true
         frameEnt2 = true
     end)
 	Hide.MouseButton1Click:Connect(function()
@@ -966,6 +970,11 @@ function chatGui() --Thanks to Gui to Lua convertor! :D
             else
                 setVisibility(0,0,0)
             end
+        end
+        if isEnabled then
+            starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+        elseif not isEnabled then
+            starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
         end
     end)
 end
