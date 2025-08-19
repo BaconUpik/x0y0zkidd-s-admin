@@ -3450,7 +3450,9 @@ function cmds(cmd, func) --func cmds
 			fcCamCon = nil
 		end
 	elseif cmd:lower():sub(1,#prefix+#"hidenfling") == prefix.."hidenfling" or cmd:lower():sub(1,#prefix+#"hfling") == prefix.."hfling" or cmd:lower() == "hidenfling" or cmd:lower() == "hfling" or func == "hidenfling" then --cmd hidenfling
-		local vel = nil
+		isFling = false
+        
+        local vel = nil
 		local movel = 0.1
 
 		function fling()
