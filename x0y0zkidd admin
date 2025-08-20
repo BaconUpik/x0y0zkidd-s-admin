@@ -1041,7 +1041,7 @@ function sprayGui() --Thanks to Gui to Lua Convertor! :D
 	local dragStart
 	local startPos
 	
-	frame.InputBegan:Connect(function(inp)
+	Holder.InputBegan:Connect(function(inp)
 		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
 			dragging = true
 			dragStart = inp.Position
