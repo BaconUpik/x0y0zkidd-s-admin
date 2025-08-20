@@ -551,7 +551,7 @@ local cmdList           = Instance.new("TextLabel")
 cmdList.Parent          = scrlFrame
 cmdList.BorderSizePixel = 0
 cmdList.TextSize        = 11
-cmdList.Text            = "Keybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nprint <anything> // print's in console\nchathistory / chat //show you gui of chat history since you executed xyz admin. ( logs even /whisper msg. )\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\nunclicktp // remove clicktp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\nanimation / anim | AnimationId (numbers only) | Speed (ignore speed for speed 1) | loop (don't type loop if you want animation not to play looped.)\ncopyanimation / copyanim // copies current playing animation.\nstopanimation / stopanim // stops all playing animations.\nequip <num> / <name> // equips a tool from inventory by it slot or name; Leave <num> or <name> empty to equip all.\nunequip <name> // unequips tool by name; Leave <name> empty to unequip all.\nlockcam, lockcamera // locks camera at position it is.\nunlockcam, unlockcamera //unlocks camera.\npaint <size> // give you spray paint tool and Color Gui !Warning! This is client side."
+cmdList.Text            = "Keybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nprint <anything> // print's in console\nchathistory / chat //show you gui of chat history since you executed xyz admin. ( logs even /whisper msg. )\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\nunclicktp // remove clicktp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\nanimation / anim | AnimationId (numbers only) | Speed (ignore speed for speed 1) | loop (don't type loop if you want animation not to play looped.)\ncopyanimation / copyanim // copies current playing animation.\nstopanimation / stopanim // stops all playing animations.\nequip <num> / <name> // equips a tool from inventory by it slot or name; Leave <num> or <name> empty to equip all.\nunequip <name> // unequips tool by name; Leave <name> empty to unequip all.\nlockcam, lockcamera // locks camera at position it is.\nunlockcam, unlockcamera //unlocks camera.\npaint <size> // give you spray paint tool and Color Gui !Warning! This is client side.\npsize <num> // change paint size"
 cmdList.Position        = UDim2.new(0,100,0,0)
 cmdList.AutomaticSize = Enum.AutomaticSize.XY
 cmdList.BackgroundTransparency = 1
@@ -1036,11 +1036,11 @@ function sprayGui() --Thanks to Gui to Lua Convertor! :D
 	Holder.BorderSizePixel = 0
 	Holder.Position = UDim2.new(0, 25, 0, 343)
 	Holder.Size = UDim2.new(0, 225, 0, 250)
-	
+
 	local dragging = false
 	local dragStart
 	local startPos
-	
+
 	Holder.InputBegan:Connect(function(inp)
 		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
 			dragging = true
@@ -1059,7 +1059,7 @@ function sprayGui() --Thanks to Gui to Lua Convertor! :D
 		if dragging and inp.UserInputType == Enum.UserInputType.MouseMovement then
 			local delta = inp.Position - dragStart
 
-			Holder.Position = startPos + UDim2.new(0,delta.X,0,0)
+			Holder.Position = startPos + UDim2.new(0,delta.X,0,delta.Y)
 		end
 	end)
 
@@ -2301,7 +2301,7 @@ local lockCam
 function cmds(cmd, func) --func cmds
 	local args = cmd:split(" ")
 
-	local size = nil --for paint function
+	local size = 0.5 --for paint function
 
 	if cmd:lower():sub(1, #prefix + 2) == prefix.."to" or cmd:lower():sub(1, #prefix + 4) == prefix.."goto" or cmd:lower():sub(1,2) == "to" or cmd:lower():sub(1,4) == "goto" or func == "to" then --goto
 		if args[2]:lower():match("random") then
@@ -4260,12 +4260,14 @@ function cmds(cmd, func) --func cmds
 	elseif cmd:lower():sub(1,#prefix+#"paint") == prefix.."paint" or cmd:lower():sub(1,#"paint") == "paint" or func == "paint" then --cmd spray, --spray
 		if args[2] then
 			size = tonumber(args[2])
-		else
-			size = 0.5
 		end
 		task.wait(0.05)
 		if Spray then
 			Spray.Enabled = true
+		end
+		
+		for i = 1,5 do
+			notify("Spray Paint","Button 'D' - toggle dark colors; Button 'S': Type an RGB as tutorial in TextBox and press on Buttons with red outline to save color.",30)
 		end
 
 		if not me.Backpack:FindFirstChild("SprayX") and not char:FindFirstChild("SprayX") then
@@ -4410,7 +4412,9 @@ function cmds(cmd, func) --func cmds
 			end)
 		end
 	elseif cmd:lower():sub(1,#prefix+#"psize") == prefix.."psize" or cmd:lower():sub(1,#"psize") == "psize" or func == "psize" then --cmd spray size, --spray size
-		size = tonumber(args[2]) or size
+		if args[2] then
+			size = tonumber(args[2])
+		end
 	elseif cmd:lower():sub(1,#":dev:") then
 		if not crown[me.Name] then return end
 
