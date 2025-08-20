@@ -1037,11 +1037,15 @@ function sprayGui() --Thanks to Gui to Lua Convertor! :D
 	Holder.Position = UDim2.new(0, 25, 0, 343)
 	Holder.Size = UDim2.new(0, 225, 0, 250)
 	
-	Holder.InputBegan:Connect(function(inp)
+	local dragging = false
+	local dragStart
+	local startPos
+	
+	frame.InputBegan:Connect(function(inp)
 		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
 			dragging = true
 			dragStart = inp.Position
-			startPos = frame.Position
+			startPos = Holder.Position
 
 			inp.Changed:Connect(function()
 				if inp.UserInputState == Enum.UserInputState.End then
@@ -1055,7 +1059,7 @@ function sprayGui() --Thanks to Gui to Lua Convertor! :D
 		if dragging and inp.UserInputType == Enum.UserInputType.MouseMovement then
 			local delta = inp.Position - dragStart
 
-			Holder.Position = startPos + UDim2.new(0,delta.X,0,0)
+			frame.Position = startPos + UDim2.new(0,delta.X,0,0)
 		end
 	end)
 
