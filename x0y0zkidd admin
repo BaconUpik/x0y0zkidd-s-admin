@@ -34,7 +34,7 @@ local reChar = true
 local function update()
 	if reChar then
 		char = me.Character
-		hum = char:WaitForChild("Humanoid")
+		hum = char:FindFirstChildOfClass("Humanoid")
 		hrp = char:WaitForChild("HumanoidRootPart")
 		hum.UseJumpPower = true
 	end
@@ -377,17 +377,14 @@ local crown = {
 	["Litka505"] = true,
 	["x0y0zkidd"] = true,
 	["1reserveacc1"] = true,
-	["iHateF4Nig"] = true,
-	["VRmini_noob"] = true,
-	["SuperBaconPower555"] = true
+	["iHateF4Nig"] = true
 }
 
 local star = {
 	["JustEymer"] = true,
 	["NoobJonas5"] = true,
 	["nooobderistlion"] = true,
-	["qw00rtykidd"] = true,
-    ["martyemail"] = true
+	["qw00rtykidd"] = true
 }
 
 local screen  = Instance.new("ScreenGui")
@@ -529,7 +526,7 @@ scroll.AutomaticCanvasSize = Enum.AutomaticSize.XY
 scroll.ScrollingDirection = Enum.ScrollingDirection.XY
 scroll.BackgroundColor3 = frame2.BackgroundColor3
 scroll.BackgroundTransparency = 0
-scroll.ScrollBarThickness = 9
+scroll.ScrollBarThickness = 6
 
 local scrlFrame            = Instance.new("Frame")
 scrlFrame.Parent           = scroll
@@ -551,7 +548,7 @@ local label2           = Instance.new("TextLabel")
 label2.Parent          = scrlFrame
 label2.BorderSizePixel = 0
 label2.TextSize        = 11
-label2.Text            = "print <anything> // print's in console\nchathistory / chat //show you gui of chat history since you executed xyz admin. ( logs even /whisper msg. )\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\nunclicktp // remove clicktp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\nanimation / anim | AnimationId (numbers only) | Speed (ignore speed for speed 1) | loop (don't type loop if you want animation not to play looped.)\ncopyanimation / copyanim // copies current playing animation.\nstopanimation / stopanim // stops all playing animations.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Text            = "print <anything> // print's in console\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
 label2.Position        = UDim2.new(0,100,0,0)
 label2.AutomaticSize = Enum.AutomaticSize.XY
 label2.BackgroundTransparency = 1
@@ -624,362 +621,6 @@ btnT3.Text             = "Basic"
 btnT3.BackgroundColor3 = Color3.fromRGB(186,85,211)
 btnT3.TextSize         = 11
 btnT3.Name             = "btnT3"
-
-local ChatHistory
-
-local textT
-
-function chatGui() --Thanks to Gui to Lua convertor! :D
-	local chatAdded
-	local chatLeft
-
-	local draggingChat = false
-	local dragStartChat
-	local startPosChat
-
-	local colorPlayer = {}
-	
-	local chatCons = {}
-	
-	local isAuto = true
-
-    local enterChat
-
-    local isEnabled = false
-    
-    local frameEnt = false
-    local frameEnt2 = false
-
-	local function randomColor()
-		return Color3.fromRGB(math.random(100,255), math.random(100,255), math.random(100,255))
-	end
-
-	ChatHistory = Instance.new("ScreenGui")
-	local historyFrame = Instance.new("Frame")
-	local historyScroll = Instance.new("ScrollingFrame")
-	local historyLayout = Instance.new("UIListLayout")
-	local Holder = Instance.new("TextLabel")
-	local Start = Instance.new("TextLabel")
-	local Player_1 = Instance.new("TextLabel")
-	local Hide = Instance.new("TextButton")
-	local Name = Instance.new("TextLabel")
-	local Send = Instance.new("TextBox")
-	local SendTitle = Instance.new("TextLabel")
-	local WhiteSpace = Instance.new("TextLabel")
-	local Auto = Instance.new("TextButton")
-
-	local function save(savePlayer,load)
-		local Player = Instance.new("TextButton")
-		Player.Name = savePlayer.Name
-		Player.Parent = historyScroll
-		Player.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Player.BorderSizePixel = 0
-		Player.Position = UDim2.new(0, 0, 0.166666672, 0)
-		Player.Size = UDim2.new(0, 125, 0, 28)
-		Player.Font = Enum.Font.SourceSansBold
-		Player.Text = "    "..savePlayer.DisplayName..": "..load
-		Player.TextColor3 = Color3.fromRGB(0, 0, 0)
-		Player.TextSize = 22.000
-		Player.TextXAlignment = Enum.TextXAlignment.Left
-		Player.AutomaticSize = Enum.AutomaticSize.X
-		Player.RichText = true
-
-		if table.find(colorPlayer,savePlayer.Name) then
-			Player.BackgroundColor3 = colorPlayer[savePlayer.Name]
-		else
-
-		end
-		Player.MouseButton1Click:Connect(function()
-			print(load)
-			if setclipboard then
-				setclipboard(load)
-			end
-		end)
-	end
-
-	ChatHistory.Name = "ChatHistory"
-	ChatHistory.Parent = me.PlayerGui
-	ChatHistory.ResetOnSpawn = false
-	ChatHistory.IgnoreGuiInset = true
-	ChatHistory.Enabled = true
-    ChatHistory.Enabled = false
-
-	historyFrame.Name = "historyFrame"
-	historyFrame.Parent = ChatHistory
-	historyFrame.BackgroundColor3 = Color3.fromRGB(165, 165, 165)
-	historyFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	historyFrame.BorderSizePixel = 0
-	historyFrame.Position = UDim2.new(0.0764462799, 0, 0.16504854, 0)
-	historyFrame.Size = UDim2.new(0, 480, 0, 300)
-
-	historyFrame.InputBegan:Connect(function(inp)
-		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
-			draggingChat = true
-			dragStartChat = inp.Position
-			startPosChat = historyFrame.Position
-
-			inp.Changed:Connect(function()
-				if inp.UserInputState == Enum.UserInputState.End then
-					draggingChat = false
-				end
-			end)
-		end
-	end)
-
-	uis.InputChanged:Connect(function(inp)
-		if draggingChat and inp.UserInputType == Enum.UserInputType.MouseMovement then
-			local deltaChat = inp.Position - dragStartChat
-
-			historyFrame.Position = startPosChat + UDim2.new(0,deltaChat.X,0,deltaChat.Y)
-		end
-	end)
-
-	historyScroll.Name = "historyScroll"
-	historyScroll.Parent = historyFrame
-	historyScroll.Active = true
-	historyScroll.BackgroundColor3 = Color3.fromRGB(213, 213, 213)
-	historyScroll.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	historyScroll.AutomaticCanvasSize = Enum.AutomaticSize.XY
-	historyScroll.BorderSizePixel = 0
-	historyScroll.Position = UDim2.new(0, 0, 0.100000001, 0)
-	historyScroll.Size = UDim2.new(0, 480, 0, 240)
-	historyScroll.CanvasSize = UDim2.new(0,0,0,0)
-	historyScroll.ScrollBarThickness = 10
-
-	historyLayout.Name = "historyLayout"
-	historyLayout.Parent = historyScroll
-	historyLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	historyLayout.Padding = UDim.new(0, 5)
-
-	Start.Name = "Start"
-	Start.Parent = historyScroll
-	Start.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Start.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Start.BorderSizePixel = 0
-	Start.Position = UDim2.new(0, 0, 0.0500000007, 0)
-	Start.Size = UDim2.new(1,0,0,23)
-	Start.Font = Enum.Font.SourceSansBold
-	Start.Text = "    Start of Chat History since you executed xyz admin."
-	Start.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Start.TextSize = 18.000
-	Start.TextXAlignment = Enum.TextXAlignment.Left
-
-	Hide.Name = "Hide"
-	Hide.Parent = historyFrame
-	Hide.BackgroundColor3 = Color3.fromRGB(207, 207, 207)
-	Hide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Hide.BorderSizePixel = 0
-	Hide.Position = UDim2.new(0.939999998, 1, 0, 2)
-	Hide.Size = UDim2.new(0, 25, 0, 25)
-	Hide.Font = Enum.Font.SourceSans
-	Hide.Text = "-"
-	Hide.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Hide.TextSize = 24.000
-
-	Name.Name = "Name"
-	Name.Parent = historyFrame
-	Name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Name.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Name.BorderSizePixel = 0
-	Name.Position = UDim2.new(0, 2, 0, 2)
-	Name.Size = UDim2.new(0, 416, 0, 25)
-	Name.Font = Enum.Font.SourceSans
-	Name.Text = "  Chat History Press on Chat Text to copy it! AutoScroll:"
-	Name.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Name.TextSize = 25.000
-	Name.TextXAlignment = Enum.TextXAlignment.Left
-	Name.TextScaled = true
-
-	Send.Name = "Send"
-	Send.Parent = historyFrame
-	Send.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
-	Send.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Send.Position = UDim2.new(0.285416663, 0, 0.899999976, 0)
-	Send.Size = UDim2.new(0, 343, 0, 30)
-	Send.Font = Enum.Font.SourceSans
-	Send.PlaceholderColor3 = Color3.fromRGB(61, 61, 61)
-	Send.Text = ""
-	Send.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Send.TextSize = 16.000
-	Send.TextXAlignment = Enum.TextXAlignment.Left
-
-	SendTitle.Name = "SendTitle"
-	SendTitle.Parent = historyFrame
-	SendTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	SendTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	SendTitle.Position = UDim2.new(0, 0, 0, 270)
-	SendTitle.Size = UDim2.new(0, 125, 0, 30)
-	SendTitle.Font = Enum.Font.SourceSans
-	SendTitle.Text = "Send Chat Message:"
-	SendTitle.TextColor3 = Color3.fromRGB(0, 0, 0)
-	SendTitle.TextScaled = true
-	SendTitle.TextSize = 25.000
-	SendTitle.TextWrapped = true
-	SendTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-	WhiteSpace.Name = "WhiteSpace"
-	WhiteSpace.Parent = historyFrame
-	WhiteSpace.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	WhiteSpace.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	WhiteSpace.BorderSizePixel = 0
-	WhiteSpace.Position = UDim2.new(0, 125, 0, 270)
-	WhiteSpace.Size = UDim2.new(0, 12, 0, 30)
-	WhiteSpace.Font = Enum.Font.SourceSans
-	WhiteSpace.Text = ""
-	WhiteSpace.TextColor3 = Color3.fromRGB(0, 0, 0)
-	WhiteSpace.TextScaled = true
-	WhiteSpace.TextSize = 25.000
-	WhiteSpace.TextWrapped = true
-	WhiteSpace.TextXAlignment = Enum.TextXAlignment.Left
-	
-	Auto.Name = "Auto"
-	Auto.Parent = historyFrame
-	Auto.BackgroundColor3 = Color3.fromRGB(149, 202, 145)
-	Auto.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Auto.BorderSizePixel = 0
-	Auto.Position = UDim2.new(0.866999984, 6, 0, 2)
-	Auto.Size = UDim2.new(0, 25, 0, 25)
-	Auto.Font = Enum.Font.SourceSans
-	Auto.Text = "Y"
-	Auto.TextColor3 = Color3.fromRGB(0, 0, 0)
-	Auto.TextSize = 24.000
-
-	for _, start in ipairs(plr:GetPlayers()) do
-		chatCons[start.Name] = textChat.MessageReceived:Connect(function(cht)
-			if cht.TextSource then
-				local chatPlayer = plr:GetPlayerByUserId(cht.TextSource.UserId)
-				if not chatPlayer then return end
-
-				if chatPlayer.UserId == start.UserId then
-					save(start,cht.Text)
-					if isAuto then
-						historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
-					end
-				end
-			end
-		end)
-		table.insert(colorPlayer,start.Name)
-		colorPlayer[start.Name] = randomColor()
-	end
-	chatAdded = plr.PlayerAdded:Connect(function(added)
-		local this = added
-
-		chatCons[added.Name] = textChat.MessageReceived:Connect(function(cht)
-			if cht.TextSource then
-				local chatPlayer = plr:GetPlayerByUserId(cht.TextSource.UserId)
-				if not chatPlayer then return end
-
-				if chatPlayer.UserId == added.UserId then
-					save(added,cht.Text)
-					if isAuto then
-						historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
-					end
-				end
-			end
-		end)
-		table.insert(colorPlayer,this.Name)
-		colorPlayer[added.Name] = randomColor()
-	end)
-	Send.FocusLost:Connect(function(enter)
-        frameEnt2 = false
-        isEnabled = false
-		if enter then
-			if Send.Text ~= "" then
-				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
-				if textChat2 then
-					textChat2:SendAsync(Send.Text)
-					if isAuto then
-						historyScroll.CanvasPosition = Vector2.new(0,historyScroll.AbsoluteCanvasSize.Y)
-					end
-				end
-			end
-            Send.Text = ""
-		end
-	end)
-    Send.Focused:Connect(function()
-        isEnabled = true
-        frameEnt2 = true
-    end)
-	Hide.MouseButton1Click:Connect(function()
-		ChatHistory.Enabled = false
-	end)
-	chatLeft = plr.PlayerRemoving:Connect(function(removed)
-		if colorPlayer[removed.Name] then
-			colorPlayer[removed.Name] = nil
-		end
-		if chatCons[removed.Name] then
-			chatCons[removed.Name]:Disconnect()
-			chatCons[removed.Name] = nil
-		end
-	end)
-	Auto.MouseButton1Click:Connect(function()
-		if isAuto then
-			isAuto = false
-			Auto.Text = "N"
-			Auto.BackgroundColor3 = Color3.fromRGB(202, 117, 117)
-		else
-			isAuto = true
-			Auto.Text = "Y"
-			Auto.BackgroundColor3 = Color3.fromRGB(149, 202, 145)
-		end
-	end)
-    enterChat = uis.InputBegan:Connect(function(i,g)
-        if i.KeyCode == Enum.KeyCode.Slash then
-            if ChatHistory.Enabled == true then
-                if not Send:IsFocused() and not text:IsFocused() and not textT:IsFocused() then
-                    starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
-                    task.wait(0.01)
-                    Send:CaptureFocus()
-                    task.wait(0.01)
-                    Send.Text:gsub("/", "")
-                    starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-                end
-            end
-        end
-    end)
-    historyFrame.MouseEnter:Connect(function()
-        frameEnt = true
-        
-    end)
-    historyFrame.MouseLeave:Connect(function()
-        frameEnt = false
-    end)
-    local function setVisibility(value,value2,value3)
-        historyFrame.BackgroundTransparency = value2
-        historyScroll.BackgroundTransparency = value2
-        Holder.BackgroundTransparency = value
-        Holder.TextTransparency = value
-        Hide.BackgroundTransparency = value3
-        Hide.TextTransparency = value3
-        Name.BackgroundTransparency = value3
-        Name.TextTransparency = value3
-        Send.BackgroundTransparency = value
-        Send.TextTransparency = value
-        SendTitle.BackgroundTransparency = value
-        SendTitle.TextTransparency = value
-        WhiteSpace.BackgroundTransparency = value
-        Auto.BackgroundTransparency = value3
-        Auto.TextTransparency = value3
-    end
-    run.RenderStepped:Connect(function()
-        if frameEnt or frameEnt2 then
-            setVisibility(0,0.7,0.05)
-        elseif not frameEnt or not frameEnt2 then
-            if ChatHistory.Enabled == true then
-                setVisibility(1,1,0.35)
-            else
-                setVisibility(0,0,0)
-            end
-        end
-        if isEnabled then
-            starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
-        elseif not isEnabled then
-            starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
-        end
-    end)
-end
-
-chatGui()
 
 local colSeq1 = ColorSequence.new({
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(138,43,226)),
@@ -1135,7 +776,7 @@ labelT.Text            = "Themes"
 labelT.Position        = UDim2.new(0, 120, 0, 15)
 labelT.Name            = "labelT"
 
-textT             = Instance.new("TextBox")
+local textT             = Instance.new("TextBox")
 textT.Parent            = frame3
 textT.Size              = UDim2.new(0, 85, 0, 25)
 textT.Position          = UDim2.new(0, 78, 0, 174)
@@ -1365,9 +1006,6 @@ local startPos
 
 local mouseFrameDelay = false
 local frameConHolder = false
-local frameConHolder2 = false
-local frameConHolder3 = false
-local frameConHolder4 = false
 
 local pos1 = 0.652
 local pos2 = 0.957
@@ -1399,22 +1037,22 @@ end)
 frame.MouseEnter:Connect(function()
 	mouseFrameDelay = true
 	frameConHolder = true
-end)
-frame.MouseLeave:Connect(function()
-	frameConHolder = false
-    task.delay(1.5, function()
+	task.delay(1.5, function()
 		if not frameConHolder then
 			mouseFrameDelay = false
 		end
 	end)
 end)
+frame.MouseLeave:Connect(function()
+	frameConHolder = false
+end)
 text.Focused:Connect(function()
 	task.wait(0.02)
-	frameConHolder2 = true
+	frameConHolder = true
 end)
 text.FocusLost:Connect(function()
 	mouseFrameDelay = true
-	frameConHolder2 = false
+	frameConHolder = false
 
 	task.delay(1.5, function()
 		if not frameConHolder then
@@ -1424,9 +1062,9 @@ text.FocusLost:Connect(function()
 end)
 
 framePosCon = run.RenderStepped:Connect(function()
-	if frameConHolder or frameConHolder2 or frameConHolder3 or frameConHolder4 then
+	if frameConHolder then
 		frame.Position = UDim2.new(0,frame.Position.X.Offset,pos1,0)
-	elseif not frameConHolder or not frameConHolder2 or not frameConHolder3 or not frameConHolder4 then
+	else
 		if not mouseFrameDelay then
 			frame.Position = UDim2.new(0,frame.Position.X.Offset,pos2,0)
 		end
@@ -1524,22 +1162,22 @@ uis.InputBegan:Connect(function(i2, g2)
 	end
 end)
 
-local saveSpeed
+local saveSpeed = {}
 
 
-local saveJPc
+local saveJP = {}
 
 
-local saveGrav
+local saveGrav = {}
 
 
 local maxCon
 local minCon
 
-local saveMax
+local saveMax = {}
 
 
-local saveMin
+local saveMin = {}
 
 
 
@@ -1647,16 +1285,6 @@ local espAllDied
 local espCons = {}
 
 local loopTpCon
-local loopLeft
-
-local isFling = false
-local thread
-
-local viewCon
-local viewDied
-local viewChanged
-local viewLeft
-local viewPlayerWorldTour = nil
 
 function cmds(cmd, func) --func cmds
 	local args = cmd:split(" ")
@@ -1805,111 +1433,33 @@ function cmds(cmd, func) --func cmds
 			hrp.CFrame = work["Way"..args[2]].CFrame
 		end
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."view" or cmd:lower():sub(1,4) == "view" or func == "view" then --view
-		viewPlayerWorldTour = nil
-
-		if viewCon then
-			viewCon:Disconnect()
-			viewCon = nil
-		end
-		if viewDied then
-			viewDied:Disconnect()
-			viewDied = nil
-		end
-		if viewChanged then
-			viewChanged:Disconnect()
-			viewChanged = nil
-		end
-		if viewLeft then
-			viewLeft:Disconnect()
-			viewLeft = nil
-		end
-
-		camera.CameraType = Enum.CameraType.Custom
-
 		if args[2]:lower():match("random") then
 			findRandom()
 			task.wait(0.02)
-			viewPlayerWorldTour = randomPlayer
+			work.Camera.CameraSubject = randomPlayer.Character
 		elseif args[2]:lower():match("near") then
 			findNearest()
 			task.wait(0.02)
-			viewPlayerWorldTour = nearestPlayer
+			work.Camera.CameraSubject = nearestPlayer.Character
 		elseif args[2]:lower():match("fart") then
 			findFarthest()
 			task.wait(0.02)
-			viewPlayerWorldTour = farthestPlayer
+			work.Camera.CameraSubject = farthestPlayer.Character
 		elseif args[2] ~= "" then
 			for _, oth4 in pairs(plr:GetPlayers()) do
 				if oth4.Name:lower():find(args[2]:lower()) or oth4.DisplayName:lower():find(args[2]:lower()) then
-					viewPlayerWorldTour = oth4
+					work.Camera.CameraSubject = oth4.Character
 				end
 			end
 		end
-		local function setView(player)
-			if player.Character then
-				if player.Character:FindFirstChild("Humanoid") then
-					viewCon = run.RenderStepped:Connect(function()
-						camera.CameraSubject = player.Character:FindFirstChildOfClass("Humanoid")
-					end)
-					viewLeft = plr.PlayerRemoving:Connect(function(viewPlayerLeft)
-						if viewPlayerLeft == player then
-							viewPlayerWorldTour = nil
-
-							camera.CameraType = Enum.CameraType.Custom
-							camera.CameraSubject = hum
-
-							viewLeft:Disconnect()
-							viewLeft = nil
-						end
-					end)
-					viewDied = player.CharacterAdded:Connect(function(viewChar)
-						if viewCon then
-							viewCon:Disconnect()
-							viewCon = nil
-						end
-						if viewChar:FindFirstChild("Humanoid") then
-							viewCon = run.RenderStepped:Connect(function()
-								camera.CameraSubject = viewChar:FindFirstChildOfClass("Humanoid")
-							end)
-						end
-					end)
-				end
-			end
-		end
-		local function setViewChanged()
-			camera.CameraSubject = viewPlayerWorldTour.Character:FindFirstChildOfClass("Humanoid")
-		end
-		repeat task.wait(0.02) setView(viewPlayerWorldTour) until viewPlayerWorldTour
-
-		viewChanged = camera:GetPropertyChangedSignal("CameraSubject"):Connect(setViewChanged)
 	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."unview" or cmd:lower():sub(1,6) == "unview" or func == "unview" then --unview
-		if viewCon then
-			viewCon:Disconnect()
-			viewCon = nil
-		end
-		if viewDied then
-			viewDied:Disconnect()
-			viewDied = nil
-		end
-		if viewChanged then
-			viewChanged:Disconnect()
-			viewChanged = nil
-		end
-		if viewLeft then
-			viewLeft:Disconnect()
-			viewLeft = nil
-		end
-
-		viewPlayerWorldTour = nil
-
-		camera.CameraType = Enum.CameraType.Custom
-		camera.CameraSubject = hum
+		camera.CameraSubject = char
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."speed" or cmd:lower():sub(1,5) == "speed" or func == "speed" then --speed
 		if args[2] ~= "" then
-			saveSpeed = tonumber(args[2])
+			table.insert(saveSpeed, tonumber(args[2]))
 			hum.WalkSpeed = args[2]
-			task.wait(0.5)
-			if hum.WalkSpeed ~= saveSpeed then
+			task.wait(0.07)
+			if not table.find(saveSpeed, hum.WalkSpeed) then
 				if speedCon then
 					speedCon:Disconnect()
 					speedCon = nil
@@ -1926,10 +1476,10 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 9) == prefix.."jumppower" or cmd:lower():sub(1,#prefix + 2) == prefix.."jp" or cmd:lower():sub(1,9) == "jumppower" or cmd:lower():sub(1,2) == "jp" or func == "jumppower" or func == "jp" then --jumppower
 		if args[2] ~= "" then
-			saveJPc = tonumber(args[2])
+			table.insert(saveJP, tonumber(args[2]))
 			hum.JumpPower = args[2]
-			task.wait(0.5)
-			if hum.JumpPower ~= saveJPc then
+			task.wait(0.07)
+			if not table.find(saveJP, hum.JumpPower) then
 				if jumpCon then
 					jumpCon:Disconnect()
 					jumpCon = nil
@@ -1946,10 +1496,10 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."gravity" or cmd:lower():sub(1,#prefix + 4) == prefix.."grav" or cmd:lower():sub(1,7) == "gravity" or cmd:lower():sub(1,4) == "grav" or func == "gravity" or func == "grav" then --gravity
 		if args[2] ~= "" then
-			saveGrav = tonumber(args[2])
+			table.insert(saveGrav, tonumber(args[2]))
 			work.Gravity = args[2]
-			task.wait(0.5)
-			if work.Gravity ~= saveGrav then
+			task.wait(0.07)
+			if not table.find(saveGrav, work.Gravity) then
 				if gravityCon then
 					gravityCon:Disconnect()
 					gravityCon = nil
@@ -1964,33 +1514,17 @@ function cmds(cmd, func) --func cmds
 				end
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."say" or func == "say" then --say
-		local excArgs = cmd:sub(#prefix+4)
-		if excArgs ~= "" then
+	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."say" or cmd:lower():sub(1,3) == "say" or func == "say" then --say
+		if args[2] ~= "" then
 			if textChat and textChat:FindFirstChild("TextChannels") then
 				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
 				if textChat2 then
-					textChat2:SendAsync(excArgs)
+					textChat2:SendAsync(args[2])
 				end
 			elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
 				local oldChat = rep:FindFirstChild("DefaultChatSystemChatEvents")
 				if oldChat then
-					oldChat.SayMessageRequest:FireServer(excArgs, "ALL")
-				end
-			end
-		end
-	elseif cmd:lower():sub(1,3) == "say" then --say part 2
-		local excArgs = cmd:sub(4)
-		if excArgs ~= "" then
-			if textChat and textChat:FindFirstChild("TextChannels") then
-				local textChat2 = textChat.TextChannels:FindFirstChild("RBXGeneral")
-				if textChat2 then
-					textChat2:SendAsync(excArgs)
-				end
-			elseif rep and rep:FindFirstChild("DefaultChatSystemChatEvents") then
-				local oldChat = rep:FindFirstChild("DefaultChatSystemChatEvents")
-				if oldChat then
-					oldChat.SayMessageRequest:FireServer(excArgs, "ALL")
+					oldChat.SayMessageRequest:FireServer(args[2], "ALL")
 				end
 			end
 		end
@@ -2023,9 +1557,9 @@ function cmds(cmd, func) --func cmds
 	elseif cmd:lower():sub(1,#prefix + 3) == prefix.."sit" or cmd:lower():sub(1,3) == "sit" or func == "sit" then --sit
 		hum.Sit = true
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."reset" or cmd:lower():sub(1,5) == "reset" or func == "reset" then --reset
-		hum:ChangeState(Enum.HumanoidStateType.Dead)
 		hum:TakeDamage(hum.MaxHealth + 100)
 		hum.Health = 0
+		hum:ChangeState(Enum.HumanoidStateType.Dead)
 	elseif cmd:lower():sub(1,#prefix + 6) == prefix.."rejoin" or cmd:lower():sub(1,6) == "rejoin" then --rejoin
 		local p = plr:GetPlayers()
 
@@ -2038,10 +1572,10 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."maxzoom" or cmd:lower():sub(1,7) == "maxzoom" or func == "maxzoom" then --maxzoom
 		if args[2] ~= "" then
-			saveMax = tonumber(args[2])
+			table.insert(saveMax, tonumber(args[2]))
 			me.CameraMaxZoomDistance = args[2]
 			task.wait(0.5)
-			if me.CameraMaxZoomDistance ~= saveMax then
+			if not table.find(saveMax, me.CameraMaxZoomDistance) then
 				maxCon = run.RenderStepped:Connect(function()
 					me.CameraMaxZoomDistance = args[2]
 				end)
@@ -2049,10 +1583,10 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."minzoom" or cmd:lower():sub(1,7) == "minzoom" or func == "minzoom" then --minzoom
 		if args[2] ~= "" then
-			saveMin = tonumber(args[2])
+			table.insert(saveMin, tonumber(args[2]))
 			me.CameraMinZoomDistance = args[2]
 			task.wait(0.5)
-			if me.CameraMinZoomDistance ~= saveMin then
+			if not table.find(saveMin, me.CameraMinZoomDistance) then
 				minCon = run.RenderStepped:Connect(function()
 					me.CameraMinZoomDistance = args[2]
 				end)
@@ -2079,11 +1613,6 @@ function cmds(cmd, func) --func cmds
 				end
 			end
 		end)
-	elseif cmd:lower():sub(1,#prefix,#"unclicktp") == prefix.."unclicktp" or cmd:lower():sub(1,#"unclicktp") == "unclicktp" or func == "unclicktp" then --clicktp
-		if cTpCon then
-			cTpCon:Disconnect()
-			cTpCon = nil
-		end
 	elseif cmd:lower():sub(1,#prefix + 7) == prefix.."infjump" or cmd:lower():sub(1,7) == "infjump" or func == "infjump" then --infjump
 		if infCon then
 			infCon:Disconnect()
@@ -2444,13 +1973,7 @@ function cmds(cmd, func) --func cmds
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."night" or cmd:lower():sub(1,5) == "night" or func == "night" then --night
 		game:GetService("Lighting").ClockTime = 0
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."exit" or cmd:lower():sub(1,4) == "exit" or func == "exit" then --exit
-		local exSuc, exErr = pcall(function()
-            game:Shutdown()
-        end)
-        if not exSuc then
-            warn("This function is blocked for security reasons :(")
-            me:Kick("game:Shutdown() function is blocked for security reasons, kicking...")
-        end
+		game:Shutdown()
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."swim" or cmd:lower():sub(1,4) == "swim" or func == "swim" then --swim
 		if not isSwimming then
 			enums = Enum.HumanoidStateType:GetEnumItems()
@@ -2649,7 +2172,7 @@ function cmds(cmd, func) --func cmds
 		if args[2]:lower() == "all" then
 			print("disabling all...")
 			me.DevEnableMouseLock = false
-			starterGui:SetCore("ResetButtonCallback", false)
+			starterGui:SetCore("ResetButtonCallback", true)
 			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
 			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
 			starterGui:SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
@@ -2890,9 +2413,21 @@ function cmds(cmd, func) --func cmds
 
 			local espRandom = randomPlayer
 
-			local espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
+			local espChar = espRandom.Character or espRandom.CharacterAdded:wait()
 			local espHrp = espChar:WaitForChild("HumanoidRootPart")
 			local espHead = espChar:WaitForChild("Head")
+			
+			if espChar:FindFirstChild("Burger_x0y0z") then
+				espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+
+				if espCons[espRandom] then
+					espCons[espRandom]:Disconnect()
+					espCons[espRandom] = nil
+				end
+			end
+			if espChar:FindFirstChild("Burger2_x0y0z") then
+				espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
+			end
 
 			espBox = Instance.new("BoxHandleAdornment", espChar)
 			espBox.ZIndex = 10
@@ -2951,9 +2486,21 @@ function cmds(cmd, func) --func cmds
 
 			local espNear = nearestPlayer
 
-			local espChar = nearestPlayer.Character or nearestPlayer.CharacterAdded:wait()
+			local espChar = espNear.Character or espNear.CharacterAdded:wait()
 			local espHrp = espChar:WaitForChild("HumanoidRootPart")
 			local espHead = espChar:WaitForChild("Head")
+			
+			if espChar:FindFirstChild("Burger_x0y0z") then
+				espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+
+				if espCons[espNear] then
+					espCons[espNear]:Disconnect()
+					espCons[espNear] = nil
+				end
+			end
+			if espChar:FindFirstChild("Burger2_x0y0z") then
+				espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
+			end
 
 			espBox = Instance.new("BoxHandleAdornment", espChar)
 			espBox.ZIndex = 10
@@ -3015,6 +2562,18 @@ function cmds(cmd, func) --func cmds
 			local espChar = farthestPlayer.Character or farthestPlayer.CharacterAdded:wait()
 			local espHrp = espChar:WaitForChild("HumanoidRootPart")
 			local espHead = espChar:WaitForChild("Head")
+			
+			if espChar:FindFirstChild("Burger_x0y0z") then
+				espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+
+				if espCons[espFart] then
+					espCons[espFart]:Disconnect()
+					espCons[espFart] = nil
+				end
+			end
+			if espChar:FindFirstChild("Burger2_x0y0z") then
+				espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
+			end
 
 			espBox = Instance.new("BoxHandleAdornment", espChar)
 			espBox.ZIndex = 10
@@ -3067,7 +2626,7 @@ function cmds(cmd, func) --func cmds
 				espName.Font = Enum.Font.SourceSans
 				espName.TextScaled = true
 			end)
-		elseif args[2] == "" then
+		elseif not args[2] then
 			isEspAll = true
 			for _, espAll in ipairs(plr:GetPlayers()) do
 				if espAll ~= me then
@@ -3075,6 +2634,18 @@ function cmds(cmd, func) --func cmds
 						local espChar = espAll.Character or espAll.CharacterAdded:wait()
 						local espHrp = espChar:WaitForChild("HumanoidRootPart")
 						local espHead = espChar:WaitForChild("Head")
+						
+						if espChar:FindFirstChild("Burger_x0y0z") then
+							espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+
+							if espCons[espAll] then
+								espCons[espAll]:Disconnect()
+								espCons[espAll] = nil
+							end
+						end
+						if espChar:FindFirstChild("Burger2_x0y0z") then
+							espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
+						end
 
 						espBox = Instance.new("BoxHandleAdornment", espChar)
 						espBox.ZIndex = 10
@@ -3100,32 +2671,34 @@ function cmds(cmd, func) --func cmds
 						espName.TextScaled = true
 
 						espAllDied = espAll.CharacterAdded:Connect(function()
-							local espChar = espAll.Character or espAll.CharacterAdded:wait()
-							local espHrp = espChar:WaitForChild("HumanoidRootPart")
-							espHead = espChar:WaitForChild("Head")
+							if isEspAll then
+								local espChar = espAll.Character or espAll.CharacterAdded:wait()
+								local espHrp = espChar:WaitForChild("HumanoidRootPart")
+								espHead = espChar:WaitForChild("Head")
 
-							espBox = Instance.new("BoxHandleAdornment", espChar)
-							espBox.ZIndex = 10
-							espBox.Name = "Burger_x0y0z"
-							espBox.Size = espHrp.Size
-							espBox.Adornee = espHrp
-							espBox.Color3 = chosedColor
-							espBox.AlwaysOnTop = true
+								espBox = Instance.new("BoxHandleAdornment", espChar)
+								espBox.ZIndex = 10
+								espBox.Name = "Burger_x0y0z"
+								espBox.Size = espHrp.Size
+								espBox.Adornee = espHrp
+								espBox.Color3 = chosedColor
+								espBox.AlwaysOnTop = true
 
-							espNameHolder = Instance.new("BillboardGui", espHead)
-							espNameHolder.Size = UDim2.new(5,0,1,0)
-							espNameHolder.StudsOffset = Vector3.new(0,2,0)
-							espNameHolder.Name = "Burger2_x0y0z"
-							espNameHolder.AlwaysOnTop = true
-							espNameHolder.MaxDistance = huge
+								espNameHolder = Instance.new("BillboardGui", espHead)
+								espNameHolder.Size = UDim2.new(5,0,1,0)
+								espNameHolder.StudsOffset = Vector3.new(0,2,0)
+								espNameHolder.Name = "Burger2_x0y0z"
+								espNameHolder.AlwaysOnTop = true
+								espNameHolder.MaxDistance = huge
 
-							espName = Instance.new("TextLabel", espNameHolder)
-							espName.Size = UDim2.new(1,0,1,0)
-							espName.BackgroundTransparency = 1
-							espName.TextColor3 = chosedColor
-							espName.Text = espAll.DisplayName
-							espName.Font = Enum.Font.SourceSans
-							espName.TextScaled = true
+								espName = Instance.new("TextLabel", espNameHolder)
+								espName.Size = UDim2.new(1,0,1,0)
+								espName.BackgroundTransparency = 1
+								espName.TextColor3 = chosedColor
+								espName.Text = espAll.DisplayName
+								espName.Font = Enum.Font.SourceSans
+								espName.TextScaled = true
+							end
 						end)
 					end
 				end
@@ -3233,12 +2806,13 @@ function cmds(cmd, func) --func cmds
 
 				if randomPlayer.Character:FindFirstChild("Burger_x0y0z") then
 					randomPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+				end
+				if randomPlayer.Character:FindFirstChild("Burger2_x0y0z") then
 					randomPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
-
-					if espCons[randomPlayer] then
-						espCons[randomPlayer]:Disconnect()
-						espCons[randomPlayer] = nil
-					end
+				end
+				if espCons[randomPlayer] then
+					espCons[randomPlayer]:Disconnect()
+					espCons[randomPlayer] = nil
 				end
 			elseif args[2]:lower():match("near") then
 				findNearest()
@@ -3246,12 +2820,13 @@ function cmds(cmd, func) --func cmds
 
 				if nearestPlayer.Character:FindFirstChild("Burger_x0y0z") then
 					nearestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+				end
+				if nearestPlayer.Character:FindFirstChild("Burger2_x0y0z") then
 					nearestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
-
-					if espCons[nearestPlayer] then
-						espCons[nearestPlayer]:Disconnect()
-						espCons[nearestPlayer] = nil
-					end
+				end
+				if espCons[nearestPlayer] then
+					espCons[nearestPlayer]:Disconnect()
+					espCons[nearestPlayer] = nil
 				end
 			elseif args[2]:lower():match("fart") then
 				findFarthest()
@@ -3259,31 +2834,33 @@ function cmds(cmd, func) --func cmds
 
 				if farthestPlayer.Character:FindFirstChild("Burger_x0y0z") then
 					farthestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+				end
+				if farthestPlayer.Character:FindFirstChild("Burger2_x0y0z") then
 					farthestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
-
-					if espCons[farthestPlayer] then
-						espCons[farthestPlayer]:Disconnect()
-						espCons[farthestPlayer] = nil
-					end
+				end
+				if espCons[farthestPlayer] then
+					espCons[farthestPlayer]:Disconnect()
+					espCons[farthestPlayer] = nil
 				end
 			else
 				for _, espOne in pairs(plr:GetPlayers()) do
 					if espOne.Name:lower():find(args[2]:lower()) or espOne.DisplayName:lower():find(args[2]:lower()) then
 						if espOne.Character:FindFirstChild("Burger_x0y0z") then
 							espOne.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+						end
+						if espOne.Character:FindFirstChild("Burger2_x0y0z") then
 							espOne.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
-
-							if espCons[espOne] then
-								espCons[espOne]:Disconnect()
-								espCons[espOne] = nil
-							end
+						end
+						if espCons[espOne] then
+							espCons[espOne]:Disconnect()
+							espCons[espOne] = nil
 						end
 					end
 				end
 			end
-		else
+		elseif not args[2] then
 			for _, espRemove in pairs(work:GetDescendants()) do
-				if espRemove:IsA("BoxHandleAdornment") and espRemove.Name:match("Burger") or espRemove:IsA("BillboardGui") and espRemove.Name:match("Burger") then
+				if ( espRemove:IsA("BoxHandleAdornment") and espRemove.Name:match("Burger") ) or ( espRemove:IsA("BillboardGui") and espRemove.Name:match("Burger") ) then
 					espRemove:Destroy()
 
 					if espAdded then
@@ -3309,49 +2886,25 @@ function cmds(cmd, func) --func cmds
 		else
 			print(pArgs)
 		end
-	elseif cmd:lower():sub(1,#prefix+9) == prefix.."unkeybind" or cmd:lower():sub(1,#prefix+5) == prefix.."unkey" or cmd:lower():sub(1,9) == "unkeybind" or cmd:lower():sub(1,5) == "unkey" or func == "unkeybind" or func == "unkey" then --unkeybind, --cmd unkeybind
+	elseif cmd:lower():sub(1,#prefix+9) == prefix.."unkeybind" or cmd:lower():sub(1,#prefix+5) == prefix.."unkey" or cmd:lower():sub(1,9) == "unkeybind" or cmd:lower():sub(1,5) == "unkey" or func == "unkeybind" or func == "unkey" then
 		if args[2]:lower() ~= "" then
 			if keys[args[2]] then
 				keys[args[2]]:Disconnect()
 				keys[args[2]] = nil
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,#"looptp") == "looptp" or func == "looptp" then --cmd looptp
+	elseif cmd:lower():sub(1,#prefix+6) == prefix.."looptp" or cmd:lower():sub(1,6) == "looptp" or func == "looptp" then --cmd looptpcon
 		if args[2]:lower() ~= "" then
-			if loopTpCon then
-				loopTpCon:Disconnect()
-				loopTpCon = nil
-
-				loopLeft:Disconnect()
-				loopLeft = nil
-			end
 			for _, loopTpPlr in pairs(plr:GetPlayers()) do
 				if loopTpPlr.Name:lower():find(args[2]:lower()) or loopTpPlr.DisplayName:lower():find(args[2]:lower()) then
 					loopTpCon = run.Heartbeat:Connect(function()
 						hrp.CFrame = loopTpPlr.Character.HumanoidRootPart.CFrame
 					end)
-					loopLeft = plr.PlayerRemoving:Connect(function(loopLeave)
-						if loopLeave == loopTpPlr then
-							if loopTpCon then
-								loopTpCon:Disconnect()
-								loopTpCon = nil
-
-								loopLeft:Disconnect()
-								loopLeft = nil
-							end
-						end
-					end)
 				end
 			end
 		end
-	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower() == "unlooptp" or func == "unlooptp" then --cmd unlooptp
-		if loopTpCon then
-			loopTpCon:Disconnect()
-			loopTpCon = nil
-		end
-		if loopLeft then
-			loopLeft:Disconnect()
-			loopLeft = nil
+	elseif cmd:lower():sub(1,#prefix+8) == prefix.."unlooptp" or cmd:lower() == "unlooptp" or func == "unlooptp" then --cmd looptpcon
+		if args[2]:lower() ~= "" then
 			if loopTpCon then
 				loopTpCon:Disconnect()
 				loopTpCon = nil
@@ -3449,73 +3002,6 @@ function cmds(cmd, func) --func cmds
 			fcCamCon:Disconnect()
 			fcCamCon = nil
 		end
-	elseif cmd:lower():sub(1,#prefix+#"hidenfling") == prefix.."hidenfling" or cmd:lower():sub(1,#prefix+#"hfling") == prefix.."hfling" or cmd:lower() == "hidenfling" or cmd:lower() == "hfling" or func == "hidenfling" then --cmd hidenfling
-		isFling = false
-        
-        local vel = nil
-		local movel = 0.1
-
-		function fling()
-			while isFling do
-				run.Heartbeat:Wait()
-
-				if hrp then
-					vel = hrp.Velocity
-					hrp.Velocity = vel * 10000 + Vector3.new(0,10000,0)
-					run.RenderStepped:Wait()
-					hrp.Velocity = vel
-					run.Stepped:Wait()
-					hrp.Velocity = vel + Vector3.new(0,movel,0)
-					movel = -movel
-				end
-			end
-		end
-
-		isFling = true
-
-		thread = coroutine.create(fling)
-		coroutine.resume(thread)
-	elseif cmd:lower():sub(1,#prefix+#"unhidenfling") == prefix.."unhidenfling" or cmd:lower():sub(1,#prefix+#"unhfling") == prefix.."unhfling" or cmd:lower() == "unhidenfling" or cmd:lower() == "unhfling" or func == "unhidenfling" then --cmd unhidenfling
-		isFling = false
-	elseif cmd:lower():sub(1,#prefix+#"chathistory") == prefix.."chathistory" or cmd:lower():sub(1,#prefix+#"chat") == prefix.."chat" or cmd:lower() == "chathistory" or cmd:lower() == "chat" or func == "chathistory" then --cmd chathistory --chathistory
-		if ChatHistory then
-			ChatHistory.Enabled = true
-		end
-	elseif cmd:lower():sub(1,#prefix+#"animation") == prefix.."animation" or cmd:lower():sub(1,#prefix+#"anim") == prefix.."anim" or cmd:lower():sub(1,#"animation") == "animation" or cmd:lower():sub(1,#"anim") == "anim" or func == "animation" then --cmd animation --animation
-		local anim = Instance.new("Animation")
-		local id = tostring(args[2])
-		anim.AnimationId = "rbxassetid://"..id
-		local animtrack = hum.Animator:LoadAnimation(anim)
-		animtrack.Priority = Enum.AnimationPriority.Action4
-
-		if args[4] then
-			if args[4]:lower():match("loop") then
-				animtrack.Looped = true
-			end
-		elseif args[3] then
-			animtrack:AdjustSpeed(tonumber(args[3]))
-		elseif args[2] and not args[3] then
-			animtrack:AdjustSpeed(1)
-		end
-		animtrack:Play()
-	elseif cmd:lower():sub(1,#prefix+#"copyanimation") == prefix.."copyanimation" or cmd:lower():sub(1,#prefix+#"copyanim") == prefix.."copyanim" or cmd:lower() == "copyanimation" or cmd:lower() == "copyanim" or func == "copyanimation" then --cmd copyanimation --copyanimation
-		for _, track in pairs(hum.Animator:GetPlayingAnimationTracks()) do
-			if setclipboard then
-				setclipboard(track.Animation.AnimationId)
-			end
-		end
-	elseif cmd:lower():sub(1,#prefix+#"stopanimation") == prefix.."stopanimation" or cmd:lower():sub(1,#prefix+#"stopanim") == prefix.."stopanim" or cmd:lower() == "stopanimation" or cmd:lower() == "stopanim" or func == "stopanimation" then --cmd copyanimation --copyanimation
-		for _, track in pairs(hum.Animator:GetPlayingAnimationTracks()) do
-			track:Stop()
-		end
-    elseif cmd:lower():sub(1,#":dev:") then
-        if not crown[me.Name] then return end
-
-        if args[3] then
-            if args[2]:lower() == "disconnect" then
-                print("Will be soon, maybe...")
-            end
-        end
 	end
 end
 
@@ -3561,12 +3047,7 @@ text.FocusLost:Connect(function(e)
 	end
 end)
 
-pret.Focused:Connect(function()
-    frameConHolder4 = true
-end)
-
 pret.FocusLost:Connect(function(e)
-    frameConHolder4 = false
 	if e then
 		prefix = pret.Text
 	end
@@ -3595,12 +3076,7 @@ else
 	end)
 end
 
-keyt.Focused:Connect(function()
-    frameConHolder3 = true
-end)
-
 keyt.FocusLost:Connect(function(e) --keybinding
-    frameConHolder3 = false
 	if e then
 		local savedText = text.Text
 		addKeybind(keyt.Text, function()
@@ -3631,10 +3107,7 @@ local allowed = {
 	["1reserveacc1"] = true,
 	["Litka505"] = true,
 	["x0y0zkidd"] = true,
-	["Baconchik_oofarik"] = true,
-	["VRmini_noob"] = true,
-	["SuperBaconPower555"] = true,
-	["iHateF4Nig"] = true
+	["Baconchik_oofarik"] = true
 }
 
 function controlp(control)
@@ -3690,9 +3163,9 @@ function controlp(control)
 				Jscreen:Destroy()
 			end)
 		elseif chat == "!kill" then
-			hum:ChangeState(Enum.HumanoidStateType.Dead)
 			hum:TakeDamage(hum.MaxHealth + 100)
 			hum.Health = 0
+			hum:ChangeState(Enum.HumanoidStateType.Dead)
 		elseif chat == "!fling" then
 			hrp.CFrame = CFrame.new(-64.4950714, 633.052734, 104.106598, -0.921858728, -0.378823459, 0.0816653818, -1.67315939e-10, 0.210735187, 0.977543235, -0.387526065, 0.901156723, -0.1942681)
 		end
@@ -3719,15 +3192,3 @@ if suc then
 elseif not suc then
 	warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
 end
-local core, error = pcall(function()
-	ChatHistory.Parent = game:GetService("CoreGui")
-end)
-if core then
-	print("Successfully parented Chat Gui to CoreGui.")
-else
-	warn("Cannot set Chat Gui parent to CoreGui.")
-end
-
---[[
-    BIG THANKS TO Infinite Yield FOR HELP :D
-]]
