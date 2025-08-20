@@ -551,7 +551,7 @@ local cmdList           = Instance.new("TextLabel")
 cmdList.Parent          = scrlFrame
 cmdList.BorderSizePixel = 0
 cmdList.TextSize        = 11
-cmdList.Text            = "Keybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nprint <anything> // print's in console\nchathistory / chat //show you gui of chat history since you executed xyz admin. ( logs even /whisper msg. )\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\nunclicktp // remove clicktp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\nanimation / anim | AnimationId (numbers only) | Speed (ignore speed for speed 1) | loop (don't type loop if you want animation not to play looped.)\ncopyanimation / copyanim // copies current playing animation.\nstopanimation / stopanim // stops all playing animations.\nequip <num> / <name> // equips a tool from inventory by it slot or name; Leave <num> or <name> empty to equip all.\nunequip <name> // unequips tool by name; Leave <name> empty to unequip all.\nlockcam, lockcamera // locks camera at position it is.\nunlockcam, unlockcamera //unlocks camera."
+cmdList.Text            = "Keybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nprint <anything> // print's in console\nchathistory / chat //show you gui of chat history since you executed xyz admin. ( logs even /whisper msg. )\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\nunclicktp // remove clicktp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\nanimation / anim | AnimationId (numbers only) | Speed (ignore speed for speed 1) | loop (don't type loop if you want animation not to play looped.)\ncopyanimation / copyanim // copies current playing animation.\nstopanimation / stopanim // stops all playing animations.\nequip <num> / <name> // equips a tool from inventory by it slot or name; Leave <num> or <name> empty to equip all.\nunequip <name> // unequips tool by name; Leave <name> empty to unequip all.\nlockcam, lockcamera // locks camera at position it is.\nunlockcam, unlockcamera //unlocks camera.\npaint <size> // give you spray paint tool and Color Gui !Warning! This is client side."
 cmdList.Position        = UDim2.new(0,100,0,0)
 cmdList.AutomaticSize = Enum.AutomaticSize.XY
 cmdList.BackgroundTransparency = 1
@@ -981,6 +981,637 @@ end
 
 chatGui()
 
+local Spray
+
+local sprayColor = Color3.fromRGB(255,255,255)
+local rainCol = Color3.fromRGB(255,255,255)
+local rainbow
+
+function sprayGui() --Thanks to Gui to Lua Convertor! :D
+	Spray = Instance.new("ScreenGui")
+	local Holder = Instance.new("Frame")
+	local ColorHolder = Instance.new("Frame")
+	local Black = Instance.new("TextButton")
+	local White = Instance.new("TextButton")
+	local Red = Instance.new("TextButton")
+	local Orange = Instance.new("TextButton")
+	local Yellow = Instance.new("TextButton")
+	local Green = Instance.new("TextButton")
+	local Cyan = Instance.new("TextButton")
+	local Blue = Instance.new("TextButton")
+	local Purple = Instance.new("TextButton")
+	local Brown = Instance.new("TextButton")
+	local PastelOrange = Instance.new("TextButton")
+	local Gray = Instance.new("TextButton")
+	local Magenta = Instance.new("TextButton")
+	local Pink = Instance.new("TextButton")
+	local RainbowBtn = Instance.new("TextButton")
+	local UIGradient = Instance.new("UIGradient")
+	local Blank = Instance.new("TextButton")
+	local Blank_2 = Instance.new("TextButton")
+	local Blank_3 = Instance.new("TextButton")
+	local Blank_4 = Instance.new("TextButton")
+	local Blank_5 = Instance.new("TextButton")
+	local RGB = Instance.new("TextBox")
+	local Close = Instance.new("TextButton")
+	local Name = Instance.new("TextLabel")
+	local Save = Instance.new("TextButton")
+	local Dark = Instance.new("TextButton")
+
+	Spray.Name = "Spray"
+	Spray.Parent = me.PlayerGui
+	Spray.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	Spray.ResetOnSpawn = false
+	Spray.IgnoreGuiInset = true
+	Spray.Enabled = false
+
+	pcall(function()
+		Spray.Parent = game:GetService("CoreGui")
+	end)
+
+	Holder.Name = "Holder"
+	Holder.Parent = Spray
+	Holder.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	Holder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Holder.BorderSizePixel = 0
+	Holder.Position = UDim2.new(0, 25, 0, 343)
+	Holder.Size = UDim2.new(0, 225, 0, 250)
+	
+	frame.InputBegan:Connect(function(inp)
+		if inp.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = true
+			dragStart = inp.Position
+			startPos = frame.Position
+
+			inp.Changed:Connect(function()
+				if inp.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+
+	uis.InputChanged:Connect(function(inp)
+		if dragging and inp.UserInputType == Enum.UserInputType.MouseMovement then
+			local delta = inp.Position - dragStart
+
+			frame.Position = startPos + UDim2.new(0,delta.X,0,0)
+		end
+	end)
+
+	ColorHolder.Name = "ColorHolder"
+	ColorHolder.Parent = Holder
+	ColorHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ColorHolder.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ColorHolder.BorderSizePixel = 0
+	ColorHolder.Position = UDim2.new(0, 0, 0.119999997, 0)
+	ColorHolder.Size = UDim2.new(0, 225, 0, 220)
+
+	Black.Name = "Black"
+	Black.Parent = ColorHolder
+	Black.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	Black.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Black.Position = UDim2.new(0.0533333346, 0, 0.0545454547, 0)
+	Black.Size = UDim2.new(0, 35, 0, 35)
+	Black.Font = Enum.Font.SourceSans
+	Black.Text = ""
+	Black.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Black.TextSize = 14.000
+
+	White.Name = "White"
+	White.Parent = ColorHolder
+	White.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	White.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	White.Position = UDim2.new(0.235555559, 0, 0.0545454547, 0)
+	White.Size = UDim2.new(0, 35, 0, 35)
+	White.Font = Enum.Font.SourceSans
+	White.Text = ""
+	White.TextColor3 = Color3.fromRGB(0, 0, 0)
+	White.TextSize = 14.000
+
+	Red.Name = "Red"
+	Red.Parent = ColorHolder
+	Red.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+	Red.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Red.Position = UDim2.new(0.422222227, 0, 0.0545454547, 0)
+	Red.Size = UDim2.new(0, 35, 0, 35)
+	Red.Font = Enum.Font.SourceSans
+	Red.Text = ""
+	Red.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Red.TextSize = 14.000
+
+	Orange.Name = "Orange"
+	Orange.Parent = ColorHolder
+	Orange.BackgroundColor3 = Color3.fromRGB(255, 119, 0)
+	Orange.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Orange.Position = UDim2.new(0.604444444, 0, 0.0545454547, 0)
+	Orange.Size = UDim2.new(0, 35, 0, 35)
+	Orange.Font = Enum.Font.SourceSans
+	Orange.Text = ""
+	Orange.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Orange.TextSize = 14.000
+
+	Yellow.Name = "Yellow"
+	Yellow.Parent = ColorHolder
+	Yellow.BackgroundColor3 = Color3.fromRGB(255, 255, 0)
+	Yellow.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Yellow.Position = UDim2.new(0.786666691, 0, 0.0545454547, 0)
+	Yellow.Size = UDim2.new(0, 35, 0, 35)
+	Yellow.Font = Enum.Font.SourceSans
+	Yellow.Text = ""
+	Yellow.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Yellow.TextSize = 14.000
+
+	Green.Name = "Green"
+	Green.Parent = ColorHolder
+	Green.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+	Green.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Green.Position = UDim2.new(0.0533333346, 0, 0.240909085, 0)
+	Green.Size = UDim2.new(0, 35, 0, 35)
+	Green.Font = Enum.Font.SourceSans
+	Green.Text = ""
+	Green.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Green.TextSize = 14.000
+
+	Cyan.Name = "Cyan"
+	Cyan.Parent = ColorHolder
+	Cyan.BackgroundColor3 = Color3.fromRGB(0, 255, 255)
+	Cyan.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Cyan.Position = UDim2.new(0.235555559, 0, 0.240909085, 0)
+	Cyan.Size = UDim2.new(0, 35, 0, 35)
+	Cyan.Font = Enum.Font.SourceSans
+	Cyan.Text = ""
+	Cyan.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Cyan.TextSize = 14.000
+
+	Blue.Name = "Blue"
+	Blue.Parent = ColorHolder
+	Blue.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+	Blue.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Blue.Position = UDim2.new(0.422222227, 0, 0.240909085, 0)
+	Blue.Size = UDim2.new(0, 35, 0, 35)
+	Blue.Font = Enum.Font.SourceSans
+	Blue.Text = ""
+	Blue.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Blue.TextSize = 14.000
+
+	Purple.Name = "Purple"
+	Purple.Parent = ColorHolder
+	Purple.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+	Purple.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Purple.Position = UDim2.new(0.604444444, 0, 0.240909085, 0)
+	Purple.Size = UDim2.new(0, 35, 0, 35)
+	Purple.Font = Enum.Font.SourceSans
+	Purple.Text = ""
+	Purple.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Purple.TextSize = 14.000
+
+	Brown.Name = "Brown"
+	Brown.Parent = ColorHolder
+	Brown.BackgroundColor3 = Color3.fromRGB(145, 75, 0)
+	Brown.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Brown.Position = UDim2.new(0.786666691, 0, 0.240909085, 0)
+	Brown.Size = UDim2.new(0, 35, 0, 35)
+	Brown.Font = Enum.Font.SourceSans
+	Brown.Text = ""
+	Brown.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Brown.TextSize = 14.000
+
+	PastelOrange.Name = "PastelOrange"
+	PastelOrange.Parent = ColorHolder
+	PastelOrange.BackgroundColor3 = Color3.fromRGB(255, 212, 143)
+	PastelOrange.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	PastelOrange.Position = UDim2.new(0.0533333346, 0, 0.418181807, 0)
+	PastelOrange.Size = UDim2.new(0, 35, 0, 35)
+	PastelOrange.Font = Enum.Font.SourceSans
+	PastelOrange.Text = ""
+	PastelOrange.TextColor3 = Color3.fromRGB(0, 0, 0)
+	PastelOrange.TextSize = 14.000
+
+	Gray.Name = "Gray"
+	Gray.Parent = ColorHolder
+	Gray.BackgroundColor3 = Color3.fromRGB(160, 160, 160)
+	Gray.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Gray.Position = UDim2.new(0.235555559, 0, 0.418181807, 0)
+	Gray.Size = UDim2.new(0, 35, 0, 35)
+	Gray.Font = Enum.Font.SourceSans
+	Gray.Text = ""
+	Gray.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Gray.TextSize = 14.000
+
+	Magenta.Name = "Magenta"
+	Magenta.Parent = ColorHolder
+	Magenta.BackgroundColor3 = Color3.fromRGB(255, 0, 255)
+	Magenta.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Magenta.Position = UDim2.new(0.422222227, 0, 0.418181807, 0)
+	Magenta.Size = UDim2.new(0, 35, 0, 35)
+	Magenta.Font = Enum.Font.SourceSans
+	Magenta.Text = ""
+	Magenta.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Magenta.TextSize = 14.000
+
+	Pink.Name = "Pink"
+	Pink.Parent = ColorHolder
+	Pink.BackgroundColor3 = Color3.fromRGB(255, 178, 238)
+	Pink.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Pink.Position = UDim2.new(0.604444444, 0, 0.418181807, 0)
+	Pink.Size = UDim2.new(0, 35, 0, 35)
+	Pink.Font = Enum.Font.SourceSans
+	Pink.Text = ""
+	Pink.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Pink.TextSize = 14.000
+
+	RainbowBtn.Name = "Rainbow"
+	RainbowBtn.Parent = ColorHolder
+	RainbowBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	RainbowBtn.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	RainbowBtn.Position = UDim2.new(0.786666691, 0, 0.418181807, 0)
+	RainbowBtn.Size = UDim2.new(0, 35, 0, 35)
+	RainbowBtn.Font = Enum.Font.SourceSans
+	RainbowBtn.Text = ""
+	RainbowBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+	RainbowBtn.TextSize = 14.000
+
+	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(0.14, Color3.fromRGB(255, 149, 0)), ColorSequenceKeypoint.new(0.29, Color3.fromRGB(255, 255, 0)), ColorSequenceKeypoint.new(0.43, Color3.fromRGB(71, 255, 0)), ColorSequenceKeypoint.new(0.57, Color3.fromRGB(0, 242, 255)), ColorSequenceKeypoint.new(0.72, Color3.fromRGB(0, 0, 255)), ColorSequenceKeypoint.new(0.85, Color3.fromRGB(140, 0, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(162, 0, 255))}
+	UIGradient.Parent = RainbowBtn
+
+	Blank.Name = "Blank"
+	Blank.Parent = ColorHolder
+	Blank.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Blank.BorderColor3 = Color3.fromRGB(255, 0, 4)
+	Blank.Position = UDim2.new(0.0533333346, 0, 0.604545474, 0)
+	Blank.Size = UDim2.new(0, 35, 0, 35)
+	Blank.Font = Enum.Font.SourceSans
+	Blank.Text = ""
+	Blank.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Blank.TextSize = 14.000
+
+	Blank_2.Name = "Blank"
+	Blank_2.Parent = ColorHolder
+	Blank_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Blank_2.BorderColor3 = Color3.fromRGB(255, 0, 4)
+	Blank_2.Position = UDim2.new(0.235555559, 0, 0.604545474, 0)
+	Blank_2.Size = UDim2.new(0, 35, 0, 35)
+	Blank_2.Font = Enum.Font.SourceSans
+	Blank_2.Text = ""
+	Blank_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Blank_2.TextSize = 14.000
+
+	Blank_3.Name = "Blank"
+	Blank_3.Parent = ColorHolder
+	Blank_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Blank_3.BorderColor3 = Color3.fromRGB(255, 0, 4)
+	Blank_3.Position = UDim2.new(0.422222227, 0, 0.604545474, 0)
+	Blank_3.Size = UDim2.new(0, 35, 0, 35)
+	Blank_3.Font = Enum.Font.SourceSans
+	Blank_3.Text = ""
+	Blank_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Blank_3.TextSize = 14.000
+
+	Blank_4.Name = "Blank"
+	Blank_4.Parent = ColorHolder
+	Blank_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Blank_4.BorderColor3 = Color3.fromRGB(255, 0, 4)
+	Blank_4.Position = UDim2.new(0.604444444, 0, 0.604545474, 0)
+	Blank_4.Size = UDim2.new(0, 35, 0, 35)
+	Blank_4.Font = Enum.Font.SourceSans
+	Blank_4.Text = ""
+	Blank_4.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Blank_4.TextSize = 14.000
+
+	Blank_5.Name = "Blank"
+	Blank_5.Parent = ColorHolder
+	Blank_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Blank_5.BorderColor3 = Color3.fromRGB(255, 0, 4)
+	Blank_5.Position = UDim2.new(0.786666691, 0, 0.604545474, 0)
+	Blank_5.Size = UDim2.new(0, 35, 0, 35)
+	Blank_5.Font = Enum.Font.SourceSans
+	Blank_5.Text = ""
+	Blank_5.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Blank_5.TextSize = 14.000
+
+	RGB.Name = "RGB"
+	RGB.Parent = ColorHolder
+	RGB.BackgroundColor3 = Color3.fromRGB(200, 255, 0)
+	RGB.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	RGB.Position = UDim2.new(0.0533333346, 0, 0.804545462, 0)
+	RGB.Size = UDim2.new(0, 200, 0, 35)
+	RGB.ClearTextOnFocus = false
+	RGB.Font = Enum.Font.SourceSans
+	RGB.PlaceholderColor3 = Color3.fromRGB(95, 95, 95)
+	RGB.PlaceholderText = "Custom;Example: 255 255 255"
+	RGB.Text = ""
+	RGB.TextColor3 = Color3.fromRGB(0, 0, 0)
+	RGB.TextScaled = true
+	RGB.TextSize = 24.000
+	RGB.TextWrapped = true
+
+	Close.Name = "Close"
+	Close.Parent = Holder
+	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Close.BackgroundTransparency = 0.250
+	Close.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Close.BorderSizePixel = 0
+	Close.Position = UDim2.new(0.870999992, 0, 0, 1)
+	Close.Size = UDim2.new(0, 28, 0, 28)
+	Close.Font = Enum.Font.SourceSans
+	Close.Text = "X"
+	Close.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Close.TextSize = 20.000
+	Close.TextWrapped = true
+
+	Name.Name = "Name"
+	Name.Parent = Holder
+	Name.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	Name.BackgroundTransparency = 0.450
+	Name.BorderColor3 = Color3.fromRGB(255, 255, 255)
+	Name.BorderSizePixel = 0
+	Name.Size = UDim2.new(0, 129, 0, 29)
+	Name.Font = Enum.Font.SourceSans
+	Name.Text = "Color Picker"
+	Name.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Name.TextSize = 24.000
+
+	Save.Name = "Save"
+	Save.Parent = Holder
+	Save.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+	Save.BackgroundTransparency = 0.250
+	Save.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Save.BorderSizePixel = 0
+	Save.Position = UDim2.new(0, 167, 0, 1)
+	Save.Size = UDim2.new(0, 28, 0, 28)
+	Save.Font = Enum.Font.SourceSans
+	Save.Text = "S"
+	Save.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Save.TextSize = 20.000
+	Save.TextWrapped = true
+
+	Dark.Name = "Dark"
+	Dark.Parent = Holder
+	Dark.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+	Dark.BackgroundTransparency = 0.250
+	Dark.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Dark.BorderSizePixel = 0
+	Dark.Position = UDim2.new(0,138,0,1)
+	Dark.Size = UDim2.new(0, 28, 0, 28)
+	Dark.Font = Enum.Font.SourceSans
+	Dark.Text = "D"
+	Dark.TextColor3 = Color3.fromRGB(0, 0, 0)
+	Dark.TextSize = 20.000
+	Dark.TextWrapped = true
+
+	rainbow = false
+	local save = false
+	local dark = false
+
+	task.spawn(function()
+		while true do
+			rainCol = Holder.BackgroundColor3
+
+			run.Heartbeat:Wait()
+		end
+	end)
+
+	local darkCol = {
+		Color3.fromRGB(0,0,0),
+		Color3.fromRGB(140, 140, 140),
+		Color3.fromRGB(130, 0, 0),
+		Color3.fromRGB(193, 87, 0),
+		Color3.fromRGB(150, 150, 0),
+		Color3.fromRGB(0, 120, 0),
+		Color3.fromRGB(0, 140, 140),
+		Color3.fromRGB(0, 0, 120),
+		Color3.fromRGB(70, 0, 105),
+		Color3.fromRGB(50, 25, 0),
+		Color3.fromRGB(130, 105, 70),
+		Color3.fromRGB(45, 45, 45),
+		Color3.fromRGB(100, 0, 100),
+		Color3.fromRGB(150, 105, 140)
+	}
+	local lightCol = {
+		Color3.fromRGB(0,0,0),
+		Color3.fromRGB(255,255,255),
+		Color3.fromRGB(255,0,0),
+		Color3.fromRGB(255, 119, 0),
+		Color3.fromRGB(255,255,0),
+		Color3.fromRGB(0,255,0),
+		Color3.fromRGB(0,255,255),
+		Color3.fromRGB(0,0,255),
+		Color3.fromRGB(170,0,255),
+		Color3.fromRGB(145,75,0),
+		Color3.fromRGB(255, 212, 143),
+		Color3.fromRGB(160,160,160),
+		Color3.fromRGB(255,0,255),
+		Color3.fromRGB(255,178,238)
+	}
+	local buttons = {
+		Black, White, Red, Orange, Yellow, Green, Cyan, Blue, Purple,
+		Brown, PastelOrange, Gray, Magenta, Pink
+	}
+
+	local function setCol(colList)
+		for i = 1, #buttons do
+			buttons[i].BackgroundColor3 = colList[i]
+		end
+	end
+
+	Black.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Black.BackgroundColor3
+		sprayColor = Black.BackgroundColor3
+	end)
+	White.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = White.BackgroundColor3
+		sprayColor = White.BackgroundColor3
+	end)
+	Red.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Red.BackgroundColor3
+		sprayColor = Red.BackgroundColor3
+	end)
+	Orange.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Orange.BackgroundColor3
+		sprayColor = Orange.BackgroundColor3
+	end)
+	Yellow.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Yellow.BackgroundColor3
+		sprayColor = Yellow.BackgroundColor3
+	end)
+	Green.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Green.BackgroundColor3
+		sprayColor = Green.BackgroundColor3
+	end)
+	Cyan.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Cyan.BackgroundColor3
+		sprayColor = Cyan.BackgroundColor3
+	end)
+	Blue.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Blue.BackgroundColor3
+		sprayColor = Blue.BackgroundColor3
+	end)
+	Purple.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Purple.BackgroundColor3
+		sprayColor = Purple.BackgroundColor3
+	end)
+	Brown.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Brown.BackgroundColor3
+		sprayColor = Brown.BackgroundColor3
+	end)
+	PastelOrange.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = PastelOrange.BackgroundColor3
+		sprayColor = PastelOrange.BackgroundColor3
+	end)
+	Gray.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Gray.BackgroundColor3
+		sprayColor = Gray.BackgroundColor3
+	end)
+	Magenta.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Magenta.BackgroundColor3
+		sprayColor = Magenta.BackgroundColor3
+	end)
+	Pink.MouseButton1Click:Connect(function()
+		rainbow = false
+		Holder.BackgroundColor3 = Pink.BackgroundColor3
+		sprayColor = Pink.BackgroundColor3
+	end)
+	RainbowBtn.MouseButton1Click:Connect(function()
+		rainbow = true
+		local function rainbowColor()
+			while rainbow do
+				Holder.BackgroundColor3 = Color3.fromRGB(255,0,0)
+				task.wait(0.1)
+				Holder.BackgroundColor3 = Color3.fromRGB(255,100,0)
+				task.wait(0.1)
+				Holder.BackgroundColor3 = Color3.fromRGB(255,255,0)
+				task.wait(0.1)
+				Holder.BackgroundColor3 = Color3.fromRGB(0,255,0)
+				task.wait(0.1)
+				Holder.BackgroundColor3 = Color3.fromRGB(0,200,255)
+				task.wait(0.1)
+				Holder.BackgroundColor3 = Color3.fromRGB(0,0,255)
+				task.wait(0.1)
+				Holder.BackgroundColor3 = Color3.fromRGB(150,0,255)
+				task.wait(0.1)
+			end
+		end
+		rainbowColor()
+	end)
+	Blank.MouseButton1Click:Connect(function()
+		rainbow = false
+
+		local rgbRe = RGB.Text
+		local arg = RGB.Text:split(" ")
+		if save then
+			if arg[3] then
+				Blank.BackgroundColor3 = Color3.fromRGB(tonumber(arg[1]),tonumber(arg[2]),tonumber(arg[3]))
+			end
+		end
+		task.wait(0.05)
+		Holder.BackgroundColor3 = Blank.BackgroundColor3
+		sprayColor = Blank.BackgroundColor3
+	end)
+	Blank_2.MouseButton1Click:Connect(function()
+		rainbow = false
+
+		local rgbRe = RGB.Text
+		local arg = RGB.Text:split(" ")
+		if save then
+			if arg[3] then
+				Blank_2.BackgroundColor3 = Color3.fromRGB(tonumber(arg[1]),tonumber(arg[2]),tonumber(arg[3]))
+			end
+		end
+		task.wait(0.05)
+		Holder.BackgroundColor3 = Blank_2.BackgroundColor3
+		sprayColor = Blank_2.BackgroundColor3
+	end)
+	Blank_3.MouseButton1Click:Connect(function()
+		rainbow = false
+
+		local rgbRe = RGB.Text
+		local arg = RGB.Text:split(" ")
+		if save then
+			if arg[3] then
+				Blank_3.BackgroundColor3 = Color3.fromRGB(tonumber(arg[1]),tonumber(arg[2]),tonumber(arg[3]))
+			end
+		end
+		task.wait(0.05)
+		Holder.BackgroundColor3 = Blank_3.BackgroundColor3
+		sprayColor = Blank_3.BackgroundColor3
+	end)
+	Blank_4.MouseButton1Click:Connect(function()
+		rainbow = false
+
+		local rgbRe = RGB.Text
+		local arg = RGB.Text:split(" ")
+		if save then
+			if arg[3] then
+				Blank_4.BackgroundColor3 = Color3.fromRGB(tonumber(arg[1]),tonumber(arg[2]),tonumber(arg[3]))
+			end
+		end
+		task.wait(0.05)
+		Holder.BackgroundColor3 = Blank_4.BackgroundColor3
+		sprayColor = Blank_4.BackgroundColor3
+	end)
+	Blank_5.MouseButton1Click:Connect(function()
+		rainbow = false
+
+		local rgbRe = RGB.Text
+		local arg = RGB.Text:split(" ")
+		if save then
+			if arg[3] then
+				Blank_5.BackgroundColor3 = Color3.fromRGB(tonumber(arg[1]),tonumber(arg[2]),tonumber(arg[3]))
+			end
+		end
+		task.wait(0.05)
+		Holder.BackgroundColor3 = Blank_5.BackgroundColor3
+		sprayColor = Blank_5.BackgroundColor3
+	end)
+
+	Save.MouseButton1Click:Connect(function()
+		if save then
+			save = false
+			Save.BackgroundColor3 = Color3.fromRGB(255,0,0)
+		else
+			save = true
+			Save.BackgroundColor3 = Color3.fromRGB(0,255,0)
+		end
+	end)
+	Dark.MouseButton1Click:Connect(function()
+		if dark then
+			dark = false
+			Dark.BackgroundColor3 = Color3.fromRGB(255,0,0)
+
+			for i = 1,#lightCol do
+				setCol(lightCol)
+			end
+		else
+			dark = true
+			Dark.BackgroundColor3 = Color3.fromRGB(0,255,0)
+
+			for i = 1,#darkCol do
+				setCol(darkCol)
+			end
+		end
+	end)
+
+	Close.MouseButton1Click:Connect(function()
+		Spray.Enabled = false
+	end)
+end
+
+sprayGui()
+
 local colSeq1 = ColorSequence.new({
 	ColorSequenceKeypoint.new(0, Color3.fromRGB(138,43,226)),
 	ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 0, 255)),
@@ -1335,6 +1966,9 @@ btn.MouseButton1Click:Connect(function()
 		chatCon:Disconnect()
 		chatCon = nil
 	end
+	if Spray then
+		Spray:Destroy()
+	end
 end)
 
 btn2.MouseButton1Click:Connect(function()
@@ -1662,6 +2296,8 @@ local lockCam
 
 function cmds(cmd, func) --func cmds
 	local args = cmd:split(" ")
+
+	local size = nil --for paint function
 
 	if cmd:lower():sub(1, #prefix + 2) == prefix.."to" or cmd:lower():sub(1, #prefix + 4) == prefix.."goto" or cmd:lower():sub(1,2) == "to" or cmd:lower():sub(1,4) == "goto" or func == "to" then --goto
 		if args[2]:lower():match("random") then
@@ -3511,8 +4147,8 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix+#"hidenfling") == prefix.."hidenfling" or cmd:lower():sub(1,#prefix+#"hfling") == prefix.."hfling" or cmd:lower() == "hidenfling" or cmd:lower() == "hfling" or func == "hidenfling" then --cmd hidenfling
 		if isFling then return end
-        
-        local vel = nil
+
+		local vel = nil
 		local movel = 0.1
 
 		function fling()
@@ -3617,6 +4253,160 @@ function cmds(cmd, func) --func cmds
 			lockCam = nil
 		end
 		camera.CameraType = Enum.CameraType.Custom
+	elseif cmd:lower():sub(1,#prefix+#"paint") == prefix.."paint" or cmd:lower():sub(1,#"paint") == "paint" or func == "paint" then --cmd spray, --spray
+		if args[2] then
+			size = tonumber(args[2])
+		else
+			size = 0.5
+		end
+		task.wait(0.05)
+		if Spray then
+			Spray.Enabled = true
+		end
+
+		if not me.Backpack:FindFirstChild("SprayX") and not char:FindFirstChild("SprayX") then
+			local tool = Instance.new("Tool",me.Backpack)
+			tool.RequiresHandle = false
+			tool.Name = "SprayX"
+
+			local sprayCon = true
+
+			tool.Activated:Connect(function()
+				sprayCon = true
+				while sprayCon do
+					if mouse.Target and mouse.Target:IsA("BasePart") and mouse.Target.Name ~= "xyz_paint" and mouse.Target.Name ~= "xyz_sponge" then
+						local target = mouse.Target
+						local face = mouse.TargetSurface
+						local normal = Vector3.FromNormalId(face)
+
+						local part = Instance.new("Part")
+						part.Parent = work
+						part.Anchored = true
+						part.CastShadow = false
+						part.Name = "xyz_paint"
+						part.Material = Enum.Material.SmoothPlastic
+						part.CanCollide = false
+						part.Position = mouse.Hit.Position
+
+						if rainbow then
+							part.Color = rainCol
+						else
+							part.Color = sprayColor
+						end
+
+						if face == Enum.NormalId.Top then
+							part.CFrame = CFrame.new(mouse.Hit.Position) * CFrame.Angles(math.rad(target.Orientation.X),math.rad(target.Orientation.Y),math.rad(target.Orientation.Z))
+							part.Size = Vector3.new(size,0.03,size)
+						elseif face == Enum.NormalId.Bottom then
+							part.CFrame = CFrame.new(mouse.Hit.Position) * CFrame.Angles(math.rad(target.Orientation.X),math.rad(target.Orientation.Y),math.rad(target.Orientation.Z))
+							part.Size = Vector3.new(size,0.03,size)
+						elseif face == Enum.NormalId.Front then
+							part.CFrame = CFrame.new(mouse.Hit.Position) * CFrame.Angles(math.rad(target.Orientation.X),math.rad(target.Orientation.Y),math.rad(target.Orientation.Z))
+							part.Size = Vector3.new(size,size,0.03)
+						elseif face == Enum.NormalId.Back then
+							part.CFrame = CFrame.new(mouse.Hit.Position) * CFrame.Angles(math.rad(target.Orientation.X),math.rad(target.Orientation.Y),math.rad(target.Orientation.Z))
+							part.Size = Vector3.new(size,size,0.03)
+						elseif face == Enum.NormalId.Right then
+							part.CFrame = CFrame.new(mouse.Hit.Position) * CFrame.Angles(math.rad(target.Orientation.X),math.rad(target.Orientation.Y),math.rad(target.Orientation.Z))
+							part.Size = Vector3.new(0.03,size,size)
+						elseif face == Enum.NormalId.Left then
+							part.CFrame = CFrame.new(mouse.Hit.Position) * CFrame.Angles(math.rad(target.Orientation.X),math.rad(target.Orientation.Y),math.rad(target.Orientation.Z))
+							part.Size = Vector3.new(0.03,size,size)
+						end
+					end
+					run.Heartbeat:Wait()
+				end
+			end)
+			tool.Deactivated:Connect(function()
+				sprayCon = false
+			end)
+			tool.Unequipped:Connect(function()
+				sprayCon = false
+			end)
+		end
+		if not me.Backpack:FindFirstChild("SpongeX") and not char:FindFirstChild("SpongeX") then
+			local tool = Instance.new("Tool",me.Backpack)
+			tool.Name = "SpongeX"
+			tool.RequiresHandle = false
+
+			local spongeCon
+			local spongeCon2 = true
+
+			local isWet = false
+
+			local sponge = Instance.new("Part",work)
+			sponge.Material = Enum.Material.Leather
+			sponge.Color = Color3.fromRGB(170, 179, 0)
+			sponge.Anchored = true
+			sponge.Size = Vector3.new(1,0.5,1)
+			sponge.CanCollide = false
+			sponge.Name = "xyz_sponge"
+			sponge.Transparency = 1
+
+			tool.Equipped:Connect(function()
+				sponge.Transparency = 0
+
+				spongeCon = run.RenderStepped:Connect(function()
+					local ray = camera:ScreenPointToRay(mouse.X, mouse.Y)
+					local raycastParams = RaycastParams.new()
+					raycastParams.FilterDescendantsInstances = {sponge} -- ignore itself
+					raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+
+					local result = workspace:Raycast(ray.Origin, ray.Direction * 1000, raycastParams)
+					if result then
+						local pos = result.Position
+
+						-- snap to grid
+						local snappedX = math.floor(pos.X / 0.5 + 0.5) * 0.5
+						local snappedY = math.floor(pos.Y / 0.5 + 0.5) * 0.5
+						local snappedZ = math.floor(pos.Z / 0.5 + 0.5) * 0.5
+
+						sponge.CFrame = CFrame.new(snappedX, snappedY + sponge.Size.Y/2, snappedZ)
+					end
+				end)
+			end)
+			tool.Unequipped:Connect(function()
+				if spongeCon then
+					spongeCon:Disconnect()
+					spongeCon = nil
+				end
+				sponge.Transparency = 1
+				isWet = false
+			end)
+			tool.Activated:Connect(function()
+				isWet = true
+				task.spawn(function()
+					while isWet do
+						for _, paint in ipairs(work:GetChildren()) do
+							if paint:IsA("BasePart") and paint.Name == "xyz_paint" then
+								if (paint.Position - sponge.Position).Magnitude <= 0.85 then
+									paint:Destroy()
+								end
+							end
+						end
+						run.Heartbeat:Wait()
+					end
+				end)
+			end)
+			tool.Deactivated:Connect(function()
+				isWet = false
+			end)
+		end
+		if not me.Backpack:FindFirstChild("EraseAllX") and not char:FindFirstChild("EraseAllX") then
+			local tool = Instance.new("Tool",me.Backpack)
+			tool.Name = "EraseAllX"
+			tool.RequiresHandle = false
+
+			tool.Activated:Connect(function()
+				for _, paint in ipairs(work:GetChildren()) do
+					if paint.Name == "xyz_paint" then
+						paint:Destroy()
+					end
+				end
+			end)
+		end
+	elseif cmd:lower():sub(1,#prefix+#"psize") == prefix.."psize" or cmd:lower():sub(1,#"psize") == "psize" or func == "psize" then --cmd spray size, --spray size
+		size = tonumber(args[2]) or size
 	elseif cmd:lower():sub(1,#":dev:") then
 		if not crown[me.Name] then return end
 
@@ -3817,7 +4607,7 @@ plr.PlayerAdded:Connect(controlp)
 print("x0y0z no syntax errors [2]")
 
 if uis.TouchEnabled and not uis.KeyboardEnabled and not uis.GamepadEnabled then
-	notify("x0y0z admin WARNING", "This script doesn't support mobile, some functions will not work.", 10)
+	notify("x0y0z admin WARNING", "This script doesn't support mobile, many functions will not work.", 10)
 end
 
 local suc, err = pcall(function()
@@ -3828,14 +4618,9 @@ if suc then
 elseif not suc then
 	warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
 end
-local core, error = pcall(function()
+pcall(function()
 	ChatHistory.Parent = game:GetService("CoreGui")
 end)
-if core then
-	print("Successfully parented Chat Gui to CoreGui.")
-else
-	warn("Cannot set Chat Gui parent to CoreGui.")
-end
 
 --[[
     BIG THANKS TO Infinite Yield FOR HELP :D
