@@ -1059,7 +1059,7 @@ function sprayGui() --Thanks to Gui to Lua Convertor! :D
 		if dragging and inp.UserInputType == Enum.UserInputType.MouseMovement then
 			local delta = inp.Position - dragStart
 
-			frame.Position = startPos + UDim2.new(0,delta.X,0,0)
+			Holder.Position = startPos + UDim2.new(0,delta.X,0,0)
 		end
 	end)
 
