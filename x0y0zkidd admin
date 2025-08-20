@@ -547,14 +547,14 @@ layout.VerticalAlignment = Enum.VerticalAlignment.Top
 
 --command list, cmdlist, cmd list, commands, cmds
 
-local cmdList           = Instance.new("TextLabel")
-cmdList.Parent          = scrlFrame
-cmdList.BorderSizePixel = 0
-cmdList.TextSize        = 11
-cmdList.Text            = "Keybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nprint <anything> // print's in console\nchathistory / chat //show you gui of chat history since you executed xyz admin. ( logs even /whisper msg. )\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\nunclicktp // remove clicktp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\nanimation / anim | AnimationId (numbers only) | Speed (ignore speed for speed 1) | loop (don't type loop if you want animation not to play looped.)\ncopyanimation / copyanim // copies current playing animation.\nstopanimation / stopanim // stops all playing animations.\nequip <num> / <name> // equips a tool from inventory by it slot or name; Leave <num> or <name> empty to equip all.\nunequip <name> // unequips tool by name; Leave <name> empty to unequip all."
-cmdList.Position        = UDim2.new(0,100,0,0)
-cmdList.AutomaticSize = Enum.AutomaticSize.XY
-cmdList.BackgroundTransparency = 1
+local label2           = Instance.new("TextLabel")
+label2.Parent          = scrlFrame
+label2.BorderSizePixel = 0
+label2.TextSize        = 11
+label2.Text            = "print <anything> // print's in console\nchathistory / chat //show you gui of chat history since you executed xyz admin. ( logs even /whisper msg. )\ngoto / to <player> //tp you to player\nfollow<player> //follows player\nheadsit <player> //sits to player's head, jump to unsit\nunheadsit /command to FIX unsitting.\nwaypoint <name> //creates a waypoint\nwayrm / rmway <name> //removes waypoint by name\ntpway / waytp <name> //tp you to wyapoint by name\nview <player> spectate the player\nunview //stop spectating\nspeed <num> //changes ur speed\njumppower / jp <num> //changes ur jumppower\ngravity / grav <num> //changes ur gravity\nsay <msg> says the msg in chat\ngrabtools //grabs all the tools\nungrabtools //stop grabbingtools\ndroptools //drops all the tools\nlay //makes you lay\nsit //makes you sit\nreset //reset you\nmaxzoom <num> //set your maxzoom\nminzoom <num> //set your minzoom\nrejoin //rejoin the game\nclicktp //ctrl + m1 to tp\nunclicktp // remove clicktp\ninfjump // inf jumps\njump //jumps\n fly <num> / unfly // toggle fly\n bfly <num> / unbfly // toggle anti-cheat bypass fly\n fling / unfling // toggle fling\ninvisible / invis /// visible / vis //toggle invisibility\n spawnpoint / sp //set spawnpoint\nday / night //toggle daytime\nexit //close roblox\nswim / unswim //toggle swim\nfloat / unfloat //toggle float in air\nxray / unxray //toggle XRay vision\nnoclip / clip //togle noclip\nenable <inventory, emotes, playerlist, reset, chat, ALL>\ndisable <inventory, emotes, playerlist, reset, chat, ALL>\nteleport // teleport you to mouse cursor ( for keybinding )\nvr <num> / unvr //toggle fake vr, mouse wheel to fly forward / backward :D\nesp <plr> / unesp <plr> //toggle esp for player OR, ignore <plr> to apply for all.\nunkeybind <KEY> / unkey <KEY> //remove keybind, A B C; One Two Three; KeypadOne KeypadTwo KeypadThree; ETC\nlooptp <player> / unlooptp //loop teleport you to player.\nfreecam, fc /unfreecam, unfc //toggle freecam\nhidenfling, hfling / unhidenfling, unhfling //toggle hiden fling\nanimation / anim | AnimationId (numbers only) | Speed (ignore speed for speed 1) | loop (don't type loop if you want animation not to play looped.)\ncopyanimation / copyanim // copies current playing animation.\nstopanimation / stopanim // stops all playing animations.\n-------------------------\ncommand + random // picks a random player\ncommand + near / nearest // picks the nearest player\ncommand + fart / farthest // picks the farthest player\n-------------------------\nKeybind: Type a command above,\nafter type a key and press enter on 'Keybind' TextBox."
+label2.Position        = UDim2.new(0,100,0,0)
+label2.AutomaticSize = Enum.AutomaticSize.XY
+label2.BackgroundTransparency = 1
 
 local labelC           = Instance.new("TextLabel")
 labelC.Parent          = frame2
@@ -3508,7 +3508,9 @@ function cmds(cmd, func) --func cmds
 			fcCamCon = nil
 		end
 	elseif cmd:lower():sub(1,#prefix+#"hidenfling") == prefix.."hidenfling" or cmd:lower():sub(1,#prefix+#"hfling") == prefix.."hfling" or cmd:lower() == "hidenfling" or cmd:lower() == "hfling" or func == "hidenfling" then --cmd hidenfling
-		local vel = nil
+		isFling = false
+        
+        local vel = nil
 		local movel = 0.1
 
 		function fling()
@@ -3566,40 +3568,15 @@ function cmds(cmd, func) --func cmds
 		end
 	elseif cmd:lower():sub(1,#prefix+#"equip") == prefix.."equip" or cmd:lower():sub(1,#"equip") == "equip" then
 		if args[2] then
-			if numbers[tonumber(args[2])] then
-				local tools = me.Backpack:GetChildren()
-				
-				tools[tonumber(args[2])].Parent = char
-			else
-				for _, tool in ipairs(me.Backpack:GetChildren()) do
-					if tool:IsA("Tool") then
-						if tool.Name:lower():find(args[2]:lower()) then
-							--hum:EquipTool(tool)
-							tool.Parent = char
-						end
-					end
-				end
+			local tool = args[2]:lower()
+			
+			if me.Backpack:FindFirstChild(tool) then
+				hum:EquipTool(tool)
 			end
-		elseif not args[2] then
+		else
 			for i, tools in ipairs(me.Backpack:GetChildren()) do
 				if tools:IsA("Tool") then
-					tools.Parent = char
-				end
-			end
-		end
-	elseif cmd:lower():sub(1,#prefix+#"unequip") == prefix.."unequip" or cmd:lower():sub(1,#"unequip") == "unequip" then
-		if args[2] then
-			for _, tool in ipairs(char:GetChildren()) do
-				if tool:IsA("Tool") then
-					if tool.Name:lower():find(args[2]:lower()) then
-						tool.Parent = me.Backpack
-					end
-				end
-			end
-		elseif not args[2] then
-			for i, tools in ipairs(char:GetChildren()) do
-				if tools:IsA("Tool") then
-					tools.Parent = me.Backpack
+					hum:EquipTool(tools)
 				end
 			end
 		end
