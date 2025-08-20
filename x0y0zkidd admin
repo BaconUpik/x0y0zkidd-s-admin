@@ -2884,55 +2884,28 @@ function cmds(cmd, func) --func cmds
 
 		chosedColor = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))
 
-		if args[2]:lower():match("random") then
-			findRandom()
-			task.wait(0.02)
+		if args[2] then
+			if args[2]:lower():match("random") then
+				findRandom()
+				task.wait(0.02)
 
-			local espRandom = randomPlayer
+				local espRandom = randomPlayer
 
-			local espChar = espRandom.Character or espRandom.CharacterAdded:wait()
-			local espHrp = espChar:WaitForChild("HumanoidRootPart")
-			local espHead = espChar:WaitForChild("Head")
+				local espChar = espRandom.Character or espRandom.CharacterAdded:wait()
+				local espHrp = espChar:WaitForChild("HumanoidRootPart")
+				local espHead = espChar:WaitForChild("Head")
 
-			if espChar:FindFirstChild("Burger_x0y0z") then
-				espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+				if espChar:FindFirstChild("Burger_x0y0z") then
+					espChar:FindFirstChild("Burger_x0y0z"):Destroy()
 
-				if espCons[espRandom] then
-					espCons[espRandom]:Disconnect()
-					espCons[espRandom] = nil
+					if espCons[espRandom] then
+						espCons[espRandom]:Disconnect()
+						espCons[espRandom] = nil
+					end
 				end
-			end
-			if espChar:FindFirstChild("Burger2_x0y0z") then
-				espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
-			end
-
-			espBox = Instance.new("BoxHandleAdornment", espChar)
-			espBox.ZIndex = 10
-			espBox.Name = "Burger_x0y0z"
-			espBox.Size = espHrp.Size
-			espBox.Adornee = espHrp
-			espBox.Color3 = chosedColor
-			espBox.AlwaysOnTop = true
-
-			espNameHolder = Instance.new("BillboardGui", espHead)
-			espNameHolder.Size = UDim2.new(5,0,1,0)
-			espNameHolder.StudsOffset = Vector3.new(0,2,0)
-			espNameHolder.Name = "Burger2_x0y0z"
-			espNameHolder.AlwaysOnTop = true
-			espNameHolder.MaxDistance = huge
-
-			espName = Instance.new("TextLabel", espNameHolder)
-			espName.Size = UDim2.new(1,0,1,0)
-			espName.BackgroundTransparency = 1
-			espName.TextColor3 = chosedColor
-			espName.Text = espRandom.DisplayName
-			espName.Font = Enum.Font.SourceSans
-			espName.TextScaled = true
-
-			espCons[espRandom] = espRandom.CharacterAdded:Connect(function()
-				espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
-				espHrp = espChar:WaitForChild("HumanoidRootPart")
-				espHead = espChar:WaitForChild("Head")
+				if espChar:FindFirstChild("Burger2_x0y0z") then
+					espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
+				end
 
 				espBox = Instance.new("BoxHandleAdornment", espChar)
 				espBox.ZIndex = 10
@@ -2956,56 +2929,56 @@ function cmds(cmd, func) --func cmds
 				espName.Text = espRandom.DisplayName
 				espName.Font = Enum.Font.SourceSans
 				espName.TextScaled = true
-			end)
-		elseif args[2]:lower():match("near") then
-			findNearest()
-			task.wait(0.02)
 
-			local espNear = nearestPlayer
+				espCons[espRandom] = espRandom.CharacterAdded:Connect(function()
+					espChar = randomPlayer.Character or randomPlayer.CharacterAdded:wait()
+					espHrp = espChar:WaitForChild("HumanoidRootPart")
+					espHead = espChar:WaitForChild("Head")
 
-			local espChar = espNear.Character or espNear.CharacterAdded:wait()
-			local espHrp = espChar:WaitForChild("HumanoidRootPart")
-			local espHead = espChar:WaitForChild("Head")
+					espBox = Instance.new("BoxHandleAdornment", espChar)
+					espBox.ZIndex = 10
+					espBox.Name = "Burger_x0y0z"
+					espBox.Size = espHrp.Size
+					espBox.Adornee = espHrp
+					espBox.Color3 = chosedColor
+					espBox.AlwaysOnTop = true
 
-			if espChar:FindFirstChild("Burger_x0y0z") then
-				espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+					espNameHolder = Instance.new("BillboardGui", espHead)
+					espNameHolder.Size = UDim2.new(5,0,1,0)
+					espNameHolder.StudsOffset = Vector3.new(0,2,0)
+					espNameHolder.Name = "Burger2_x0y0z"
+					espNameHolder.AlwaysOnTop = true
+					espNameHolder.MaxDistance = huge
 
-				if espCons[espNear] then
-					espCons[espNear]:Disconnect()
-					espCons[espNear] = nil
+					espName = Instance.new("TextLabel", espNameHolder)
+					espName.Size = UDim2.new(1,0,1,0)
+					espName.BackgroundTransparency = 1
+					espName.TextColor3 = chosedColor
+					espName.Text = espRandom.DisplayName
+					espName.Font = Enum.Font.SourceSans
+					espName.TextScaled = true
+				end)
+			elseif args[2]:lower():match("near") then
+				findNearest()
+				task.wait(0.02)
+
+				local espNear = nearestPlayer
+
+				local espChar = espNear.Character or espNear.CharacterAdded:wait()
+				local espHrp = espChar:WaitForChild("HumanoidRootPart")
+				local espHead = espChar:WaitForChild("Head")
+
+				if espChar:FindFirstChild("Burger_x0y0z") then
+					espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+
+					if espCons[espNear] then
+						espCons[espNear]:Disconnect()
+						espCons[espNear] = nil
+					end
 				end
-			end
-			if espChar:FindFirstChild("Burger2_x0y0z") then
-				espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
-			end
-
-			espBox = Instance.new("BoxHandleAdornment", espChar)
-			espBox.ZIndex = 10
-			espBox.Name = "Burger_x0y0z"
-			espBox.Size = espHrp.Size
-			espBox.Adornee = espHrp
-			espBox.Color3 = chosedColor
-			espBox.AlwaysOnTop = true
-
-			espNameHolder = Instance.new("BillboardGui", espHead)
-			espNameHolder.Size = UDim2.new(5,0,1,0)
-			espNameHolder.StudsOffset = Vector3.new(0,2,0)
-			espNameHolder.Name = "Burger2_x0y0z"
-			espNameHolder.AlwaysOnTop = true
-			espNameHolder.MaxDistance = huge
-
-			espName = Instance.new("TextLabel", espNameHolder)
-			espName.Size = UDim2.new(1,0,1,0)
-			espName.BackgroundTransparency = 1
-			espName.TextColor3 = chosedColor
-			espName.Text = espNear.DisplayName
-			espName.Font = Enum.Font.SourceSans
-			espName.TextScaled = true
-
-			espCons[espNear] = espNear.CharacterAdded:Connect(function()
-				espChar = espNear.Character or espNear.CharacterAdded:wait()
-				espHrp = espChar:WaitForChild("HumanoidRootPart")
-				espHead = espChar:WaitForChild("Head")
+				if espChar:FindFirstChild("Burger2_x0y0z") then
+					espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
+				end
 
 				espBox = Instance.new("BoxHandleAdornment", espChar)
 				espBox.ZIndex = 10
@@ -3029,56 +3002,56 @@ function cmds(cmd, func) --func cmds
 				espName.Text = espNear.DisplayName
 				espName.Font = Enum.Font.SourceSans
 				espName.TextScaled = true
-			end)
-		elseif args[2]:lower():match("fart") then
-			findFarthest()
-			task.wait(0.02)
 
-			local espFart = farthestPlayer
+				espCons[espNear] = espNear.CharacterAdded:Connect(function()
+					espChar = espNear.Character or espNear.CharacterAdded:wait()
+					espHrp = espChar:WaitForChild("HumanoidRootPart")
+					espHead = espChar:WaitForChild("Head")
 
-			local espChar = farthestPlayer.Character or farthestPlayer.CharacterAdded:wait()
-			local espHrp = espChar:WaitForChild("HumanoidRootPart")
-			local espHead = espChar:WaitForChild("Head")
+					espBox = Instance.new("BoxHandleAdornment", espChar)
+					espBox.ZIndex = 10
+					espBox.Name = "Burger_x0y0z"
+					espBox.Size = espHrp.Size
+					espBox.Adornee = espHrp
+					espBox.Color3 = chosedColor
+					espBox.AlwaysOnTop = true
 
-			if espChar:FindFirstChild("Burger_x0y0z") then
-				espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+					espNameHolder = Instance.new("BillboardGui", espHead)
+					espNameHolder.Size = UDim2.new(5,0,1,0)
+					espNameHolder.StudsOffset = Vector3.new(0,2,0)
+					espNameHolder.Name = "Burger2_x0y0z"
+					espNameHolder.AlwaysOnTop = true
+					espNameHolder.MaxDistance = huge
 
-				if espCons[espFart] then
-					espCons[espFart]:Disconnect()
-					espCons[espFart] = nil
+					espName = Instance.new("TextLabel", espNameHolder)
+					espName.Size = UDim2.new(1,0,1,0)
+					espName.BackgroundTransparency = 1
+					espName.TextColor3 = chosedColor
+					espName.Text = espNear.DisplayName
+					espName.Font = Enum.Font.SourceSans
+					espName.TextScaled = true
+				end)
+			elseif args[2]:lower():match("fart") then
+				findFarthest()
+				task.wait(0.02)
+
+				local espFart = farthestPlayer
+
+				local espChar = farthestPlayer.Character or farthestPlayer.CharacterAdded:wait()
+				local espHrp = espChar:WaitForChild("HumanoidRootPart")
+				local espHead = espChar:WaitForChild("Head")
+
+				if espChar:FindFirstChild("Burger_x0y0z") then
+					espChar:FindFirstChild("Burger_x0y0z"):Destroy()
+
+					if espCons[espFart] then
+						espCons[espFart]:Disconnect()
+						espCons[espFart] = nil
+					end
 				end
-			end
-			if espChar:FindFirstChild("Burger2_x0y0z") then
-				espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
-			end
-
-			espBox = Instance.new("BoxHandleAdornment", espChar)
-			espBox.ZIndex = 10
-			espBox.Name = "Burger_x0y0z"
-			espBox.Size = espHrp.Size
-			espBox.Adornee = espHrp
-			espBox.Color3 = chosedColor
-			espBox.AlwaysOnTop = true
-
-			espNameHolder = Instance.new("BillboardGui", espHead)
-			espNameHolder.Size = UDim2.new(5,0,1,0)
-			espNameHolder.StudsOffset = Vector3.new(0,2,0)
-			espNameHolder.Name = "Burger2_x0y0z"
-			espNameHolder.AlwaysOnTop = true
-			espNameHolder.MaxDistance = huge
-
-			espName = Instance.new("TextLabel", espNameHolder)
-			espName.Size = UDim2.new(1,0,1,0)
-			espName.BackgroundTransparency = 1
-			espName.TextColor3 = chosedColor
-			espName.Text = espFart.DisplayName
-			espName.Font = Enum.Font.SourceSans
-			espName.TextScaled = true
-
-			espCons[espFart] = espFart.CharacterAdded:Connect(function()
-				espChar = espFart.Character or espFart.CharacterAdded:wait()
-				espHrp = espChar:WaitForChild("HumanoidRootPart")
-				espHead = espChar:WaitForChild("Head")
+				if espChar:FindFirstChild("Burger2_x0y0z") then
+					espChar:FindFirstChild("Burger2_x0y0z"):Destroy()
+				end
 
 				espBox = Instance.new("BoxHandleAdornment", espChar)
 				espBox.ZIndex = 10
@@ -3102,8 +3075,98 @@ function cmds(cmd, func) --func cmds
 				espName.Text = espFart.DisplayName
 				espName.Font = Enum.Font.SourceSans
 				espName.TextScaled = true
-			end)
-		elseif not args[2] then
+
+				espCons[espFart] = espFart.CharacterAdded:Connect(function()
+					espChar = espFart.Character or espFart.CharacterAdded:wait()
+					espHrp = espChar:WaitForChild("HumanoidRootPart")
+					espHead = espChar:WaitForChild("Head")
+
+					espBox = Instance.new("BoxHandleAdornment", espChar)
+					espBox.ZIndex = 10
+					espBox.Name = "Burger_x0y0z"
+					espBox.Size = espHrp.Size
+					espBox.Adornee = espHrp
+					espBox.Color3 = chosedColor
+					espBox.AlwaysOnTop = true
+
+					espNameHolder = Instance.new("BillboardGui", espHead)
+					espNameHolder.Size = UDim2.new(5,0,1,0)
+					espNameHolder.StudsOffset = Vector3.new(0,2,0)
+					espNameHolder.Name = "Burger2_x0y0z"
+					espNameHolder.AlwaysOnTop = true
+					espNameHolder.MaxDistance = huge
+
+					espName = Instance.new("TextLabel", espNameHolder)
+					espName.Size = UDim2.new(1,0,1,0)
+					espName.BackgroundTransparency = 1
+					espName.TextColor3 = chosedColor
+					espName.Text = espFart.DisplayName
+					espName.Font = Enum.Font.SourceSans
+					espName.TextScaled = true
+				end)
+			else
+				for _, espOne in ipairs(plr:GetPlayers()) do
+					isEspAll = false
+					if espOne.Name:lower():find(args[2]) or espOne.DisplayName:lower():find(args[2]:lower()) then
+						local espChar = espOne.Character or espOne.CharacterAdded:wait()
+						local espHrp = espChar.HumanoidRootPart
+						local espHead = espChar:WaitForChild("Head")
+
+						espBox = Instance.new("BoxHandleAdornment", espChar)
+						espBox.ZIndex = 10
+						espBox.Name = "Burger_x0y0z"
+						espBox.Size = espHrp.Size
+						espBox.Adornee = espHrp
+						espBox.Color3 = chosedColor
+						espBox.AlwaysOnTop = true
+
+						espNameHolder = Instance.new("BillboardGui", espHead)
+						espNameHolder.Size = UDim2.new(5,0,1,0)
+						espNameHolder.StudsOffset = Vector3.new(0,2,0)
+						espNameHolder.Name = "Burger2_x0y0z"
+						espNameHolder.AlwaysOnTop = true
+						espNameHolder.MaxDistance = huge
+
+						espName = Instance.new("TextLabel", espNameHolder)
+						espName.Size = UDim2.new(1,0,1,0)
+						espName.BackgroundTransparency = 1
+						espName.TextColor3 = chosedColor
+						espName.Text = espOne.DisplayName
+						espName.Font = Enum.Font.SourceSans
+						espName.TextScaled = true
+
+						espCons[espOne] = espOne.CharacterAdded:Connect(function()
+							local espChar = espOne.Character or espOne.CharacterAdded:wait()
+							local espHrp = espChar:WaitForChild("HumanoidRootPart")
+							local espHead = espChar:WaitForChild("Head")
+
+							espBox = Instance.new("BoxHandleAdornment", espChar)
+							espBox.ZIndex = 10
+							espBox.Name = "Burger_x0y0z"
+							espBox.Size = espHrp.Size
+							espBox.Adornee = espHrp
+							espBox.Color3 = chosedColor
+							espBox.AlwaysOnTop = true
+
+							espNameHolder = Instance.new("BillboardGui", espHead)
+							espNameHolder.Size = UDim2.new(5,0,1,0)
+							espNameHolder.StudsOffset = Vector3.new(0,2,0)
+							espNameHolder.Name = "Burger2_x0y0z"
+							espNameHolder.AlwaysOnTop = true
+							espNameHolder.MaxDistance = huge
+
+							espName = Instance.new("TextLabel", espNameHolder)
+							espName.Size = UDim2.new(1,0,1,0)
+							espName.BackgroundTransparency = 1
+							espName.TextColor3 = chosedColor
+							espName.Text = espOne.DisplayName
+							espName.Font = Enum.Font.SourceSans
+							espName.TextScaled = true
+						end)
+					end
+				end
+			end
+		else
 			isEspAll = true
 			for _, espAll in ipairs(plr:GetPlayers()) do
 				if espAll ~= me then
@@ -3180,67 +3243,6 @@ function cmds(cmd, func) --func cmds
 					end
 				end
 			end
-		else
-			for _, espOne in ipairs(plr:GetPlayers()) do
-				isEspAll = false
-				if espOne.Name:lower():find(args[2]) or espOne.DisplayName:lower():find(args[2]:lower()) then
-					local espChar = espOne.Character or espOne.CharacterAdded:wait()
-					local espHrp = espChar.HumanoidRootPart
-					local espHead = espChar:WaitForChild("Head")
-
-					espBox = Instance.new("BoxHandleAdornment", espChar)
-					espBox.ZIndex = 10
-					espBox.Name = "Burger_x0y0z"
-					espBox.Size = espHrp.Size
-					espBox.Adornee = espHrp
-					espBox.Color3 = chosedColor
-					espBox.AlwaysOnTop = true
-
-					espNameHolder = Instance.new("BillboardGui", espHead)
-					espNameHolder.Size = UDim2.new(5,0,1,0)
-					espNameHolder.StudsOffset = Vector3.new(0,2,0)
-					espNameHolder.Name = "Burger2_x0y0z"
-					espNameHolder.AlwaysOnTop = true
-					espNameHolder.MaxDistance = huge
-
-					espName = Instance.new("TextLabel", espNameHolder)
-					espName.Size = UDim2.new(1,0,1,0)
-					espName.BackgroundTransparency = 1
-					espName.TextColor3 = chosedColor
-					espName.Text = espOne.DisplayName
-					espName.Font = Enum.Font.SourceSans
-					espName.TextScaled = true
-
-					espCons[espOne] = espOne.CharacterAdded:Connect(function()
-						local espChar = espOne.Character or espOne.CharacterAdded:wait()
-						local espHrp = espChar:WaitForChild("HumanoidRootPart")
-						local espHead = espChar:WaitForChild("Head")
-
-						espBox = Instance.new("BoxHandleAdornment", espChar)
-						espBox.ZIndex = 10
-						espBox.Name = "Burger_x0y0z"
-						espBox.Size = espHrp.Size
-						espBox.Adornee = espHrp
-						espBox.Color3 = chosedColor
-						espBox.AlwaysOnTop = true
-
-						espNameHolder = Instance.new("BillboardGui", espHead)
-						espNameHolder.Size = UDim2.new(5,0,1,0)
-						espNameHolder.StudsOffset = Vector3.new(0,2,0)
-						espNameHolder.Name = "Burger2_x0y0z"
-						espNameHolder.AlwaysOnTop = true
-						espNameHolder.MaxDistance = huge
-
-						espName = Instance.new("TextLabel", espNameHolder)
-						espName.Size = UDim2.new(1,0,1,0)
-						espName.BackgroundTransparency = 1
-						espName.TextColor3 = chosedColor
-						espName.Text = espOne.DisplayName
-						espName.Font = Enum.Font.SourceSans
-						espName.TextScaled = true
-					end)
-				end
-			end
 		end
 
 		espAdded = plr.PlayerAdded:Connect(function(espAdd)
@@ -3276,66 +3278,68 @@ function cmds(cmd, func) --func cmds
 	elseif cmd:lower():sub(1,#prefix + 5) == prefix.."unesp" or cmd:lower():sub(1,5) == "unesp" or func == "unesp" then --unesp
 		isEspAll = false
 
-		if args[2] ~= "" then
-			if args[2]:lower():match("random") then
-				findRandom()
-				task.wait(0.02)
+		if args[2] then
+			if args[2] ~= "" then
+				if args[2]:lower():match("random") then
+					findRandom()
+					task.wait(0.02)
 
-				if randomPlayer.Character:FindFirstChild("Burger_x0y0z") then
-					randomPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
-				end
-				if randomPlayer.Character:FindFirstChild("Burger2_x0y0z") then
-					randomPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
-				end
-				if espCons[randomPlayer] then
-					espCons[randomPlayer]:Disconnect()
-					espCons[randomPlayer] = nil
-				end
-			elseif args[2]:lower():match("near") then
-				findNearest()
-				task.wait(0.02)
+					if randomPlayer.Character:FindFirstChild("Burger_x0y0z") then
+						randomPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					end
+					if randomPlayer.Character:FindFirstChild("Burger2_x0y0z") then
+						randomPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+					end
+					if espCons[randomPlayer] then
+						espCons[randomPlayer]:Disconnect()
+						espCons[randomPlayer] = nil
+					end
+				elseif args[2]:lower():match("near") then
+					findNearest()
+					task.wait(0.02)
 
-				if nearestPlayer.Character:FindFirstChild("Burger_x0y0z") then
-					nearestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
-				end
-				if nearestPlayer.Character:FindFirstChild("Burger2_x0y0z") then
-					nearestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
-				end
-				if espCons[nearestPlayer] then
-					espCons[nearestPlayer]:Disconnect()
-					espCons[nearestPlayer] = nil
-				end
-			elseif args[2]:lower():match("fart") then
-				findFarthest()
-				task.wait(0.02)
+					if nearestPlayer.Character:FindFirstChild("Burger_x0y0z") then
+						nearestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					end
+					if nearestPlayer.Character:FindFirstChild("Burger2_x0y0z") then
+						nearestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+					end
+					if espCons[nearestPlayer] then
+						espCons[nearestPlayer]:Disconnect()
+						espCons[nearestPlayer] = nil
+					end
+				elseif args[2]:lower():match("fart") then
+					findFarthest()
+					task.wait(0.02)
 
-				if farthestPlayer.Character:FindFirstChild("Burger_x0y0z") then
-					farthestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
-				end
-				if farthestPlayer.Character:FindFirstChild("Burger2_x0y0z") then
-					farthestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
-				end
-				if espCons[farthestPlayer] then
-					espCons[farthestPlayer]:Disconnect()
-					espCons[farthestPlayer] = nil
-				end
-			else
-				for _, espOne in pairs(plr:GetPlayers()) do
-					if espOne.Name:lower():find(args[2]:lower()) or espOne.DisplayName:lower():find(args[2]:lower()) then
-						if espOne.Character:FindFirstChild("Burger_x0y0z") then
-							espOne.Character:FindFirstChild("Burger_x0y0z"):Destroy()
-						end
-						if espOne.Character:FindFirstChild("Burger2_x0y0z") then
-							espOne.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
-						end
-						if espCons[espOne] then
-							espCons[espOne]:Disconnect()
-							espCons[espOne] = nil
+					if farthestPlayer.Character:FindFirstChild("Burger_x0y0z") then
+						farthestPlayer.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+					end
+					if farthestPlayer.Character:FindFirstChild("Burger2_x0y0z") then
+						farthestPlayer.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+					end
+					if espCons[farthestPlayer] then
+						espCons[farthestPlayer]:Disconnect()
+						espCons[farthestPlayer] = nil
+					end
+				else
+					for _, espOne in pairs(plr:GetPlayers()) do
+						if espOne.Name:lower():find(args[2]:lower()) or espOne.DisplayName:lower():find(args[2]:lower()) then
+							if espOne.Character:FindFirstChild("Burger_x0y0z") then
+								espOne.Character:FindFirstChild("Burger_x0y0z"):Destroy()
+							end
+							if espOne.Character:FindFirstChild("Burger2_x0y0z") then
+								espOne.Character:FindFirstChild("Burger2_x0y0z"):Destroy()
+							end
+							if espCons[espOne] then
+								espCons[espOne]:Disconnect()
+								espCons[espOne] = nil
+							end
 						end
 					end
 				end
 			end
-		elseif not args[2] then
+		else
 			for _, espRemove in pairs(work:GetDescendants()) do
 				if ( espRemove:IsA("BoxHandleAdornment") and espRemove.Name:match("Burger") ) or ( espRemove:IsA("BillboardGui") and espRemove.Name:match("Burger") ) then
 					espRemove:Destroy()
