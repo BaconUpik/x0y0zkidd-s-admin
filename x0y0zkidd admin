@@ -3090,8 +3090,8 @@ function cmds(cmd, func) --func cmds
 			game:Shutdown()
 		end)
 		if not exSuc then
-			warn("This function is blocked for security reasons :(")
-			me:Kick("game:Shutdown() function is blocked for security reasons, kicking...")
+			warn("This function is not working on your exploit. :(")
+			me:Kick("game:Shutdown() function is not working on your exploit, kicking...")
 		end
 	elseif cmd:lower():sub(1,#prefix + 4) == prefix.."swim" or cmd:lower():sub(1,4) == "swim" or func == "swim" then --swim
 		if not isSwimming then
@@ -4265,7 +4265,7 @@ function cmds(cmd, func) --func cmds
 		if Spray then
 			Spray.Enabled = true
 		end
-		
+
 		for i = 1,5 do
 			notify("Spray Paint","Button 'D' - toggle dark colors; Button 'S': Type an RGB as tutorial in TextBox and press on Buttons with red outline to save color.",30)
 		end
@@ -4412,7 +4412,7 @@ function cmds(cmd, func) --func cmds
 			end)
 		end
 	elseif cmd:lower():sub(1,#prefix+#"psize") == prefix.."psize" or cmd:lower():sub(1,#"psize") == "psize" or func == "psize" then --cmd spray size, --spray size
-		if args[2] then
+		if tonumber(args[2]) then
 			size = tonumber(args[2])
 		end
 	elseif cmd:lower():sub(1,#":dev:") then
