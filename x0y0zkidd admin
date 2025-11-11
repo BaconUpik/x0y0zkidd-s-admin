@@ -4618,17 +4618,21 @@ if uis.TouchEnabled and not uis.KeyboardEnabled and not uis.GamepadEnabled then
 	notify("x0y0z admin WARNING", "This script doesn't support mobile, many functions will not work.", 10)
 end
 
-local suc, err = pcall(function()
-	screen.Parent = game:GetService("CoreGui")
-end)
-if suc then
-	print("x0y0z coreGui bypass works [3]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
-elseif not suc then
+if game:GetService("CoreGui") then
+	local suc, err = pcall(function()
+		screen.Parent = game:GetService("CoreGui")
+	end)
+	if suc then
+		print("x0y0z coreGui bypass works [3]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+	elseif not suc then
+		warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
+	end
+	pcall(function()
+		ChatHistory.Parent = game:GetService("CoreGui")
+	end)
+else
 	warn("x0y0z coreGui bypass DOESN'T works [3.1]\n" .. os.date("%H:%M:%S") .. " -- -----------------")
 end
-pcall(function()
-	ChatHistory.Parent = game:GetService("CoreGui")
-end)
 
 --[[
     BIG THANKS TO Infinite Yield FOR HELP :D
